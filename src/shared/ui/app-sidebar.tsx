@@ -1,157 +1,113 @@
 "use client"
 
-import * as React from "react"
 import {
-  AudioWaveform,
   BookOpen,
   Bot,
   Command,
   Frame,
-  GalleryVerticalEnd,
-  Map,
   PieChart,
   Settings2,
-  SquareTerminal,
+  SquareTerminal
 } from "lucide-react"
+import * as React from "react"
 
+import { ENUM_ROUTES } from "@/shared/config/routes"
 import { NavMain } from "./nav-main"
 import { NavProjects } from "./nav-projects"
-import { NavUser } from "./nav-user"
-import { TeamSwitcher } from "./team-switcher"
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarHeader,
-  SidebarRail,
+  SidebarRail
 } from "./shadcn-ui"
+import { TeamSwitcher } from "./team-switcher"
 
-// This is sample data.
+// This is real MCP documentation data.
 const data = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+    name: "MCP Admin",
+    email: "admin@mcp-server.dev",
+    avatar: "/avatars/mcp.jpg",
   },
   teams: [
     {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
+      name: "MCP Server",
       logo: Command,
-      plan: "Free",
+      plan: "v1.0.0",
     },
   ],
   navMain: [
     {
-      title: "Playground",
-      url: "#",
-      icon: SquareTerminal,
-      isActive: true,
-      items: [
-        {
-          title: "History",
-          url: "#",
-        },
-        {
-          title: "Starred",
-          url: "#",
-        },
-        {
-          title: "Settings",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Models",
-      url: "#",
-      icon: Bot,
-      items: [
-        {
-          title: "Genesis",
-          url: "#",
-        },
-        {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Documentation",
-      url: "#",
+      title: "Technical Intro",
+      url: ENUM_ROUTES.MAIN.ROOT,
       icon: BookOpen,
       items: [
         {
           title: "Introduction",
-          url: "#",
+          url: ENUM_ROUTES.MAIN.INTRODUCTION,
         },
         {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
+          title: "Creator",
+          url: ENUM_ROUTES.MAIN.CREATOR,
         },
       ],
     },
     {
-      title: "Settings",
-      url: "#",
+      title: "Architecture Rules",
+      url: ENUM_ROUTES.MAIN.FSD,
+      icon: SquareTerminal,
+      items: [
+        {
+          title: "FSD Layers",
+          url: ENUM_ROUTES.MAIN.FSD,
+        },
+        {
+          title: "Import Boundaries",
+          url: `${ENUM_ROUTES.MAIN.FSD}#boundaries`,
+        },
+      ],
+    },
+    {
+      title: "Coding Standards",
+      url: ENUM_ROUTES.MAIN.NAMING,
+      icon: Bot,
+      items: [
+        {
+          title: "Naming Conventions",
+          url: ENUM_ROUTES.MAIN.NAMING,
+        },
+        {
+          title: "Linter Rules",
+          url: `${ENUM_ROUTES.MAIN.NAMING}#linter`,
+        },
+      ],
+    },
+    {
+      title: "Structure & Styles",
+      url: ENUM_ROUTES.MAIN.STRUCTURE,
       icon: Settings2,
       items: [
         {
-          title: "General",
-          url: "#",
+          title: "File Structure",
+          url: ENUM_ROUTES.MAIN.STRUCTURE,
         },
         {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
+          title: "Tailwind & UI",
+          url: ENUM_ROUTES.MAIN.STYLES,
         },
       ],
     },
   ],
   projects: [
     {
-      name: "Design Engineering",
-      url: "#",
+      name: "API Reference",
+      url: ENUM_ROUTES.MAIN.REFERENCE,
       icon: Frame,
     },
     {
-      name: "Sales & Marketing",
-      url: "#",
+      name: "MCP Tools",
+      url: `${ENUM_ROUTES.MAIN.REFERENCE}#tools`,
       icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
     },
   ],
 }
@@ -166,9 +122,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavMain items={data.navMain} />
         <NavProjects projects={data.projects} />
       </SidebarContent>
-      <SidebarFooter>
-        <NavUser user={data.user} />
-      </SidebarFooter>
       <SidebarRail />
     </Sidebar>
   )

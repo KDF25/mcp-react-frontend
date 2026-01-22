@@ -99,17 +99,6 @@ export default defineConfig([
           prefix: ['T']
         },
 
-        // Enum и const assertions: ENUM_<NAME>
-        // {
-        //   selector: 'variable',
-        //   modifiers: ['const', 'exported'],
-        //   format: ['UPPER_CASE'],
-        //   filter: {
-        //     regex: '^ENUM_',
-        //     match: true
-        //   }
-        // },
-
         // Глобальные константы: ALL_CAPS
         {
           selector: 'variable',
@@ -143,17 +132,6 @@ export default defineConfig([
           format: ['camelCase']
         },
 
-        // React компоненты: PascalCase
-        // {
-        //   selector: 'variable',
-        //   types: ['function'],
-        //   filter: {
-        //     regex: '^with[A-Z]',
-        //     match: false
-        //   },
-        //   modifiers: ['exported'],
-        //   format: ['PascalCase']
-        // },
       ],
 
       // FSD import rules
@@ -170,13 +148,13 @@ export default defineConfig([
           { from: 'widgets', allow: ['features', 'entities', 'shared'] },
           
           // features могут импортировать entities, shared
-          { from: 'features', allow: ['entities', 'shared', 'features'] },
+          { from: 'features', allow: ['entities', 'shared'] },
           
           // entities могут импортировать только shared
-          { from: 'entities', allow: ['entities', 'shared'] },
+          { from: 'entities', allow: ['shared'] },
           
           // shared не может импортировать другие слои
-           { from: 'shared', allow: ['app', 'shared', 'entities'] },
+           { from: 'shared', allow: [] },
         ],
       }],
       
