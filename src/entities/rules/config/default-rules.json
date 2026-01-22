@@ -1,0 +1,190 @@
+{
+  "fsd": {
+    "layers": [
+      "app",
+      "pages",
+      "widgets",
+      "features",
+      "entities",
+      "shared"
+    ],
+    "boundaries": [
+      {
+        "from": "entities",
+        "allow": [
+          "shared"
+        ]
+      },
+      {
+        "from": "features",
+        "allow": [
+          "entities",
+          "shared",
+          "features"
+        ]
+      },
+      {
+        "from": "widgets",
+        "allow": [
+          "features",
+          "entities",
+          "shared"
+        ]
+      },
+      {
+        "from": "pages",
+        "allow": [
+          "widgets",
+          "features",
+          "entities",
+          "shared"
+        ]
+      },
+      {
+        "from": "app",
+        "allow": [
+          "pages",
+          "widgets",
+          "features",
+          "entities",
+          "shared"
+        ]
+      }
+    ],
+    "rules": {
+      "no-cross-layer-imports": true,
+      "enforce-directory-structure": true,
+      "no-private-imports": true,
+      "enforce-barrel-exports": true
+    }
+  },
+  "naming": {
+    "fileCase": "kebab-case",
+    "prefixes": {
+      "interface": "I",
+      "type": "T",
+      "enum": "ENUM_"
+    },
+    "backend": {
+      "typeSuffix": "Backend",
+      "fileSuffix": "-backend",
+      "interfaceExtension": ".interface.ts"
+    },
+    "exclusions": {
+      "hooks": "^use[A-Z]",
+      "nextjs": [
+        "page",
+        "layout",
+        "loading",
+        "error",
+        "not-found",
+        "template",
+        "default"
+      ]
+    }
+  },
+  "linter": {
+    "noConsole": true,
+    "noAny": true,
+    "strictTyping": true,
+    "noEnums": true
+  },
+  "structure": {
+    "model": {
+      "baseMaxSize": 3,
+      "requiredFiles": [
+        "config.ts",
+        "schemes.ts",
+        "types.ts"
+      ],
+      "subfolders": [
+        "config",
+        "schemes",
+        "types"
+      ],
+      "filePattern": "^[a-z0-9-]+\\.(config|types|schema|schemes)\\.ts$"
+    },
+    "converters": {
+      "suffix": ".converters.ts",
+      "mandatory": true
+    }
+  },
+  "styles": {
+    "allowedUtilityPrefixes": [
+      "bg-",
+      "text-",
+      "border-",
+      "p-",
+      "m-",
+      "gap-",
+      "flex-",
+      "grid-"
+    ],
+    "forbiddenColors": [
+      "slate",
+      "gray",
+      "zinc",
+      "neutral",
+      "stone",
+      "red",
+      "orange",
+      "amber",
+      "yellow",
+      "lime",
+      "green",
+      "emerald",
+      "teal",
+      "cyan",
+      "sky",
+      "blue",
+      "indigo",
+      "violet",
+      "purple",
+      "fuchsia",
+      "pink",
+      "rose"
+    ],
+    "requiredUtility": "cn"
+  },
+  "patterns": {
+    "stateManagement": {
+      "server": "RTK Query (base.api.ts)",
+      "client": "Redux Toolkit (slices)",
+      "local": "useState"
+    },
+    "dataFetching": {
+      "segments": [
+        "api"
+      ],
+      "template": "src/entities/rules/config/rtk-query-pattern.md",
+      "description": "Паттерн работы с RTK Query: семантическое переименование данных (data -> accountData), обязательная обработка загрузки и ошибок через useEffect с использованием toast. Подробности в @template."
+    },
+    "ui": {
+      "composition": {
+        "widgets": [
+          "features",
+          "entities"
+        ]
+      },
+      "responsibility": {
+        "entities": "presentation",
+        "features": "interactivity"
+      }
+    },
+    "i18n": {
+      "location": "src/shared/config/i18n",
+      "requiredFiles": [
+        "index.ts",
+        "i18n.init.ts",
+        "i18n.config.ts",
+        "i18n.blocks.ts",
+        "i18n.types.ts",
+        "i18n-key.ts",
+        "change-language.ts",
+        "i18n.checker.ts"
+      ],
+      "template": "src/entities/rules/config/i18n-pattern.md",
+      "description": "Строгая система интернализации с типизацией ключей и проверкой соответствия языков. Полные шаблоны файлов доступны в @template."
+    }
+  }
+}
