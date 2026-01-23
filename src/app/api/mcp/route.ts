@@ -1,57 +1,72 @@
 import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js';
 import { createMcpServer } from '@/features/mcp/lib/mcp-server';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 
 /**
- * Streamable HTTP endpoint for MCP.
- * 
- * This is the modern transport that works with:
- * - Antigravity
- * - Claude Desktop (with url config)
- * - Vercel Edge Functions
- * 
- * Each request creates a new server+transport instance (stateless mode).
+ * Use Edge Runtime for better SSE/Streaming support on Vercel.
  */
+export const runtime = 'edge';
+
+/**
+ * Singleton-like transport and server for the life of the edge function instance.
+ * Edge functions can be reused across multiple requests.
+ */
+const transport = new WebStandardStreamableHTTPServerTransport({
+    enableJsonResponse: true,
+});
+
+const server = createMcpServer();
+let connected = false;
+
+async function getTransport() {
+    if (!connected) {
+        await server.connect(transport);
+        connected = true;
+    }
+    return transport;
+}
 
 export async function GET(request: NextRequest) {
-    return handleRequest(request);
+    return handle(request);
 }
 
 export async function POST(request: NextRequest) {
-    return handleRequest(request);
+    return handle(request);
 }
 
 export async function DELETE(request: NextRequest) {
-    return handleRequest(request);
+    return handle(request);
 }
 
-async function handleRequest(request: NextRequest): Promise<Response> {
+async function handle(request: NextRequest) {
     try {
-        // Create fresh transport and server for each request (serverless-friendly)
-        const transport = new WebStandardStreamableHTTPServerTransport({
-            enableJsonResponse: true, // Enable JSON responses for compatibility
+        const t = await getTransport();
+        const response = await t.handleRequest(request as unknown as Request);
+
+        // Add CORS headers to the response
+        const newHeaders = new Headers(response.headers);
+        newHeaders.set('Access-Control-Allow-Origin', '*');
+        newHeaders.set('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
+        newHeaders.set('Access-Control-Allow-Headers', 'Content-Type, mcp-session-id, Last-Event-ID, mcp-protocol-version');
+        newHeaders.set('Access-Control-Expose-Headers', 'mcp-session-id, mcp-protocol-version');
+
+        return new Response(response.body, {
+            status: response.status,
+            statusText: response.statusText,
+            headers: newHeaders,
         });
-
-        const server = createMcpServer();
-        await server.connect(transport);
-
-        // Let the transport handle the request
-        return await transport.handleRequest(request as unknown as Request);
     } catch (error: any) {
-        console.error('MCP Streamable HTTP Error:', error);
-        return NextResponse.json({
+        console.error('MCP Error:', error);
+        return new Response(JSON.stringify({
             jsonrpc: '2.0',
-            error: {
-                code: -32603,
-                message: 'Internal server error',
-                data: { details: error.message }
-            },
-            id: null
-        }, { status: 500 });
+            error: { code: -32603, message: 'Internal error', data: { details: error.message } }
+        }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+        });
     }
 }
 
-// Handle OPTIONS for CORS preflight
 export async function OPTIONS() {
     return new Response(null, {
         status: 204,
@@ -60,6 +75,7 @@ export async function OPTIONS() {
             'Access-Control-Allow-Methods': 'GET, POST, DELETE, OPTIONS',
             'Access-Control-Allow-Headers': 'Content-Type, mcp-session-id, Last-Event-ID, mcp-protocol-version',
             'Access-Control-Expose-Headers': 'mcp-session-id, mcp-protocol-version',
+            'Access-Control-Max-Age': '86400',
         },
     });
 }
