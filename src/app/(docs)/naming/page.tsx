@@ -46,7 +46,7 @@ export default function NamingPage() {
                 <div className="space-y-4">
                     <h1 className="text-4xl font-extrabold tracking-tight">Naming & Style Standards</h1>
                     <p className="text-xl text-muted-foreground leading-relaxed">
-                        Strict semantic conventions designed to eliminate ambiguity and technical debt through static analysis.
+                        Строгие семантические соглашения, предназначенные для устранения двусмысленности и технического долга через статический анализ.
                     </p>
                 </div>
 

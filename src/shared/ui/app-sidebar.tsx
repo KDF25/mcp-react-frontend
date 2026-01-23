@@ -65,6 +65,14 @@ const data = {
           title: "Import Boundaries",
           url: `${ENUM_ROUTES.MAIN.FSD}#boundaries`,
         },
+        {
+          title: "Entity Structure",
+          url: `${ENUM_ROUTES.MAIN.FSD}#entities-structure`,
+        },
+        {
+          title: "Widget Structure",
+          url: `${ENUM_ROUTES.MAIN.FSD}#widgets-structure`,
+        },
       ],
     },
     {

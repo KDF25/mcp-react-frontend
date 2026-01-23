@@ -1,65 +1,65 @@
-import { SSEServerTransport } from '@modelcontextprotocol/sdk/server/sse.js';
-import { mcpServer } from '@/features/mcp/lib/mcp-server';
+import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js';
+import { createMcpServer } from '@/features/mcp/lib/mcp-server';
 import { NextRequest, NextResponse } from 'next/server';
 
-let transport: SSEServerTransport | null = null;
+/**
+ * Streamable HTTP endpoint for MCP.
+ * 
+ * This is the modern transport that works with:
+ * - Antigravity
+ * - Claude Desktop (with url config)
+ * - Vercel Edge Functions
+ * 
+ * Each request creates a new server+transport instance (stateless mode).
+ */
 
 export async function GET(request: NextRequest) {
-    const responseStream = new TransformStream();
-    const writer = responseStream.writable.getWriter();
-    const encoder = new TextEncoder();
-
-    const transportInstance = new SSEServerTransport('/api/mcp', {
-        write: (message: any) => {
-            writer.write(encoder.encode(`data: ${JSON.stringify(message)}\n\n`));
-            return true;
-        },
-        close: async () => {
-            await writer.close();
-        }
-    } as any);
-
-    transport = transportInstance;
-
-    // Connect the server to this transport
-    await mcpServer.connect(transportInstance);
-
-    return new Response(responseStream.readable, {
-        headers: {
-            'Content-Type': 'text/event-stream',
-            'Cache-Control': 'no-cache, no-transform',
-            'Connection': 'keep-alive',
-        },
-    });
+    return handleRequest(request);
 }
 
 export async function POST(request: NextRequest) {
-    if (!transport) {
-        return NextResponse.json({ error: 'No active SSE connection' }, { status: 400 });
-    }
+    return handleRequest(request);
+}
 
+export async function DELETE(request: NextRequest) {
+    return handleRequest(request);
+}
+
+async function handleRequest(request: NextRequest): Promise<Response> {
     try {
-        const body = await request.json();
-        const url = new URL(request.url);
+        // Create fresh transport and server for each request (serverless-friendly)
+        const transport = new WebStandardStreamableHTTPServerTransport({
+            enableJsonResponse: true, // Enable JSON responses for compatibility
+        });
 
-        // Manually trigger transport handling if direct passing fails linting
-        // Or cast to satisfy SDK since NextRequest is a subset of what it needs
-        await transport.handlePostMessage(
-            {
-                method: request.method,
-                url: url.pathname + url.search,
-                headers: Object.fromEntries(request.headers),
-                body
-            } as any,
-            {
-                writeHead: (status: number) => { },
-                end: () => { }
-            } as any
-        );
+        const server = createMcpServer();
+        await server.connect(transport);
 
-        return new Response(null, { status: 202 });
-    } catch (error) {
-        console.error('MCP Post Error:', error);
-        return NextResponse.json({ error: 'Internal Error' }, { status: 500 });
+        // Let the transport handle the request
+        return await transport.handleRequest(request as unknown as Request);
+    } catch (error: any) {
+        console.error('MCP Streamable HTTP Error:', error);
+        return NextResponse.json({
+            jsonrpc: '2.0',
+            error: {
+                code: -32603,
+                message: 'Internal server error',
+                data: { details: error.message }
+            },
+            id: null
+        }, { status: 500 });
     }
+}
+
+// Handle OPTIONS for CORS preflight
+export async function OPTIONS() {
+    return new Response(null, {
+        status: 204,
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, DELETE, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type, mcp-session-id, Last-Event-ID, mcp-protocol-version',
+            'Access-Control-Expose-Headers': 'mcp-session-id, mcp-protocol-version',
+        },
+    });
 }

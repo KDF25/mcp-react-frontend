@@ -1,39 +1,39 @@
 export const INTRODUCTION_EXAMPLES = {
-    whatIsMCP: "Model Context Protocol (MCP) in this codebase is a specialized server-side orchestration layer designed to define and enforce architectural contracts, coding standards, and project-specific constraints for Large Language Models. It serves as the authoritative source of truth, ensuring that any modifications or extensions to the system remain compliant with the established FSD architecture and semantic guidelines.",
+    whatIsMCP: "Model Context Protocol (MCP) в данной кодовой базе — это специализированный уровень оркестрации на стороне сервера, предназначенный для определения и обеспечения соблюдения архитектурных контрактов, стандартов кодирования и специфических для проекта ограничений для больших языковых моделей (LLM). Он служит авторитетным источником истины, гарантируя, что любые модификации или расширения системы соответствуют установленной архитектуре FSD и семантическим рекомендациям.",
 
     whatIsNOT: [
-        "MCP is NOT a User Interface or an assistant layer",
-        "MCP is NOT a tool for making autonomous design decisions",
-        "MCP is NOT a library for general-purpose utility functions",
-        "MCP is NOT a replacement for build-time compilation or type checking",
-        "MCP is NOT a suggestion engine for 'convenient' development"
+        "MCP — это НЕ пользовательский интерфейс или уровень ассистента",
+        "MCP — это НЕ инструмент для принятия автономных дизайнерских решений",
+        "MCP — это НЕ библиотека функций общего назначения",
+        "MCP — это НЕ замена компиляции или статической типизации",
+        "MCP — это НЕ движок рекомендаций для 'удобной' разработки"
     ],
 
     rewriteRole: [
         {
-            step: "Analysis",
-            description: "The LLM queries the MCP server to obtain the current architectural state, including FSD layer boundaries and naming conventions."
+            step: "Анализ",
+            description: "LLM запрашивает у MCP-сервера текущее архитектурное состояние, включая границы слоев FSD и соглашения об именовании."
         },
         {
-            step: "Contract Verification",
-            description: "Before applying changes, the LLM validates the proposed module structure against the 'analyze_project' tool rules."
+            step: "Проверка контракта",
+            description: "Перед применением изменений LLM проверяет предлагаемую структуру модуля с помощью инструментов анализа проекта."
         },
         {
-            step: "Constraint Enforcement",
-            description: "MCP restricts the usage of forbidden patterns (e.g., direct cross-layer imports or non-semantic Tailwind classes)."
+            step: "Обеспечение ограничений",
+            description: "MCP ограничивает использование запрещенных паттернов (например, прямые импорты между слоями или несемантические классы Tailwind)."
         },
         {
-            step: "Final Validation",
-            description: "The server provides a definitive 'Pass/Fail' status for the updated module, locking the changes into the project standard."
+            step: "Финальная валидация",
+            description: "Сервер выдает окончательный статус 'Успех/Ошибка' для обновленного модуля, фиксируя изменения в соответствии со стандартами проекта."
         }
     ],
 
-    vsPrompts: "Unlike static prompts or workflow rules, which are easily ignored or misinterpreted by LLMs over time, MCP provides a hard-wired, tool-based validation bridge. It moves knowledge from the ephemeral context of a prompt into a deterministic, executable specification that the model must interact with via structured API calls.",
+    vsPrompts: "В отличие от статических промптов или правил рабочего процесса, которые со временем могут игнорироваться или неверно истолковываться моделями, MCP предоставляет жестко заданный мост валидации. Он переносит знания из эфемерного контекста промпта в детерминированную исполняемую спецификацию, с которой модель обязана взаимодействовать через структурированные API-вызовы.",
 
     philosophy: [
-        { title: "Determinism", description: "Rules must produce identical validation results regardless of the LLM used." },
-        { title: "Explicit Rules", description: "No implicit assumptions; every constraint is defined in the configuration layer." },
-        { title: "Zero Magic", description: "Transparent validation logic without hidden heuristics or AI-driven 'guesses'." },
-        { title: "Validation over Generation", description: "The server's primary function is to restrict and verify, not to generate ad-hoc code." }
+        { title: "Детерминизм", description: "Правила должны выдавать идентичные результаты валидации независимо от используемой модели." },
+        { title: "Явные правила", description: "Никаких неявных предположений; каждое ограничение определено в слое конфигурации." },
+        { title: "Никакой магии", description: "Прозрачная логика валидации без скрытых эвристик или 'догадок' ИИ." },
+        { title: "Валидация важнее генерации", description: "Основная функция сервера — ограничивать и проверять, а не генерировать код 'на лету'." }
     ]
 };
