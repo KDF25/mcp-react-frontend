@@ -3,27 +3,58 @@ import { createMcpServer } from '@/features/mcp/lib/mcp-server';
 import { NextRequest } from 'next/server';
 
 /**
- * Use Edge Runtime for better SSE/Streaming support on Vercel.
+ * Force dynamic rendering to ensure streaming works correctly in Next.js.
  */
-export const runtime = 'edge';
+export const dynamic = 'force-dynamic';
 
 /**
- * Singleton-like transport and server for the life of the edge function instance.
- * Edge functions can be reused across multiple requests.
+ * Global persistence for MCP server, transport, and connection state.
  */
-const transport = new WebStandardStreamableHTTPServerTransport({
+const globalForMcp = global as unknown as {
+    mcpTransport?: WebStandardStreamableHTTPServerTransport;
+    mcpServer?: ReturnType<typeof createMcpServer>;
+    mcpConnectPromise?: Promise<void>;
+};
+
+// Initialize or reuse the MCP server and transport
+const server = globalForMcp.mcpServer ?? createMcpServer();
+const transport = globalForMcp.mcpTransport ?? new WebStandardStreamableHTTPServerTransport({
     enableJsonResponse: true,
 });
 
-const server = createMcpServer();
-let connected = false;
+// Save to global in development
+if (process.env.NODE_ENV !== 'production') {
+    globalForMcp.mcpServer = server;
+    globalForMcp.mcpTransport = transport;
+}
 
-async function getTransport() {
-    if (!connected) {
-        await server.connect(transport);
-        connected = true;
+/**
+ * Connects the server to the transport with synchronization to prevent race conditions.
+ */
+async function ensureConnected() {
+    // If connection is already in progress or done, wait for it
+    if (globalForMcp.mcpConnectPromise) {
+        return globalForMcp.mcpConnectPromise;
     }
-    return transport;
+
+    // Start connection process
+    globalForMcp.mcpConnectPromise = (async () => {
+        try {
+            await server.connect(transport);
+            console.log('[MCP] Server successfully connected to transport');
+        } catch (error: any) {
+            // If already started, we can ignore this error
+            if (error.message?.includes('already started') || error.message?.includes('already connected')) {
+                console.log('[MCP] Transport already started, reusing connection');
+                return;
+            }
+            console.error('[MCP] Failed to connect server to transport:', error);
+            globalForMcp.mcpConnectPromise = undefined; // Reset to allow retry
+            throw error;
+        }
+    })();
+
+    return globalForMcp.mcpConnectPromise;
 }
 
 export async function GET(request: NextRequest) {
@@ -39,12 +70,40 @@ export async function DELETE(request: NextRequest) {
 }
 
 async function handle(request: NextRequest) {
-    try {
-        const t = await getTransport();
-        const response = await t.handleRequest(request as unknown as Request);
+    const sessionId = request.headers.get('mcp-session-id') || 'no-session';
 
-        // Add CORS headers to the response
+    try {
+        // Ensure the server is connected to the transport (synchronized)
+        await ensureConnected();
+
+        const headers = new Headers(request.headers);
+
+        console.log(`[MCP][${sessionId}] Request: ${request.method} ${request.url}`);
+
+        if (!headers.get('Accept') || headers.get('Accept') === '*/*') {
+            headers.set('Accept', 'application/json, text/event-stream');
+        }
+
+        const modifiedRequest = new Request(request.url, {
+            method: request.method,
+            headers: headers,
+            body: request.body,
+            // @ts-expect-error - duplex is required for streaming request bodies in Node.js
+            duplex: 'half',
+        });
+
+        const response = await transport.handleRequest(modifiedRequest);
+
+        console.log(`[MCP][${sessionId}] Response: ${response.status} ${response.statusText}`);
+
         const newHeaders = new Headers(response.headers);
+
+        // Anti-buffering headers
+        newHeaders.set('X-Accel-Buffering', 'no');
+        newHeaders.set('Cache-Control', 'no-cache, no-transform');
+        newHeaders.set('Connection', 'keep-alive');
+
+        // CORS
         newHeaders.set('Access-Control-Allow-Origin', '*');
         newHeaders.set('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
         newHeaders.set('Access-Control-Allow-Headers', 'Content-Type, mcp-session-id, Last-Event-ID, mcp-protocol-version');
@@ -56,13 +115,20 @@ async function handle(request: NextRequest) {
             headers: newHeaders,
         });
     } catch (error: any) {
-        console.error('MCP Error:', error);
+        console.error(`[MCP][${sessionId}] Internal Error:`, error);
         return new Response(JSON.stringify({
             jsonrpc: '2.0',
-            error: { code: -32603, message: 'Internal error', data: { details: error.message } }
+            error: {
+                code: -32603,
+                message: 'Internal MCP Error',
+                data: { details: error.message }
+            }
         }), {
             status: 500,
-            headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            }
         });
     }
 }
