@@ -1,5 +1,5 @@
 export const NAMING_EXAMPLES = {
-    syntaxGuidance: `// ❌ ЗАПРЕЩЕННЫЙ синтаксис
+	syntaxGuidance: `// ❌ ЗАПРЕЩЕННЫЙ синтаксис
 interface User { name: string; }
 type Status = "active" | "idle";
 function getData(args: any) { ... }

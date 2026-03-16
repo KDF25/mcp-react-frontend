@@ -1,5 +1,5 @@
 export const STYLES_EXAMPLES = {
-    rtkQuery: `export const userApi = createApi({
+	rtkQuery: `export const userApi = createApi({
     reducerPath: 'userApi',
     baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
     endpoints: (builder) => ({

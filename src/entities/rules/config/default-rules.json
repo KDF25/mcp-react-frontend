@@ -93,20 +93,39 @@
     "model": {
       "baseMaxSize": 3,
       "requiredFiles": [
-        "config.ts",
-        "schemes.ts",
+        "index.ts",
         "types.ts"
       ],
       "subfolders": [
         "config",
-        "schemes",
-        "types"
+        "schema",
+        "types",
+        "api",
+        "converters"
       ],
-      "filePattern": "^[a-z0-9-]+\\.(config|types|schema|schemes)\\.ts$"
+      "filePattern": "^[a-z0-9-]+\\.(config|types|schema|converters|service)\\.ts$"
+    },
+    "entities": {
+      "requiredFolders": [
+        "api",
+        "types",
+        "schema",
+        "converters",
+        "ui"
+      ],
+      "naming": {
+        "schema": "*.schema.ts",
+        "converters": "*.converters.ts",
+        "api": "*.service.ts"
+      }
     },
     "converters": {
       "suffix": ".converters.ts",
-      "mandatory": true
+      "mandatory": true,
+      "requiredMethods": [
+        "mapToFrontend",
+        "mapToBackend"
+      ]
     }
   },
   "styles": {

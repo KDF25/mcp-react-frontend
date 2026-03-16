@@ -1,10 +1,10 @@
 export const FSD_EXAMPLES = {
-    validImport: `import { useAuthStore } from "@/entities/session"; // OK: feature -> entity
+	validImport: `import { useAuthStore } from "@/entities/session"; // OK: feature -> entity
 import { Button } from "@/shared/ui";         // OK: feature -> shared`,
 
-    forbiddenViolation: `import { logoutFeature } from "@/features/auth"; // ERROR: entity -> feature (LAYER VIOLATION)`,
+	forbiddenViolation: `import { logoutFeature } from "@/features/auth"; // ERROR: entity -> feature (LAYER VIOLATION)`,
 
-    entityTree: `src/entities/invoice/
+	entityTree: `src/entities/invoice/
 ├── api/             # API сервисы (RTK Query)
 ├── types/           # Структуры данных
 │   ├── index.ts
@@ -17,7 +17,7 @@ import { Button } from "@/shared/ui";         // OK: feature -> shared`,
 ├── ui/              # (Опционально) Карточки, элементы списков
 └── index.ts         # Public API`,
 
-    widgetTree: `src/widgets/accommodation-edit/
+	widgetTree: `src/widgets/accommodation-edit/
 ├── model/           # Логика и состояние виджета
 │   ├── config/      # Конфигурации форм/колонок
 │   ├── schema/      # Схемы валидации (Zod)
