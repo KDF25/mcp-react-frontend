@@ -1,3 +1,5 @@
+"use client";
+
 import { DocsFeatures } from "./docs-features";
 import { DocsMission } from "./docs-mission";
 import { DocsPolicy } from "./docs-policy";

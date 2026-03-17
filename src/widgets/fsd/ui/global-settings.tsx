@@ -1,8 +1,13 @@
+"use client";
+
+import { useTranslation } from "react-i18next";
+
 import { Badge } from "@/shared/ui";
 
 import { RulesProvider } from "@/entities/rules";
 
 export function GlobalSettings() {
+	const { t } = useTranslation("fsd");
 	const fsd = RulesProvider.getFsdRules();
 
 	return (
@@ -11,7 +16,7 @@ export function GlobalSettings() {
 				<span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary font-mono text-sm font-bold">
 					06
 				</span>
-				Global Settings
+				{t("settings.title")}
 			</h2>
 			<div className="grid sm:grid-cols-2 gap-3">
 				{Object.entries(fsd.rules).map(([rule, active]) => (
@@ -26,7 +31,9 @@ export function GlobalSettings() {
 							variant={active ? "default" : "destructive"}
 							className="text-[9px] h-4 uppercase"
 						>
-							{active ? "Enforced" : "Off"}
+							{active
+								? t("settings.status_enforced")
+								: t("settings.status_off")}
 						</Badge>
 					</div>
 				))}

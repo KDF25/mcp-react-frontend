@@ -1,0 +1,54 @@
+{
+	"header": {
+		"title": "Creator",
+		"architect": "System Architect",
+		"orchestrator": "Lead Orchestrator"
+	},
+	"role": {
+		"title": "Role",
+		"content": "Damir Karimov serves as the Lead Architect and Author of the MCP Orchestration Layer. In this capacity, he defines the project’s technical boundaries, establishes the semantic contracts for the LLM-to-codebase interaction, and maintains the authoritative rule-set for the system’s evolution."
+	},
+	"responsibility": {
+		"title": "Responsibility",
+		"items": [
+			"Architectural Governance: Defining and enforcing Feature-Sliced Design (FSD) boundaries.",
+			"Protocol Integrity: Maintaining the deterministic nature of MCP tool responses.",
+			"Quality Assurance: Optimizing code quality and performance through strict static analysis.",
+			"Scalability: Designing modular structures that prevent technical debt accumulation."
+		]
+	},
+	"principles": {
+		"title": "Engineering Principles",
+		"items": [
+			{
+				"title": "Architectural Integrity",
+				"description": "Strict adherence to FSD for modular and maintainable system structure."
+			},
+			{
+				"title": "Performance Optimization",
+				"description": "Delivering high-performance interfaces and robust backend APIs with zero bloat."
+			},
+			{
+				"title": "Engineering Precision",
+				"description": "Combining pixel-perfect UI with robust, type-safe architectural patterns."
+			},
+			{
+				"title": "Contractual Determinism",
+				"description": "Every rule is a conscious engineering choice designed to eliminate ambiguity."
+			}
+		]
+	},
+	"technical": {
+		"title": "Technical Identification"
+	},
+	"connections": {
+		"title": "Connections",
+		"github": "GitHub Registry",
+		"email": "Direct Endpoint"
+	},
+	"status": {
+		"label": "Architect Status",
+		"value": "Authorized",
+		"philosophy": "Engineering precision combined with product thinking: building systems that are technically robust while delivering high-performance user experiences."
+	}
+}

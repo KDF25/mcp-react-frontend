@@ -1,35 +1,61 @@
+"use client";
+
+import { Box, Code2, Database } from "lucide-react";
+import { useTranslation } from "react-i18next";
+
 import { Card, CardContent } from "@/shared/ui";
 
-import { RulesProvider } from "@/entities/rules";
-
 export function StructureConverters() {
-	const rules = RulesProvider.getRules();
-	const structure = rules.structure;
+	const { t } = useTranslation("structure");
 
 	return (
-		<section className="space-y-6">
-			<h2 className="text-2xl font-semibold flex items-center gap-3">
+		<section>
+			<h2 className="text-2xl font-semibold mb-6 flex items-center gap-3">
 				<span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary font-mono text-sm font-bold">
-					03
+					02
 				</span>
-				System Converters
+				{t("converters.title")}
 			</h2>
-			<Card className="border-primary/5 bg-primary/5">
-				<CardContent className="p-6 flex items-center justify-between">
-					<div className="space-y-1">
-						<h3 className="font-bold">
-							Naming Pattern Enforcement
-						</h3>
-						<p className="text-xs text-muted-foreground tracking-tight">
-							All data mappers/converters must include this
-							specific suffix.
-						</p>
+
+			<div className="grid sm:grid-cols-2 gap-6">
+				<div className="space-y-4">
+					<p className="text-muted-foreground leading-relaxed">
+						{t("converters.description")}
+					</p>
+					<div className="flex items-center gap-4">
+						<div className="flex items-center gap-2 p-3 rounded-lg bg-muted border">
+							<Database size={16} className="text-primary" />
+							<span className="text-xs font-bold">RAW DTO</span>
+						</div>
+						<div className="h-px w-8 bg-border" />
+						<div className="flex items-center gap-2 p-3 rounded-lg bg-primary/10 border border-primary/20">
+							<Code2 size={16} className="text-primary" />
+							<span className="text-xs font-bold">
+								LOCAL ENTITY
+							</span>
+						</div>
 					</div>
-					<div className="text-xl font-black font-mono text-primary/80 tracking-tighter border-b-2 border-primary/20">
-						{structure.converters.suffix}
-					</div>
-				</CardContent>
-			</Card>
+				</div>
+
+				<div className="grid grid-cols-2 gap-4">
+					<Card className="bg-card">
+						<CardContent className="pt-6 flex flex-col items-center gap-3">
+							<Box className="text-primary/40" size={32} />
+							<span className="text-[10px] font-black uppercase tracking-widest text-center">
+								{t("converters.entity")}
+							</span>
+						</CardContent>
+					</Card>
+					<Card className="bg-card">
+						<CardContent className="pt-6 flex flex-col items-center gap-3">
+							<Code2 className="text-primary/40" size={32} />
+							<span className="text-[10px] font-black uppercase tracking-widest text-center">
+								{t("converters.dto")}
+							</span>
+						</CardContent>
+					</Card>
+				</div>
+			</div>
 		</section>
 	);
 }

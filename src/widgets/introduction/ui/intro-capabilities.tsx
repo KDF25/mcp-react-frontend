@@ -1,15 +1,29 @@
-import { INTRODUCTION_EXAMPLES } from "@/shared/config";
+"use client";
+
+import { useTranslation } from "react-i18next";
+
 import { Card, CardContent } from "@/shared/ui";
 
 export function IntroCapabilities() {
+	const { t } = useTranslation("introduction");
+
+	const notItems = t("capabilities.not_items", {
+		returnObjects: true,
+		defaultValue: []
+	}) as string[];
+	const roleSteps = t("capabilities.role_steps", {
+		returnObjects: true,
+		defaultValue: {}
+	}) as Record<string, { step: string; description: string }>;
+
 	return (
 		<div className="space-y-12">
 			<section className="space-y-4">
 				<h2 className="text-2xl font-semibold tracking-tight text-destructive">
-					What MCP is NOT
+					{t("capabilities.not_title")}
 				</h2>
 				<ul className="grid gap-3">
-					{INTRODUCTION_EXAMPLES.whatIsNOT.map((item, i) => (
+					{notItems.map((item, i) => (
 						<li
 							key={i}
 							className="flex items-start gap-3 p-3 rounded-lg border bg-muted/30"
@@ -25,11 +39,11 @@ export function IntroCapabilities() {
 
 			<section className="space-y-6">
 				<h2 className="text-2xl font-semibold tracking-tight">
-					MCP Role in Project Rewrite
+					{t("capabilities.role_title")}
 				</h2>
 				<div className="relative space-y-4 pl-6 before:absolute before:left-0 before:top-2 before:bottom-2 before:w-px before:bg-border">
-					{INTRODUCTION_EXAMPLES.rewriteRole.map((item, i) => (
-						<div key={i} className="relative space-y-1">
+					{Object.entries(roleSteps).map(([key, item]) => (
+						<div key={key} className="relative space-y-1">
 							<div className="absolute -left-7 top-1.5 h-2 w-2 rounded-full border bg-background border-primary" />
 							<h3 className="font-bold text-sm tracking-tight">
 								{item.step}
@@ -44,12 +58,12 @@ export function IntroCapabilities() {
 
 			<section className="space-y-4">
 				<h2 className="text-2xl font-semibold tracking-tight text-primary">
-					MCP vs Prompts
+					{t("capabilities.vs_prompts_title")}
 				</h2>
 				<Card className="bg-primary/[0.02] border-primary/10">
 					<CardContent className="pt-6">
 						<p className="text-sm text-muted-foreground leading-relaxed italic text-center">
-							{INTRODUCTION_EXAMPLES.vsPrompts}
+							{t("capabilities.vs_prompts_description")}
 						</p>
 					</CardContent>
 				</Card>

@@ -1,9 +1,18 @@
+"use client";
+
+import { useTranslation } from "react-i18next";
+
 import { Badge, Card, CardContent } from "@/shared/ui";
 
 import { RulesProvider } from "@/entities/rules";
 
 export function NamingLinterRules() {
+	const { t } = useTranslation("naming");
 	const linter = RulesProvider.getLinterRules();
+	const rulesTranslations = t("rules", {
+		returnObjects: true,
+		defaultValue: {}
+	}) as Record<string, string>;
 
 	return (
 		<section id="linter">
@@ -11,7 +20,7 @@ export function NamingLinterRules() {
 				<span className="flex h-8 w-8 items-center justify-center rounded-lg bg-destructive/10 text-destructive font-mono text-sm font-bold">
 					!
 				</span>
-				Linter Prohibitions
+				{t("linter.title")}
 			</h2>
 			<div className="grid gap-3">
 				{Object.entries(linter).map(([rule, active]) => (
@@ -21,18 +30,21 @@ export function NamingLinterRules() {
 					>
 						<CardContent className="p-4 flex items-center justify-between">
 							<div className="space-y-1">
-								<div className="font-mono text-sm font-bold text-destructive/80">
-									{rule}
+								<div className="text-destructive font-bold text-sm">
+									{rulesTranslations[rule] || rule}
 								</div>
-								<p className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight">
-									Static Block Enforcement
+								<div className="font-mono text-[10px] text-muted-foreground opacity-70">
+									ID: {rule}
+								</div>
+								<p className="text-[10px] text-muted-foreground uppercase font-bold tracking-tight pt-1">
+									{t("linter.enforcement")}
 								</p>
 							</div>
 							<Badge
 								variant="destructive"
 								className="animate-pulse h-5 text-[9px]"
 							>
-								Strict Prohibited
+								{t("linter.status")}
 							</Badge>
 						</CardContent>
 					</Card>

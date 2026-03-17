@@ -1,14 +1,22 @@
+"use client";
+
 import { Code2Icon, FolderIcon, InfoIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 import { Badge, Card, CodeBlock } from "@/shared/ui";
 
-import { DETAILED_FILES } from "../model";
-
 export function I18nDetailedFiles() {
+	const { t } = useTranslation("i18n");
+
+	const files = t("detailed_files.items", {
+		returnObjects: true,
+		defaultValue: {}
+	}) as Record<string, { title: string; desc: string; code: string }>;
+
 	return (
 		<div className="space-y-24">
-			{DETAILED_FILES.map((file, idx) => (
-				<section key={file.title} className="space-y-8 scroll-mt-24">
+			{Object.entries(files).map(([key, data], idx) => (
+				<section key={key} className="space-y-8 scroll-mt-24">
 					<div className="space-y-6 border-l-4 border-primary pl-8">
 						<div className="space-y-1">
 							<div className="flex items-center gap-3">
@@ -16,17 +24,17 @@ export function I18nDetailedFiles() {
 									{idx + 1}
 								</Badge>
 								<h3 className="text-4xl font-black tracking-tighter uppercase">
-									{file.title}
+									{data.title}
 								</h3>
 							</div>
 							<div className="flex items-center gap-2 text-muted-foreground text-[10px] font-mono uppercase tracking-widest">
 								<FolderIcon className="size-2.5" /> shared/
-								{file.title.includes("d.ts")
+								{data.title.includes("d.ts")
 									? "types"
-									: file.title.includes("languages")
+									: data.title.includes("languages")
 										? "config/languages"
 										: "config/i18n"}
-								/{file.title}
+								/{data.title}
 							</div>
 						</div>
 
@@ -38,7 +46,7 @@ export function I18nDetailedFiles() {
 								</h4>
 							</div>
 							<p className="text-lg text-foreground/80 leading-relaxed font-normal">
-								{file.description}
+								{data.desc}
 							</p>
 						</div>
 					</div>
@@ -55,15 +63,15 @@ export function I18nDetailedFiles() {
 								variant="outline"
 								className="text-[9px] border-zinc-800 text-zinc-500 uppercase"
 							>
-								{file.title.endsWith(".d.ts")
+								{data.title.endsWith(".d.ts")
 									? "definition"
 									: "typescript"}
 							</Badge>
 						</div>
 						<CodeBlock
-							filename={file.title}
+							filename={data.title}
 							language="typescript"
-							code={file.code}
+							code={data.code}
 						/>
 					</Card>
 				</section>

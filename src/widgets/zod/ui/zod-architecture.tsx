@@ -1,28 +1,18 @@
 "use client";
 
-import { hotkeysCoreFeature, syncDataLoaderFeature } from "@headless-tree/core";
-import { useTree } from "@headless-tree/react";
-import { FileIcon, FolderIcon, FolderOpenIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
-import { Card, CardContent, Tree, TreeItem, TreeItemLabel } from "@/shared/ui";
-
-import { Item, ZOD_STRUCTURE_ITEMS } from "../model";
+import { Card, CardContent, CardHeader } from "@/shared/ui";
 
 export function ZodArchitecture() {
-	const zodTree = useTree<Item>({
-		dataLoader: {
-			getChildren: (itemId) => ZOD_STRUCTURE_ITEMS[itemId].children ?? [],
-			getItem: (itemId) => ZOD_STRUCTURE_ITEMS[itemId]
-		},
-		features: [syncDataLoaderFeature, hotkeysCoreFeature],
-		getItemName: (item) => item.getItemData().name,
-		indent: 20,
-		initialState: {
-			expandedItems: ["root", "schema", "types"]
-		},
-		isItemFolder: (item) => (item.getItemData()?.children?.length ?? 0) > 0,
-		rootItemId: "root"
-	});
+	const { t } = useTranslation("zod");
+	const items = t("architecture.items", {
+		returnObjects: true,
+		defaultValue: []
+	}) as Array<{
+		title: string;
+		description: string;
+	}>;
 
 	return (
 		<section>
@@ -30,44 +20,28 @@ export function ZodArchitecture() {
 				<span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary font-mono text-sm font-bold">
 					01
 				</span>
-				Patterns Architecture
+				{t("architecture.title")}
 			</h2>
-			<Card className="border-primary/10 bg-muted/30">
-				<CardContent className="p-6">
-					<Tree
-						className="before:-ms-1 relative before:absolute before:inset-0 before:bg-[repeating-linear-gradient(to_right,transparent_0,transparent_calc(var(--tree-indent)-1px),var(--border)_calc(var(--tree-indent)-1px),var(--border)_calc(var(--tree-indent)))]"
-						indent={20}
-						tree={zodTree}
+
+			<div className="grid sm:grid-cols-3 gap-6">
+				{items.map((item, i) => (
+					<Card
+						key={i}
+						className="bg-muted/10 border-none shadow-none"
 					>
-						{zodTree.getItems().map((item) => (
-							<TreeItem item={item} key={item.getId()}>
-								<TreeItemLabel className="before:-inset-y-0.5 before:-z-10 relative before:absolute before:inset-x-0 before:bg-background/0">
-									<span className="flex items-center gap-2">
-										{item.isFolder() ? (
-											item.isExpanded() ? (
-												<FolderOpenIcon className="size-4 text-primary/70" />
-											) : (
-												<FolderIcon className="size-4 text-primary/70" />
-											)
-										) : (
-											<FileIcon className="size-4 text-primary/40" />
-										)}
-										<span
-											className={
-												item.isFolder()
-													? "font-semibold text-foreground/90 text-sm"
-													: "text-muted-foreground text-sm"
-											}
-										>
-											{item.getItemName()}
-										</span>
-									</span>
-								</TreeItemLabel>
-							</TreeItem>
-						))}
-					</Tree>
-				</CardContent>
-			</Card>
+						<CardHeader className="p-4 pb-2">
+							<h3 className="text-sm font-bold text-primary">
+								{item.title}
+							</h3>
+						</CardHeader>
+						<CardContent className="p-4 pt-0">
+							<p className="text-xs text-muted-foreground leading-normal">
+								{item.description}
+							</p>
+						</CardContent>
+					</Card>
+				))}
+			</div>
 		</section>
 	);
 }

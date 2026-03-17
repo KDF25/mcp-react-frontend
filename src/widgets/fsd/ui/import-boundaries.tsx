@@ -1,8 +1,13 @@
+"use client";
+
+import { useTranslation } from "react-i18next";
+
 import { Badge, Card, CardContent, CardHeader, CardTitle } from "@/shared/ui";
 
 import { RulesProvider } from "@/entities/rules";
 
 export function ImportBoundaries() {
+	const { t } = useTranslation("fsd");
 	const fsd = RulesProvider.getFsdRules();
 
 	return (
@@ -11,7 +16,7 @@ export function ImportBoundaries() {
 				<span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary font-mono text-sm font-bold">
 					02
 				</span>
-				Import Boundaries
+				{t("boundaries.title")}
 			</h2>
 			<div className="grid gap-4 sm:grid-cols-2">
 				{fsd.boundaries.map((boundary) => (
@@ -28,7 +33,7 @@ export function ImportBoundaries() {
 									{boundary.from}
 								</Badge>
 								<span className="text-xs text-muted-foreground">
-									accesses:
+									{t("boundaries.accesses")}:
 								</span>
 							</CardTitle>
 						</CardHeader>

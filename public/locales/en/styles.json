@@ -1,0 +1,24 @@
+{
+	"header": {
+		"title": "Engineering Styles & Patterns",
+		"description": "Formalized code style and architectural patterns ensuring consistency across the entire ecosystem."
+	},
+	"restrictions": {
+		"title": "Styling Restrictions",
+		"utility_title": "Utility Pattern",
+		"utility_description": "Only specified Tailwind prefixes are allowed. Mandatory use of {{utility}} for all components.",
+		"colors_title": "Forbidden Colors",
+		"colors_description": "Standard Tailwind colors are restricted to maintain brand consistency."
+	},
+	"contract": {
+		"title": "State Management Contract",
+		"description": "Strict isolation of state levels to ensure predictability and ease of testing. Global state is reserved for cross-cutting concerns.",
+		"server": "Server",
+		"client": "Client",
+		"local": "Local"
+	},
+	"fetching": {
+		"title": "Data Fetching Standards",
+		"description": "Centralized API interaction through RTK Query with mandatory error boundary handling."
+	}
+}

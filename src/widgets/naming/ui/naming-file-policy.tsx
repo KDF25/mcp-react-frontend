@@ -1,8 +1,13 @@
+"use client";
+
+import { useTranslation } from "react-i18next";
+
 import { Badge, Card, CardContent, CardHeader } from "@/shared/ui";
 
 import { RulesProvider } from "@/entities/rules";
 
 export function NamingFilePolicy() {
+	const { t } = useTranslation("naming");
 	const naming = RulesProvider.getNamingRules();
 
 	return (
@@ -11,13 +16,13 @@ export function NamingFilePolicy() {
 				<span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary font-mono text-sm font-bold">
 					Aa
 				</span>
-				File Case & Prefixes
+				{t("policy.title")}
 			</h2>
 
 			<div className="grid gap-6">
 				<Card className="bg-card">
 					<CardHeader className="pb-3 text-xs font-bold uppercase tracking-wider text-muted-foreground">
-						Global File Policy
+						{t("policy.global_label")}
 					</CardHeader>
 					<CardContent className="flex items-center gap-4">
 						<Badge
@@ -28,7 +33,7 @@ export function NamingFilePolicy() {
 						</Badge>
 						<div className="flex flex-col">
 							<span className="text-xs text-muted-foreground">
-								Example:
+								{t("policy.example_label")}
 							</span>
 							<code className="text-sm font-bold">
 								user-profile-card.tsx
@@ -45,7 +50,7 @@ export function NamingFilePolicy() {
 						>
 							<CardHeader className="py-3">
 								<span className="text-[10px] font-bold uppercase text-muted-foreground">
-									{type} prefix
+									{type} {t("policy.type_suffix")}
 								</span>
 							</CardHeader>
 							<CardContent className="pb-4 pt-0">

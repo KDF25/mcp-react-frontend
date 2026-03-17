@@ -1,24 +1,29 @@
+"use client";
+
+import { useTranslation } from "react-i18next";
+
 import { Badge, Card, CardContent } from "@/shared/ui";
 
 export function ReferenceRest() {
+	const { t } = useTranslation("reference");
 	const apis = [
 		{
 			method: "GET",
 			path: "/api/mcp",
-			desc: "SSE Persistent connection (MCP Protocol)",
+			desc: t("rest.endpoints.mcp"),
 			variant: "default"
 		},
 		{
 			method: "POST",
 			path: "/api/check-project",
-			desc: "Batch validation report",
+			desc: t("rest.endpoints.check_project"),
 			variant: "outline"
 		}
 	];
 
 	return (
 		<section className="space-y-6 pb-12">
-			<h2 className="text-2xl font-semibold">REST API Transport</h2>
+			<h2 className="text-2xl font-semibold">{t("rest.title")}</h2>
 			<div className="grid gap-3">
 				{apis.map((api) => (
 					<Card

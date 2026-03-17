@@ -1,0 +1,44 @@
+{
+	"header": {
+		"title": "Validation & Type Safety with Zod",
+		"description": "Deterministic validation layer ensuring that all data entering the system conforms to the defined architectural contracts."
+	},
+	"importance": {
+		"title": "Why Zod?",
+		"items": [
+			{
+				"title": "Runtime Type Safety",
+				"description": "Bridging the gap between TypeScript's static types and actual runtime data from APIs or forms."
+			},
+			{
+				"title": "Single Source of Truth",
+				"description": "Generate TypeScript types directly from Zod schemas to ensure perfect alignment."
+			},
+			{
+				"title": "Deterministic Validation",
+				"description": "Transparent and predictable error reporting for invalid data structures."
+			}
+		]
+	},
+	"pattern": {
+		"title": "Validation Pattern",
+		"description": "Schemas must be located in the 'model/schema' directory of their respective slices."
+	},
+	"architecture": {
+		"title": "Zod in FSD Architecture",
+		"items": [
+			{
+				"title": "Input Validation",
+				"description": "Validate all incoming API responses and user inputs before they reach the state store."
+			},
+			{
+				"title": "Form Integration",
+				"description": "React Hook Form integration using 'zodResolver' for robust UI-layer validation."
+			},
+			{
+				"title": "Contract Enforcement",
+				"description": "Using schemas to define and enforce contracts between different system modules."
+			}
+		]
+	}
+}

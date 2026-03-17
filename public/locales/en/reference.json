@@ -1,0 +1,37 @@
+{
+	"header": {
+		"title": "API Reference & Connection",
+		"description": "Technical specifications for tool integration and local environment synchronization."
+	},
+	"tools": {
+		"title": "Registered Tools",
+		"analyze_project": {
+			"description": "Primary analysis engine. Validates file paths against FSD layer rules and naming conventions. Returns a detailed JSON object of violations and recommendations.",
+			"badge": "Core Logic",
+			"schema_title": "Input Schema"
+		},
+		"get_rules": {
+			"description": "Fetches all dynamic rules from `RulesProvider`. Always use this to synchronize current LLM context with server state.",
+			"badge": "Metadata"
+		}
+	},
+	"claude": {
+		"title": "Claude Desktop Connection",
+		"sync_guide": {
+			"title": "Local Synchronization Guide",
+			"description": "Step-by-step connection for model orchestration"
+		},
+		"steps": {
+			"config_location": "1. Config Location (Windows)",
+			"snippet": "2. Configuration Snippet"
+		},
+		"note": "Note: Restart Claude Desktop after saving the configuration."
+	},
+	"rest": {
+		"title": "REST API Transport",
+		"endpoints": {
+			"mcp": "SSE Persistent connection (MCP Protocol)",
+			"check_project": "Batch validation report"
+		}
+	}
+}

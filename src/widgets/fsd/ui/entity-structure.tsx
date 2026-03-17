@@ -3,12 +3,19 @@
 import { hotkeysCoreFeature, syncDataLoaderFeature } from "@headless-tree/core";
 import { useTree } from "@headless-tree/react";
 import { FileIcon, FolderIcon, FolderOpenIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 import { Card, CardContent, Tree, TreeItem, TreeItemLabel } from "@/shared/ui";
 
 import { ENTITY_STRUCTURE_ITEMS, Item } from "../model";
 
 export function EntityStructure() {
+	const { t } = useTranslation("fsd");
+	const entityItems = t("entities.items", {
+		returnObjects: true,
+		defaultValue: {}
+	}) as Record<string, string>;
+
 	const entityTree = useTree<Item>({
 		dataLoader: {
 			getChildren: (itemId) =>
@@ -31,13 +38,11 @@ export function EntityStructure() {
 				<span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary font-mono text-sm font-bold">
 					03
 				</span>
-				Standard Entity Structure
+				{t("entities.title")}
 			</h2>
 			<div className="space-y-4">
 				<p className="text-muted-foreground text-sm">
-					Каждая сущность (entity) — это самодостаточный модуль. Мы
-					используем строгое разделение по подпапкам для
-					предсказуемости и простоты поддержки.
+					{t("entities.description")}
 				</p>
 
 				<Card className="border-primary/10 bg-muted/30">
@@ -81,17 +86,17 @@ export function EntityStructure() {
 					<ul className="space-y-2 text-sm text-muted-foreground">
 						<li className="flex gap-2">
 							<strong className="text-foreground">api:</strong>{" "}
-							RTK Query определения для работы с бэкендом.
+							{entityItems.api}
 						</li>
 						<li className="flex gap-2">
 							<strong className="text-foreground">types:</strong>{" "}
-							Разделение на интерфейсы и типы для чистоты кода.
+							{entityItems.types}
 						</li>
 						<li className="flex gap-2">
 							<strong className="text-foreground">
 								converters:
 							</strong>{" "}
-							Слой трансформации данных (Data Mapping).
+							{entityItems.converters}
 						</li>
 					</ul>
 					<ul className="space-y-2 text-sm text-muted-foreground">
@@ -99,17 +104,17 @@ export function EntityStructure() {
 							<strong className="text-foreground">
 								handlers:
 							</strong>{" "}
-							Логика, не привязанная к UI-состоянию.
+							{entityItems.handlers}
 						</li>
 						<li className="flex gap-2">
 							<strong className="text-foreground">mock:</strong>{" "}
-							Возможность работы без бэкенда.
+							{entityItems.mock}
 						</li>
 						<li className="flex gap-2">
 							<strong className="text-foreground">
 								index.ts:
 							</strong>{" "}
-							Точка входа для доступа из верхних слоев.
+							{entityItems.index}
 						</li>
 					</ul>
 				</div>

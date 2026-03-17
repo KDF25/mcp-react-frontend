@@ -1,3 +1,7 @@
+"use client";
+
+import { useTranslation } from "react-i18next";
+
 import { REFERENCE_EXAMPLES } from "@/shared/config";
 import {
 	Badge,
@@ -9,13 +13,15 @@ import {
 } from "@/shared/ui";
 
 export function ReferenceTools() {
+	const { t } = useTranslation("reference");
+
 	return (
 		<section id="tools" className="space-y-6">
 			<h2 className="text-2xl font-semibold flex items-center gap-3">
 				<span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary font-mono text-sm font-bold">
 					#
 				</span>
-				Registered Tools
+				{t("tools.title")}
 			</h2>
 
 			<div className="grid gap-4">
@@ -28,19 +34,16 @@ export function ReferenceTools() {
 							variant="outline"
 							className="text-[10px] border-primary/20 text-primary uppercase"
 						>
-							Core Logic
+							{t("tools.analyze_project.badge")}
 						</Badge>
 					</CardHeader>
 					<CardContent className="pt-4 space-y-4">
 						<p className="text-sm text-muted-foreground leading-relaxed">
-							Primary analysis engine. Validates file paths
-							against FSD layer rules and naming conventions.
-							Returns a detailed JSON object of violations and
-							recommendations.
+							{t("tools.analyze_project.description")}
 						</p>
 						<div className="space-y-2">
 							<h4 className="text-[10px] font-black uppercase text-muted-foreground tracking-widest">
-								Input Schema
+								{t("tools.analyze_project.schema_title")}
 							</h4>
 							<CodeBlock
 								filename="Input Schema"
@@ -60,14 +63,12 @@ export function ReferenceTools() {
 							variant="outline"
 							className="text-[10px] border-primary/20 text-primary uppercase"
 						>
-							Metadata
+							{t("tools.get_rules.badge")}
 						</Badge>
 					</CardHeader>
 					<CardContent className="pt-2">
 						<p className="text-sm text-muted-foreground italic">
-							Fetches all dynamic rules from `RulesProvider`.
-							Always use this to synchronize current LLM context
-							with server state.
+							{t("tools.get_rules.description")}
 						</p>
 					</CardContent>
 				</Card>

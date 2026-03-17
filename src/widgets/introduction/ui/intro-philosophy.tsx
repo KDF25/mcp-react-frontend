@@ -1,23 +1,30 @@
-import { INTRODUCTION_EXAMPLES } from "@/shared/config";
+"use client";
+
+import { useTranslation } from "react-i18next";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui";
 
 export function IntroPhilosophy() {
+	const { t } = useTranslation("introduction");
+	const items = t("philosophy.items", {
+		returnObjects: true,
+		defaultValue: {}
+	}) as Record<string, { title: string; description: string }>;
+
 	return (
 		<section className="space-y-6">
 			<div className="space-y-2">
 				<h2 className="text-2xl font-semibold tracking-tight">
-					Design Philosophy
+					{t("philosophy.title")}
 				</h2>
 				<p className="text-sm text-muted-foreground leading-relaxed">
-					Any modification that violates the established contracts
-					will be rejected by the orchestrator. We prioritize
-					long-term maintainability over short-term speed.
+					{t("philosophy.description")}
 				</p>
 			</div>
 			<div className="grid sm:grid-cols-2 gap-4">
-				{INTRODUCTION_EXAMPLES.philosophy.map((item, i) => (
+				{Object.entries(items).map(([key, item]) => (
 					<Card
-						key={i}
+						key={key}
 						className="border-none shadow-none bg-muted/50"
 					>
 						<CardHeader className="p-4 pb-2">

@@ -1,3 +1,7 @@
+"use client";
+
+import { useTranslation } from "react-i18next";
+
 import { REFERENCE_EXAMPLES } from "@/shared/config";
 import {
 	Badge,
@@ -10,6 +14,7 @@ import {
 } from "@/shared/ui";
 
 export function ReferenceClaude() {
+	const { t } = useTranslation("reference");
 	const claudeConfig = REFERENCE_EXAMPLES.claudeConfig;
 
 	return (
@@ -18,21 +23,21 @@ export function ReferenceClaude() {
 				<span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary font-mono text-sm font-bold">
 					CL
 				</span>
-				Claude Desktop Connection
+				{t("claude.title")}
 			</h2>
 			<Card className="bg-muted/30 border-dashed">
 				<CardHeader>
 					<CardTitle className="text-sm">
-						Local Synchronization Guide
+						{t("claude.sync_guide.title")}
 					</CardTitle>
 					<CardDescription>
-						Step-by-step connection for model orchestration
+						{t("claude.sync_guide.description")}
 					</CardDescription>
 				</CardHeader>
 				<CardContent className="space-y-6">
 					<div className="space-y-2">
 						<h3 className="text-[11px] font-bold uppercase text-muted-foreground">
-							1. Config Location (Windows)
+							{t("claude.steps.config_location")}
 						</h3>
 						<Badge
 							variant="secondary"
@@ -44,7 +49,7 @@ export function ReferenceClaude() {
 
 					<div className="space-y-3">
 						<h3 className="text-[11px] font-bold uppercase text-muted-foreground">
-							2. Configuration Snippet
+							{t("claude.steps.snippet")}
 						</h3>
 						<CodeBlock
 							filename="claude_desktop_config.json"
@@ -52,8 +57,7 @@ export function ReferenceClaude() {
 							code={JSON.stringify(claudeConfig, null, 2)}
 						/>
 						<p className="text-[10px] text-muted-foreground italic">
-							Note: Restart Claude Desktop after saving the
-							configuration.
+							{t("claude.note")}
 						</p>
 					</div>
 				</CardContent>

@@ -1,4 +1,5 @@
-import { DASHBOARD_CONTENT } from "@/shared/config";
+"use client";
+
 import { Separator } from "@/shared/ui";
 
 // import { DocsFeatures } from "@/widgets/docs/ui/docs-features";
@@ -11,28 +12,17 @@ import { HomeModules } from "./home-modules";
 import { HomeStatus } from "./home-status";
 
 export function Home() {
-	const { hero, status, features, infrastructure } = DASHBOARD_CONTENT;
-
 	return (
 		<>
-			<HomeHero
-				title={hero.title}
-				subtitle={hero.subtitle}
-				description={hero.description}
-			/>
+			<HomeHero />
 
 			<div className="space-y-8">
-				<HomeStatus items={status} />
-				<HomeModules items={features} />
+				<HomeStatus />
+				<HomeModules />
 			</div>
-			{/* <div className="space-y-8">
-				<DocsMission />
-				<DocsFeatures />
-				<DocsPolicy />
-			</div> */}
 
 			<Separator className="bg-primary/5" />
-			<HomeInfrastructure items={infrastructure} />
+			<HomeInfrastructure />
 		</>
 	);
 }

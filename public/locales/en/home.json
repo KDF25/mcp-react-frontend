@@ -1,0 +1,45 @@
+{
+	"hero": {
+		"system_status": "System Online",
+		"title_first": "MCP",
+		"title_second": "Orchestrator",
+		"subtitle": "Architectural Integrity Server",
+		"description": "A specialized protocol layer for enforcing FSD boundaries, semantic standards, and project-specific constraints. Validating code through deterministic rules instead of ephemeral prompts.",
+		"cta_explore": "Explore Protocol",
+		"cta_architect": "System Architect"
+	},
+	"status": {
+		"core": "Core Protocol",
+		"architecture": "Architecture",
+		"ai": "AI Integration",
+		"validation": "Validation"
+	},
+	"features": {
+		"rules": {
+			"title": "Rules Enforcement",
+			"description": "Zero-tolerance boundary checks and dependency validation."
+		},
+		"fsd": {
+			"title": "FSD Governance",
+			"description": "Deep structural analysis of layers and entity boundaries."
+		},
+		"naming": {
+			"title": "Semantic Naming",
+			"description": "Enforcing consistent file patterns and variable naming."
+		}
+	},
+	"infrastructure": {
+		"deterministic": {
+			"title": "Deterministic Rules",
+			"description": "Executable specifications that override prompt drift."
+		},
+		"truth": {
+			"title": "Source of Truth",
+			"description": "Centralized configuration for architectural patterns."
+		},
+		"clean": {
+			"title": "Clean Code Protocol",
+			"description": "Continuous integrity monitoring for every code modification."
+		}
+	}
+}

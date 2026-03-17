@@ -1,0 +1,29 @@
+{
+	"mission": {
+		"title": "The Mission",
+		"description": "Establishing a definitive source of truth for architectural contracts, eliminating entropy, and enforcing strict project orchestration.",
+		"badges": {
+			"orchestrator": "Orchestrator v1",
+			"hub": "Architectural Hub"
+		},
+		"card": {
+		"title": "The Mission",
+		"subtitle": "Why this server exists",
+		"description": "This MCP server acts as an **Automated Architect**. It provides LLMs with a crystal-clear understanding of how to modify, validate, and extend this specific codebase without violating its core principles."
+		}
+	},
+	"features": {
+		"integrity": {
+			"title": "Architectural Integrity",
+			"desc": "enforcement. Ensures modules remain decoupled and layers are correctly bounded."
+		},
+		"quality": {
+			"title": "Predictable Quality",
+			"desc": "Semantic naming and strict linting. Eliminates common mistakes before they reach the review stage."
+		}
+	},
+	"policy": {
+		"title": "Zero-Tolerance Policy",
+		"description": "Any modification that violates the established contracts will be rejected by the orchestrator. We prioritize long-term maintainability over short-term speed."
+	}
+}

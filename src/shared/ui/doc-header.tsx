@@ -14,6 +14,8 @@ import {
 	SidebarTrigger
 } from "@/shared/ui";
 
+import { LanguageToggle } from "./layout";
+
 const ROUTE_TITLES: Record<string, string> = {
 	[ENUM_ROUTES.MAIN.ROOT]: "The Mission",
 	[ENUM_ROUTES.MAIN.INTRODUCTION]: "Introduction",
@@ -50,6 +52,9 @@ export function DocHeader() {
 						</BreadcrumbItem>
 					</BreadcrumbList>
 				</Breadcrumb>
+			</div>
+			<div className="flex items-center gap-2">
+				<LanguageToggle />
 			</div>
 		</header>
 	);

@@ -3,12 +3,14 @@
 import { hotkeysCoreFeature, syncDataLoaderFeature } from "@headless-tree/core";
 import { useTree } from "@headless-tree/react";
 import { FileIcon, FolderIcon, FolderOpenIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 import { Card, CardContent, Tree, TreeItem, TreeItemLabel } from "@/shared/ui";
 
 import { Item, WIDGET_STRUCTURE_ITEMS } from "../model";
 
 export function WidgetModelStructure() {
+	const { t } = useTranslation("fsd");
 	const widgetTree = useTree<Item>({
 		dataLoader: {
 			getChildren: (itemId) =>
@@ -31,13 +33,11 @@ export function WidgetModelStructure() {
 				<span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary font-mono text-sm font-bold">
 					04
 				</span>
-				Widget: Model & UI Separation
+				{t("widgets.title")}
 			</h2>
 			<div className="space-y-4">
 				<p className="text-muted-foreground text-sm">
-					Виджеты — это "умные" блоки. Мы отделяем логику (model) от
-					визуальной части (ui), чтобы упростить тестирование и
-					рефакторинг.
+					{t("widgets.description")}
 				</p>
 
 				<Card className="border-primary/10 bg-muted/30">
@@ -80,11 +80,8 @@ export function WidgetModelStructure() {
 				<Card className="border-primary/10 bg-primary/5">
 					<CardContent className="p-4 text-sm">
 						<p>
-							<strong>Почему это важно:</strong> Папка{" "}
-							<code>model/</code> содержит всё то, что делает
-							виджет функциональным (схемы Zod, конфиги форм,
-							локальные типы). Папка <code>ui/</code> содержит
-							только компоненты отображения.
+							<strong>{t("widgets.importance_title")}:</strong>{" "}
+							{t("widgets.importance_desc")}
 						</p>
 					</CardContent>
 				</Card>

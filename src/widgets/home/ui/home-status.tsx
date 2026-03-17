@@ -1,23 +1,33 @@
+"use client";
+
+import { useTranslation } from "react-i18next";
+
 import { Badge, Card, CardContent } from "@/shared/ui";
 
-interface StatusItem {
-	label: string;
-	value: string;
-	status: string;
-}
+const STATUS_CONFIG = [
+	{ key: "core", value: "SSE (v1.0.0)", status: "active" },
+	{ key: "architecture", value: "FSD-Strict", status: "enforced" },
+	{ key: "ai", value: "Gemini / Claude", status: "authorized" },
+	{ key: "validation", value: "Locked", status: "stable" }
+];
 
-interface HomeStatusProps {
-	items: StatusItem[];
-}
+export function HomeStatus() {
+	const { t } = useTranslation("home");
+	const labels = t("status", {
+		returnObjects: true,
+		defaultValue: {}
+	}) as Record<string, string>;
 
-export function HomeStatus({ items }: HomeStatusProps) {
 	return (
 		<div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-			{items.map((item, i) => (
-				<Card key={i} className="bg-muted/30 border-none shadow-none">
+			{STATUS_CONFIG.map((item) => (
+				<Card
+					key={item.key}
+					className="bg-muted/30 border-none shadow-none"
+				>
 					<CardContent className="p-4 space-y-1">
 						<p className="text-[10px] uppercase font-bold text-muted-foreground tracking-widest">
-							{item.label}
+							{labels[item.key]}
 						</p>
 						<div className="flex items-center justify-between">
 							<p className="text-sm font-mono font-bold">

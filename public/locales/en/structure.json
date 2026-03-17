@@ -1,0 +1,48 @@
+{
+	"header": {
+		"title": "Layered Structure & Boundaries",
+		"description": "Strict isolation of logic and UI through layers to ensure predictable development and zero side effects."
+	},
+	"constraints": {
+		"title": "Layer Constraints",
+		"model_title": "Module Constraints",
+		"model_description": "Maximum of {{max}} files in the root of the model. Mandatory index.ts and types.ts for all segments.",
+		"folders_title": "Subfolder Structure",
+		"folders_description": "Strict segments for logic isolation.",
+		"naming_title": "Naming Convention",
+		"naming_description": "Strict kebab-case and specialized suffixes.",
+		"imports_label": "Import Governance",
+		"imports_valid": "Valid Import",
+		"imports_forbidden": "Forbidden Violation"
+	},
+	"converters": {
+		"title": "Semantic Converters",
+		"description": "Transformation layer ensuring the UI receives precise, ready-to-render data structures.",
+		"entity": "Entity Mapping",
+		"dto": "DTO Alignment"
+	},
+	"tree": {
+		"title": "Deterministic Tree Structure",
+		"entity": {
+			"label": "Entity Slice",
+			"api": "API services (RTK Query)",
+			"types": "Data structures",
+			"constants": "Lists, mappings, defaults",
+			"converters": "Data transformations",
+			"handlers": "Business logic & validation",
+			"mock": "Test data",
+			"ui": "(Optional) Cards, list items",
+			"index": "Public API"
+		},
+		"widget": {
+			"label": "Widget Slice",
+			"model": "Widget logic & state",
+			"config": "Form/column configs",
+			"schema": "Validation schemas (Zod)",
+			"localTypes": "Local types",
+			"ui": "Internal display components",
+			"main": "Main component",
+			"index": "Public API"
+		}
+	}
+}

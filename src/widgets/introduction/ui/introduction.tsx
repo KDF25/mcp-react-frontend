@@ -1,10 +1,15 @@
-import { INTRODUCTION_EXAMPLES } from "@/shared/config";
+"use client";
+
+import { useTranslation } from "react-i18next";
+
 import { Badge, Separator } from "@/shared/ui";
 
 import { IntroCapabilities } from "./intro-capabilities";
 import { IntroPhilosophy } from "./intro-philosophy";
 
 export function Introduction() {
+	const { t } = useTranslation("introduction");
+
 	return (
 		<div className="space-y-12">
 			<section className="space-y-4">
@@ -13,24 +18,25 @@ export function Introduction() {
 						variant="outline"
 						className="text-primary border-primary/20 bg-primary/5"
 					>
-						Orchestrator v1
+						{t("hero.version")}
 					</Badge>
-					<Badge variant="secondary">Architectural Hub</Badge>
+					<Badge variant="secondary">{t("hero.hub")}</Badge>
 				</div>
 				<h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl">
-					The <span className="text-primary italic">Mission</span>
+					The{" "}
+					<span className="text-primary italic">
+						{t("hero.mission_title")}
+					</span>
 				</h1>
 				<p className="text-xl text-muted-foreground leading-relaxed">
-					Establishing a definitive source of truth for architectural
-					contracts, eliminating entropy, and enforcing strict project
-					orchestration.
+					{t("hero.mission_description")}
 				</p>
 				<div className="space-y-2 pt-4">
 					<h2 className="text-2xl font-semibold tracking-tight">
-						What is MCP
+						{t("hero.what_is_mcp")}
 					</h2>
 					<p className="text-lg text-muted-foreground leading-relaxed">
-						{INTRODUCTION_EXAMPLES.whatIsMCP}
+						{t("hero.mcp_definition")}
 					</p>
 				</div>
 			</section>

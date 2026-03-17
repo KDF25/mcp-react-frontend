@@ -1,2 +1,1 @@
-export * from "./structure.types";
-export * from "./structure.constants";
+export * from "./structure.data";

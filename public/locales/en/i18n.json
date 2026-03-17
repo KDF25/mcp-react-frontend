@@ -1,0 +1,42 @@
+{
+	"header": {
+		"title": "i18n System",
+		"description": "Exhaustive guide to the internationalization architecture. Includes 11 configuration files and global type definitions.",
+		"shared": "SHARED CONFIG",
+		"master": "Master Version"
+	},
+	"detailed_files": {
+		"title": "Detailed File Overview",
+		"items": {
+			"config": {
+				"title": "i18n.config.ts",
+				"desc": "Configuration core. All available namespaces are defined here, resources are registered, and base i18next parameters are configured.",
+				"code": "// NS: ['common', 'home', ...]\n// Resources: { en: {...}, ru: {...} }"
+			},
+			"checker": {
+				"title": "i18n.checker.ts",
+				"desc": "Control file for type safety. Ensures that Russian translations fully match the structure of English standards.",
+				"code": "export const RU_TRANSLATION_CHECKER: TResources = { ... }"
+			},
+			"constants": {
+				"title": "i18n.constants.ts",
+				"desc": "Global system constants: list of supported languages, list of all namespaces, and metadata for structure visualization.",
+				"code": "export const LANGUAGES = ['ru', 'en'];"
+			}
+		}
+	},
+	"architecture": {
+		"title": "Architectural Links",
+		"safety": {
+			"title": "Type Safety Layer",
+			"desc": "Automatic type generation based on JSON schemas. Missing key errors are detected at compile time."
+		},
+		"checker": {
+			"title": "Checker Control",
+			"desc": "Localization completeness control mechanism. Prevents merge if not all strings are translated into target languages."
+		}
+	},
+	"structure": {
+		"title": "File Structure"
+	}
+}

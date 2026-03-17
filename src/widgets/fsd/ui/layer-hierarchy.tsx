@@ -1,8 +1,13 @@
+"use client";
+
+import { useTranslation } from "react-i18next";
+
 import { Badge, Card, CardContent } from "@/shared/ui";
 
 import { RulesProvider } from "@/entities/rules";
 
 export function LayerHierarchy() {
+	const { t } = useTranslation("fsd");
 	const fsd = RulesProvider.getFsdRules();
 
 	return (
@@ -11,7 +16,7 @@ export function LayerHierarchy() {
 				<span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary font-mono text-sm font-bold">
 					01
 				</span>
-				Layer Hierarchy
+				{t("hierarchy.title")}
 			</h2>
 			<Card className="bg-muted/30 border-dashed">
 				<CardContent className="pt-6">
@@ -36,12 +41,12 @@ export function LayerHierarchy() {
 								<div className="flex-1 h-[1px] bg-border" />
 								{index < fsd.layers.length - 1 && (
 									<div className="text-[10px] font-bold text-muted-foreground uppercase whitespace-nowrap px-4 bg-background">
-										Can use ↓
+										{t("hierarchy.can_use")} ↓
 									</div>
 								)}
 								{index === fsd.layers.length - 1 && (
 									<div className="text-[10px] font-bold text-primary uppercase whitespace-nowrap px-4 bg-background">
-										Foundation
+										{t("hierarchy.foundation")}
 									</div>
 								)}
 							</div>

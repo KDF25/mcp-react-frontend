@@ -1,0 +1,27 @@
+{
+	"header": {
+		"title": "Naming & Style Standards",
+		"description": "Strict semantic conventions designed to eliminate ambiguity and technical debt through static analysis."
+	},
+	"policy": {
+		"title": "File Case & Prefixes",
+		"global_label": "Global File Policy",
+		"example_label": "Example:",
+		"type_suffix": "prefix"
+	},
+	"linter": {
+		"title": "Linter Prohibitions",
+		"enforcement": "Static Block Enforcement",
+		"status": "Strict Prohibited"
+	},
+	"syntax": {
+		"title": "Syntax Guidance",
+		"filename": "Code Syntax Guidelines"
+	},
+	"rules": {
+		"noConsole": "Prohibit console.log",
+		"noAny": "Prohibit using any",
+		"strictTyping": "Strict Typing",
+		"noEnums": "Prohibit standard Enums"
+	}
+}

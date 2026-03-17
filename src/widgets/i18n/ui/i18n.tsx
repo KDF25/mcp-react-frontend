@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslation } from "react-i18next";
+
 import { Badge } from "@/shared/ui";
 
 import { I18nArchitectureLink } from "./i18n-architecture-link";
@@ -7,6 +9,8 @@ import { I18nDetailedFiles } from "./i18n-detailed-files";
 import { I18nStructureTree } from "./i18n-structure-tree";
 
 export function I18n() {
+	const { t } = useTranslation("i18n");
+
 	return (
 		<>
 			<div className="space-y-6">
@@ -15,19 +19,17 @@ export function I18n() {
 						variant="outline"
 						className="text-primary px-3 py-1 font-mono text-xs border-primary/30"
 					>
-						SHARED CONFIG
+						{t("header.shared")}
 					</Badge>
 					<Badge className="bg-green-500/10 text-green-600 border-green-500/20 text-[10px] uppercase font-bold tracking-widest">
-						Master Version
+						{t("header.master")}
 					</Badge>
 				</div>
 				<h1 className="text-6xl font-black tracking-tight leading-none">
-					Система i18n
+					{t("header.title")}
 				</h1>
 				<p className="text-2xl text-muted-foreground max-w-4xl font-light">
-					Исчерпывающее руководство по архитектуре
-					интернационализации. Включает 11 файлов конфигурации и
-					глобальные определения типов.
+					{t("header.description")}
 				</p>
 			</div>
 

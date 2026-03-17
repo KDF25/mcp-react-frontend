@@ -8,12 +8,14 @@ import {
 	FolderOpenIcon,
 	LayersIcon
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 import { Card, CardContent, Tree, TreeItem, TreeItemLabel } from "@/shared/ui";
 
 import { I18N_STRUCTURE_ITEMS, Item } from "../model";
 
 export function I18nStructureTree() {
+	const { t } = useTranslation("i18n");
 	const i18nTree = useTree<Item>({
 		dataLoader: {
 			getChildren: (itemId) =>
@@ -41,7 +43,7 @@ export function I18nStructureTree() {
 		<aside className="space-y-6 lg:sticky lg:top-24 h-fit">
 			<div className="space-y-2">
 				<h2 className="text-xs font-bold uppercase tracking-widest text-primary flex items-center gap-2">
-					<LayersIcon className="size-4" /> Structure Tree
+					<LayersIcon className="size-4" /> {t("structure.title")}
 				</h2>
 				<p className="text-[11px] text-muted-foreground uppercase tracking-tighter">
 					Shared layer overview
