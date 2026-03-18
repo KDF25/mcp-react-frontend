@@ -23,6 +23,12 @@
 				"desc": "Глобальные константы системы: список поддерживаемых языков, перечень всех namespaces и метаданные для визуализации структуры.",
 				"code": "export const LANGUAGES = ['ru', 'en'];"
 			}
+		},
+		"purpose": "Назначение файла",
+		"source_label": "Реализация",
+		"types": {
+			"definition": "описание",
+			"typescript": "typescript"
 		}
 	},
 	"architecture": {

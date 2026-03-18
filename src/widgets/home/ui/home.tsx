@@ -2,6 +2,9 @@
 
 import { Separator } from "@/shared/ui";
 
+import { Docs } from "@/widgets/docs";
+
+import { DocsPolicy } from "./docs-policy";
 // import { DocsFeatures } from "@/widgets/docs/ui/docs-features";
 // import { DocsMission } from "@/widgets/docs/ui/docs-mission";
 // import { DocsPolicy } from "@/widgets/docs/ui/docs-policy";
@@ -23,6 +26,8 @@ export function Home() {
 
 			<Separator className="bg-primary/5" />
 			<HomeInfrastructure />
+			<DocsPolicy />
+			<Docs />
 		</>
 	);
 }

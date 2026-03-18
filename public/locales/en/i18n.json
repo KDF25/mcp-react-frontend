@@ -23,6 +23,12 @@
 				"desc": "Global system constants: list of supported languages, list of all namespaces, and metadata for structure visualization.",
 				"code": "export const LANGUAGES = ['ru', 'en'];"
 			}
+		},
+		"purpose": "File Purpose",
+		"source_label": "Source Implementation",
+		"types": {
+			"definition": "definition",
+			"typescript": "typescript"
 		}
 	},
 	"architecture": {

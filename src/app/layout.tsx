@@ -8,6 +8,7 @@ import {
 	SidebarInset,
 	SidebarProvider
 } from "@/shared/ui";
+import { ErrorBoundary } from "@/shared/ui/error-boundary";
 
 import "./globals.css";
 
@@ -41,7 +42,7 @@ export default function RootLayout({
 					<SidebarInset>
 						<DocHeader />
 						<main className="flex flex-1 flex-col gap-8 p-8 max-w-4xl animate-in fade-in duration-500">
-							{children}
+							<ErrorBoundary>{children}</ErrorBoundary>
 						</main>
 					</SidebarInset>
 				</SidebarProvider>

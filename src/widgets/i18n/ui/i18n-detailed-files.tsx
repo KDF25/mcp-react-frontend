@@ -42,7 +42,7 @@ export function I18nDetailedFiles() {
 							<div className="flex items-center gap-2 text-primary">
 								<InfoIcon className="size-5" />
 								<h4 className="font-bold text-lg tracking-tight">
-									Назначение файла
+									{t("detailed_files.purpose")}
 								</h4>
 							</div>
 							<p className="text-lg text-foreground/80 leading-relaxed font-normal">
@@ -56,7 +56,7 @@ export function I18nDetailedFiles() {
 							<div className="flex items-center gap-2">
 								<Code2Icon className="size-3 text-primary" />
 								<span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest">
-									Source Implementation
+									{t("detailed_files.source_label")}
 								</span>
 							</div>
 							<Badge
@@ -64,8 +64,8 @@ export function I18nDetailedFiles() {
 								className="text-[9px] border-zinc-800 text-zinc-500 uppercase"
 							>
 								{data.title.endsWith(".d.ts")
-									? "definition"
-									: "typescript"}
+									? t("detailed_files.types.definition")
+									: t("detailed_files.types.typescript")}
 							</Badge>
 						</div>
 						<CodeBlock
