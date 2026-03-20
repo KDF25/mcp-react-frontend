@@ -3,10 +3,11 @@
 import { useTranslation } from "react-i18next";
 
 import { CodeBlock } from "@/shared/ui";
+import { withErrorBoundary } from "@/shared/ui";
 
 import { CREATOR_DATA } from "../model";
 
-export function CreatorTechnical() {
+function CreatorTechnicalComponent() {
 	const { t } = useTranslation("creator");
 
 	return (
@@ -22,3 +23,5 @@ export function CreatorTechnical() {
 		</section>
 	);
 }
+
+export const CreatorTechnical = withErrorBoundary(CreatorTechnicalComponent);

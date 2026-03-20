@@ -4,8 +4,9 @@ import { ActivityIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import { Card, CardContent } from "@/shared/ui";
+import { withErrorBoundary } from "@/shared/ui";
 
-export function MemoizationCost() {
+function MemoizationCostComponent() {
 	const { t } = useTranslation("memoization");
 
 	return (
@@ -30,3 +31,5 @@ export function MemoizationCost() {
 		</section>
 	);
 }
+
+export const MemoizationCost = withErrorBoundary(MemoizationCostComponent);

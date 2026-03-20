@@ -2,11 +2,11 @@
 
 import { useTranslation } from "react-i18next";
 
-import { Badge, Card, CardContent } from "@/shared/ui";
+import { Badge, Card, CardContent, withErrorBoundary } from "@/shared/ui";
 
 import { RulesProvider } from "@/entities/rules";
 
-export function NamingLinterRules() {
+function NamingLinterRulesComponent() {
 	const { t } = useTranslation("naming");
 	const linter = RulesProvider.getLinterRules();
 	const rulesTranslations = t("rules", {
@@ -53,3 +53,5 @@ export function NamingLinterRules() {
 		</section>
 	);
 }
+
+export const NamingLinterRules = withErrorBoundary(NamingLinterRulesComponent);

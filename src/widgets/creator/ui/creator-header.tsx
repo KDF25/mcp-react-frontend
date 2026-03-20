@@ -4,8 +4,9 @@ import { ShieldCheck } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import { Badge } from "@/shared/ui";
+import { withErrorBoundary } from "@/shared/ui";
 
-export function CreatorHeader() {
+function CreatorHeaderComponent() {
 	const { t } = useTranslation("creator");
 
 	return (
@@ -27,3 +28,5 @@ export function CreatorHeader() {
 		</section>
 	);
 }
+
+export const CreatorHeader = withErrorBoundary(CreatorHeaderComponent);

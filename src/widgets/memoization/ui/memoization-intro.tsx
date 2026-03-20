@@ -3,7 +3,9 @@
 import { InfoIcon, TargetIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-export function MemoizationIntro() {
+import { withErrorBoundary } from "@/shared/ui";
+
+function MemoizationIntroComponent() {
 	const { t } = useTranslation("memoization");
 
 	return (
@@ -28,3 +30,5 @@ export function MemoizationIntro() {
 		</section>
 	);
 }
+
+export const MemoizationIntro = withErrorBoundary(MemoizationIntroComponent);

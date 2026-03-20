@@ -3,9 +3,9 @@
 import { Box, Code2, Database } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { Card, CardContent } from "@/shared/ui";
+import { Card, CardContent, withErrorBoundary } from "@/shared/ui";
 
-export function StructureConverters() {
+function StructureConvertersComponent() {
 	const { t } = useTranslation("structure");
 
 	return (
@@ -59,3 +59,7 @@ export function StructureConverters() {
 		</section>
 	);
 }
+
+export const StructureConverters = withErrorBoundary(
+	StructureConvertersComponent
+);

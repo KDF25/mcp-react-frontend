@@ -11,10 +11,11 @@ import {
 import { useTranslation } from "react-i18next";
 
 import { Card, CardContent, Tree, TreeItem, TreeItemLabel } from "@/shared/ui";
+import { withErrorBoundary } from "@/shared/ui";
 
 import { I18N_STRUCTURE_ITEMS, Item } from "../model";
 
-export function I18nStructureTree() {
+function I18nStructureTreeComponent() {
 	const { t } = useTranslation("i18n");
 	const i18nTree = useTree<Item>({
 		dataLoader: {
@@ -88,3 +89,5 @@ export function I18nStructureTree() {
 		</aside>
 	);
 }
+
+export const I18nStructureTree = withErrorBoundary(I18nStructureTreeComponent);

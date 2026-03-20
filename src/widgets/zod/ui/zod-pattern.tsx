@@ -2,11 +2,11 @@
 
 import { useTranslation } from "react-i18next";
 
-import { Badge, CodeBlock } from "@/shared/ui";
+import { Badge, CodeBlock, withErrorBoundary } from "@/shared/ui";
 
 import { ZOD_DATA } from "../model";
 
-export function ZodPattern() {
+function ZodPatternComponent() {
 	const { t } = useTranslation("zod");
 
 	return (
@@ -43,3 +43,5 @@ export function ZodPattern() {
 		</section>
 	);
 }
+
+export const ZodPattern = withErrorBoundary(ZodPatternComponent);

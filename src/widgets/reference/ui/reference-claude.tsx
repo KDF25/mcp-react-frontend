@@ -10,10 +10,11 @@ import {
 	CardDescription,
 	CardHeader,
 	CardTitle,
-	CodeBlock
+	CodeBlock,
+	withErrorBoundary
 } from "@/shared/ui";
 
-export function ReferenceClaude() {
+function ReferenceClaudeComponent() {
 	const { t } = useTranslation("reference");
 	const claudeConfig = REFERENCE_EXAMPLES.claudeConfig;
 
@@ -65,3 +66,5 @@ export function ReferenceClaude() {
 		</section>
 	);
 }
+
+export const ReferenceClaude = withErrorBoundary(ReferenceClaudeComponent);

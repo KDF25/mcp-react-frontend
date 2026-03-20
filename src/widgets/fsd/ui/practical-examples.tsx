@@ -3,9 +3,9 @@
 import { useTranslation } from "react-i18next";
 
 import { FSD_EXAMPLES } from "@/shared/config";
-import { Badge, CodeBlock } from "@/shared/ui";
+import { Badge, CodeBlock, withErrorBoundary } from "@/shared/ui";
 
-export function PracticalExamples() {
+function PracticalExamplesComponent() {
 	const { t } = useTranslation("fsd");
 
 	return (
@@ -49,3 +49,5 @@ export function PracticalExamples() {
 		</section>
 	);
 }
+
+export const PracticalExamples = withErrorBoundary(PracticalExamplesComponent);

@@ -2,6 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 
+import { withErrorBoundary } from "@/shared/ui";
 import {
 	Badge,
 	Card,
@@ -11,7 +12,7 @@ import {
 	CardTitle
 } from "@/shared/ui";
 
-export function DocsMission() {
+function DocsMissionComponent() {
 	const { t } = useTranslation("docs");
 
 	return (
@@ -54,3 +55,5 @@ export function DocsMission() {
 		</div>
 	);
 }
+
+export const DocsMission = withErrorBoundary(DocsMissionComponent);

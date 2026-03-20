@@ -4,8 +4,9 @@ import { Code2Icon, FolderIcon, InfoIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import { Badge, Card, CodeBlock } from "@/shared/ui";
+import { withErrorBoundary } from "@/shared/ui";
 
-export function I18nDetailedFiles() {
+function I18nDetailedFilesComponent() {
 	const { t } = useTranslation("i18n");
 
 	const files = t("detailed_files.items", {
@@ -79,3 +80,5 @@ export function I18nDetailedFiles() {
 		</div>
 	);
 }
+
+export const I18nDetailedFiles = withErrorBoundary(I18nDetailedFilesComponent);

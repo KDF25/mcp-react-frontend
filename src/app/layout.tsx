@@ -8,7 +8,7 @@ import {
 	SidebarInset,
 	SidebarProvider
 } from "@/shared/ui";
-import { ErrorBoundary } from "@/shared/ui/error-boundary";
+import { ErrorBoundary } from "@/shared/ui";
 
 import "./globals.css";
 

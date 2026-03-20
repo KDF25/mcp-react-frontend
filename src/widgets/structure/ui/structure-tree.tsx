@@ -2,9 +2,16 @@
 
 import { useTranslation } from "react-i18next";
 
-import { Badge, Card, CardContent, CardHeader, CodeBlock } from "@/shared/ui";
+import {
+	Badge,
+	Card,
+	CardContent,
+	CardHeader,
+	CodeBlock,
+	withErrorBoundary
+} from "@/shared/ui";
 
-export function StructureTree() {
+function StructureTreeComponent() {
 	const { t } = useTranslation("structure");
 
 	const renderTree = (label: string, lines: string[]) => (
@@ -78,3 +85,5 @@ export function StructureTree() {
 		</section>
 	);
 }
+
+export const StructureTree = withErrorBoundary(StructureTreeComponent);

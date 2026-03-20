@@ -3,9 +3,9 @@
 import { useTranslation } from "react-i18next";
 
 import { NAMING_EXAMPLES } from "@/shared/config";
-import { CodeBlock } from "@/shared/ui";
+import { CodeBlock, withErrorBoundary } from "@/shared/ui";
 
-export function NamingSyntaxGuidance() {
+function NamingSyntaxGuidanceComponent() {
 	const { t } = useTranslation("naming");
 
 	return (
@@ -25,3 +25,7 @@ export function NamingSyntaxGuidance() {
 		</section>
 	);
 }
+
+export const NamingSyntaxGuidance = withErrorBoundary(
+	NamingSyntaxGuidanceComponent
+);

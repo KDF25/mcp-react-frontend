@@ -2,7 +2,9 @@
 
 import { useTranslation } from "react-i18next";
 
-export function CreatorResponsibility() {
+import { withErrorBoundary } from "@/shared/ui";
+
+function CreatorResponsibilityComponent() {
 	const { t } = useTranslation("creator");
 	const items = t("responsibility.items", {
 		returnObjects: true,
@@ -30,3 +32,7 @@ export function CreatorResponsibility() {
 		</section>
 	);
 }
+
+export const CreatorResponsibility = withErrorBoundary(
+	CreatorResponsibilityComponent
+);

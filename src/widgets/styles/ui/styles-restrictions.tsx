@@ -2,11 +2,17 @@
 
 import { useTranslation } from "react-i18next";
 
-import { Badge, Card, CardContent, CardHeader } from "@/shared/ui";
+import {
+	Badge,
+	Card,
+	CardContent,
+	CardHeader,
+	withErrorBoundary
+} from "@/shared/ui";
 
 import { RulesProvider } from "@/entities/rules";
 
-export function StylesRestrictions() {
+function StylesRestrictionsComponent() {
 	const { t } = useTranslation("styles");
 	const stylesRules = RulesProvider.getRules().styles;
 
@@ -75,3 +81,7 @@ export function StylesRestrictions() {
 		</section>
 	);
 }
+
+export const StylesRestrictions = withErrorBoundary(
+	StylesRestrictionsComponent
+);

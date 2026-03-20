@@ -4,10 +4,11 @@ import { Github, Mail } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "@/shared/ui";
+import { withErrorBoundary } from "@/shared/ui";
 
 import { CREATOR_DATA } from "../model";
 
-export function CreatorConnections() {
+function CreatorConnectionsComponent() {
 	const { t } = useTranslation("creator");
 
 	return (
@@ -34,3 +35,7 @@ export function CreatorConnections() {
 		</section>
 	);
 }
+
+export const CreatorConnections = withErrorBoundary(
+	CreatorConnectionsComponent
+);

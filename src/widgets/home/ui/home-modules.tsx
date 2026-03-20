@@ -4,7 +4,13 @@ import { Activity, Layers, ShieldCheck, Type } from "lucide-react";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 
-import { Card, CardDescription, CardHeader, CardTitle } from "@/shared/ui";
+import {
+	Card,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+	withErrorBoundary
+} from "@/shared/ui";
 
 const ICON_MAP = {
 	ShieldCheck: ShieldCheck,
@@ -18,7 +24,7 @@ const MODULES_CONFIG = [
 	{ key: "naming", icon: Type, link: "/naming" }
 ];
 
-export function HomeModules() {
+function HomeModulesComponent() {
 	const { t } = useTranslation("home");
 	const features = t("features", {
 		returnObjects: true,
@@ -61,3 +67,5 @@ export function HomeModules() {
 		</section>
 	);
 }
+
+export const HomeModules = withErrorBoundary(HomeModulesComponent);

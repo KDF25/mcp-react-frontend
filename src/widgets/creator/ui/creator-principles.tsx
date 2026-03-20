@@ -3,8 +3,9 @@
 import { useTranslation } from "react-i18next";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui";
+import { withErrorBoundary } from "@/shared/ui";
 
-export function CreatorPrinciples() {
+function CreatorPrinciplesComponent() {
 	const { t } = useTranslation("creator");
 	const items = t("principles.items", {
 		returnObjects: true,
@@ -41,3 +42,5 @@ export function CreatorPrinciples() {
 		</section>
 	);
 }
+
+export const CreatorPrinciples = withErrorBoundary(CreatorPrinciplesComponent);

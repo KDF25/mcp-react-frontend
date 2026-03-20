@@ -5,3 +5,4 @@ export * from "./shadcn-ui";
 export * from "./team-switcher";
 export * from "./doc-header";
 export * from "./tree";
+export * from "./error-boundary";

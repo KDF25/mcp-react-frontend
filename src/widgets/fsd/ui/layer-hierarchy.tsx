@@ -2,11 +2,11 @@
 
 import { useTranslation } from "react-i18next";
 
-import { Badge, Card, CardContent } from "@/shared/ui";
+import { Badge, Card, CardContent, withErrorBoundary } from "@/shared/ui";
 
 import { RulesProvider } from "@/entities/rules";
 
-export function LayerHierarchy() {
+function LayerHierarchyComponent() {
 	const { t } = useTranslation("fsd");
 	const fsd = RulesProvider.getFsdRules();
 
@@ -57,3 +57,5 @@ export function LayerHierarchy() {
 		</section>
 	);
 }
+
+export const LayerHierarchy = withErrorBoundary(LayerHierarchyComponent);

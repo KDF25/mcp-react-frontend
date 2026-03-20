@@ -2,11 +2,18 @@
 
 import { useTranslation } from "react-i18next";
 
-import { Badge, Card, CardContent, CardHeader, CardTitle } from "@/shared/ui";
+import {
+	Badge,
+	Card,
+	CardContent,
+	CardHeader,
+	CardTitle,
+	withErrorBoundary
+} from "@/shared/ui";
 
 import { RulesProvider } from "@/entities/rules";
 
-export function ImportBoundaries() {
+function ImportBoundariesComponent() {
 	const { t } = useTranslation("fsd");
 	const fsd = RulesProvider.getFsdRules();
 
@@ -56,3 +63,5 @@ export function ImportBoundaries() {
 		</section>
 	);
 }
+
+export const ImportBoundaries = withErrorBoundary(ImportBoundariesComponent);

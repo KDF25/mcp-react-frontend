@@ -2,7 +2,9 @@
 
 import { useTranslation } from "react-i18next";
 
-export function CreatorRole() {
+import { withErrorBoundary } from "@/shared/ui";
+
+function CreatorRoleComponent() {
 	const { t } = useTranslation("creator");
 
 	return (
@@ -16,3 +18,5 @@ export function CreatorRole() {
 		</section>
 	);
 }
+
+export const CreatorRole = withErrorBoundary(CreatorRoleComponent);

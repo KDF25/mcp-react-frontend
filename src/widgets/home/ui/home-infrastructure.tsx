@@ -3,7 +3,9 @@
 import { Zap } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-export function HomeInfrastructure() {
+import { withErrorBoundary } from "@/shared/ui";
+
+function HomeInfrastructureComponent() {
 	const { t } = useTranslation("home");
 	const infraItems = t("infrastructure", {
 		returnObjects: true,
@@ -28,3 +30,7 @@ export function HomeInfrastructure() {
 		</section>
 	);
 }
+
+export const HomeInfrastructure = withErrorBoundary(
+	HomeInfrastructureComponent
+);

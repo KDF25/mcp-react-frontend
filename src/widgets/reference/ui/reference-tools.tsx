@@ -9,10 +9,11 @@ import {
 	CardContent,
 	CardHeader,
 	CardTitle,
-	CodeBlock
+	CodeBlock,
+	withErrorBoundary
 } from "@/shared/ui";
 
-export function ReferenceTools() {
+function ReferenceToolsComponent() {
 	const { t } = useTranslation("reference");
 
 	return (
@@ -76,3 +77,5 @@ export function ReferenceTools() {
 		</section>
 	);
 }
+
+export const ReferenceTools = withErrorBoundary(ReferenceToolsComponent);

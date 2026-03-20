@@ -4,9 +4,9 @@ import { ArrowRight, Radio } from "lucide-react";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 
-import { Badge, Button } from "@/shared/ui";
+import { Badge, Button, withErrorBoundary } from "@/shared/ui";
 
-export function HomeHero() {
+function HomeHeroComponent() {
 	const { t } = useTranslation("home");
 	const titleFirst = t("hero.title_first");
 	const titleSecond = t("hero.title_second");
@@ -50,3 +50,5 @@ export function HomeHero() {
 		</section>
 	);
 }
+
+export const HomeHero = withErrorBoundary(HomeHeroComponent);

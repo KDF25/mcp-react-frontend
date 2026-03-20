@@ -3,6 +3,7 @@
 import { BrainIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+import { withErrorBoundary } from "@/shared/ui";
 import {
 	Badge,
 	Card,
@@ -12,7 +13,7 @@ import {
 	CodeBlock
 } from "@/shared/ui";
 
-export function MemoizationTools() {
+function MemoizationToolsComponent() {
 	const { t } = useTranslation("memoization");
 
 	const tools = ["useMemo", "useCallback", "memo"] as const;
@@ -62,3 +63,5 @@ export function MemoizationTools() {
 		</section>
 	);
 }
+
+export const MemoizationTools = withErrorBoundary(MemoizationToolsComponent);

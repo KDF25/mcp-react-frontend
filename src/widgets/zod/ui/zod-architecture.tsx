@@ -2,9 +2,9 @@
 
 import { useTranslation } from "react-i18next";
 
-import { Card, CardContent, CardHeader } from "@/shared/ui";
+import { Card, CardContent, CardHeader, withErrorBoundary } from "@/shared/ui";
 
-export function ZodArchitecture() {
+function ZodArchitectureComponent() {
 	const { t } = useTranslation("zod");
 	const items = t("architecture.items", {
 		returnObjects: true,
@@ -45,3 +45,5 @@ export function ZodArchitecture() {
 		</section>
 	);
 }
+
+export const ZodArchitecture = withErrorBoundary(ZodArchitectureComponent);

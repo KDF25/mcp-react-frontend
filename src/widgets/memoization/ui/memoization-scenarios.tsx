@@ -3,7 +3,9 @@
 import { CheckCircle2Icon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-export function MemoizationScenarios() {
+import { withErrorBoundary } from "@/shared/ui";
+
+function MemoizationScenariosComponent() {
 	const { t } = useTranslation("memoization");
 
 	const items = t("scenarios.items", {
@@ -32,3 +34,7 @@ export function MemoizationScenarios() {
 		</section>
 	);
 }
+
+export const MemoizationScenarios = withErrorBoundary(
+	MemoizationScenariosComponent
+);

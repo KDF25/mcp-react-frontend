@@ -2,9 +2,9 @@
 
 import { useTranslation } from "react-i18next";
 
-import { Card, CardContent } from "@/shared/ui";
+import { Card, CardContent, withErrorBoundary } from "@/shared/ui";
 
-export function IntroCapabilities() {
+function IntroCapabilitiesComponent() {
 	const { t } = useTranslation("introduction");
 
 	const notItems = t("capabilities.not_items", {
@@ -71,3 +71,5 @@ export function IntroCapabilities() {
 		</div>
 	);
 }
+
+export const IntroCapabilities = withErrorBoundary(IntroCapabilitiesComponent);

@@ -2,11 +2,11 @@
 
 import { useTranslation } from "react-i18next";
 
-import { Badge } from "@/shared/ui";
+import { Badge, withErrorBoundary } from "@/shared/ui";
 
 import { RulesProvider } from "@/entities/rules";
 
-export function GlobalSettings() {
+function GlobalSettingsComponent() {
 	const { t } = useTranslation("fsd");
 	const fsd = RulesProvider.getFsdRules();
 
@@ -41,3 +41,5 @@ export function GlobalSettings() {
 		</section>
 	);
 }
+
+export const GlobalSettings = withErrorBoundary(GlobalSettingsComponent);

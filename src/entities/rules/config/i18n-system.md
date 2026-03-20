@@ -75,10 +75,10 @@ export const getNamespacePath = (lng: string, ns: string): string => {
 *   **Содержимое:**
 ```typescript
 import type { TResources } from "./i18n.config";
-import common_ru from "../../../../public/locales/ru/common.json";
+import common from "../../../../public/locales/ru/common.json";
 
 export const RU_TRANSLATION_CHECKER: TResources = {
-    common: common_ru, // Ошибка TypeScript при несовпадении
+    common: common, // Ошибка TypeScript при несовпадении
     // ...
 };
 ```

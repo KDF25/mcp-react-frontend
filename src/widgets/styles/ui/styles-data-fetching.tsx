@@ -2,13 +2,20 @@
 
 import { useTranslation } from "react-i18next";
 
-import { Badge, Card, CardContent, CardHeader, CodeBlock } from "@/shared/ui";
+import {
+	Badge,
+	Card,
+	CardContent,
+	CardHeader,
+	CodeBlock,
+	withErrorBoundary
+} from "@/shared/ui";
 
 import { RulesProvider } from "@/entities/rules";
 
 import { STYLES_DATA } from "../model";
 
-export function StylesDataFetching() {
+function StylesDataFetchingComponent() {
 	const { t } = useTranslation("styles");
 	const fetchingRules = RulesProvider.getRules().patterns.dataFetching;
 
@@ -56,3 +63,7 @@ export function StylesDataFetching() {
 		</section>
 	);
 }
+
+export const StylesDataFetching = withErrorBoundary(
+	StylesDataFetchingComponent
+);

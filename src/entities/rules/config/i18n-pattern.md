@@ -109,10 +109,10 @@ export default i18n;
 ### 6. i18n.checker.ts
 Статическая проверка: если в RU JSON не хватает ключа, который есть в EN — будет ошибка TS.
 ```typescript
-import common_ru from "../../../../public/locales/ru/common.json";
+import common from "../../../../public/locales/ru/common.json";
 import type { TResources } from "./i18n.config";
 
 export const RU_TRANSLATION_CHECKER: TResources = {
-	common: common_ru
+	common: common
 };
 ```

@@ -3,7 +3,9 @@
 import { AlertTriangleIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-export function MemoizationAntipatterns() {
+import { withErrorBoundary } from "@/shared/ui";
+
+function MemoizationAntipatternsComponent() {
 	const { t } = useTranslation("memoization");
 
 	const items = t("antipatterns.items", {
@@ -35,3 +37,7 @@ export function MemoizationAntipatterns() {
 		</section>
 	);
 }
+
+export const MemoizationAntipatterns = withErrorBoundary(
+	MemoizationAntipatternsComponent
+);

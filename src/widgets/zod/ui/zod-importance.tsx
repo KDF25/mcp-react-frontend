@@ -2,7 +2,9 @@
 
 import { useTranslation } from "react-i18next";
 
-export function ZodImportance() {
+import { withErrorBoundary } from "@/shared/ui";
+
+function ZodImportanceComponent() {
 	const { t } = useTranslation("zod");
 	const items = t("importance.items", {
 		returnObjects: true,
@@ -28,3 +30,5 @@ export function ZodImportance() {
 		</section>
 	);
 }
+
+export const ZodImportance = withErrorBoundary(ZodImportanceComponent);

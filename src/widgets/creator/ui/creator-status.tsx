@@ -2,7 +2,9 @@
 
 import { useTranslation } from "react-i18next";
 
-export function CreatorStatus() {
+import { withErrorBoundary } from "@/shared/ui";
+
+function CreatorStatusComponent() {
 	const { t } = useTranslation("creator");
 
 	return (
@@ -19,3 +21,5 @@ export function CreatorStatus() {
 		</div>
 	);
 }
+
+export const CreatorStatus = withErrorBoundary(CreatorStatusComponent);

@@ -2,9 +2,9 @@
 
 import { useTranslation } from "react-i18next";
 
-import { Badge, Card, CardContent } from "@/shared/ui";
+import { Badge, Card, CardContent, withErrorBoundary } from "@/shared/ui";
 
-export function ReferenceRest() {
+function ReferenceRestComponent() {
 	const { t } = useTranslation("reference");
 	const apis = [
 		{
@@ -54,3 +54,5 @@ export function ReferenceRest() {
 		</section>
 	);
 }
+
+export const ReferenceRest = withErrorBoundary(ReferenceRestComponent);

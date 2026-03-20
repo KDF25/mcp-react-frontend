@@ -5,11 +5,18 @@ import { useTree } from "@headless-tree/react";
 import { FileIcon, FolderIcon, FolderOpenIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { Card, CardContent, Tree, TreeItem, TreeItemLabel } from "@/shared/ui";
+import {
+	Card,
+	CardContent,
+	Tree,
+	TreeItem,
+	TreeItemLabel,
+	withErrorBoundary
+} from "@/shared/ui";
 
 import { Item, WIDGET_STRUCTURE_ITEMS } from "../model";
 
-export function WidgetModelStructure() {
+function WidgetModelStructureComponent() {
 	const { t } = useTranslation("fsd");
 	const widgetTree = useTree<Item>({
 		dataLoader: {
@@ -89,3 +96,7 @@ export function WidgetModelStructure() {
 		</section>
 	);
 }
+
+export const WidgetModelStructure = withErrorBoundary(
+	WidgetModelStructureComponent
+);

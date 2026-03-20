@@ -2,7 +2,9 @@
 
 import { useTranslation } from "react-i18next";
 
-export function DocsPolicy() {
+import { withErrorBoundary } from "@/shared/ui";
+
+function DocsPolicyComponent() {
 	const { t } = useTranslation("docs");
 
 	return (
@@ -14,3 +16,5 @@ export function DocsPolicy() {
 		</div>
 	);
 }
+
+export const DocsPolicy = withErrorBoundary(DocsPolicyComponent);

@@ -2,13 +2,20 @@
 
 import { useTranslation } from "react-i18next";
 
-import { Badge, Card, CardContent, CardHeader, CodeBlock } from "@/shared/ui";
+import {
+	Badge,
+	Card,
+	CardContent,
+	CardHeader,
+	CodeBlock,
+	withErrorBoundary
+} from "@/shared/ui";
 
 import { RulesProvider } from "@/entities/rules";
 
 import { STRUCTURE_DATA } from "../model";
 
-export function StructureConstraints() {
+function StructureConstraintsComponent() {
 	const { t } = useTranslation("structure");
 	const structureRules = RulesProvider.getRules().structure;
 
@@ -127,3 +134,7 @@ export function StructureConstraints() {
 		</section>
 	);
 }
+
+export const StructureConstraints = withErrorBoundary(
+	StructureConstraintsComponent
+);

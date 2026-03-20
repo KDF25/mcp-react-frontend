@@ -5,11 +5,18 @@ import { useTree } from "@headless-tree/react";
 import { FileIcon, FolderIcon, FolderOpenIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { Card, CardContent, Tree, TreeItem, TreeItemLabel } from "@/shared/ui";
+import {
+	Card,
+	CardContent,
+	Tree,
+	TreeItem,
+	TreeItemLabel,
+	withErrorBoundary
+} from "@/shared/ui";
 
 import { ENTITY_STRUCTURE_ITEMS, Item } from "../model";
 
-export function EntityStructure() {
+function EntityStructureComponent() {
 	const { t } = useTranslation("fsd");
 	const entityItems = t("entities.items", {
 		returnObjects: true,
@@ -122,3 +129,5 @@ export function EntityStructure() {
 		</section>
 	);
 }
+
+export const EntityStructure = withErrorBoundary(EntityStructureComponent);

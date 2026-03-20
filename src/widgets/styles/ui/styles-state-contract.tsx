@@ -3,11 +3,11 @@
 import { GitCommit, Layout, ShieldCheck } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { Badge, Card, CardContent } from "@/shared/ui";
+import { Badge, Card, CardContent, withErrorBoundary } from "@/shared/ui";
 
 import { RulesProvider } from "@/entities/rules";
 
-export function StylesStateContract() {
+function StylesStateContractComponent() {
 	const { t } = useTranslation("styles");
 	const stateRules = RulesProvider.getRules().patterns.stateManagement;
 
@@ -89,3 +89,7 @@ export function StylesStateContract() {
 		</section>
 	);
 }
+
+export const StylesStateContract = withErrorBoundary(
+	StylesStateContractComponent
+);

@@ -3,8 +3,9 @@
 import { useTranslation } from "react-i18next";
 
 import { Badge, Card, CardContent, CardHeader, CardTitle } from "@/shared/ui";
+import { withErrorBoundary } from "@/shared/ui";
 
-export function DocsFeatures() {
+function DocsFeaturesComponent() {
 	const { t } = useTranslation("docs");
 
 	return (
@@ -40,3 +41,5 @@ export function DocsFeatures() {
 		</div>
 	);
 }
+
+export const DocsFeatures = withErrorBoundary(DocsFeaturesComponent);

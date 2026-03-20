@@ -2,11 +2,17 @@
 
 import { useTranslation } from "react-i18next";
 
-import { Badge, Card, CardContent, CardHeader } from "@/shared/ui";
+import {
+	Badge,
+	Card,
+	CardContent,
+	CardHeader,
+	withErrorBoundary
+} from "@/shared/ui";
 
 import { RulesProvider } from "@/entities/rules";
 
-export function NamingFilePolicy() {
+function NamingFilePolicyComponent() {
 	const { t } = useTranslation("naming");
 	const naming = RulesProvider.getNamingRules();
 
@@ -65,3 +71,5 @@ export function NamingFilePolicy() {
 		</section>
 	);
 }
+
+export const NamingFilePolicy = withErrorBoundary(NamingFilePolicyComponent);

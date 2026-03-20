@@ -3,9 +3,9 @@
 import { BookIcon, SearchIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui";
+import { withErrorBoundary } from "@/shared/ui";
 
-export function I18nArchitectureLink() {
+function I18nArchitectureLinkComponent() {
 	const { t } = useTranslation("i18n");
 
 	return (
@@ -42,3 +42,7 @@ export function I18nArchitectureLink() {
 		</section>
 	);
 }
+
+export const I18nArchitectureLink = withErrorBoundary(
+	I18nArchitectureLinkComponent
+);

@@ -3,8 +3,9 @@
 import { useTranslation } from "react-i18next";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui";
+import { withErrorBoundary } from "@/shared/ui";
 
-export function IntroPhilosophy() {
+function IntroPhilosophyComponent() {
 	const { t } = useTranslation("introduction");
 	const items = t("philosophy.items", {
 		returnObjects: true,
@@ -43,3 +44,5 @@ export function IntroPhilosophy() {
 		</section>
 	);
 }
+
+export const IntroPhilosophy = withErrorBoundary(IntroPhilosophyComponent);

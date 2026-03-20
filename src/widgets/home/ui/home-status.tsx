@@ -2,7 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 
-import { Badge, Card, CardContent } from "@/shared/ui";
+import { Badge, Card, CardContent, withErrorBoundary } from "@/shared/ui";
 
 const STATUS_CONFIG = [
 	{ key: "core", value: "SSE (v1.0.0)", status: "active" },
@@ -11,7 +11,7 @@ const STATUS_CONFIG = [
 	{ key: "validation", value: "Locked", status: "stable" }
 ];
 
-export function HomeStatus() {
+function HomeStatusComponent() {
 	const { t } = useTranslation("home");
 	const labels = t("status", {
 		returnObjects: true,
@@ -43,3 +43,5 @@ export function HomeStatus() {
 		</div>
 	);
 }
+
+export const HomeStatus = withErrorBoundary(HomeStatusComponent);
