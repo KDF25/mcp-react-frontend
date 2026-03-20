@@ -5,6 +5,7 @@ import fsd from "../../../../public/locales/ru/fsd.json";
 import home from "../../../../public/locales/ru/home.json";
 import i18n_ns from "../../../../public/locales/ru/i18n.json";
 import introduction from "../../../../public/locales/ru/introduction.json";
+import memoization from "../../../../public/locales/ru/memoization.json";
 import naming from "../../../../public/locales/ru/naming.json";
 import reference from "../../../../public/locales/ru/reference.json";
 import structure from "../../../../public/locales/ru/structure.json";
@@ -25,5 +26,6 @@ export const RU_TRANSLATION_CHECKER: TResources = {
 	home: home,
 	fsd: fsd,
 	docs: docs,
-	i18n: i18n_ns
+	i18n: i18n_ns,
+	memoization: memoization
 };

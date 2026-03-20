@@ -1,0 +1,53 @@
+{
+	"header": {
+		"title": "React Memoization",
+		"description": "Comprehensive guide to performance optimization: when, why, and how to reuse computation results and references."
+	},
+	"intro": {
+		"title": "Introduction",
+		"description": "Memoization is saving the result of a function execution to prevent re-computation given the same input parameters.",
+		"goal": "Goal: Maintain reference stability and cache heavy computations to minimize redundant re-renders."
+	},
+	"tools": {
+		"useMemo": {
+			"title": "useMemo",
+			"description": "Memoization of a computation result.",
+			"usage": "Used for heavy calculations or creating stable object/array references.",
+			"code": "const value = useMemo(() => compute(a, b), [a, b]);"
+		},
+		"useCallback": {
+			"title": "useCallback",
+			"description": "Memoization of a function reference.",
+			"usage": "Essential when passing functions to memoized components or hook dependencies.",
+			"code": "const handler = useCallback(() => { ... }, [dep]);"
+		},
+		"memo": {
+			"title": "React.memo",
+			"description": "Preventing redundant component re-renders.",
+			"usage": "Wraps a component for shallow prop comparison.",
+			"code": "export const MyComp = memo(({ props }) => { ... });"
+		}
+	},
+	"scenarios": {
+		"title": "Common Scenarios",
+		"items": {
+			"props": "Passing stable references (functions, objects) to child memo components.",
+			"deps": "Stabilizing dependencies for useEffect, useMemo, and other hooks.",
+			"heavy": "Caching results of filtering, sorting, or complex data transformations."
+		}
+	},
+	"antipatterns": {
+		"title": "Anti-patterns",
+		"items": [
+			"Wrapping everything without profiling first.",
+			"Memoizing cheap operations (e.g., number addition).",
+			"Using React.memo for small and simple components.",
+			"Complex dependency arrays leading to subtle bugs."
+		]
+	},
+	"cost": {
+		"title": "Optimization Cost",
+		"description": "Memoization is not free. It consumes additional memory and CPU resources for dependency comparison.",
+		"conclusion": "Memoization is an optimization, not a default practice. Measure first, optimize second."
+	}
+}

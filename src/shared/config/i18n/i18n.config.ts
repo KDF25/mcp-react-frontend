@@ -5,6 +5,7 @@ import fsd from "../../../../public/locales/en/fsd.json";
 import home from "../../../../public/locales/en/home.json";
 import i18n_ns from "../../../../public/locales/en/i18n.json";
 import introduction from "../../../../public/locales/en/introduction.json";
+import memoization from "../../../../public/locales/en/memoization.json";
 import naming from "../../../../public/locales/en/naming.json";
 import reference from "../../../../public/locales/en/reference.json";
 import structure from "../../../../public/locales/en/structure.json";
@@ -25,6 +26,7 @@ export type THome = typeof home;
 export type TFsd = typeof fsd;
 export type TDocs = typeof docs;
 export type TI18n = typeof i18n_ns;
+export type TMemoization = typeof memoization;
 
 export type TResources = {
 	common: TCommon;
@@ -39,6 +41,7 @@ export type TResources = {
 	fsd: TFsd;
 	docs: TDocs;
 	i18n: TI18n;
+	memoization: TMemoization;
 };
 
 export const NS = [
@@ -53,7 +56,8 @@ export const NS = [
 	"home",
 	"fsd",
 	"docs",
-	"i18n"
+	"i18n",
+	"memoization"
 ] as const;
 export type TNS = (typeof NS)[number];
 export type TCommonKeys = TNestedKeyOf<TCommon>;

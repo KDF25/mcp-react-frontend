@@ -9,15 +9,17 @@ interface Props {
 
 interface State {
 	hasError: boolean;
+	error: Error | null;
 }
 
 export class ErrorBoundary extends Component<Props, State> {
 	public state: State = {
-		hasError: false
+		hasError: false,
+		error: null
 	};
 
-	public static getDerivedStateFromError(_: Error): State {
-		return { hasError: true };
+	public static getDerivedStateFromError(error: Error): State {
+		return { hasError: true, error };
 	}
 
 	public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
@@ -28,8 +30,19 @@ export class ErrorBoundary extends Component<Props, State> {
 		if (this.state.hasError) {
 			return (
 				this.props.fallback || (
-					<div className="p-4 rounded-md border border-destructive/50 bg-destructive/10 text-sm text-destructive">
-						An error occurred while rendering this component.
+					<div className="p-4 rounded-lg flex flex-col items-start gap-2 border border-destructive/50 bg-destructive/10 text-destructive font-mono text-sm max-w-full overflow-x-auto">
+						<span className="font-bold flex items-center gap-2">
+							⚠️ An error occurred while rendering this component.
+						</span>
+						<details className="mt-2 w-full">
+							<summary className="cursor-pointer font-semibold opacity-80 hover:opacity-100">
+								{this.state.error?.message ||
+									"Неизвестная ошибка"}
+							</summary>
+							<pre className="mt-2 text-xs opacity-70 whitespace-pre-wrap">
+								{this.state.error?.stack}
+							</pre>
+						</details>
 					</div>
 				)
 			);

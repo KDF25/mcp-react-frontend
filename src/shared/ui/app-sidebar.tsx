@@ -73,6 +73,10 @@ const data = {
 				{
 					title: "Widget Structure",
 					url: `${ENUM_ROUTES.MAIN.FSD}#widgets-structure`
+				},
+				{
+					title: "Memoization Strategy",
+					url: ENUM_ROUTES.MAIN.MEMOIZATION
 				}
 			]
 		},
