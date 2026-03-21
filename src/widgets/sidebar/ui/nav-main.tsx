@@ -16,7 +16,7 @@ import {
 	SidebarMenuSub,
 	SidebarMenuSubButton,
 	SidebarMenuSubItem
-} from "./shadcn-ui";
+} from "@/shared/ui";
 
 export function NavMain({
 	items

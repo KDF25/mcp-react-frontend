@@ -1,6 +1,7 @@
 import common from "../../../../public/locales/ru/common.json";
 import creator from "../../../../public/locales/ru/creator.json";
 import docs from "../../../../public/locales/ru/docs.json";
+import error_boundary from "../../../../public/locales/ru/error_boundary.json";
 import fsd from "../../../../public/locales/ru/fsd.json";
 import home from "../../../../public/locales/ru/home.json";
 import i18n_ns from "../../../../public/locales/ru/i18n.json";
@@ -27,5 +28,6 @@ export const RU_TRANSLATION_CHECKER: TResources = {
 	fsd: fsd,
 	docs: docs,
 	i18n: i18n_ns,
-	memoization: memoization
+	memoization: memoization,
+	error_boundary: error_boundary
 };

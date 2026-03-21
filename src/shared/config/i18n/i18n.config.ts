@@ -1,6 +1,7 @@
 import common from "../../../../public/locales/en/common.json";
 import creator from "../../../../public/locales/en/creator.json";
 import docs from "../../../../public/locales/en/docs.json";
+import error_boundary from "../../../../public/locales/en/error_boundary.json";
 import fsd from "../../../../public/locales/en/fsd.json";
 import home from "../../../../public/locales/en/home.json";
 import i18n_ns from "../../../../public/locales/en/i18n.json";
@@ -27,6 +28,7 @@ export type TFsd = typeof fsd;
 export type TDocs = typeof docs;
 export type TI18n = typeof i18n_ns;
 export type TMemoization = typeof memoization;
+export type TErrorBoundary = typeof error_boundary;
 
 export type TResources = {
 	common: TCommon;
@@ -42,6 +44,7 @@ export type TResources = {
 	docs: TDocs;
 	i18n: TI18n;
 	memoization: TMemoization;
+	error_boundary: TErrorBoundary;
 };
 
 export const NS = [
@@ -57,7 +60,8 @@ export const NS = [
 	"fsd",
 	"docs",
 	"i18n",
-	"memoization"
+	"memoization",
+	"error_boundary"
 ] as const;
 export type TNS = (typeof NS)[number];
 export type TCommonKeys = TNestedKeyOf<TCommon>;

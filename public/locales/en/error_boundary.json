@@ -1,0 +1,22 @@
+{
+	"header": {
+		"title": "Error Boundary",
+		"description": "Isolating UI errors and ensuring application stability."
+	},
+	"intro": {
+		"title": "Concept",
+		"description": "Error boundaries are React components that catch JavaScript errors anywhere in their child component tree, log those errors, and display a fallback UI."
+	},
+	"structure": {
+		"title": "Module Architecture",
+		"description": "Following FSD, the core error boundary code is located in the Shared layer."
+	},
+	"rules": {
+		"title": "Usage Rules",
+		"items": {
+			"global": "A global wrapper is mandatory for the entire application.",
+			"widgets": "All widgets must be isolated using withErrorBoundary.",
+			"logging": "Automatic logging to the console (dev) and monitoring system."
+		}
+	}
+}

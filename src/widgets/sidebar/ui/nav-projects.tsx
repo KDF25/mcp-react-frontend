@@ -10,7 +10,7 @@ import {
 	SidebarMenu,
 	SidebarMenuButton,
 	SidebarMenuItem
-} from "./shadcn-ui";
+} from "@/shared/ui";
 
 export function NavProjects({
 	projects

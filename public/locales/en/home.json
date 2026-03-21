@@ -26,6 +26,10 @@
 		"naming": {
 			"title": "Semantic Naming",
 			"description": "Enforcing consistent file patterns and variable naming."
+		},
+		"error_boundary": {
+			"title": "Error Boundary",
+			"description": "Failure isolation and preventing UI-wide crashes."
 		}
 	},
 	"infrastructure": {

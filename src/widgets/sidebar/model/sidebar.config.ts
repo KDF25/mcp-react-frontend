@@ -1,5 +1,3 @@
-"use client";
-
 import {
 	BookOpen,
 	Bot,
@@ -9,22 +7,10 @@ import {
 	Settings2,
 	SquareTerminal
 } from "lucide-react";
-import * as React from "react";
 
-import { ENUM_ROUTES } from "@/shared/config/routes";
+import { ENUM_ROUTES } from "@/shared/config";
 
-import { NavMain } from "./nav-main";
-import { NavProjects } from "./nav-projects";
-import {
-	Sidebar,
-	SidebarContent,
-	SidebarHeader,
-	SidebarRail
-} from "./shadcn-ui";
-import { TeamSwitcher } from "./team-switcher";
-
-// This is real MCP documentation data.
-const data = {
+export const SIDEBAR_CONFIG = {
 	user: {
 		name: "MCP Admin",
 		email: "admin@mcp-server.dev",
@@ -92,6 +78,10 @@ const data = {
 				{
 					title: "Linter Rules",
 					url: `${ENUM_ROUTES.MAIN.NAMING}#linter`
+				},
+				{
+					title: "Styling Standards",
+					url: ENUM_ROUTES.MAIN.STYLES
 				}
 			]
 		},
@@ -107,6 +97,14 @@ const data = {
 				{
 					title: "Zod & Typing",
 					url: ENUM_ROUTES.MAIN.ZOD
+				},
+				{
+					title: "Error Boundaries",
+					url: ENUM_ROUTES.MAIN.ERROR_BOUNDARY
+				},
+				{
+					title: "Project Structure",
+					url: ENUM_ROUTES.MAIN.STRUCTURE
 				},
 				{
 					title: "Shared Utils",
@@ -128,18 +126,3 @@ const data = {
 		}
 	]
 };
-
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-	return (
-		<Sidebar collapsible="icon" {...props}>
-			<SidebarHeader>
-				<TeamSwitcher teams={data.teams} />
-			</SidebarHeader>
-			<SidebarContent>
-				<NavMain items={data.navMain} />
-				<NavProjects projects={data.projects} />
-			</SidebarContent>
-			<SidebarRail />
-		</Sidebar>
-	);
-}

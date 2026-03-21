@@ -3,9 +3,8 @@
 import Link from "next/link";
 import * as React from "react";
 
-import { ENUM_ROUTES } from "../config/routes";
-
-import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "./shadcn-ui";
+import { ENUM_ROUTES } from "@/shared/config/routes";
+import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/shared/ui";
 
 export function TeamSwitcher({
 	teams

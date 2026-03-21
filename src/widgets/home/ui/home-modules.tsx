@@ -1,6 +1,6 @@
 "use client";
 
-import { Activity, Layers, ShieldCheck, Type } from "lucide-react";
+import { Activity, Layers, ShieldAlert, ShieldCheck, Type } from "lucide-react";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 
@@ -21,7 +21,8 @@ const ICON_MAP = {
 const MODULES_CONFIG = [
 	{ key: "rules", icon: ShieldCheck, link: "/introduction" },
 	{ key: "fsd", icon: Layers, link: "/fsd" },
-	{ key: "naming", icon: Type, link: "/naming" }
+	{ key: "naming", icon: Type, link: "/naming" },
+	{ key: "error_boundary", icon: ShieldAlert, link: "/error-boundary" }
 ];
 
 function HomeModulesComponent() {
