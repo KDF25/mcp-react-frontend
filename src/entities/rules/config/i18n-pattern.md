@@ -108,11 +108,46 @@ export default i18n;
 
 ### 6. i18n.checker.ts
 Статическая проверка: если в RU JSON не хватает ключа, который есть в EN — будет ошибка TS.
+
 ```typescript
 import common from "../../../../public/locales/ru/common.json";
 import type { TResources } from "./i18n.config";
 
 export const RU_TRANSLATION_CHECKER: TResources = {
-	common: common
+    common: common
+};
+```
+
+### 7. Использование в UI (useTranslation)
+Применяем типизированные хуки и компоненты для отображения переводов.
+
+```tsx
+import { useTranslation, Trans } from "react-i18next";
+
+export const MyComponent = () => {
+    const { t } = useTranslation("common");
+    
+    return (
+        <div>
+            <h1>{t("header.title")}</h1>
+            <Trans
+                ns="common"
+                i18nKey="description.text"
+                components={[<strong key="0" />, <br key="1" />]}
+            />
+        </div>
+    );
+};
+```
+
+### 8. change-language.ts
+Утилита для смены языка в рантайме с сохранением выбора пользователя.
+
+```typescript
+import i18n from "./i18n.init";
+
+export const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng);
+    localStorage.setItem("i18nextLng", lng);
 };
 ```

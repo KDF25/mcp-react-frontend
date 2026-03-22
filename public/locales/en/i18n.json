@@ -1,48 +1,53 @@
 {
-	"header": {
-		"title": "i18n System",
-		"description": "Exhaustive guide to the internationalization architecture. Includes 11 configuration files and global type definitions.",
-		"shared": "SHARED CONFIG",
-		"master": "Master Version"
-	},
-	"detailed_files": {
-		"title": "Detailed File Overview",
-		"items": {
-			"config": {
-				"title": "i18n.config.ts",
-				"desc": "Configuration core. All available namespaces are defined here, resources are registered, and base i18next parameters are configured.",
-				"code": "// NS: ['common', 'home', ...]\n// Resources: { en: {...}, ru: {...} }"
-			},
-			"checker": {
-				"title": "i18n.checker.ts",
-				"desc": "Control file for type safety. Ensures that Russian translations fully match the structure of English standards.",
-				"code": "export const RU_TRANSLATION_CHECKER: TResources = { ... }"
-			},
-			"constants": {
-				"title": "i18n.constants.ts",
-				"desc": "Global system constants: list of supported languages, list of all namespaces, and metadata for structure visualization.",
-				"code": "export const LANGUAGES = ['ru', 'en'];"
-			}
+	"title": "i18n System",
+	"description": "Comprehensive guide to internationalization architecture. Includes automatic key typing, translation completeness checks, and dynamic resource loading.",
+	"card_title": "i18n Architecture Patterns",
+	"benefit_label": "Benefit:",
+	"benefit_text": "Total type safety — the project will not compile if a key is missing or translation structures differ across languages.",
+	"steps": {
+		"infra_key": {
+			"title": "i18nKey Wrapper",
+			"description": "Identity function for typing string keys. Provides IDE autocompletion for a specific Namespace."
 		},
-		"purpose": "File Purpose",
-		"source_label": "Source Implementation",
-		"types": {
-			"definition": "definition",
-			"typescript": "typescript"
+		"infra_types": {
+			"title": "Type Magic",
+			"description": "Recursive JSON object traversal via <0>TNestedKeyOf</0> to generate dot-notated key paths."
+		},
+		"config_hub": {
+			"title": "Resource Registry",
+			"description": "Importing master JSON files and creating the <0>TResources</0> master type in <0>i18n.config.ts</0>."
+		},
+		"config_blocks": {
+			"title": "Translation Blocks",
+			"description": "Configuring physical file locations and dynamic chunk loading in <0>i18n.blocks.ts</0>."
+		},
+		"init_core": {
+			"title": "i18next Initialization",
+			"description": "Binding plugins and configuration into a single library instance in <0>i18n.init.ts</0>."
+		},
+		"init_checker": {
+			"title": "Consistency Control",
+			"description": "Static check in <0>i18n.checker.ts</0>. Guarantees that all languages have an identical key structure."
+		},
+		"usage": {
+			"title": "UI Usage",
+			"description": "Parameterized <0>useTranslation</0> hook and the <0>Trans</0> component for working with dynamic content."
+		},
+		"switching": {
+			"title": "Language Switching",
+			"description": "The <0>changeLanguage</0> utility for synchronous library state and <0>localStorage</0> updates."
 		}
 	},
-	"architecture": {
-		"title": "Architectural Links",
-		"safety": {
-			"title": "Type Safety Layer",
-			"desc": "Automatic type generation based on JSON schemas. Missing key errors are detected at compile time."
+	"tree_title": "i18n File Structure",
+	"naming": {
+		"title": "Naming and Location Conventions",
+		"config": {
+			"label": "Configuration:",
+			"text": "All settings are centralized in <0>shared/config/i18n/</0>. Each aspect (types, initialization, blocks) is separated into its own file."
 		},
-		"checker": {
-			"title": "Checker Control",
-			"desc": "Localization completeness control mechanism. Prevents merge if not all strings are translated into target languages."
+		"locales": {
+			"label": "Translation Files:",
+			"text": "Located in <0>public/locales/[lng]/</0>. Use subfolders to group namespaces (e.g., <0>booking/order.json</0>)."
 		}
-	},
-	"structure": {
-		"title": "File Structure"
 	}
 }

@@ -1,45 +1,97 @@
 "use client";
 
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 
-import { Badge } from "@/shared/ui";
+import {
+	Card,
+	CardContent,
+	CardHeader,
+	PageTitle,
+	withErrorBoundary
+} from "@/shared/ui";
 
-import { I18nArchitectureLink } from "./i18n-architecture-link";
-import { I18nDetailedFiles } from "./i18n-detailed-files";
-import { I18nStructureTree } from "./i18n-structure-tree";
+import { I18nSteps } from "./i18n-steps";
+import { I18nTree } from "./i18n-tree";
 
-export function I18n() {
+function I18nWidgetComponent() {
 	const { t } = useTranslation("i18n");
 
 	return (
-		<>
-			<div className="space-y-6">
-				<div className="flex items-center gap-2">
-					<Badge
-						variant="outline"
-						className="text-primary px-3 py-1 font-mono text-xs border-primary/30"
-					>
-						{t("header.shared")}
-					</Badge>
-					<Badge className="bg-green-500/10 text-green-600 border-green-500/20 text-[10px] uppercase font-bold tracking-widest">
-						{t("header.master")}
-					</Badge>
-				</div>
-				<h1 className="text-6xl font-black tracking-tight leading-none">
-					{t("header.title")}
-				</h1>
-				<p className="text-2xl text-muted-foreground max-w-4xl font-light">
-					{t("header.description")}
-				</p>
-			</div>
+		<div className="space-y-8 max-w-4xl">
+			<PageTitle description={t("description")} title={t("title")} />
 
-			<div className="grid gap-12 lg:grid-cols-[320px_1fr]">
-				<I18nStructureTree />
-				<div className="space-y-24">
-					<I18nDetailedFiles />
-					<I18nArchitectureLink />
-				</div>
-			</div>
-		</>
+			<Card className="bg-muted/10">
+				<CardHeader className="p-4 border-b">
+					<h3 className="text-base font-bold text-primary font-mono">
+						{t("card_title")}
+					</h3>
+				</CardHeader>
+				<CardContent className="p-4 text-sm text-muted-foreground space-y-6">
+					<div className="space-y-4">
+						<p className="border-l-2 border-primary pl-3 italic text-foreground mt-4 mb-2">
+							<strong>{t("benefit_label")}</strong>{" "}
+							<Trans
+								ns="i18n"
+								i18nKey="benefit_text"
+								components={[
+									<code
+										key="0"
+										className="bg-primary/5 px-1 py-0.5 rounded text-primary"
+									/>
+								]}
+							/>
+						</p>
+
+						<I18nTree />
+
+						<div className="pt-6 border-t border-border/40 space-y-4">
+							<h3 className="text-lg font-semibold">
+								{t("naming.title")}
+							</h3>
+							<ul className="space-y-3">
+								<li className="flex flex-col gap-1">
+									<span className="font-bold text-foreground">
+										{t("naming.config.label")}
+									</span>
+									<p className="text-muted-foreground">
+										<Trans
+											ns="i18n"
+											i18nKey="naming.config.text"
+											components={[
+												<code
+													key="0"
+													className="bg-primary/5 px-1 py-0.5 rounded text-primary"
+												/>
+											]}
+										/>
+									</p>
+								</li>
+								<li className="flex flex-col gap-1">
+									<span className="font-bold text-foreground">
+										{t("naming.locales.label")}
+									</span>
+									<p className="text-muted-foreground">
+										<Trans
+											ns="i18n"
+											i18nKey="naming.locales.text"
+											components={[
+												<code
+													key="0"
+													className="bg-primary/5 px-1 py-0.5 rounded text-primary"
+												/>
+											]}
+										/>
+									</p>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<I18nSteps />
+				</CardContent>
+			</Card>
+		</div>
 	);
 }
+
+export const I18n = withErrorBoundary(I18nWidgetComponent);
