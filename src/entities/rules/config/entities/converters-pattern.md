@@ -1,6 +1,7 @@
 # Архитектурный паттерн: Конвертеры данных (DTO <-> Domain)
 
 В рамках Feature-Sliced Design (FSD), мы используем строгую изоляцию бэкенд-моделей (DTO) от фронтенд-моделей (Domain Models). Это позволяет:
+
 - Защитить UI от изменений в API бэкенда.
 - Проводить семантическое переименование полей (snake_case -> camelCase).
 - Инкапсулировать сложную логику трансформации (форматирование дат, объединение полей).
@@ -8,7 +9,7 @@
 
 ---
 
-## 🛑 Главное правило:
+## 🛑 Главное правило
 **Запрещено** использовать сырые данные от сервера (DTO) напрямую в UI-компонентах. Любые данные, приходящие через RTK Query или отправляемые на сервер, должны проходить через слой конвертации в `src/entities/[entity-name]/converters/`.
 
 ---
@@ -31,6 +32,7 @@ src/entities/[entity-name]/
 ---
 
 ## Пошаговое руководство по созданию конвертеров
+
 
 ### Шаг 1. Определение типов (Types Layer)
 `src/entities/[entity-name]/types/`
@@ -56,6 +58,7 @@ export interface IEntity {
 ```
 
 ### Шаг 2. Реализация мапперов (Converters Layer)
+
 `src/entities/[entity-name]/converters/[entity-name].converters.ts`
 
 Реализуем чистые функции трансформации.
@@ -82,6 +85,7 @@ export const mapEntityToBackend = (data: Partial<IEntity>): Partial<IEntityBacke
 ---
 
 ### Шаг 3. Интеграция с RTK Query (API Layer)
+
 `src/entities/[entity-name]/api/[entity-name].service.ts`
 
 Используем конвертер в методе `transformResponse` или при подготовке `body/params`.
@@ -110,6 +114,7 @@ export const entityApi = authApi.injectEndpoints({
 ---
 
 ### Шаг 4. Мутации и маппинг в Body (Front to Back)
+
 `src/entities/[entity-name]/api/[entity-name].service.ts`
 
 При отправке данных на сервер мы используем маппинг из фронтенд-модели в DTO бэкенда.

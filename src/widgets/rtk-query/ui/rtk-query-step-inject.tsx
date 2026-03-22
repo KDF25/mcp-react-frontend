@@ -18,7 +18,12 @@ function RtkQueryStepInjectComponent() {
 				<Trans
 					ns="rtk_query"
 					i18nKey="steps.inject.description"
-					components={[<code key="0" />]}
+					components={[
+						<code
+							key="0"
+							className="bg-primary/5 px-1 py-0.5 rounded text-primary"
+						/>
+					]}
 				/>
 			</p>
 

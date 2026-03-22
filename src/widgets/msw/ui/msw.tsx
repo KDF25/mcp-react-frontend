@@ -10,15 +10,15 @@ import {
 	withErrorBoundary
 } from "@/shared/ui";
 
-import { ConvertersSteps } from "./converters-steps";
-import { ConvertersTree } from "./converters-tree";
+import { MswSteps } from "./msw-steps";
+import { MswTree } from "./msw-tree";
 
-function ConvertersComponent() {
-	const { t } = useTranslation("converters");
+function MswComponent() {
+	const { t } = useTranslation("msw");
 
 	return (
 		<div className="space-y-8 max-w-4xl">
-			<PageTitle description={t("description")} title={t("title")} />
+			<PageTitle title={t("title")} description={t("description")} />
 
 			<Card className="bg-muted/10">
 				<CardHeader className="p-4 border-b">
@@ -31,7 +31,7 @@ function ConvertersComponent() {
 						<p className="border-l-2 border-primary pl-3 italic text-foreground mt-4 mb-2">
 							<strong>{t("benefit_label")}</strong>{" "}
 							<Trans
-								ns="converters"
+								ns="msw"
 								i18nKey="benefit_text"
 								components={[
 									<code
@@ -42,7 +42,7 @@ function ConvertersComponent() {
 							/>
 						</p>
 
-						<ConvertersTree />
+						<MswTree />
 
 						<div className="pt-6 border-t border-border/40 space-y-4">
 							<h3 className="text-lg font-semibold">
@@ -51,12 +51,12 @@ function ConvertersComponent() {
 							<ul className="space-y-3">
 								<li className="flex flex-col gap-1">
 									<span className="font-bold text-foreground">
-										{t("naming.converters.label")}
+										{t("naming.handlers.label")}
 									</span>
-									<p className="text-muted-foreground">
+									<div className="text-muted-foreground">
 										<Trans
-											ns="converters"
-											i18nKey="naming.converters.text"
+											ns="msw"
+											i18nKey="naming.handlers.text"
 											components={[
 												<code
 													key="0"
@@ -64,16 +64,16 @@ function ConvertersComponent() {
 												/>
 											]}
 										/>
-									</p>
+									</div>
 								</li>
 								<li className="flex flex-col gap-1">
 									<span className="font-bold text-foreground">
-										{t("naming.types.label")}
+										{t("naming.mocks.label")}
 									</span>
-									<p className="text-muted-foreground">
+									<div className="text-muted-foreground">
 										<Trans
-											ns="converters"
-											i18nKey="naming.types.text"
+											ns="msw"
+											i18nKey="naming.mocks.text"
 											components={[
 												<code
 													key="0"
@@ -81,17 +81,34 @@ function ConvertersComponent() {
 												/>
 											]}
 										/>
-									</p>
+									</div>
+								</li>
+								<li className="flex flex-col gap-1">
+									<span className="font-bold text-foreground">
+										{t("naming.config.label")}
+									</span>
+									<div className="text-muted-foreground">
+										<Trans
+											ns="msw"
+											i18nKey="naming.config.text"
+											components={[
+												<code
+													key="0"
+													className="bg-primary/5 px-1 py-0.5 rounded text-primary"
+												/>
+											]}
+										/>
+									</div>
 								</li>
 							</ul>
 						</div>
 					</div>
 
-					<ConvertersSteps />
+					<MswSteps />
 				</CardContent>
 			</Card>
 		</div>
 	);
 }
 
-export const Converters = withErrorBoundary(ConvertersComponent);
+export const Msw = withErrorBoundary(MswComponent);

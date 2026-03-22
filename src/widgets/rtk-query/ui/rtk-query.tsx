@@ -13,7 +13,7 @@ import {
 import { RtkQuerySteps } from "./rtk-query-steps";
 import { RtkQueryTree } from "./rtk-query-tree";
 
-function RtkQueryWidgetComponent() {
+function RtkQueryComponent() {
 	const { t } = useTranslation("rtk_query");
 
 	return (
@@ -46,4 +46,4 @@ function RtkQueryWidgetComponent() {
 	);
 }
 
-export const RtkQueryWidget = withErrorBoundary(RtkQueryWidgetComponent);
+export const RtkQuery = withErrorBoundary(RtkQueryComponent);

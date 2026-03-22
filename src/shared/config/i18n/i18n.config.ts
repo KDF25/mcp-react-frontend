@@ -8,6 +8,7 @@ import home from "../../../../public/locales/en/home.json";
 import i18n_ns from "../../../../public/locales/en/i18n.json";
 import introduction from "../../../../public/locales/en/introduction.json";
 import memoization from "../../../../public/locales/en/memoization.json";
+import msw from "../../../../public/locales/en/msw.json";
 import naming from "../../../../public/locales/en/naming.json";
 import reference from "../../../../public/locales/en/reference.json";
 import rtk_query from "../../../../public/locales/en/rtk_query.json";
@@ -51,6 +52,7 @@ export type TResources = {
 	error_boundary: TErrorBoundary;
 	rtk_query: TRtkQuery;
 	converters: TConverters;
+	msw: typeof msw;
 };
 
 export const NS = [
@@ -69,7 +71,8 @@ export const NS = [
 	"memoization",
 	"error_boundary",
 	"rtk_query",
-	"converters"
+	"converters",
+	"msw"
 ] as const;
 export type TNS = (typeof NS)[number];
 export type TCommonKeys = TNestedKeyOf<TCommon>;

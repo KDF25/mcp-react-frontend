@@ -18,7 +18,12 @@ function RtkQueryStepBaseComponent() {
 				<Trans
 					ns="rtk_query"
 					i18nKey="steps.base.description"
-					components={[<code key="0" />]}
+					components={[
+						<code
+							key="0"
+							className="bg-primary/5 px-1 py-0.5 rounded text-primary"
+						/>
+					]}
 				/>
 			</p>
 

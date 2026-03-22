@@ -1,1 +1,1 @@
-export { RtkQueryWidget } from "./ui/rtk-query";
+export * from "./ui";

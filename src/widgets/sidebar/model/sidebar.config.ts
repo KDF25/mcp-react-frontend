@@ -109,6 +109,14 @@ export const SIDEBAR_CONFIG = {
 				{
 					title: "Shared Utils",
 					url: `${ENUM_ROUTES.MAIN.STRUCTURE}#shared-patterns`
+				},
+				{
+					title: "Data Converters",
+					url: ENUM_ROUTES.MAIN.CONVERTERS
+				},
+				{
+					title: "Mock Server (MSW)",
+					url: ENUM_ROUTES.MAIN.MSW
 				}
 			]
 		}

@@ -1,5 +1,5 @@
-import { RtkQueryWidget } from "@/widgets/rtk-query";
+import { RtkQuery } from "@/widgets/rtk-query";
 
-export default function RtkQueryPage() {
-	return <RtkQueryWidget />;
+export default function Page() {
+	return <RtkQuery />;
 }

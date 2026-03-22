@@ -4,20 +4,20 @@ import { Trans, useTranslation } from "react-i18next";
 
 import { CodeBlock, SectionTitle, withErrorBoundary } from "@/shared/ui";
 
-import { API_CODE_AUTH_QUERY } from "../model";
+import { MSW_CODE_CONFIG } from "../model";
 
-function RtkQueryStepAuthQueryComponent() {
-	const { t } = useTranslation("rtk_query");
+function MswStepInitBrowserComponent() {
+	const { t } = useTranslation("msw");
 
 	return (
 		<div className="space-y-4 pt-4 border-t border-border/40">
 			<SectionTitle badge="03" className="text-xl mb-2">
-				{t("steps.auth_query.title")}
+				{t("steps.init_browser.title")}
 			</SectionTitle>
-			<p>
+			<div className="text-muted-foreground">
 				<Trans
-					ns="rtk_query"
-					i18nKey="steps.auth_query.description"
+					ns="msw"
+					i18nKey="steps.init_browser.description"
 					components={[
 						<code
 							key="0"
@@ -25,17 +25,16 @@ function RtkQueryStepAuthQueryComponent() {
 						/>
 					]}
 				/>
-			</p>
-
+			</div>
 			<CodeBlock
-				code={API_CODE_AUTH_QUERY}
+				code={MSW_CODE_CONFIG}
 				language="typescript"
-				filename="entities/auth/api/auth-base-query.ts"
+				filename="shared/api/msw/browser.ts"
 			/>
 		</div>
 	);
 }
 
-export const RtkQueryStepAuthQuery = withErrorBoundary(
-	RtkQueryStepAuthQueryComponent
+export const MswStepInitBrowser = withErrorBoundary(
+	MswStepInitBrowserComponent
 );

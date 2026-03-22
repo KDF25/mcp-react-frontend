@@ -11,6 +11,8 @@ export const ENUM_ROUTES = {
 		I18N: "/i18n",
 		ZOD: "/zod",
 		MEMOIZATION: "/memoization",
-		ERROR_BOUNDARY: "/error-boundary"
+		ERROR_BOUNDARY: "/error-boundary",
+		CONVERTERS: "/converters",
+		MSW: "/msw"
 	}
 } as const;

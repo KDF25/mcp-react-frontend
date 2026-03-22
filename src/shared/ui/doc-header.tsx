@@ -26,7 +26,9 @@ const ROUTE_TITLES: Record<string, string> = {
 	[ENUM_ROUTES.MAIN.I18N]: "I18n Master Guide",
 	[ENUM_ROUTES.MAIN.STYLES]: "Styles & Patterns",
 	[ENUM_ROUTES.MAIN.STRUCTURE]: "File Structure",
-	[ENUM_ROUTES.MAIN.REFERENCE]: "API & Tools"
+	[ENUM_ROUTES.MAIN.REFERENCE]: "API & Tools",
+	[ENUM_ROUTES.MAIN.CONVERTERS]: "Data Converters",
+	[ENUM_ROUTES.MAIN.MSW]: "Mock Server (MSW)"
 };
 
 export function DocHeader() {

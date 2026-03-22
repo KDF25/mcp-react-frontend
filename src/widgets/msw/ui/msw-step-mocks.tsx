@@ -4,20 +4,20 @@ import { Trans, useTranslation } from "react-i18next";
 
 import { CodeBlock, SectionTitle, withErrorBoundary } from "@/shared/ui";
 
-import { CONVERTERS_CODE_TO_FRONTEND } from "../model";
+import { MSW_CODE_MOCKS } from "../model";
 
-function ConvertersStepToFrontendComponent() {
-	const { t } = useTranslation("converters");
+function MswStepMocksComponent() {
+	const { t } = useTranslation("msw");
 
 	return (
 		<div className="space-y-4 pt-4 border-t border-border/40">
 			<SectionTitle badge="01" className="text-xl mb-2">
-				{t("steps.to_frontend.title")}
+				{t("steps.mocks.title")}
 			</SectionTitle>
-			<p>
+			<div className="text-muted-foreground">
 				<Trans
-					ns="converters"
-					i18nKey="steps.to_frontend.description"
+					ns="msw"
+					i18nKey="steps.mocks.description"
 					components={[
 						<code
 							key="0"
@@ -25,17 +25,14 @@ function ConvertersStepToFrontendComponent() {
 						/>
 					]}
 				/>
-			</p>
-
+			</div>
 			<CodeBlock
-				code={CONVERTERS_CODE_TO_FRONTEND}
+				code={MSW_CODE_MOCKS}
 				language="typescript"
-				filename="converters/booking-order.converters.ts"
+				filename="entities/[entity-name]/mock/[entity-name].mock.ts"
 			/>
 		</div>
 	);
 }
 
-export const ConvertersStepToFrontend = withErrorBoundary(
-	ConvertersStepToFrontendComponent
-);
+export const MswStepMocks = withErrorBoundary(MswStepMocksComponent);

@@ -4,20 +4,20 @@ import { Trans, useTranslation } from "react-i18next";
 
 import { CodeBlock, SectionTitle, withErrorBoundary } from "@/shared/ui";
 
-import { API_CODE_TAGS } from "../model";
+import { MSW_CODE_INIT } from "../model";
 
-function RtkQueryStepTagsComponent() {
-	const { t } = useTranslation("rtk_query");
+function MswStepInitAppComponent() {
+	const { t } = useTranslation("msw");
 
 	return (
 		<div className="space-y-4 pt-4 border-t border-border/40">
-			<SectionTitle badge="01" className="text-xl mb-2">
-				{t("steps.tags.title")}
+			<SectionTitle badge="05" className="text-xl mb-2">
+				{t("steps.init_app.title")}
 			</SectionTitle>
-			<p>
+			<div className="text-muted-foreground">
 				<Trans
-					ns="rtk_query"
-					i18nKey="steps.tags.description"
+					ns="msw"
+					i18nKey="steps.init_app.description"
 					components={[
 						<code
 							key="0"
@@ -25,15 +25,14 @@ function RtkQueryStepTagsComponent() {
 						/>
 					]}
 				/>
-			</p>
-
+			</div>
 			<CodeBlock
-				code={API_CODE_TAGS}
+				code={MSW_CODE_INIT}
 				language="typescript"
-				filename="shared/api/backend/tags.config.ts"
+				filename="app/init/msw.ts"
 			/>
 		</div>
 	);
 }
 
-export const RtkQueryStepTags = withErrorBoundary(RtkQueryStepTagsComponent);
+export const MswStepInitApp = withErrorBoundary(MswStepInitAppComponent);
