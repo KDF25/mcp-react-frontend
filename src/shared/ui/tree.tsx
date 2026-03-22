@@ -1,11 +1,21 @@
 "use client";
 
 import type { ItemInstance } from "@headless-tree/core";
-import { ChevronDownIcon } from "lucide-react";
+import {
+	ChevronDownIcon,
+	FileIcon,
+	FolderIcon,
+	FolderOpenIcon
+} from "lucide-react";
 import { Slot } from "radix-ui";
 import * as React from "react";
 
 import { cn } from "@/shared/lib/utils";
+
+export interface ITreeItemData {
+	name: string;
+	children?: string[];
+}
 
 interface TreeContextValue<T = any> {
 	indent: number;
@@ -197,4 +207,33 @@ function TreeDragLine({
 	);
 }
 
-export { Tree, TreeItem, TreeItemLabel, TreeDragLine };
+function TreeItemContent<T extends ITreeItemData = ITreeItemData>({
+	item
+}: {
+	item: ItemInstance<T>;
+}) {
+	return (
+		<span className="flex items-center gap-2 py-0.5">
+			{item.isFolder() ? (
+				item.isExpanded() ? (
+					<FolderOpenIcon className="size-4 text-primary/70" />
+				) : (
+					<FolderIcon className="size-4 text-primary/70" />
+				)
+			) : (
+				<FileIcon className="size-4 text-primary/40" />
+			)}
+			<span
+				className={
+					item.isFolder()
+						? "font-semibold text-foreground/90 text-sm"
+						: "text-muted-foreground text-sm"
+				}
+			>
+				{item.getItemName()}
+			</span>
+		</span>
+	);
+}
+
+export { Tree, TreeItem, TreeItemLabel, TreeDragLine, TreeItemContent };

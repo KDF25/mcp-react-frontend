@@ -1,6 +1,6 @@
-import type { TRtkQueryTreeItem } from "./rtk-query.types";
+import { ITreeItemData } from "@/shared/ui";
 
-export const API_TREE_ITEMS: Record<string, TRtkQueryTreeItem> = {
+export const API_TREE_ITEMS: Record<string, ITreeItemData> = {
 	root: { name: "src/", children: ["shared", "entities"] },
 	shared: { name: "shared/", children: ["shared-api"] },
 	"shared-api": { name: "api/", children: ["shared-api-backend"] },

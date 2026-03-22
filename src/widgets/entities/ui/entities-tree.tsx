@@ -2,23 +2,24 @@
 
 import { hotkeysCoreFeature, syncDataLoaderFeature } from "@headless-tree/core";
 import { useTree } from "@headless-tree/react";
-import { FileIcon, FolderIcon, FolderOpenIcon } from "lucide-react";
 
 import {
 	Card,
 	CardContent,
 	CardHeader,
+	type ITreeItemData,
 	SectionTitle,
 	Tree,
 	TreeItem,
+	TreeItemContent,
 	TreeItemLabel,
 	withErrorBoundary
 } from "@/shared/ui";
 
-import { ENTITIES_TREE_ITEMS, type TEntityTreeItem } from "../model";
+import { ENTITIES_TREE_ITEMS } from "../model";
 
 function EntitiesTreeComponent() {
-	const entityTree = useTree<TEntityTreeItem>({
+	const entityTree = useTree<ITreeItemData>({
 		dataLoader: {
 			getChildren: (itemId) => ENTITIES_TREE_ITEMS[itemId].children ?? [],
 			getItem: (itemId) => ENTITIES_TREE_ITEMS[itemId]
@@ -61,26 +62,7 @@ function EntitiesTreeComponent() {
 								{entityTree.getItems().map((item) => (
 									<TreeItem item={item} key={item.getId()}>
 										<TreeItemLabel className="before:-inset-y-0.5 before:-z-10 relative before:absolute before:inset-x-0 before:bg-background/0">
-											<span className="flex items-center gap-2">
-												{item.isFolder() ? (
-													item.isExpanded() ? (
-														<FolderOpenIcon className="size-4 text-primary/70" />
-													) : (
-														<FolderIcon className="size-4 text-primary/70" />
-													)
-												) : (
-													<FileIcon className="size-4 text-primary/40" />
-												)}
-												<span
-													className={
-														item.isFolder()
-															? "font-semibold text-foreground/90 text-sm"
-															: "text-muted-foreground text-sm"
-													}
-												>
-													{item.getItemName()}
-												</span>
-											</span>
+											<TreeItemContent item={item} />
 										</TreeItemLabel>
 									</TreeItem>
 								))}

@@ -1,4 +1,5 @@
 import common from "../../../../public/locales/ru/common.json";
+import converters from "../../../../public/locales/ru/converters.json";
 import creator from "../../../../public/locales/ru/creator.json";
 import docs from "../../../../public/locales/ru/docs.json";
 import error_boundary from "../../../../public/locales/ru/error_boundary.json";
@@ -31,5 +32,6 @@ export const RU_TRANSLATION_CHECKER: TResources = {
 	i18n: i18n_ns,
 	memoization: memoization,
 	error_boundary: error_boundary,
-	rtk_query: rtk_query
+	rtk_query: rtk_query,
+	converters: converters
 };

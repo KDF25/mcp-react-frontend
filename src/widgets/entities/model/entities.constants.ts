@@ -1,6 +1,6 @@
-import type { TEntityTreeItem } from "./entities.types";
+import { ITreeItemData } from "@/shared/ui";
 
-export const ENTITIES_TREE_ITEMS: Record<string, TEntityTreeItem> = {
+export const ENTITIES_TREE_ITEMS: Record<string, ITreeItemData> = {
 	root: { name: "src/", children: ["entities"] },
 	entities: { name: "entities/", children: ["entityName"] },
 	entityName: {

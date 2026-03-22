@@ -1,4 +1,5 @@
 import common from "../../../../public/locales/en/common.json";
+import converters from "../../../../public/locales/en/converters.json";
 import creator from "../../../../public/locales/en/creator.json";
 import docs from "../../../../public/locales/en/docs.json";
 import error_boundary from "../../../../public/locales/en/error_boundary.json";
@@ -17,6 +18,7 @@ import zod from "../../../../public/locales/en/zod.json";
 import type { TNestedKeyOf } from "./i18n.types";
 
 export type TCommon = typeof common;
+export type TConverters = typeof converters;
 export type TCreator = typeof creator;
 export type TStructure = typeof structure;
 export type TStyles = typeof styles;
@@ -48,6 +50,7 @@ export type TResources = {
 	memoization: TMemoization;
 	error_boundary: TErrorBoundary;
 	rtk_query: TRtkQuery;
+	converters: TConverters;
 };
 
 export const NS = [
@@ -65,7 +68,8 @@ export const NS = [
 	"i18n",
 	"memoization",
 	"error_boundary",
-	"rtk_query"
+	"rtk_query",
+	"converters"
 ] as const;
 export type TNS = (typeof NS)[number];
 export type TCommonKeys = TNestedKeyOf<TCommon>;

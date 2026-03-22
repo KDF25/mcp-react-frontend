@@ -16,15 +16,16 @@ import {
 	withErrorBoundary
 } from "@/shared/ui";
 
-import { API_TREE_ITEMS } from "../model";
+import { CONVERTERS_TREE_ITEMS } from "../model";
 
-function RtkQueryTreeComponent() {
-	const { t } = useTranslation("rtk_query");
+function ConvertersTreeComponent() {
+	const { t } = useTranslation("converters");
 
-	const apiTree = useTree<ITreeItemData>({
+	const entityTree = useTree<ITreeItemData>({
 		dataLoader: {
-			getChildren: (itemId) => API_TREE_ITEMS[itemId].children ?? [],
-			getItem: (itemId) => API_TREE_ITEMS[itemId]
+			getChildren: (itemId) =>
+				CONVERTERS_TREE_ITEMS[itemId]?.children ?? [],
+			getItem: (itemId) => CONVERTERS_TREE_ITEMS[itemId]
 		},
 		features: [syncDataLoaderFeature, hotkeysCoreFeature],
 		getItemName: (item) => item.getItemData().name,
@@ -32,14 +33,11 @@ function RtkQueryTreeComponent() {
 		initialState: {
 			expandedItems: [
 				"root",
-				"shared",
-				"shared-api",
-				"shared-api-backend",
 				"entities",
-				"auth",
-				"auth-api-folder",
 				"entity-name",
-				"entity-api-folder"
+				"api",
+				"converters",
+				"types"
 			]
 		},
 		isItemFolder: (item) => (item.getItemData()?.children?.length ?? 0) > 0,
@@ -58,9 +56,9 @@ function RtkQueryTreeComponent() {
 				<Tree
 					className="before:-ms-1 relative before:absolute before:inset-0 before:bg-[repeating-linear-gradient(to_right,transparent_0,transparent_calc(var(--tree-indent)-1px),var(--border)_calc(var(--tree-indent)-1px),var(--border)_calc(var(--tree-indent)))]"
 					indent={20}
-					tree={apiTree}
+					tree={entityTree}
 				>
-					{apiTree.getItems().map((item) => (
+					{entityTree.getItems().map((item) => (
 						<TreeItem item={item} key={item.getId()}>
 							<TreeItemLabel className="before:-inset-y-0.5 before:-z-10 relative before:absolute before:inset-x-0 before:bg-background/0">
 								<TreeItemContent item={item} />
@@ -73,4 +71,4 @@ function RtkQueryTreeComponent() {
 	);
 }
 
-export const RtkQueryTree = withErrorBoundary(RtkQueryTreeComponent);
+export const ConvertersTree = withErrorBoundary(ConvertersTreeComponent);
