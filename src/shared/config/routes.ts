@@ -14,6 +14,8 @@ export const ENUM_ROUTES = {
 		ERROR_BOUNDARY: "/error-boundary",
 		CONVERTERS: "/converters",
 		MSW: "/msw",
-		THEME: "/theme"
+		THEME: "/theme",
+		RTK_QUERY: "/rtk-query",
+		ENTITIES: "/entities"
 	}
 } as const;

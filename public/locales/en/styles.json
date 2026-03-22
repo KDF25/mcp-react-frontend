@@ -1,24 +1,38 @@
 {
-	"header": {
-		"title": "Engineering Styles & Patterns",
-		"description": "Formalized code style and architectural patterns ensuring consistency across the entire ecosystem."
+	"title": "Styling & Themes",
+	"description": "Centralized UI management through design tokens (CSS Variables) and Tailwind CSS configuration.",
+	"card_title": "UI Styling Architecture",
+	"benefit_label": "Benefits:",
+	"benefit_text": "Leveraging a single source of truth via <0>CSS Variables</0> allows for instant theme changes and ensures all components follow defined design tokens.",
+	"naming": {
+		"title": "Styles Architecture",
+		"styles": {
+			"label": "Global Styles",
+			"text": "The <0>global.css</0> file combines Tailwind layers and imports design tokens."
+		},
+		"config": {
+			"label": "Configuration",
+			"text": "The <0>tailwind.config.ts</0> file maps CSS variables to Tailwind utility classes."
+		}
 	},
-	"restrictions": {
-		"title": "Styling Restrictions",
-		"utility_title": "Utility Pattern",
-		"utility_description": "Only specified Tailwind prefixes are allowed. Mandatory use of {{utility}} for all components.",
-		"colors_title": "Forbidden Colors",
-		"colors_description": "Standard Tailwind colors are restricted to maintain brand consistency."
-	},
-	"contract": {
-		"title": "State Management Contract",
-		"description": "Strict isolation of state levels to ensure predictability and ease of testing. Global state is reserved for cross-cutting concerns.",
-		"server": "Server",
-		"client": "Client",
-		"local": "Local"
-	},
-	"fetching": {
-		"title": "Data Fetching Standards",
-		"description": "Centralized API interaction through RTK Query with mandatory error boundary handling."
+	"steps": {
+		"variables": {
+			"title": "CSS Variables",
+			"description": "Defining core tokens: breakpoints, font sizes, and grids."
+		},
+		"theme": {
+			"title": "Theming",
+			"description": "Color palettes and shadows for light and dark modes."
+		},
+		"global": {
+			"title": "Global Layers",
+			"description": "Tailwind initialization and base element styles."
+		},
+		"restrictions": {
+			"title": "Forbidden Palettes",
+			"description": "Absolute restriction on using standard Tailwind colors (blue-500, red-600, etc.). All colors must be derived from design tokens.",
+			"allowed_colors": "Allowed tokens:",
+			"forbidden_colors": "Forbidden palettes:"
+		}
 	}
 }

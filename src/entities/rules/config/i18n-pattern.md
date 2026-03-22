@@ -3,6 +3,7 @@
 Этот паттерн обеспечивает строгую типизацию ключей и автоматическую проверку соответствия переводов.
 
 ## Структура папки
+
 `src/shared/config/i18n/`
 - `index.ts`
 - `i18n.init.ts`
@@ -16,7 +17,9 @@
 ## Содержимое файлов
 
 ### 1. i18n-key.ts
+
 Позволяет создавать типизированные хелперы для ключей в конкретных компонентах.
+
 ```typescript
 export const i18nKey =
 	<Keys extends string>() =>
@@ -25,7 +28,9 @@ export const i18nKey =
 ```
 
 ### 2. i18n.types.ts
+
 Хелперы для извлечения вложенных ключей.
+
 ```typescript
 export type TDotPrefix<T extends string, P extends string> = P extends ""
 	? T
@@ -39,7 +44,9 @@ export type TNestedKeyOf<ObjectType extends object> = {
 ```
 
 ### 3. i18n.config.ts
+
 Здесь импортируются английские JSON (как эталон) и формируются типы.
+
 ```typescript
 import common from "../../../../public/locales/en/common.json";
 import type { TNestedKeyOf } from "./i18n.types";
@@ -56,7 +63,9 @@ export type TCommonKeys = TNestedKeyOf<TCommon>;
 ```
 
 ### 4. i18n.blocks.ts
+
 Карта путей для динамической загрузки JSON.
+
 ```typescript
 interface ITranslationBlock {
 	folder: string;
@@ -83,7 +92,9 @@ export const getNamespacePath = (lng: string, ns: string): string => {
 ```
 
 ### 5. i18n.init.ts
+
 Инициализация i18next с backend и детекцией.
+
 ```typescript
 import i18n from "i18next";
 import HttpBackend from "i18next-http-backend";
@@ -120,6 +131,7 @@ export const RU_TRANSLATION_CHECKER: TResources = {
 ```
 
 ### 7. Использование в UI (useTranslation)
+
 Применяем типизированные хуки и компоненты для отображения переводов.
 
 ```tsx
@@ -142,6 +154,7 @@ export const MyComponent = () => {
 ```
 
 ### 8. change-language.ts
+
 Утилита для смены языка в рантайме с сохранением выбора пользователя.
 
 ```typescript

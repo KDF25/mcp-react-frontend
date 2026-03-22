@@ -3,9 +3,14 @@ import {
 	Bot,
 	Command,
 	Frame,
+	Globe,
+	Layers,
+	Palette,
 	PieChart,
 	Settings2,
-	SquareTerminal
+	Sparkles,
+	SquareTerminal,
+	Zap
 } from "lucide-react";
 
 import { ENUM_ROUTES } from "@/shared/config";
@@ -25,8 +30,8 @@ export const SIDEBAR_CONFIG = {
 	],
 	navMain: [
 		{
-			title: "Technical Intro",
-			url: ENUM_ROUTES.MAIN.ROOT,
+			title: "Getting Started",
+			url: ENUM_ROUTES.MAIN.INTRODUCTION,
 			icon: BookOpen,
 			items: [
 				{
@@ -40,9 +45,9 @@ export const SIDEBAR_CONFIG = {
 			]
 		},
 		{
-			title: "Architecture Rules",
+			title: "Architecture & Structure",
 			url: ENUM_ROUTES.MAIN.FSD,
-			icon: SquareTerminal,
+			icon: Layers,
 			items: [
 				{
 					title: "FSD Layers",
@@ -54,22 +59,60 @@ export const SIDEBAR_CONFIG = {
 				},
 				{
 					title: "Entity Structure",
-					url: `${ENUM_ROUTES.MAIN.FSD}#entities-structure`
+					url: ENUM_ROUTES.MAIN.ENTITIES
 				},
 				{
 					title: "Widget Structure",
 					url: `${ENUM_ROUTES.MAIN.FSD}#widgets-structure`
 				},
 				{
-					title: "Memoization Strategy",
-					url: ENUM_ROUTES.MAIN.MEMOIZATION
+					title: "Project Structure",
+					url: ENUM_ROUTES.MAIN.STRUCTURE
+				},
+				{
+					title: "Shared Patterns",
+					url: `${ENUM_ROUTES.MAIN.STRUCTURE}#shared-patterns`
 				}
 			]
 		},
 		{
-			title: "Coding Standards",
+			title: "API & Data",
+			url: ENUM_ROUTES.MAIN.RTK_QUERY,
+			icon: Globe,
+			items: [
+				{
+					title: "RTK Query",
+					url: ENUM_ROUTES.MAIN.RTK_QUERY
+				},
+				{
+					title: "Mock Server (MSW)",
+					url: ENUM_ROUTES.MAIN.MSW
+				},
+				{
+					title: "Data Converters",
+					url: ENUM_ROUTES.MAIN.CONVERTERS
+				}
+			]
+		},
+		{
+			title: "Optimization & Stability",
+			url: ENUM_ROUTES.MAIN.MEMOIZATION,
+			icon: Zap,
+			items: [
+				{
+					title: "Memoization",
+					url: ENUM_ROUTES.MAIN.MEMOIZATION
+				},
+				{
+					title: "Error Boundaries",
+					url: ENUM_ROUTES.MAIN.ERROR_BOUNDARY
+				}
+			]
+		},
+		{
+			title: "Customization & Rules",
 			url: ENUM_ROUTES.MAIN.NAMING,
-			icon: Bot,
+			icon: Settings2,
 			items: [
 				{
 					title: "Naming Conventions",
@@ -82,45 +125,18 @@ export const SIDEBAR_CONFIG = {
 				{
 					title: "Styling Standards",
 					url: ENUM_ROUTES.MAIN.STYLES
-				}
-			]
-		},
-		{
-			title: "Advanced Patterns",
-			url: ENUM_ROUTES.MAIN.I18N,
-			icon: Settings2,
-			items: [
+				},
 				{
-					title: "I18n Deep Dive",
-					url: ENUM_ROUTES.MAIN.I18N
+					title: "Theme",
+					url: ENUM_ROUTES.MAIN.THEME
 				},
 				{
 					title: "Zod & Typing",
 					url: ENUM_ROUTES.MAIN.ZOD
 				},
 				{
-					title: "Error Boundaries",
-					url: ENUM_ROUTES.MAIN.ERROR_BOUNDARY
-				},
-				{
-					title: "Project Structure",
-					url: ENUM_ROUTES.MAIN.STRUCTURE
-				},
-				{
-					title: "Shared Utils",
-					url: `${ENUM_ROUTES.MAIN.STRUCTURE}#shared-patterns`
-				},
-				{
-					title: "Data Converters",
-					url: ENUM_ROUTES.MAIN.CONVERTERS
-				},
-				{
-					title: "Mock Server (MSW)",
-					url: ENUM_ROUTES.MAIN.MSW
-				},
-				{
-					title: "Theme",
-					url: ENUM_ROUTES.MAIN.THEME
+					title: "Internationalization",
+					url: ENUM_ROUTES.MAIN.I18N
 				}
 			]
 		}
