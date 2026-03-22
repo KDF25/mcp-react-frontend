@@ -24,7 +24,7 @@ export const SIDEBAR_CONFIG = {
 	teams: [
 		{
 			name: "MCP Server",
-			logo: Command,
+			logo: "/logo.png",
 			plan: "v1.0.0"
 		}
 	],

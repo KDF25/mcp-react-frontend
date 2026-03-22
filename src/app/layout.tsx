@@ -16,9 +16,42 @@ import { ThemeProvider } from "@/app/providers/theme";
 
 import "./globals.css";
 
+const title = "MCP Orchestrator";
+const description = "FSD & Linter Orchestration Server";
+
 export const metadata: Metadata = {
-	title: "MCP Orchestrator",
-	description: "FSD & Linter Orchestration Server"
+	metadataBase: new URL(
+		process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
+	),
+	title: {
+		default: title,
+		template: `%s | ${title}`
+	},
+	description,
+	keywords: ["MCP", "React", "FSD", "Linter", "Orchestration", "Server"],
+	openGraph: {
+		title,
+		description,
+		type: "website",
+		siteName: title,
+		images: [
+			{
+				url: "/logo.png",
+				width: 1200,
+				height: 630,
+				alt: title
+			}
+		]
+	},
+	twitter: {
+		card: "summary_large_image",
+		title,
+		description,
+		images: ["/logo.png"]
+	},
+	icons: {
+		icon: "/logo.png"
+	}
 };
 
 export default function RootLayout({
