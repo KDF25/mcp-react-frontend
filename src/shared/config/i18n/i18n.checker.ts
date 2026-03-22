@@ -9,6 +9,7 @@ import introduction from "../../../../public/locales/ru/introduction.json";
 import memoization from "../../../../public/locales/ru/memoization.json";
 import naming from "../../../../public/locales/ru/naming.json";
 import reference from "../../../../public/locales/ru/reference.json";
+import rtk_query from "../../../../public/locales/ru/rtk_query.json";
 import structure from "../../../../public/locales/ru/structure.json";
 import styles from "../../../../public/locales/ru/styles.json";
 import zod from "../../../../public/locales/ru/zod.json";
@@ -29,5 +30,6 @@ export const RU_TRANSLATION_CHECKER: TResources = {
 	docs: docs,
 	i18n: i18n_ns,
 	memoization: memoization,
-	error_boundary: error_boundary
+	error_boundary: error_boundary,
+	rtk_query: rtk_query
 };

@@ -1,0 +1,30 @@
+{
+	"title": "API Initialization Pattern",
+	"description": "Detailed guide on RTK Query architecture (Code Splitting).",
+	"card_title": "RTK Query Code Splitting Architecture",
+	"invariant_label": "Architectural Invariant:",
+	"invariant_text": "It is forbidden to use <0>createApi</0> inside business modules of entities. The project uses a single caching core, divided into configuration and authorization layers. Features and entities \"inject\" their endpoints into the authorized core.",
+	"tree_title": "API Core File Structure",
+	"steps": {
+		"tags": {
+			"title": "Global Tag Registry (Shared Layer)",
+			"description": "For correct operation of invalidation <0>providesTags / invalidatesTags</0>, all possible tags are collected in a centralized config."
+		},
+		"base": {
+			"title": "Base API Instance (Shared Layer)",
+			"description": "The lowest level of network requests. No interceptors, only pure <0>fetchBaseQuery</0> and global tag registration."
+		},
+		"auth_query": {
+			"title": "Authorization Interceptor (Entities Layer)",
+			"description": "A wrapper (Middleware) over the base request. It allows centralized handling of session loss (e.g., error 401) and executing <0>logout()</0> for the entire application."
+		},
+		"auth_api": {
+			"title": "Authorized API Instance (Entities Layer)",
+			"description": "Initialization of a protected API instance (usually exported from the <0>auth</0> entity) using a custom <0>authBaseQuery</0>."
+		},
+		"inject": {
+			"title": "Endpoint Injection (Entities Layer)",
+			"description": "The final stage in the target entity. We import <0>authApi</0> and call <0>injectEndpoints</0>. This code becomes the public service of the entity."
+		}
+	}
+}

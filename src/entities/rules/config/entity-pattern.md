@@ -11,8 +11,8 @@ src/entities/[entity-name]/
 │   ├── *.interface.ts # Backend (raw) и Frontend (UI) модели
 │   └── *.types.ts    # Enums и вспомогательные типы
 ├── schema/          # Валидация данных (*.schema.ts)
-├── converters/      # Мапперы данных (*.converters.ts)
-├── constants/       # Константы и конфигурации
+├── converters/      # Мапперы данных DTO <-> Domain (*.converters.ts)
+├── slice/           # Локальный стейт Redux/Zustand (*.slice.ts)
 ├── ui/              # "Глупые" компоненты отображения
 └── index.ts         # Public API сущности
 ```
