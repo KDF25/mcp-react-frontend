@@ -64,10 +64,13 @@ export interface IPatternRules {
 		client: string;
 		local: string;
 	};
-	dataFetching: {
-		segments: string[];
+	rtkQuery: {
+		location: string;
+		requiredFiles: string[];
+		locationRequiredFiles: Record<string, string>;
 		template: string;
 		description: string;
+		segments: string[];
 	};
 	ui: {
 		composition: {
@@ -79,6 +82,24 @@ export interface IPatternRules {
 		};
 	};
 	i18n: {
+		location: string;
+		requiredFiles: string[];
+		template: string;
+		description: string;
+	};
+	converters: {
+		location: string;
+		requiredFiles: string[];
+		template: string;
+		description: string;
+	};
+	msw: {
+		location: string;
+		requiredFiles: string[];
+		template: string;
+		description: string;
+	};
+	theme: {
 		location: string;
 		requiredFiles: string[];
 		template: string;

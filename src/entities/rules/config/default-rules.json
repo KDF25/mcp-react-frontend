@@ -171,12 +171,29 @@
       "client": "Redux Toolkit (slices)",
       "local": "useState"
     },
-    "dataFetching": {
-      "segments": [
-        "api"
+    "rtkQuery": {
+      "location": "src/entities/[entity-name]/api",
+      "requiredFiles": [
+        "index.ts",
+        "*.service.ts"
       ],
-      "template": "src/entities/rules/config/rtk-query-pattern.md",
-      "description": "Паттерн работы с RTK Query: семантическое переименование данных (data -> accountData), обязательная обработка загрузки и ошибок через useEffect с использованием toast. Подробности в @template."
+      "locationRequiredFiles": {
+        "tagsConfig": "src/shared/api/backend/tags.config.ts",
+        "baseApi": "src/shared/api/backend/base.api.ts",
+        "backendIndex": "src/shared/api/backend/index.ts",
+        "authBaseQuery": "src/entities/auth/api/auth-base-query.ts",
+        "authApi": "src/entities/auth/api/auth.api.ts",
+        "authIndex": "src/entities/auth/api/index.ts",
+        "service": "src/entities/[entity-name]/api/[entity-name].service.ts",
+        "serviceIndex": "src/entities/[entity-name]/api/index.ts"
+      },
+      "template": "src/entities/rules/config/entities/api-pattern.md",
+      "description": "Паттерн работы с RTK Query: Code Splitting через injectEndpoints, централизованные теги и семантическое переименование в UI.",
+      "segments": [
+        "Base API",
+        "Injected Endpoints",
+        "Automatic Selectors"
+      ]
     },
     "ui": {
       "composition": {
@@ -217,6 +234,41 @@
       },
       "template": "src/entities/rules/config/entities/converters-pattern.md",
       "description": "Паттерн маппинга DTO в Domain модели. Обязательное использование в transformResponse и подготовке body запросов."
+    },
+    "msw": {
+      "location": "src/entities/[entity-name]/handlers",
+      "requiredFiles": [
+        "index.ts",
+        "*.handlers.ts"
+      ],
+      "locationRequiredFiles": {
+        "init": "src/app/init/msw.ts",
+        "browser": "src/shared/api/msw/browser.ts",
+        "handlers": "src/entities/[entity-name]/handlers/[entity-name].handlers.ts",
+        "handlersIndex": "src/entities/[entity-name]/handlers/index.ts",
+        "mock": "src/entities/[entity-name]/mock/[entity-name].mock.ts",
+        "mockIndex": "src/entities/[entity-name]/mock/index.ts"
+      },
+      "template": "src/entities/rules/config/entities/msw-pattern.md",
+      "description": "Паттерн макетирования API через MSW. Обязательная регистрация хендлеров в сетапе воркера и использование переменных окружения для контроля запуска."
+    },
+    "theme": {
+      "location": "src/app/providers/theme",
+      "requiredFiles": [
+        "index.ts",
+        "theme.provider.tsx",
+        "with-theme.tsx"
+      ],
+      "locationRequiredFiles": {
+        "provider": "src/app/providers/theme/theme.provider.tsx",
+        "providerIndex": "src/app/providers/theme/index.ts",
+        "toggle": "src/shared/ui/layout/theme-toggle/ui/theme-toggle.tsx",
+        "toggleIndex": "src/shared/ui/layout/theme-toggle/index.ts",
+        "context": "src/shared/ui/layout/theme-toggle/model/theme.context.ts",
+        "hook": "src/shared/ui/layout/theme-toggle/model/useTheme.tsx"
+      },
+      "template": "src/entities/rules/config/entities/theme-pattern.md",
+      "description": "Паттерн переключения тем (Light/Dark). Обязательное использование ThemeProvider и useTheme для управления состоянием и синхронизации с DOM."
     }
   }
 }

@@ -14,7 +14,7 @@ import {
 	SidebarTrigger
 } from "@/shared/ui";
 
-import { LanguageToggle } from "./layout";
+import { LanguageToggle, ThemeToggle } from "./layout";
 
 const ROUTE_TITLES: Record<string, string> = {
 	[ENUM_ROUTES.MAIN.ROOT]: "The Mission",
@@ -28,7 +28,8 @@ const ROUTE_TITLES: Record<string, string> = {
 	[ENUM_ROUTES.MAIN.STRUCTURE]: "File Structure",
 	[ENUM_ROUTES.MAIN.REFERENCE]: "API & Tools",
 	[ENUM_ROUTES.MAIN.CONVERTERS]: "Data Converters",
-	[ENUM_ROUTES.MAIN.MSW]: "Mock Server (MSW)"
+	[ENUM_ROUTES.MAIN.MSW]: "Mock Server (MSW)",
+	[ENUM_ROUTES.MAIN.THEME]: "Theme Master Guide"
 };
 
 export function DocHeader() {
@@ -37,26 +38,31 @@ export function DocHeader() {
 		ROUTE_TITLES[pathname as string] || "Documentation";
 
 	return (
-		<header className="flex h-16 shrink-0 items-center gap-2 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
-			<div className="flex items-center gap-2 px-4">
-				<SidebarTrigger className="-ml-1" />
-				<Separator orientation="vertical" className="mr-2 h-4" />
-				<Breadcrumb>
-					<BreadcrumbList>
-						<BreadcrumbItem className="hidden md:block">
-							<BreadcrumbLink href={ENUM_ROUTES.MAIN.ROOT}>
-								Documentation
-							</BreadcrumbLink>
-						</BreadcrumbItem>
-						<BreadcrumbSeparator className="hidden md:block" />
-						<BreadcrumbItem>
-							<BreadcrumbPage>{currentPageTitle}</BreadcrumbPage>
-						</BreadcrumbItem>
-					</BreadcrumbList>
-				</Breadcrumb>
-			</div>
-			<div className="flex items-center gap-2">
-				<LanguageToggle />
+		<header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-4 md:px-4">
+			<div className="flex h-16 items-center justify-between gap-4">
+				<div className="flex items-center gap-2">
+					<SidebarTrigger className="-ml-1" />
+					<Separator orientation="vertical" className="mr-2 h-4" />
+					<Breadcrumb>
+						<BreadcrumbList>
+							<BreadcrumbItem className="hidden md:block">
+								<BreadcrumbLink href={ENUM_ROUTES.MAIN.ROOT}>
+									Documentation
+								</BreadcrumbLink>
+							</BreadcrumbItem>
+							<BreadcrumbSeparator className="hidden md:block" />
+							<BreadcrumbItem>
+								<BreadcrumbPage>
+									{currentPageTitle}
+								</BreadcrumbPage>
+							</BreadcrumbItem>
+						</BreadcrumbList>
+					</Breadcrumb>
+				</div>
+				<div className="flex items-center gap-2">
+					<ThemeToggle />
+					<LanguageToggle />
+				</div>
 			</div>
 		</header>
 	);

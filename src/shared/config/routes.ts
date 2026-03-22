@@ -13,6 +13,7 @@ export const ENUM_ROUTES = {
 		MEMOIZATION: "/memoization",
 		ERROR_BOUNDARY: "/error-boundary",
 		CONVERTERS: "/converters",
-		MSW: "/msw"
+		MSW: "/msw",
+		THEME: "/theme"
 	}
 } as const;

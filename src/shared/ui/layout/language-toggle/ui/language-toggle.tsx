@@ -27,7 +27,7 @@ export const LanguageToggle: FC = () => {
 		>
 			<SelectTrigger
 				id={`language-${id}`}
-				className="[&>svg]:text-muted-foreground/80 hover:bg-accent hover:text-accent-foreground h-8 border-none px-2 shadow-none [&>svg]:shrink-0"
+				className="[&>svg]:text-muted-foreground/80 hover:bg-accent hover:text-accent-foreground h-8 border-none shadow-none [&>svg]:shrink-0"
 				aria-label="Select language"
 			>
 				<GlobeIcon size={16} aria-hidden="true" className="mr-2" />

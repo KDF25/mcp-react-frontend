@@ -117,6 +117,10 @@ export const SIDEBAR_CONFIG = {
 				{
 					title: "Mock Server (MSW)",
 					url: ENUM_ROUTES.MAIN.MSW
+				},
+				{
+					title: "Theme",
+					url: ENUM_ROUTES.MAIN.THEME
 				}
 			]
 		}

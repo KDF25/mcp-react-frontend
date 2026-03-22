@@ -14,6 +14,7 @@ import reference from "../../../../public/locales/en/reference.json";
 import rtk_query from "../../../../public/locales/en/rtk_query.json";
 import structure from "../../../../public/locales/en/structure.json";
 import styles from "../../../../public/locales/en/styles.json";
+import theme from "../../../../public/locales/en/theme.json";
 import zod from "../../../../public/locales/en/zod.json";
 
 import type { TNestedKeyOf } from "./i18n.types";
@@ -53,6 +54,7 @@ export type TResources = {
 	rtk_query: TRtkQuery;
 	converters: TConverters;
 	msw: typeof msw;
+	theme: typeof theme;
 };
 
 export const NS = [
@@ -72,7 +74,8 @@ export const NS = [
 	"error_boundary",
 	"rtk_query",
 	"converters",
-	"msw"
+	"msw",
+	"theme"
 ] as const;
 export type TNS = (typeof NS)[number];
 export type TCommonKeys = TNestedKeyOf<TCommon>;

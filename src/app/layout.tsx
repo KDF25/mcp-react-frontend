@@ -12,6 +12,8 @@ import {
 
 import { AppSidebar } from "@/widgets/sidebar";
 
+import { ThemeProvider } from "@/app/providers/theme";
+
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -29,15 +31,17 @@ export default function RootLayout({
 			<body
 				className={`${GeistSans.variable} ${GeistMono.variable} antialiased`}
 			>
-				<SidebarProvider>
-					<AppSidebar />
-					<SidebarInset>
-						<DocHeader />
-						<main className="flex flex-1 flex-col gap-8 p-8 max-w-4xl animate-in fade-in duration-500">
-							<ErrorBoundary>{children}</ErrorBoundary>
-						</main>
-					</SidebarInset>
-				</SidebarProvider>
+				<ThemeProvider>
+					<SidebarProvider>
+						<AppSidebar />
+						<SidebarInset>
+							<DocHeader />
+							<main className="flex flex-1 flex-col gap-8 p-8 max-w-4xl animate-in fade-in duration-500">
+								<ErrorBoundary>{children}</ErrorBoundary>
+							</main>
+						</SidebarInset>
+					</SidebarProvider>
+				</ThemeProvider>
 			</body>
 		</html>
 	);

@@ -14,6 +14,7 @@ import reference from "../../../../public/locales/ru/reference.json";
 import rtk_query from "../../../../public/locales/ru/rtk_query.json";
 import structure from "../../../../public/locales/ru/structure.json";
 import styles from "../../../../public/locales/ru/styles.json";
+import theme from "../../../../public/locales/ru/theme.json";
 import zod from "../../../../public/locales/ru/zod.json";
 
 import type { TResources } from "./i18n.config";
@@ -35,5 +36,6 @@ export const RU_TRANSLATION_CHECKER: TResources = {
 	error_boundary: error_boundary,
 	rtk_query: rtk_query,
 	converters: converters,
-	msw: msw
+	msw: msw,
+	theme: theme
 };

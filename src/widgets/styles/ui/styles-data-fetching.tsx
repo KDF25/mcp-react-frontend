@@ -17,7 +17,7 @@ import { STYLES_DATA } from "../model";
 
 function StylesDataFetchingComponent() {
 	const { t } = useTranslation("styles");
-	const fetchingRules = RulesProvider.getRules().patterns.dataFetching;
+	const fetchingRules = RulesProvider.getRules().patterns.rtkQuery;
 
 	return (
 		<section>

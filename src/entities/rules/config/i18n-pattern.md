@@ -107,6 +107,7 @@ export default i18n;
 ```
 
 ### 6. i18n.checker.ts
+
 Статическая проверка: если в RU JSON не хватает ключа, который есть в EN — будет ошибка TS.
 
 ```typescript
