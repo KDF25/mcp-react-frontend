@@ -1,12 +1,12 @@
 "use client";
 
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 
 import { FSD_EXAMPLES } from "@/shared/config";
 import { Badge, CodeBlock, withErrorBoundary } from "@/shared/ui";
 
 function PracticalExamplesComponent() {
-	const { t } = useTranslation("fsd");
+	const t = useTranslations("fsd");
 
 	return (
 		<section className="space-y-6">

@@ -3,11 +3,11 @@
 	"description": "Guide to implementing theme switching (light/dark) using React Context, HOC, and localStorage.",
 	"card_title": "Theme Management Architecture",
 	"benefit_label": "Benefit:",
-	"benefit_text": "Isolation of theme logic from business components. Automatic saving of user choice and prevention of theme 'flicker' on load.",
+	"benefit_text": "Isolation of <one>theme logic</one> from business components. Automatic saving of user choice and prevention of theme 'flicker' on load.",
 	"steps": {
 		"types": {
-			"title": "Types & Interfaces",
-			"description": "Defining allowed theme values (<0>light</0>, <0>dark</0>) and the context structure for state management."
+			"title": "Types and Interfaces",
+			"description": "Define allowed theme values (<one>light</one>, <two>dark</two>) and context structure for state management."
 		},
 		"context": {
 			"title": "React Context",
@@ -15,19 +15,19 @@
 		},
 		"hook": {
 			"title": "Custom Hook",
-			"description": "Encapsulating context access logic in a convenient <0>useTheme</0> hook with provider presence validation."
+			"description": "Encapsulating context access logic in a convenient <one>useTheme</one> hook with provider presence validation."
 		},
 		"provider": {
 			"title": "Theme Provider",
-			"description": "Implementing a provider component that manages state, interacts with <0>localStorage</0>, and manipulates <0>html</0> classes."
+			"description": "Implementing a provider component that manages state, interacts with <one>localStorage</one>, and manipulates <one>html</one> classes."
 		},
 		"setup": {
 			"title": "Initialization HOC",
-			"description": "Creating the <0>withTheme</0> Higher-Order Component for easy application wrapping at the provider level."
+			"description": "Creating the <one>withTheme</one> Higher-Order Component for easy application wrapping at the provider level."
 		},
 		"ui": {
 			"title": "UI Component (Toggle)",
-			"description": "Creating a toggle button that uses the <0>useTheme</0> hook to switch the visual state."
+			"description": "Creating a toggle button that uses the <one>useTheme</one> hook to switch the visual state."
 		}
 	},
 	"tree_title": "Themization File Structure",
@@ -35,11 +35,11 @@
 		"title": "Location and Conventions",
 		"provider": {
 			"label": "Provider:",
-			"text": "Located in <0>src/app/providers/theme/</0>. Responsible for global initialization."
+			"text": "Located in <one>src/app/providers/theme/</one>. Responsible for global initialization."
 		},
 		"shared": {
 			"label": "Shared Logic:",
-			"text": "Context, hooks, and UI components are placed in <0>shared/</0> as they are reusable."
+			"text": "Context, hooks, and UI components are placed in <one>shared/</one> as they are reusable."
 		}
 	}
 }

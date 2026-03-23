@@ -3,51 +3,51 @@
   "description": "A tool for intercepting network requests at the browser level. Allows frontend development independent of backend readiness using typed mocks.",
   "card_title": "API Mocking (MSW Documentation)",
   "benefit_label": "Benefit:",
-  "benefit_text": "Allows testing error scenarios, network delays, and various data states without a real backend.",
+  "benefit_text": "Allows testing <one>error scenarios</one>, network delays, and various data states without a real backend.",
   "tree_title": "Mock Layer Structure",
   "naming": {
     "title": "Naming and Location Rules",
-    "handlers": {
-      "label": "Handlers:",
-      "text": "Located in <0>src/entities/[entity-name]/handlers/</0>. Files named <0>[entity-name].handlers.ts</0>. Contain logic for intercepting entity-specific requests."
-    },
-    "mocks": {
-      "label": "Mocks:",
-      "text": "Located in <0>src/entities/[entity-name]/mock/</0>. Files named <0>[entity-name].mock.ts</0>. Contain static or dynamic data simulating a server response."
-    },
-    "config": {
-      "label": "Configuration:",
-      "text": "General MSW settings are in <0>src/shared/api/msw/</0>. All handlers are registered in <0>handlers.ts</0>."
-    }
+		"handlers": {
+			"label": "Handlers:",
+			"text": "Located in <one>src/entities/[entity-name]/handlers</one>/. Files named <two>[entity-name].handlers.ts</two>. Contain logic for intercepting entity-specific requests."
+		},
+		"mocks": {
+			"label": "Mocks:",
+			"text": "Located in <one>src/entities/[entity-name]/mock</one>/. Files named <two>[entity-name].mock.ts</two>. Contain static or dynamic data simulating a server response."
+		},
+		"config": {
+			"label": "Configuration:",
+			"text": "General MSW settings are in <one>src/shared/api/msw</one>/. All handlers are registered in <two>handlers.ts</two>."
+		}
   },
   "steps": {
     "mocks": {
       "title": "1. Creating Mocks",
-      "description": "Define a data array to be returned by the server. Use interfaces from the <0>types/</0> folder for typing."
+      "description": "Define a data array to be returned by the server. Use interfaces from the <one>types</one>/ folder for typing."
     },
     "handlers": {
       "title": "2. Defining Handlers",
-      "description": "Use the <0>msw</0> library to intercept specific URLs. You can also simulate network delay or server errors here."
+      "description": "Use the <one>msw</one> library to intercept specific URLs. You can also simulate network delay or server errors here."
     },
     "init_browser": {
       "title": "3. Worker Configuration",
-      "description": "Create a worker instance in <0>shared/api/msw/browser.ts</0> to intercept browser requests."
+      "description": "Create a worker instance in <one>shared/api/msw/browser.ts</one> to intercept browser requests."
     },
     "init_handlers": {
       "title": "4. Handlers Registry",
-      "description": "Assemble handlers from all entities into a single array in <0>shared/api/msw/handlers.ts</0>."
+      "description": "Assemble handlers from all entities into a single array in <one>shared/api/msw/handlers.ts</one>."
     },
     "init_app": {
       "title": "5. App Initialization",
-      "description": "Create an async startup function in <0>app/init/msw.ts</0> that checks environment flags."
+      "description": "Create an async startup function in <one>app/init/msw.ts</one> that checks environment flags."
     },
     "init_main": {
       "title": "6. Entry Point (Main)",
-      "description": "Wait for MSW to start before rendering the application in <0>src/main.tsx</0>."
+      "description": "Wait for MSW to start before rendering the application in <one>src/main.tsx</one>."
     },
     "env": {
       "title": "7. Environment Variables",
-      "description": "Managing MSW activation via the <0>.env</0> file."
+      "description": "Managing MSW activation via the <one>.env</one> file."
     }
   }
 }

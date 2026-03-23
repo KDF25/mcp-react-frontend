@@ -11,31 +11,31 @@
 		},
 		"infra_types": {
 			"title": "Type Magic",
-			"description": "Recursive JSON object traversal via <0>TNestedKeyOf</0> to generate dot-notated key paths."
+			"description": "Recursive JSON object traversal via <one>TNestedKeyOf</one> to generate dot-notated key paths."
 		},
 		"config_hub": {
 			"title": "Resource Registry",
-			"description": "Importing master JSON files and creating the <0>TResources</0> master type in <0>i18n.config.ts</0>."
+			"description": "In <one>i18n.config.ts</one>, we import reference JSON files and create a master type <two>TResources</two>."
 		},
 		"config_blocks": {
 			"title": "Translation Blocks",
-			"description": "Configuring physical file locations and dynamic chunk loading in <0>i18n.blocks.ts</0>."
+			"description": "Configuring physical file locations and dynamic chunk loading in <one>i18n.blocks.ts</one>."
 		},
 		"init_core": {
 			"title": "i18next Initialization",
-			"description": "Binding plugins and configuration into a single library instance in <0>i18n.init.ts</0>."
+			"description": "Binding plugins and configuration into a single library instance in <one>i18n.init.ts</one>."
 		},
 		"init_checker": {
 			"title": "Consistency Control",
-			"description": "Static check in <0>i18n.checker.ts</0>. Guarantees that all languages have an identical key structure."
+			"description": "Static check in <one>i18n.checker.ts</one>. Guarantees that all languages have an identical key structure."
 		},
 		"usage": {
 			"title": "UI Usage",
-			"description": "Parameterized <0>useTranslation</0> hook and the <0>Trans</0> component for working with dynamic content."
+			"description": "Parameterized <one>useTranslation</one> hook and the <two>Trans</two> component for working with dynamic content."
 		},
 		"switching": {
 			"title": "Language Switching",
-			"description": "The <0>changeLanguage</0> utility for synchronous library state and <0>localStorage</0> updates."
+			"description": "The <one>changeLanguage</one> utility for synchronous library state and <one>localStorage</one> updates."
 		}
 	},
 	"tree_title": "i18n File Structure",
@@ -43,11 +43,11 @@
 		"title": "Naming and Location Conventions",
 		"config": {
 			"label": "Configuration:",
-			"text": "All settings are centralized in <0>shared/config/i18n/</0>. Each aspect (types, initialization, blocks) is separated into its own file."
+			"text": "All settings are centralized in <one>shared/config/i18n</one>/. Each aspect (types, initialization, blocks) is separated into its own file."
 		},
 		"locales": {
 			"label": "Translation Files:",
-			"text": "Located in <0>public/locales/[lng]/</0>. Use subfolders to group namespaces (e.g., <0>booking/order.json</0>)."
+			"text": "Located in <one>public/locales/[lng]</one>/. Use nested folders to group namespaces (e.g., <two>booking/order.json</two>)."
 		}
 	}
 }

@@ -1,8 +1,5 @@
-"use client";
+import { getTranslations } from "next-intl/server";
 
-import { useTranslation } from "react-i18next";
-
-import { withErrorBoundary } from "@/shared/ui";
 import {
 	Badge,
 	Card,
@@ -12,8 +9,8 @@ import {
 	CardTitle
 } from "@/shared/ui";
 
-function DocsMissionComponent() {
-	const { t } = useTranslation("docs");
+export async function DocsMission() {
+	const t = await getTranslations("docs");
 
 	return (
 		<div className="space-y-6">
@@ -55,5 +52,3 @@ function DocsMissionComponent() {
 		</div>
 	);
 }
-
-export const DocsMission = withErrorBoundary(DocsMissionComponent);

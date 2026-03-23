@@ -1,17 +1,10 @@
-"use client";
-
 import { AlertTriangleIcon } from "lucide-react";
-import { useTranslation } from "react-i18next";
+import { getTranslations } from "next-intl/server";
 
-import { withErrorBoundary } from "@/shared/ui";
+export async function MemoizationAntipatterns() {
+	const t = await getTranslations("memoization");
 
-function MemoizationAntipatternsComponent() {
-	const { t } = useTranslation("memoization");
-
-	const items = t("antipatterns.items", {
-		returnObjects: true,
-		defaultValue: []
-	}) as string[];
+	const items = t.raw("antipatterns.items") as string[];
 
 	return (
 		<section className="space-y-6">
@@ -37,7 +30,3 @@ function MemoizationAntipatternsComponent() {
 		</section>
 	);
 }
-
-export const MemoizationAntipatterns = withErrorBoundary(
-	MemoizationAntipatternsComponent
-);

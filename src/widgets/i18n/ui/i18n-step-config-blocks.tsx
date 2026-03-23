@@ -1,13 +1,11 @@
-"use client";
+import { getTranslations } from "next-intl/server";
 
-import { Trans, useTranslation } from "react-i18next";
-
-import { CodeBlock, SectionTitle, withErrorBoundary } from "@/shared/ui";
+import { CodeBlock, SectionTitle } from "@/shared/ui";
 
 import { I18N_CODE_CONFIG_BLOCKS } from "../model";
 
-function I18nStepConfigBlocksComponent() {
-	const { t } = useTranslation("i18n");
+export async function I18nStepConfigBlocks() {
+	const t = await getTranslations("i18n");
 
 	return (
 		<div className="space-y-4 pt-4 border-t border-border/40">
@@ -15,16 +13,13 @@ function I18nStepConfigBlocksComponent() {
 				{t("steps.config_blocks.title")}
 			</SectionTitle>
 			<div className="text-muted-foreground">
-				<Trans
-					ns="i18n"
-					i18nKey="steps.config_blocks.description"
-					components={[
-						<code
-							key="0"
-							className="bg-primary/5 px-1 py-0.5 rounded text-primary"
-						/>
-					]}
-				/>
+				{t.rich("steps.config_blocks.description", {
+					one: (chunks) => (
+						<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+							{chunks}
+						</code>
+					)
+				})}
 			</div>
 
 			<CodeBlock
@@ -35,7 +30,3 @@ function I18nStepConfigBlocksComponent() {
 		</div>
 	);
 }
-
-export const I18nStepConfigBlocks = withErrorBoundary(
-	I18nStepConfigBlocksComponent
-);

@@ -1,14 +1,11 @@
-"use client";
-
-import { useTranslation } from "react-i18next";
+import { getTranslations } from "next-intl/server";
 
 import { CodeBlock } from "@/shared/ui";
-import { withErrorBoundary } from "@/shared/ui";
 
 import { CREATOR_DATA } from "../model";
 
-function CreatorTechnicalComponent() {
-	const { t } = useTranslation("creator");
+export async function CreatorTechnical() {
+	const t = await getTranslations("creator");
 
 	return (
 		<section className="space-y-4">
@@ -23,5 +20,3 @@ function CreatorTechnicalComponent() {
 		</section>
 	);
 }
-
-export const CreatorTechnical = withErrorBoundary(CreatorTechnicalComponent);

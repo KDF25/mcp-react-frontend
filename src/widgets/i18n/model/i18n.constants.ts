@@ -101,28 +101,27 @@ export const RU_TRANSLATION_CHECKER: TResources = {
     common: common_ru,
 };`;
 
-export const I18N_CODE_USAGE = `import { useTranslation } from "react-i18next";
+export const I18N_CODE_USAGE = `import { useTranslations } from "next-intl";
 
 export const MyComponent = () => {
-    const { t } = useTranslation("common");
+    const t = useTranslations("common");
     
     return <h1>{t("header.title")}</h1>;
 };`;
 
 export const I18N_CODE_TRANS = `
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslations } from "next-intl";
 
 export const MyComponent = () => {
-    const { t } = useTranslation("common");
+    const t = useTranslations("common");
     
     return (
         <div>
             <h1>{t("header.title")}</h1>
-            <Trans
-                ns="common"
-                i18nKey="description.text"
-                components={[<strong key="0" />, <br key="1" />]}
-            />
+            {t.rich("description.text", {
+								0: (chunks) => <strong>{chunks}</strong/>,
+								1: (chunks) => <br>{chunks}</br/>,
+							})}
         </div>
     );
 };`;

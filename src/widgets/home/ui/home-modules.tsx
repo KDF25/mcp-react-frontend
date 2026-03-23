@@ -1,16 +1,9 @@
-"use client";
-
 import { Activity, Layers, ShieldAlert, ShieldCheck, Type } from "lucide-react";
-import Link from "next/link";
-import { useTranslation } from "react-i18next";
+import { getTranslations } from "next-intl/server";
 
-import {
-	Card,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-	withErrorBoundary
-} from "@/shared/ui";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/shared/ui";
+
+import { Link } from "@/i18n/routing";
 
 const ICON_MAP = {
 	ShieldCheck: ShieldCheck,
@@ -25,12 +18,12 @@ const MODULES_CONFIG = [
 	{ key: "error_boundary", icon: ShieldAlert, link: "/error-boundary" }
 ];
 
-function HomeModulesComponent() {
-	const { t } = useTranslation("home");
-	const features = t("features", {
-		returnObjects: true,
-		defaultValue: {}
-	}) as Record<string, { title: string; description: string }>;
+export async function HomeModules() {
+	const t = await getTranslations("home");
+	const features = t.raw("features") as Record<
+		string,
+		{ title: string; description: string }
+	>;
 
 	return (
 		<section className="space-y-6">
@@ -68,5 +61,3 @@ function HomeModulesComponent() {
 		</section>
 	);
 }
-
-export const HomeModules = withErrorBoundary(HomeModulesComponent);

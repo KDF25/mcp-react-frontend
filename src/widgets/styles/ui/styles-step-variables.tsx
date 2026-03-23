@@ -1,13 +1,11 @@
-"use client";
+import { getTranslations } from "next-intl/server";
 
-import { useTranslation } from "react-i18next";
-
-import { CodeBlock, SectionTitle, withErrorBoundary } from "@/shared/ui";
+import { CodeBlock, SectionTitle } from "@/shared/ui";
 
 import { STYLES_CODE_VARIABLES } from "../model";
 
-function StylesStepVariablesComponent() {
-	const { t } = useTranslation("styles");
+export async function StylesStepVariables() {
+	const t = await getTranslations("styles");
 
 	return (
 		<div className="space-y-4 pt-4 border-t border-border/40">
@@ -25,7 +23,3 @@ function StylesStepVariablesComponent() {
 		</div>
 	);
 }
-
-export const StylesStepVariables = withErrorBoundary(
-	StylesStepVariablesComponent
-);

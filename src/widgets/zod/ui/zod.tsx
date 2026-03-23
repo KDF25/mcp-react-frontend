@@ -1,13 +1,11 @@
-"use client";
-
-import { useTranslation } from "react-i18next";
+import { getTranslations } from "next-intl/server";
 
 import { ZodArchitecture } from "./zod-architecture";
 import { ZodImportance } from "./zod-importance";
 import { ZodPattern } from "./zod-pattern";
 
-export function Zod() {
-	const { t } = useTranslation("zod");
+export async function Zod() {
+	const t = await getTranslations("zod");
 
 	return (
 		<div className="space-y-12">

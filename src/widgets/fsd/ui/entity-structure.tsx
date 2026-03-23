@@ -3,7 +3,7 @@
 import { hotkeysCoreFeature, syncDataLoaderFeature } from "@headless-tree/core";
 import { useTree } from "@headless-tree/react";
 import { FileIcon, FolderIcon, FolderOpenIcon } from "lucide-react";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 
 import {
 	Card,
@@ -17,11 +17,8 @@ import {
 import { ENTITY_STRUCTURE_ITEMS, Item } from "../model";
 
 function EntityStructureComponent() {
-	const { t } = useTranslation("fsd");
-	const entityItems = t("entities.items", {
-		returnObjects: true,
-		defaultValue: {}
-	}) as Record<string, string>;
+	const t = useTranslations("fsd");
+	const entityItems = t.raw("entities.items") as Record<string, string>;
 
 	const entityTree = useTree<Item>({
 		dataLoader: {

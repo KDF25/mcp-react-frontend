@@ -1,12 +1,8 @@
 import { GlobeIcon } from "lucide-react";
+import { useLocale } from "next-intl";
 import { type FC, useId } from "react";
 
-import {
-	ENUM_LANGUAGES,
-	LANGUAGES_LIST,
-	changeLanguage,
-	i18n
-} from "@/shared/config";
+import { ENUM_LANGUAGES, LANGUAGES_LIST } from "@/shared/config";
 import {
 	Select,
 	SelectContent,
@@ -15,14 +11,19 @@ import {
 	SelectValue
 } from "@/shared/ui";
 
+import { usePathname, useRouter } from "@/i18n/routing";
+
 export const LanguageToggle: FC = () => {
 	const id = useId();
+	const locale = useLocale();
+	const router = useRouter();
+	const pathname = usePathname();
 
 	return (
 		<Select
-			defaultValue={i18n?.language?.split("-")?.[0] || ENUM_LANGUAGES.EN}
+			defaultValue={locale || ENUM_LANGUAGES.EN}
 			onValueChange={(value) => {
-				changeLanguage(value as ENUM_LANGUAGES);
+				router.replace(pathname, { locale: value as ENUM_LANGUAGES });
 			}}
 		>
 			<SelectTrigger

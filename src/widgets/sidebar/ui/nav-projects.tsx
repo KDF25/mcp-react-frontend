@@ -1,8 +1,6 @@
 "use client";
 
 import { type LucideIcon } from "lucide-react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 import {
 	SidebarGroup,
@@ -11,6 +9,8 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem
 } from "@/shared/ui";
+
+import { Link, usePathname } from "@/i18n/routing";
 
 export function NavProjects({
 	projects

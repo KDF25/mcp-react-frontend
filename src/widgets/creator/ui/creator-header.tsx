@@ -1,13 +1,13 @@
 "use client";
 
 import { ShieldCheck } from "lucide-react";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 
 import { Badge } from "@/shared/ui";
 import { withErrorBoundary } from "@/shared/ui";
 
 function CreatorHeaderComponent() {
-	const { t } = useTranslation("creator");
+	const t = useTranslations("creator");
 
 	return (
 		<section className="space-y-4">

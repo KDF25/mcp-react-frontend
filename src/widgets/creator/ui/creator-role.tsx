@@ -1,11 +1,11 @@
 "use client";
 
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 
 import { withErrorBoundary } from "@/shared/ui";
 
 function CreatorRoleComponent() {
-	const { t } = useTranslation("creator");
+	const t = useTranslations("creator");
 
 	return (
 		<section className="space-y-4">

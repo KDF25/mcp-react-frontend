@@ -7,19 +7,19 @@
 	"steps": {
 		"to_frontend": {
 			"title": "Mapping to Frontend (Domain Model)",
-			"description": "Transforming raw backend data (snake_case, strings instead of dates) into camelCase and typed objects for the UI. <0>mapToFrontend</0> is the most critical stage."
+			"description": "Transforming raw backend data (snake_case, strings instead of dates) into camelCase and typed objects for the UI. <one>mapToFrontend</one> is the most critical stage."
 		},
 		"to_backend": {
 			"title": "Mapping to Backend (DTO)",
-			"description": "Preparing data before sending. Used when creating or updating entities to return to the format expected by the API."
+			"description": "Preparing data before sending. Used when creating or updating entities to return to the <one>DTO</one> format expected by the API."
 		},
 		"filters": {
 			"title": "Filter Conversion",
-			"description": "A special case of mapping search filter state into query parameters. Allows convenient array joining, handling empty values, and API-specific formats."
+			"description": "A special case of mapping search filter state into <one>query parameters</one>. Allows convenient array joining, handling empty values, and API-specific formats."
 		},
 		"rtk_query": {
 			"title": "RTK Query Integration",
-			"description": "Converters are injected directly into endpoint definitions: <0>transformResponse</0> for data retrieval and <0>query</0> (params/body) for data submission."
+			"description": "Converters are injected directly into endpoint definitions: <one>transformResponse</one> for data retrieval and <two>query</two> (params/body) for data submission."
 		}
 	},
 	"tree_title": "Entity Converters File Structure",
@@ -27,11 +27,11 @@
 		"title": "Naming Conventions",
 		"converters": {
 			"label": "Converters:",
-			"text": "Located in the <0>converters/</0> folder. Files are named following the <0>[entity-name].converters.ts</0> pattern. They use types from the sibling folder for data transformation."
+			"text": "Located in the <one>converters/</one> folder. Files are named following the <two>[entity-name].converters.ts</two> pattern. They use types from the sibling folder for data transformation."
 		},
 		"types": {
 			"label": "Types and Interfaces:",
-			"text": "Located in the <0>types/</0> folder. Must be divided into <0>*.backend.interface.ts</0> (raw DTOs) and <0>*.interface.ts</0> (UI models). All types are exported via <0>index.ts</0>."
+			"text": "Located in the <one>types</one> folder. Must be divided into <two>*.backend.interface.ts</two> (raw DTOs) and <three>*.interface.ts</three> (UI models). All types are exported via <four>index.ts</four>."
 		}
 	}
 }

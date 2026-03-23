@@ -1,15 +1,10 @@
-"use client";
+import { getTranslations } from "next-intl/server";
 
-import { useTranslation } from "react-i18next";
+import { Card, CardContent, CardHeader } from "@/shared/ui";
 
-import { Card, CardContent, CardHeader, withErrorBoundary } from "@/shared/ui";
-
-function ZodArchitectureComponent() {
-	const { t } = useTranslation("zod");
-	const items = t("architecture.items", {
-		returnObjects: true,
-		defaultValue: []
-	}) as Array<{
+export async function ZodArchitecture() {
+	const t = await getTranslations("zod");
+	const items = t.raw("architecture.items") as Array<{
 		title: string;
 		description: string;
 	}>;
@@ -45,5 +40,3 @@ function ZodArchitectureComponent() {
 		</section>
 	);
 }
-
-export const ZodArchitecture = withErrorBoundary(ZodArchitectureComponent);

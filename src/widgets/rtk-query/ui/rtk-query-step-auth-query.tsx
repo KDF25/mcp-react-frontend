@@ -1,13 +1,11 @@
-"use client";
+import { getTranslations } from "next-intl/server";
 
-import { Trans, useTranslation } from "react-i18next";
-
-import { CodeBlock, SectionTitle, withErrorBoundary } from "@/shared/ui";
+import { CodeBlock, SectionTitle } from "@/shared/ui";
 
 import { API_CODE_AUTH_QUERY } from "../model";
 
-function RtkQueryStepAuthQueryComponent() {
-	const { t } = useTranslation("rtk_query");
+export async function RtkQueryStepAuthQuery() {
+	const t = await getTranslations("rtk_query");
 
 	return (
 		<div className="space-y-4 pt-4 border-t border-border/40">
@@ -15,16 +13,13 @@ function RtkQueryStepAuthQueryComponent() {
 				{t("steps.auth_query.title")}
 			</SectionTitle>
 			<p>
-				<Trans
-					ns="rtk_query"
-					i18nKey="steps.auth_query.description"
-					components={[
-						<code
-							key="0"
-							className="bg-primary/5 px-1 py-0.5 rounded text-primary"
-						/>
-					]}
-				/>
+				{t.rich("steps.auth_query.description", {
+					one: (chunks) => (
+						<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+							{chunks}
+						</code>
+					)
+				})}
 			</p>
 
 			<CodeBlock
@@ -35,7 +30,3 @@ function RtkQueryStepAuthQueryComponent() {
 		</div>
 	);
 }
-
-export const RtkQueryStepAuthQuery = withErrorBoundary(
-	RtkQueryStepAuthQueryComponent
-);

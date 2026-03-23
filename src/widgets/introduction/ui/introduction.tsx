@@ -1,14 +1,12 @@
-"use client";
-
-import { useTranslation } from "react-i18next";
+import { getTranslations } from "next-intl/server";
 
 import { Badge, Separator } from "@/shared/ui";
 
 import { IntroCapabilities } from "./intro-capabilities";
 import { IntroPhilosophy } from "./intro-philosophy";
 
-export function Introduction() {
-	const { t } = useTranslation("introduction");
+export async function Introduction() {
+	const t = await getTranslations("introduction");
 
 	return (
 		<div className="space-y-12">

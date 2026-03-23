@@ -1,20 +1,12 @@
-"use client";
+import { getTranslations } from "next-intl/server";
 
-import { Trans, useTranslation } from "react-i18next";
-
-import {
-	Card,
-	CardContent,
-	CardHeader,
-	PageTitle,
-	withErrorBoundary
-} from "@/shared/ui";
+import { Card, CardContent, CardHeader, PageTitle } from "@/shared/ui";
 
 import { ThemeSteps } from "./theme-steps";
 import { ThemeTree } from "./theme-tree";
 
-function ThemeWidgetComponent() {
-	const { t } = useTranslation("theme");
+export async function Theme() {
+	const t = await getTranslations("theme");
 
 	return (
 		<div className="space-y-8 max-w-4xl">
@@ -30,16 +22,13 @@ function ThemeWidgetComponent() {
 					<div className="space-y-4">
 						<p className="border-l-2 border-primary pl-3 italic text-foreground mt-4 mb-2">
 							<strong>{t("benefit_label")}</strong>{" "}
-							<Trans
-								ns="theme"
-								i18nKey="benefit_text"
-								components={[
-									<code
-										key="0"
-										className="bg-primary/5 px-1 py-0.5 rounded text-primary"
-									/>
-								]}
-							/>
+							{t.rich("benefit_text", {
+								one: (chunks) => (
+									<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+										{chunks}
+									</code>
+								)
+							})}
 						</p>
 
 						<ThemeTree />
@@ -54,16 +43,13 @@ function ThemeWidgetComponent() {
 										{t("naming.provider.label")}
 									</span>
 									<p className="text-muted-foreground">
-										<Trans
-											ns="theme"
-											i18nKey="naming.provider.text"
-											components={[
-												<code
-													key="0"
-													className="bg-primary/5 px-1 py-0.5 rounded text-primary"
-												/>
-											]}
-										/>
+										{t.rich("naming.provider.text", {
+											one: (chunks) => (
+												<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+													{chunks}
+												</code>
+											)
+										})}
 									</p>
 								</li>
 								<li className="flex flex-col gap-1">
@@ -71,16 +57,13 @@ function ThemeWidgetComponent() {
 										{t("naming.shared.label")}
 									</span>
 									<p className="text-muted-foreground">
-										<Trans
-											ns="theme"
-											i18nKey="naming.shared.text"
-											components={[
-												<code
-													key="0"
-													className="bg-primary/5 px-1 py-0.5 rounded text-primary"
-												/>
-											]}
-										/>
+										{t.rich("naming.shared.text", {
+											one: (chunks) => (
+												<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+													{chunks}
+												</code>
+											)
+										})}
 									</p>
 								</li>
 							</ul>
@@ -93,5 +76,3 @@ function ThemeWidgetComponent() {
 		</div>
 	);
 }
-
-export const Theme = withErrorBoundary(ThemeWidgetComponent);

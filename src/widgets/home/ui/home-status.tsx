@@ -1,8 +1,6 @@
-"use client";
+import { getTranslations } from "next-intl/server";
 
-import { useTranslation } from "react-i18next";
-
-import { Badge, Card, CardContent, withErrorBoundary } from "@/shared/ui";
+import { Badge, Card, CardContent } from "@/shared/ui";
 
 const STATUS_CONFIG = [
 	{ key: "core", value: "SSE (v1.0.0)", status: "active" },
@@ -11,12 +9,9 @@ const STATUS_CONFIG = [
 	{ key: "validation", value: "Locked", status: "stable" }
 ];
 
-function HomeStatusComponent() {
-	const { t } = useTranslation("home");
-	const labels = t("status", {
-		returnObjects: true,
-		defaultValue: {}
-	}) as Record<string, string>;
+export async function HomeStatus() {
+	const t = await getTranslations("home");
+	const labels = t.raw("status") as Record<string, string>;
 
 	return (
 		<div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -43,5 +38,3 @@ function HomeStatusComponent() {
 		</div>
 	);
 }
-
-export const HomeStatus = withErrorBoundary(HomeStatusComponent);

@@ -1,11 +1,11 @@
 "use client";
 
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 
 import { withErrorBoundary } from "@/shared/ui";
 
 function DocsPolicyComponent() {
-	const { t } = useTranslation("docs");
+	const t = useTranslations("docs");
 
 	return (
 		<div className="rounded-lg border bg-primary/5 p-6 border-primary/20">

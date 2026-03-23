@@ -1,9 +1,6 @@
-"use client";
-
 import { BrainIcon } from "lucide-react";
-import { useTranslation } from "react-i18next";
+import { getTranslations } from "next-intl/server";
 
-import { withErrorBoundary } from "@/shared/ui";
 import {
 	Badge,
 	Card,
@@ -13,8 +10,8 @@ import {
 	CodeBlock
 } from "@/shared/ui";
 
-function MemoizationToolsComponent() {
-	const { t } = useTranslation("memoization");
+export async function MemoizationTools() {
+	const t = await getTranslations("memoization");
 
 	const tools = ["useMemo", "useCallback", "memo"] as const;
 
@@ -63,5 +60,3 @@ function MemoizationToolsComponent() {
 		</section>
 	);
 }
-
-export const MemoizationTools = withErrorBoundary(MemoizationToolsComponent);

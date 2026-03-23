@@ -2,7 +2,7 @@
 
 import { hotkeysCoreFeature, syncDataLoaderFeature } from "@headless-tree/core";
 import { useTree } from "@headless-tree/react";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 
 import {
 	Card,
@@ -19,7 +19,7 @@ import {
 import { MSW_TREE_ITEMS } from "../model";
 
 function MswTreeComponent() {
-	const { t } = useTranslation("msw");
+	const t = useTranslations("msw");
 
 	const mswTree = useTree<ITreeItemData>({
 		dataLoader: {

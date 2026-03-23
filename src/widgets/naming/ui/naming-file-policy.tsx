@@ -1,19 +1,11 @@
-"use client";
+import { getTranslations } from "next-intl/server";
 
-import { useTranslation } from "react-i18next";
-
-import {
-	Badge,
-	Card,
-	CardContent,
-	CardHeader,
-	withErrorBoundary
-} from "@/shared/ui";
+import { Badge, Card, CardContent, CardHeader } from "@/shared/ui";
 
 import { RulesProvider } from "@/entities/rules";
 
-function NamingFilePolicyComponent() {
-	const { t } = useTranslation("naming");
+export async function NamingFilePolicy() {
+	const t = await getTranslations("naming");
 	const naming = RulesProvider.getNamingRules();
 
 	return (
@@ -71,5 +63,3 @@ function NamingFilePolicyComponent() {
 		</section>
 	);
 }
-
-export const NamingFilePolicy = withErrorBoundary(NamingFilePolicyComponent);

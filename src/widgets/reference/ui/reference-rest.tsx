@@ -1,11 +1,9 @@
-"use client";
+import { getTranslations } from "next-intl/server";
 
-import { useTranslation } from "react-i18next";
+import { Badge, Card, CardContent } from "@/shared/ui";
 
-import { Badge, Card, CardContent, withErrorBoundary } from "@/shared/ui";
-
-function ReferenceRestComponent() {
-	const { t } = useTranslation("reference");
+export async function ReferenceRest() {
+	const t = await getTranslations("reference");
 	const apis = [
 		{
 			method: "GET",
@@ -54,5 +52,3 @@ function ReferenceRestComponent() {
 		</section>
 	);
 }
-
-export const ReferenceRest = withErrorBoundary(ReferenceRestComponent);

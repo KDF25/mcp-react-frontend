@@ -1,20 +1,12 @@
-"use client";
+import { getTranslations } from "next-intl/server";
 
-import { Trans, useTranslation } from "react-i18next";
-
-import {
-	Card,
-	CardContent,
-	CardHeader,
-	PageTitle,
-	withErrorBoundary
-} from "@/shared/ui";
+import { Card, CardContent, CardHeader, PageTitle } from "@/shared/ui";
 
 import { ConvertersSteps } from "./converters-steps";
 import { ConvertersTree } from "./converters-tree";
 
-function ConvertersComponent() {
-	const { t } = useTranslation("converters");
+export async function Converters() {
+	const t = await getTranslations("converters");
 
 	return (
 		<div className="space-y-8 max-w-4xl">
@@ -30,16 +22,7 @@ function ConvertersComponent() {
 					<div className="space-y-4">
 						<p className="border-l-2 border-primary pl-3 italic text-foreground mt-4 mb-2">
 							<strong>{t("benefit_label")}</strong>{" "}
-							<Trans
-								ns="converters"
-								i18nKey="benefit_text"
-								components={[
-									<code
-										key="0"
-										className="bg-primary/5 px-1 py-0.5 rounded text-primary"
-									/>
-								]}
-							/>
+							{t("benefit_text")}
 						</p>
 
 						<ConvertersTree />
@@ -54,16 +37,18 @@ function ConvertersComponent() {
 										{t("naming.converters.label")}
 									</span>
 									<p className="text-muted-foreground">
-										<Trans
-											ns="converters"
-											i18nKey="naming.converters.text"
-											components={[
-												<code
-													key="0"
-													className="bg-primary/5 px-1 py-0.5 rounded text-primary"
-												/>
-											]}
-										/>
+										{t.rich("naming.converters.text", {
+											one: (chunks) => (
+												<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+													{chunks}
+												</code>
+											),
+											two: (chunks) => (
+												<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+													{chunks}
+												</code>
+											)
+										})}
 									</p>
 								</li>
 								<li className="flex flex-col gap-1">
@@ -71,16 +56,28 @@ function ConvertersComponent() {
 										{t("naming.types.label")}
 									</span>
 									<p className="text-muted-foreground">
-										<Trans
-											ns="converters"
-											i18nKey="naming.types.text"
-											components={[
-												<code
-													key="0"
-													className="bg-primary/5 px-1 py-0.5 rounded text-primary"
-												/>
-											]}
-										/>
+										{t.rich("naming.types.text", {
+											one: (chunks) => (
+												<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+													{chunks}
+												</code>
+											),
+											two: (chunks) => (
+												<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+													{chunks}
+												</code>
+											),
+											three: (chunks) => (
+												<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+													{chunks}
+												</code>
+											),
+											four: (chunks) => (
+												<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+													{chunks}
+												</code>
+											)
+										})}
 									</p>
 								</li>
 							</ul>
@@ -93,5 +90,3 @@ function ConvertersComponent() {
 		</div>
 	);
 }
-
-export const Converters = withErrorBoundary(ConvertersComponent);

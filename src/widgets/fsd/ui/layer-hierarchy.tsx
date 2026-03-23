@@ -1,13 +1,13 @@
 "use client";
 
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 
 import { Badge, Card, CardContent, withErrorBoundary } from "@/shared/ui";
 
 import { RulesProvider } from "@/entities/rules";
 
 function LayerHierarchyComponent() {
-	const { t } = useTranslation("fsd");
+	const t = useTranslations("fsd");
 	const fsd = RulesProvider.getFsdRules();
 
 	return (

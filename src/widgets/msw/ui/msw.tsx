@@ -1,20 +1,18 @@
-"use client";
-
-import { Trans, useTranslation } from "react-i18next";
+import { getTranslations } from "next-intl/server";
 
 import {
 	Card,
 	CardContent,
 	CardHeader,
-	PageTitle,
-	withErrorBoundary
+	ErrorBoundary,
+	PageTitle
 } from "@/shared/ui";
 
 import { MswSteps } from "./msw-steps";
 import { MswTree } from "./msw-tree";
 
-function MswComponent() {
-	const { t } = useTranslation("msw");
+export async function Msw() {
+	const t = await getTranslations("msw");
 
 	return (
 		<div className="space-y-8 max-w-4xl">
@@ -30,19 +28,18 @@ function MswComponent() {
 					<div className="space-y-4">
 						<p className="border-l-2 border-primary pl-3 italic text-foreground mt-4 mb-2">
 							<strong>{t("benefit_label")}</strong>{" "}
-							<Trans
-								ns="msw"
-								i18nKey="benefit_text"
-								components={[
-									<code
-										key="0"
-										className="bg-primary/5 px-1 py-0.5 rounded text-primary"
-									/>
-								]}
-							/>
+							{t.rich("benefit_text", {
+								one: (chunks) => (
+									<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+										{chunks}
+									</code>
+								)
+							})}
 						</p>
 
-						<MswTree />
+						<ErrorBoundary>
+							<MswTree />
+						</ErrorBoundary>
 
 						<div className="pt-6 border-t border-border/40 space-y-4">
 							<h3 className="text-lg font-semibold">
@@ -54,16 +51,18 @@ function MswComponent() {
 										{t("naming.handlers.label")}
 									</span>
 									<div className="text-muted-foreground">
-										<Trans
-											ns="msw"
-											i18nKey="naming.handlers.text"
-											components={[
-												<code
-													key="0"
-													className="bg-primary/5 px-1 py-0.5 rounded text-primary"
-												/>
-											]}
-										/>
+										{t.rich("naming.handlers.text", {
+											one: (chunks) => (
+												<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+													{chunks}
+												</code>
+											),
+											two: (chunks) => (
+												<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+													{chunks}
+												</code>
+											)
+										})}
 									</div>
 								</li>
 								<li className="flex flex-col gap-1">
@@ -71,16 +70,18 @@ function MswComponent() {
 										{t("naming.mocks.label")}
 									</span>
 									<div className="text-muted-foreground">
-										<Trans
-											ns="msw"
-											i18nKey="naming.mocks.text"
-											components={[
-												<code
-													key="0"
-													className="bg-primary/5 px-1 py-0.5 rounded text-primary"
-												/>
-											]}
-										/>
+										{t.rich("naming.mocks.text", {
+											one: (chunks) => (
+												<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+													{chunks}
+												</code>
+											),
+											two: (chunks) => (
+												<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+													{chunks}
+												</code>
+											)
+										})}
 									</div>
 								</li>
 								<li className="flex flex-col gap-1">
@@ -88,27 +89,29 @@ function MswComponent() {
 										{t("naming.config.label")}
 									</span>
 									<div className="text-muted-foreground">
-										<Trans
-											ns="msw"
-											i18nKey="naming.config.text"
-											components={[
-												<code
-													key="0"
-													className="bg-primary/5 px-1 py-0.5 rounded text-primary"
-												/>
-											]}
-										/>
+										{t.rich("naming.config.text", {
+											one: (chunks) => (
+												<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+													{chunks}
+												</code>
+											),
+											two: (chunks) => (
+												<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+													{chunks}
+												</code>
+											)
+										})}
 									</div>
 								</li>
 							</ul>
 						</div>
 					</div>
 
-					<MswSteps />
+					<ErrorBoundary>
+						<MswSteps />
+					</ErrorBoundary>
 				</CardContent>
 			</Card>
 		</div>
 	);
 }
-
-export const Msw = withErrorBoundary(MswComponent);

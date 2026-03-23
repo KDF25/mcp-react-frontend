@@ -1,13 +1,11 @@
-"use client";
+import { getTranslations } from "next-intl/server";
 
-import { useTranslation } from "react-i18next";
-
-import { CodeBlock, SectionTitle, withErrorBoundary } from "@/shared/ui";
+import { CodeBlock, SectionTitle } from "@/shared/ui";
 
 import { THEME_CODE_CONTEXT } from "../model";
 
-function ThemeStepContextComponent() {
-	const { t } = useTranslation("theme");
+export async function ThemeStepContext() {
+	const t = await getTranslations("theme");
 
 	return (
 		<div className="space-y-4 pt-4 border-t border-border/40">
@@ -26,5 +24,3 @@ function ThemeStepContextComponent() {
 		</div>
 	);
 }
-
-export const ThemeStepContext = withErrorBoundary(ThemeStepContextComponent);

@@ -1,13 +1,11 @@
-"use client";
+import { getTranslations } from "next-intl/server";
 
-import { Trans, useTranslation } from "react-i18next";
-
-import { CodeBlock, SectionTitle, withErrorBoundary } from "@/shared/ui";
+import { CodeBlock, SectionTitle } from "@/shared/ui";
 
 import { THEME_CODE_PROVIDER } from "../model";
 
-function ThemeStepProviderComponent() {
-	const { t } = useTranslation("theme");
+export async function ThemeStepProvider() {
+	const t = await getTranslations("theme");
 
 	return (
 		<div className="space-y-4 pt-4 border-t border-border/40">
@@ -15,16 +13,13 @@ function ThemeStepProviderComponent() {
 				{t("steps.provider.title")}
 			</SectionTitle>
 			<div className="text-muted-foreground">
-				<Trans
-					ns="theme"
-					i18nKey="steps.provider.description"
-					components={[
-						<code
-							key="0"
-							className="bg-primary/5 px-1 py-0.5 rounded text-primary"
-						/>
-					]}
-				/>
+				{t.rich("steps.provider.description", {
+					one: (chunks) => (
+						<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+							{chunks}
+						</code>
+					)
+				})}
 			</div>
 
 			<CodeBlock
@@ -35,5 +30,3 @@ function ThemeStepProviderComponent() {
 		</div>
 	);
 }
-
-export const ThemeStepProvider = withErrorBoundary(ThemeStepProviderComponent);

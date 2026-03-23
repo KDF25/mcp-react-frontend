@@ -1,13 +1,11 @@
-"use client";
+import { getTranslations } from "next-intl/server";
 
-import { useTranslation } from "react-i18next";
-
-import { CodeBlock, SectionTitle, withErrorBoundary } from "@/shared/ui";
+import { CodeBlock, SectionTitle } from "@/shared/ui";
 
 import { STYLES_CODE_CONFIG, STYLES_CODE_THEME } from "../model";
 
-function StylesStepThemeComponent() {
-	const { t } = useTranslation("styles");
+export async function StylesStepTheme() {
+	const t = await getTranslations("styles");
 
 	return (
 		<div className="space-y-6 pt-4 border-t border-border/40">
@@ -34,5 +32,3 @@ function StylesStepThemeComponent() {
 		</div>
 	);
 }
-
-export const StylesStepTheme = withErrorBoundary(StylesStepThemeComponent);

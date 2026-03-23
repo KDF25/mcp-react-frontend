@@ -1,18 +1,13 @@
-"use client";
+import { getTranslations } from "next-intl/server";
 
-import { useTranslation } from "react-i18next";
-
-import { Badge, Card, CardContent, withErrorBoundary } from "@/shared/ui";
+import { Badge, Card, CardContent } from "@/shared/ui";
 
 import { RulesProvider } from "@/entities/rules";
 
-function NamingLinterRulesComponent() {
-	const { t } = useTranslation("naming");
+export async function NamingLinterRules() {
+	const t = await getTranslations("naming");
 	const linter = RulesProvider.getLinterRules();
-	const rulesTranslations = t("rules", {
-		returnObjects: true,
-		defaultValue: {}
-	}) as Record<string, string>;
+	const rulesTranslations = t.raw("rules") as Record<string, string>;
 
 	return (
 		<section id="linter">
@@ -53,5 +48,3 @@ function NamingLinterRulesComponent() {
 		</section>
 	);
 }
-
-export const NamingLinterRules = withErrorBoundary(NamingLinterRulesComponent);

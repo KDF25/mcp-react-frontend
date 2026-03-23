@@ -1,13 +1,11 @@
-"use client";
-
-import { useTranslation } from "react-i18next";
+import { getTranslations } from "next-intl/server";
 
 import { StructureConstraints } from "./structure-constraints";
 import { StructureConverters } from "./structure-converters";
 import { StructureTree } from "./structure-tree";
 
-export function Structure() {
-	const { t } = useTranslation("structure");
+export async function Structure() {
+	const t = await getTranslations("structure");
 
 	return (
 		<div className="space-y-12">

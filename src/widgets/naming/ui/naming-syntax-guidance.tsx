@@ -1,12 +1,10 @@
-"use client";
-
-import { useTranslation } from "react-i18next";
+import { getTranslations } from "next-intl/server";
 
 import { NAMING_EXAMPLES } from "@/shared/config";
-import { CodeBlock, withErrorBoundary } from "@/shared/ui";
+import { CodeBlock } from "@/shared/ui";
 
-function NamingSyntaxGuidanceComponent() {
-	const { t } = useTranslation("naming");
+export async function NamingSyntaxGuidance() {
+	const t = await getTranslations("naming");
 
 	return (
 		<section className="space-y-6">
@@ -25,7 +23,3 @@ function NamingSyntaxGuidanceComponent() {
 		</section>
 	);
 }
-
-export const NamingSyntaxGuidance = withErrorBoundary(
-	NamingSyntaxGuidanceComponent
-);

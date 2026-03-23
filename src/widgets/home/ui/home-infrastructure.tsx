@@ -1,16 +1,12 @@
-"use client";
-
 import { Zap } from "lucide-react";
-import { useTranslation } from "react-i18next";
+import { getTranslations } from "next-intl/server";
 
-import { withErrorBoundary } from "@/shared/ui";
-
-function HomeInfrastructureComponent() {
-	const { t } = useTranslation("home");
-	const infraItems = t("infrastructure", {
-		returnObjects: true,
-		defaultValue: {}
-	}) as Record<string, { title: string; description: string }>;
+export async function HomeInfrastructure() {
+	const t = await getTranslations("home");
+	const infraItems = t.raw("infrastructure") as Record<
+		string,
+		{ title: string; description: string }
+	>;
 
 	return (
 		<section className="grid md:grid-cols-3 gap-8 pt-4">
@@ -30,7 +26,3 @@ function HomeInfrastructureComponent() {
 		</section>
 	);
 }
-
-export const HomeInfrastructure = withErrorBoundary(
-	HomeInfrastructureComponent
-);

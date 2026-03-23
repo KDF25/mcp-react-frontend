@@ -1,12 +1,10 @@
-"use client";
-
 import { ShieldAlertIcon } from "lucide-react";
-import { useTranslation } from "react-i18next";
+import { getTranslations } from "next-intl/server";
 
 import { Badge } from "@/shared/ui";
 
-export function ErrorBoundaryIntroduction() {
-	const { t } = useTranslation("error_boundary");
+export async function ErrorBoundaryIntroduction() {
+	const t = await getTranslations("error_boundary");
 
 	return (
 		<section className="space-y-6">
@@ -35,10 +33,7 @@ export function ErrorBoundaryIntroduction() {
 					</h3>
 					<ul className="space-y-2">
 						{Object.entries(
-							t("rules.items", { returnObjects: true }) as Record<
-								string,
-								string
-							>
+							t.raw("rules.items") as Record<string, string>
 						).map(([key, value]) => (
 							<li key={key} className="flex gap-2 text-sm">
 								<Badge

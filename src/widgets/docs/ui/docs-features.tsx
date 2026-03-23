@@ -1,12 +1,9 @@
-"use client";
-
-import { useTranslation } from "react-i18next";
+import { getTranslations } from "next-intl/server";
 
 import { Badge, Card, CardContent, CardHeader, CardTitle } from "@/shared/ui";
-import { withErrorBoundary } from "@/shared/ui";
 
-function DocsFeaturesComponent() {
-	const { t } = useTranslation("docs");
+export async function DocsFeatures() {
+	const t = await getTranslations("docs");
 
 	return (
 		<div className="grid md:grid-cols-2 gap-4">
@@ -41,5 +38,3 @@ function DocsFeaturesComponent() {
 		</div>
 	);
 }
-
-export const DocsFeatures = withErrorBoundary(DocsFeaturesComponent);

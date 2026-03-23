@@ -3,7 +3,7 @@
 import { hotkeysCoreFeature, syncDataLoaderFeature } from "@headless-tree/core";
 import { useTree } from "@headless-tree/react";
 import { FileIcon, FolderIcon, FolderOpenIcon } from "lucide-react";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 
 import {
 	Card,
@@ -17,7 +17,7 @@ import {
 import { Item, WIDGET_STRUCTURE_ITEMS } from "../model";
 
 function WidgetModelStructureComponent() {
-	const { t } = useTranslation("fsd");
+	const t = useTranslations("fsd");
 	const widgetTree = useTree<Item>({
 		dataLoader: {
 			getChildren: (itemId) =>

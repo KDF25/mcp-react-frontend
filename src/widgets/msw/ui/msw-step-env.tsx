@@ -1,11 +1,9 @@
-"use client";
+import { getTranslations } from "next-intl/server";
 
-import { Trans, useTranslation } from "react-i18next";
+import { CodeBlock, SectionTitle } from "@/shared/ui";
 
-import { CodeBlock, SectionTitle, withErrorBoundary } from "@/shared/ui";
-
-function MswStepEnvComponent() {
-	const { t } = useTranslation("msw");
+export async function MswStepEnv() {
+	const t = await getTranslations("msw");
 
 	return (
 		<div className="space-y-4 pt-4 border-t border-border/40">
@@ -13,16 +11,13 @@ function MswStepEnvComponent() {
 				{t("steps.env.title")}
 			</SectionTitle>
 			<div className="text-muted-foreground">
-				<Trans
-					ns="msw"
-					i18nKey="steps.env.description"
-					components={[
-						<code
-							key="0"
-							className="bg-primary/5 px-1 py-0.5 rounded text-primary"
-						/>
-					]}
-				/>
+				{t.rich("steps.env.description", {
+					one: (chunks) => (
+						<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+							{chunks}
+						</code>
+					)
+				})}
 			</div>
 			<CodeBlock
 				code="VITE_ENABLE_MSW=true"
@@ -32,5 +27,3 @@ function MswStepEnvComponent() {
 		</div>
 	);
 }
-
-export const MswStepEnv = withErrorBoundary(MswStepEnvComponent);

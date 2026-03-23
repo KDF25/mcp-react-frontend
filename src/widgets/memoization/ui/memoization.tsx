@@ -1,6 +1,4 @@
-"use client";
-
-import { useTranslation } from "react-i18next";
+import { getTranslations } from "next-intl/server";
 
 import { Separator } from "@/shared/ui";
 
@@ -10,8 +8,8 @@ import { MemoizationIntro } from "./memoization-intro";
 import { MemoizationScenarios } from "./memoization-scenarios";
 import { MemoizationTools } from "./memoization-tools";
 
-export function Memoization() {
-	const { t } = useTranslation("memoization");
+export async function Memoization() {
+	const t = await getTranslations("memoization");
 
 	return (
 		<div className="space-y-12">

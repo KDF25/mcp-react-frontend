@@ -1,13 +1,10 @@
-"use client";
-
 import { ActivityIcon } from "lucide-react";
-import { useTranslation } from "react-i18next";
+import { getTranslations } from "next-intl/server";
 
 import { Card, CardContent } from "@/shared/ui";
-import { withErrorBoundary } from "@/shared/ui";
 
-function MemoizationCostComponent() {
-	const { t } = useTranslation("memoization");
+export async function MemoizationCost() {
+	const t = await getTranslations("memoization");
 
 	return (
 		<section className="space-y-6">
@@ -31,5 +28,3 @@ function MemoizationCostComponent() {
 		</section>
 	);
 }
-
-export const MemoizationCost = withErrorBoundary(MemoizationCostComponent);

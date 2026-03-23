@@ -1,7 +1,7 @@
 "use client";
 
 import { Code2Icon, LayoutPanelTopIcon, ShieldAlertIcon } from "lucide-react";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 
 import { Badge, Card, CodeBlock, withErrorBoundary } from "@/shared/ui";
 

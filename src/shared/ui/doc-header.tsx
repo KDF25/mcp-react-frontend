@@ -1,7 +1,5 @@
 "use client";
 
-import { usePathname } from "next/navigation";
-
 import { ENUM_ROUTES } from "@/shared/config/routes";
 import {
 	Breadcrumb,
@@ -15,6 +13,7 @@ import {
 } from "@/shared/ui";
 
 import { LanguageToggle, ThemeToggle } from "./layout";
+import { Link, usePathname } from "@/i18n/routing";
 
 const ROUTE_TITLES: Record<string, string> = {
 	[ENUM_ROUTES.MAIN.ROOT]: "The Mission",
@@ -46,8 +45,10 @@ export function DocHeader() {
 					<Breadcrumb>
 						<BreadcrumbList>
 							<BreadcrumbItem className="hidden md:block">
-								<BreadcrumbLink href={ENUM_ROUTES.MAIN.ROOT}>
-									Documentation
+								<BreadcrumbLink asChild>
+									<Link href={ENUM_ROUTES.MAIN.ROOT}>
+										Documentation
+									</Link>
 								</BreadcrumbLink>
 							</BreadcrumbItem>
 							<BreadcrumbSeparator className="hidden md:block" />

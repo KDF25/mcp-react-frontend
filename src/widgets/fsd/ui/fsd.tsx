@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 
 import { EntityStructure } from "./entity-structure";
 import { GlobalSettings } from "./global-settings";
@@ -10,7 +10,7 @@ import { PracticalExamples } from "./practical-examples";
 import { WidgetModelStructure } from "./widget-model-structure";
 
 export function Fsd() {
-	const { t } = useTranslation("fsd");
+	const t = useTranslations("fsd");
 
 	return (
 		<>

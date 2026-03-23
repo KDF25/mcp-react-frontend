@@ -1,12 +1,10 @@
-"use client";
-
 import { Box, Code2, Database } from "lucide-react";
-import { useTranslation } from "react-i18next";
+import { getTranslations } from "next-intl/server";
 
-import { Card, CardContent, withErrorBoundary } from "@/shared/ui";
+import { Card, CardContent } from "@/shared/ui";
 
-function StructureConvertersComponent() {
-	const { t } = useTranslation("structure");
+export async function StructureConverters() {
+	const t = await getTranslations("structure");
 
 	return (
 		<section>
@@ -59,7 +57,3 @@ function StructureConvertersComponent() {
 		</section>
 	);
 }
-
-export const StructureConverters = withErrorBoundary(
-	StructureConvertersComponent
-);

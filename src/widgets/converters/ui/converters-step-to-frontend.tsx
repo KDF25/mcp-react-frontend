@@ -1,13 +1,11 @@
-"use client";
+import { getTranslations } from "next-intl/server";
 
-import { Trans, useTranslation } from "react-i18next";
-
-import { CodeBlock, SectionTitle, withErrorBoundary } from "@/shared/ui";
+import { CodeBlock, SectionTitle } from "@/shared/ui";
 
 import { CONVERTERS_CODE_TO_FRONTEND } from "../model";
 
-function ConvertersStepToFrontendComponent() {
-	const { t } = useTranslation("converters");
+export async function ConvertersStepToFrontend() {
+	const t = await getTranslations("converters");
 
 	return (
 		<div className="space-y-4 pt-4 border-t border-border/40">
@@ -15,16 +13,13 @@ function ConvertersStepToFrontendComponent() {
 				{t("steps.to_frontend.title")}
 			</SectionTitle>
 			<p>
-				<Trans
-					ns="converters"
-					i18nKey="steps.to_frontend.description"
-					components={[
-						<code
-							key="0"
-							className="bg-primary/5 px-1 py-0.5 rounded text-primary"
-						/>
-					]}
-				/>
+				{t.rich("steps.to_frontend.description", {
+					one: (chunks) => (
+						<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+							{chunks}
+						</code>
+					)
+				})}
 			</p>
 
 			<CodeBlock
@@ -35,7 +30,3 @@ function ConvertersStepToFrontendComponent() {
 		</div>
 	);
 }
-
-export const ConvertersStepToFrontend = withErrorBoundary(
-	ConvertersStepToFrontendComponent
-);

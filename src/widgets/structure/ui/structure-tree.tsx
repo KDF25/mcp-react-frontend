@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 
 import {
 	Badge,
@@ -12,7 +12,7 @@ import {
 } from "@/shared/ui";
 
 function StructureTreeComponent() {
-	const { t } = useTranslation("structure");
+	const t = useTranslations("structure");
 
 	const renderTree = (label: string, lines: string[]) => (
 		<div className="space-y-3">

@@ -1,8 +1,6 @@
-"use client";
+import { getTranslations } from "next-intl/server";
 
-import { useTranslation } from "react-i18next";
-
-import { Badge, CodeBlock, SectionTitle, withErrorBoundary } from "@/shared/ui";
+import { Badge, CodeBlock, SectionTitle } from "@/shared/ui";
 
 import {
 	STYLES_ALLOWED_COLORS,
@@ -11,8 +9,8 @@ import {
 	STYLES_FORBIDDEN_COLORS
 } from "../model";
 
-function StylesStepRestrictionsComponent() {
-	const { t } = useTranslation("styles");
+export async function StylesStepRestrictions() {
+	const t = await getTranslations("styles");
 
 	return (
 		<div className="space-y-6 pt-4 border-t border-border/40">
@@ -86,7 +84,3 @@ function StylesStepRestrictionsComponent() {
 		</div>
 	);
 }
-
-export const StylesStepRestrictions = withErrorBoundary(
-	StylesStepRestrictionsComponent
-);

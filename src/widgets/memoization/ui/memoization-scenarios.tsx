@@ -1,17 +1,10 @@
-"use client";
-
 import { CheckCircle2Icon } from "lucide-react";
-import { useTranslation } from "react-i18next";
+import { getTranslations } from "next-intl/server";
 
-import { withErrorBoundary } from "@/shared/ui";
+export async function MemoizationScenarios() {
+	const t = await getTranslations("memoization");
 
-function MemoizationScenariosComponent() {
-	const { t } = useTranslation("memoization");
-
-	const items = t("scenarios.items", {
-		returnObjects: true,
-		defaultValue: {}
-	}) as Record<string, string>;
+	const items = t.raw("scenarios.items") as Record<string, string>;
 
 	return (
 		<section className="space-y-6">
@@ -34,7 +27,3 @@ function MemoizationScenariosComponent() {
 		</section>
 	);
 }
-
-export const MemoizationScenarios = withErrorBoundary(
-	MemoizationScenariosComponent
-);

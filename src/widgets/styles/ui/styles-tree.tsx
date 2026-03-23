@@ -2,7 +2,7 @@
 
 import { hotkeysCoreFeature, syncDataLoaderFeature } from "@headless-tree/core";
 import { useTree } from "@headless-tree/react";
-import { Trans, useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 
 import {
 	Card,
@@ -19,7 +19,7 @@ import {
 import { STYLES_TREE_ITEMS } from "../model";
 
 function StylesTreeComponent() {
-	const { t } = useTranslation("styles");
+	const t = useTranslations("styles");
 
 	const stylesTree = useTree<ITreeItemData>({
 		dataLoader: {
@@ -30,7 +30,7 @@ function StylesTreeComponent() {
 		getItemName: (item) => item.getItemData().name,
 		indent: 20,
 		initialState: {
-			expandedItems: ["root", "styles-root"]
+			expandedItems: ["root", "src", "shared", "styles"]
 		},
 		isItemFolder: (item) => (item.getItemData()?.children?.length ?? 0) > 0,
 		rootItemId: "root"
@@ -51,16 +51,13 @@ function StylesTreeComponent() {
 							{t("naming.styles.label")}
 						</span>
 						<p className="text-[13px] leading-relaxed text-muted-foreground">
-							<Trans
-								ns="styles"
-								i18nKey="naming.styles.text"
-								components={[
-									<code
-										key="0"
-										className="bg-primary/5 px-1 py-0.5 rounded text-primary"
-									/>
-								]}
-							/>
+							{t.rich("naming.styles.text", {
+								one: (chunks) => (
+									<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+										{chunks}
+									</code>
+								)
+							})}
 						</p>
 					</div>
 					<div className="flex flex-col gap-1.5 rounded-lg bg-primary/5 p-3 ring-1 ring-primary/10 transition-all hover:bg-primary/10">
@@ -68,16 +65,13 @@ function StylesTreeComponent() {
 							{t("naming.config.label")}
 						</span>
 						<p className="text-[13px] leading-relaxed text-muted-foreground">
-							<Trans
-								ns="styles"
-								i18nKey="naming.config.text"
-								components={[
-									<code
-										key="0"
-										className="bg-primary/5 px-1 py-0.5 rounded text-primary"
-									/>
-								]}
-							/>
+							{t.rich("naming.config.text", {
+								one: (chunks) => (
+									<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+										{chunks}
+									</code>
+								)
+							})}
 						</p>
 					</div>
 				</div>

@@ -1,22 +1,13 @@
-"use client";
+import { getTranslations } from "next-intl/server";
 
-import { useTranslation } from "react-i18next";
-
-import {
-	Badge,
-	Card,
-	CardContent,
-	CardHeader,
-	CodeBlock,
-	withErrorBoundary
-} from "@/shared/ui";
+import { Badge, Card, CardContent, CardHeader, CodeBlock } from "@/shared/ui";
 
 import { RulesProvider } from "@/entities/rules";
 
 import { STRUCTURE_DATA } from "../model";
 
-function StructureConstraintsComponent() {
-	const { t } = useTranslation("structure");
+export async function StructureConstraints() {
+	const t = await getTranslations("structure");
 	const structureRules = RulesProvider.getRules().structure;
 
 	return (
@@ -134,7 +125,3 @@ function StructureConstraintsComponent() {
 		</section>
 	);
 }
-
-export const StructureConstraints = withErrorBoundary(
-	StructureConstraintsComponent
-);

@@ -1,6 +1,4 @@
-"use client";
-
-import { useTranslation } from "react-i18next";
+import { getTranslations } from "next-intl/server";
 
 import { REFERENCE_EXAMPLES } from "@/shared/config";
 import {
@@ -10,12 +8,11 @@ import {
 	CardDescription,
 	CardHeader,
 	CardTitle,
-	CodeBlock,
-	withErrorBoundary
+	CodeBlock
 } from "@/shared/ui";
 
-function ReferenceClaudeComponent() {
-	const { t } = useTranslation("reference");
+export async function ReferenceClaude() {
+	const t = await getTranslations("reference");
 	const claudeConfig = REFERENCE_EXAMPLES.claudeConfig;
 
 	return (
@@ -66,5 +63,3 @@ function ReferenceClaudeComponent() {
 		</section>
 	);
 }
-
-export const ReferenceClaude = withErrorBoundary(ReferenceClaudeComponent);

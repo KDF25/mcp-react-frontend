@@ -1,13 +1,11 @@
-"use client";
-
-import { useTranslation } from "react-i18next";
+import { getTranslations } from "next-intl/server";
 
 import { NamingFilePolicy } from "./naming-file-policy";
 import { NamingLinterRules } from "./naming-linter-rules";
 import { NamingSyntaxGuidance } from "./naming-syntax-guidance";
 
-export function Naming() {
-	const { t } = useTranslation("naming");
+export async function Naming() {
+	const t = await getTranslations("naming");
 
 	return (
 		<div className="space-y-12">

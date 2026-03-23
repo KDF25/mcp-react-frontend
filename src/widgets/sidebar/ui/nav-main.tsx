@@ -1,8 +1,6 @@
 "use client";
 
 import { ChevronRight, type LucideIcon } from "lucide-react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 import {
 	Collapsible,
@@ -17,6 +15,8 @@ import {
 	SidebarMenuSubButton,
 	SidebarMenuSubItem
 } from "@/shared/ui";
+
+import { Link, usePathname } from "@/i18n/routing";
 
 export function NavMain({
 	items

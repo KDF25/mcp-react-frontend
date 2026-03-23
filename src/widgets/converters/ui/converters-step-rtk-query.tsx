@@ -1,13 +1,11 @@
-"use client";
+import { getTranslations } from "next-intl/server";
 
-import { Trans, useTranslation } from "react-i18next";
-
-import { CodeBlock, SectionTitle, withErrorBoundary } from "@/shared/ui";
+import { CodeBlock, SectionTitle } from "@/shared/ui";
 
 import { CONVERTERS_CODE_RTK_QUERY } from "../model";
 
-function ConvertersStepRtkQueryComponent() {
-	const { t } = useTranslation("converters");
+export async function ConvertersStepRtkQuery() {
+	const t = await getTranslations("converters");
 
 	return (
 		<div className="space-y-4 pt-4 border-t border-border/40">
@@ -15,16 +13,18 @@ function ConvertersStepRtkQueryComponent() {
 				{t("steps.rtk_query.title")}
 			</SectionTitle>
 			<p>
-				<Trans
-					ns="converters"
-					i18nKey="steps.rtk_query.description"
-					components={[
-						<code
-							key="0"
-							className="bg-primary/5 px-1 py-0.5 rounded text-primary"
-						/>
-					]}
-				/>
+				{t.rich("steps.rtk_query.description", {
+					one: (chunks) => (
+						<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+							{chunks}
+						</code>
+					),
+					two: (chunks) => (
+						<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+							{chunks}
+						</code>
+					)
+				})}
 			</p>
 
 			<CodeBlock
@@ -35,7 +35,3 @@ function ConvertersStepRtkQueryComponent() {
 		</div>
 	);
 }
-
-export const ConvertersStepRtkQuery = withErrorBoundary(
-	ConvertersStepRtkQueryComponent
-);

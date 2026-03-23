@@ -1,14 +1,12 @@
-"use client";
-
 import { Code2Icon, HardDriveIcon, HistoryIcon } from "lucide-react";
-import { useTranslation } from "react-i18next";
+import { getTranslations } from "next-intl/server";
 
 import { Badge, Card, CodeBlock } from "@/shared/ui";
 
 import { ERROR_BOUNDARY_DATA } from "../model/error-boundary.data";
 
-export function ErrorBoundaryImplementation() {
-	const { t } = useTranslation("error_boundary");
+export async function ErrorBoundaryImplementation() {
+	const t = await getTranslations("error_boundary");
 
 	const sections = [
 		{

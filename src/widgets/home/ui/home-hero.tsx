@@ -1,13 +1,12 @@
-"use client";
-
 import { ArrowRight, Radio } from "lucide-react";
-import Link from "next/link";
-import { useTranslation } from "react-i18next";
+import { getTranslations } from "next-intl/server";
 
-import { Badge, Button, withErrorBoundary } from "@/shared/ui";
+import { Badge, Button } from "@/shared/ui";
 
-function HomeHeroComponent() {
-	const { t } = useTranslation("home");
+import { Link } from "@/i18n/routing";
+
+export async function HomeHero() {
+	const t = await getTranslations("home");
 	const titleFirst = t("hero.title_first");
 	const titleSecond = t("hero.title_second");
 
@@ -50,5 +49,3 @@ function HomeHeroComponent() {
 		</section>
 	);
 }
-
-export const HomeHero = withErrorBoundary(HomeHeroComponent);

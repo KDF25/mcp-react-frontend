@@ -1,7 +1,7 @@
 "use client";
 
 import { Github, Mail } from "lucide-react";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/shared/ui";
 import { withErrorBoundary } from "@/shared/ui";
@@ -9,7 +9,7 @@ import { withErrorBoundary } from "@/shared/ui";
 import { CREATOR_DATA } from "../model";
 
 function CreatorConnectionsComponent() {
-	const { t } = useTranslation("creator");
+	const t = useTranslations("creator");
 
 	return (
 		<section className="space-y-4">

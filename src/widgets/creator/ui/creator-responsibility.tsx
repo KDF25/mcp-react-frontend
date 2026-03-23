@@ -1,15 +1,8 @@
-"use client";
+import { getTranslations } from "next-intl/server";
 
-import { useTranslation } from "react-i18next";
-
-import { withErrorBoundary } from "@/shared/ui";
-
-function CreatorResponsibilityComponent() {
-	const { t } = useTranslation("creator");
-	const items = t("responsibility.items", {
-		returnObjects: true,
-		defaultValue: []
-	}) as string[];
+export async function CreatorResponsibility() {
+	const t = await getTranslations("creator");
+	const items = t.raw("responsibility.items") as string[];
 
 	return (
 		<section className="space-y-4">
@@ -32,7 +25,3 @@ function CreatorResponsibilityComponent() {
 		</section>
 	);
 }
-
-export const CreatorResponsibility = withErrorBoundary(
-	CreatorResponsibilityComponent
-);

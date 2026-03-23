@@ -2,7 +2,7 @@
 
 import { hotkeysCoreFeature, syncDataLoaderFeature } from "@headless-tree/core";
 import { useTree } from "@headless-tree/react";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 
 import {
 	Card,
@@ -19,7 +19,7 @@ import {
 import { API_TREE_ITEMS } from "../model";
 
 function RtkQueryTreeComponent() {
-	const { t } = useTranslation("rtk_query");
+	const t = useTranslations("rtk_query");
 
 	const apiTree = useTree<ITreeItemData>({
 		dataLoader: {

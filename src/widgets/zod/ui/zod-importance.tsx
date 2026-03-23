@@ -1,15 +1,8 @@
-"use client";
+import { getTranslations } from "next-intl/server";
 
-import { useTranslation } from "react-i18next";
-
-import { withErrorBoundary } from "@/shared/ui";
-
-function ZodImportanceComponent() {
-	const { t } = useTranslation("zod");
-	const items = t("importance.items", {
-		returnObjects: true,
-		defaultValue: []
-	}) as Array<{
+export async function ZodImportance() {
+	const t = await getTranslations("zod");
+	const items = t.raw("importance.items") as Array<{
 		title: string;
 		description: string;
 	}>;
@@ -30,5 +23,3 @@ function ZodImportanceComponent() {
 		</section>
 	);
 }
-
-export const ZodImportance = withErrorBoundary(ZodImportanceComponent);

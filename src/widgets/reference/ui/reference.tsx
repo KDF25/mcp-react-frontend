@@ -1,13 +1,11 @@
-"use client";
-
-import { useTranslation } from "react-i18next";
+import { getTranslations } from "next-intl/server";
 
 import { ReferenceClaude } from "./reference-claude";
 import { ReferenceRest } from "./reference-rest";
 import { ReferenceTools } from "./reference-tools";
 
-export function Reference() {
-	const { t } = useTranslation("reference");
+export async function Reference() {
+	const t = await getTranslations("reference");
 
 	return (
 		<div className="space-y-12">

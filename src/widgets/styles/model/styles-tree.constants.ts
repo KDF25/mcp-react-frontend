@@ -5,11 +5,21 @@ export const STYLES_TREE_ITEMS: Record<string, ITreeItemData & { id: string }> =
 		root: {
 			id: "root",
 			name: "root",
-			children: ["styles-root", "tailwind-config"]
+			children: ["src", "tailwind-config"]
 		},
-		"styles-root": {
-			id: "styles-root",
-			name: "src/shared/styles",
+		src: {
+			id: "src",
+			name: "src/",
+			children: ["shared"]
+		},
+		shared: {
+			id: "shared",
+			name: "shared/",
+			children: ["styles"]
+		},
+		styles: {
+			id: "styles",
+			name: "styles/",
 			children: ["global-css", "variables-css", "theme-css"]
 		},
 		"global-css": {

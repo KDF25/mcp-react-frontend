@@ -1,13 +1,13 @@
 "use client";
 
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 
 import { CodeBlock, SectionTitle, withErrorBoundary } from "@/shared/ui";
 
 import { I18N_CODE_INFRA_KEY } from "../model";
 
 function I18nStepInfraKeyComponent() {
-	const { t } = useTranslation("i18n");
+	const t = useTranslations("i18n");
 
 	return (
 		<div className="space-y-4 pt-4 border-t border-border/40">

@@ -1,16 +1,13 @@
 "use client";
 
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui";
 import { withErrorBoundary } from "@/shared/ui";
 
 function CreatorPrinciplesComponent() {
-	const { t } = useTranslation("creator");
-	const items = t("principles.items", {
-		returnObjects: true,
-		defaultValue: []
-	}) as Array<{
+	const t = useTranslations("creator");
+	const items = t.raw("principles.items") as Array<{
 		title: string;
 		description: string;
 	}>;

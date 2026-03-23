@@ -1,13 +1,11 @@
-"use client";
+import { getTranslations } from "next-intl/server";
 
-import { useTranslation } from "react-i18next";
-
-import { Badge, CodeBlock, withErrorBoundary } from "@/shared/ui";
+import { Badge, CodeBlock } from "@/shared/ui";
 
 import { ZOD_DATA } from "../model";
 
-function ZodPatternComponent() {
-	const { t } = useTranslation("zod");
+export async function ZodPattern() {
+	const t = await getTranslations("zod");
 
 	return (
 		<section>
@@ -43,5 +41,3 @@ function ZodPatternComponent() {
 		</section>
 	);
 }
-
-export const ZodPattern = withErrorBoundary(ZodPatternComponent);

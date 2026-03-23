@@ -2,7 +2,7 @@
 
 import { hotkeysCoreFeature, syncDataLoaderFeature } from "@headless-tree/core";
 import { useTree } from "@headless-tree/react";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 
 import {
 	Card,
@@ -19,7 +19,7 @@ import {
 import { I18N_TREE_ITEMS } from "../model";
 
 function I18nTreeComponent() {
-	const { t } = useTranslation("i18n");
+	const t = useTranslations("i18n");
 
 	const i18nTree = useTree<ITreeItemData>({
 		dataLoader: {

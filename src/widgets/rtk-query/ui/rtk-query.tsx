@@ -1,20 +1,18 @@
-"use client";
-
-import { Trans, useTranslation } from "react-i18next";
+import { getTranslations } from "next-intl/server";
 
 import {
 	Card,
 	CardContent,
 	CardHeader,
-	PageTitle,
-	withErrorBoundary
+	ErrorBoundary,
+	PageTitle
 } from "@/shared/ui";
 
 import { RtkQuerySteps } from "./rtk-query-steps";
 import { RtkQueryTree } from "./rtk-query-tree";
 
-function RtkQueryComponent() {
-	const { t } = useTranslation("rtk_query");
+export async function RtkQuery() {
+	const t = await getTranslations("rtk_query");
 
 	return (
 		<div className="space-y-8 max-w-4xl">
@@ -29,21 +27,25 @@ function RtkQueryComponent() {
 					<div className="space-y-4">
 						<p className="border-l-2 border-primary pl-3 italic text-foreground mt-4 mb-2">
 							<strong>{t("invariant_label")}</strong>{" "}
-							<Trans
-								ns="rtk_query"
-								i18nKey="invariant_text"
-								components={[<code key="0" />]}
-							/>
+							{t.rich("invariant_text", {
+								one: (chunks) => (
+									<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+										{chunks}
+									</code>
+								)
+							})}
 						</p>
 
-						<RtkQueryTree />
+						<ErrorBoundary>
+							<RtkQueryTree />
+						</ErrorBoundary>
 					</div>
 
-					<RtkQuerySteps />
+					<ErrorBoundary>
+						<RtkQuerySteps />
+					</ErrorBoundary>
 				</CardContent>
 			</Card>
 		</div>
 	);
 }
-
-export const RtkQuery = withErrorBoundary(RtkQueryComponent);

@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 
 import {
 	Badge,
@@ -14,7 +14,7 @@ import {
 import { RulesProvider } from "@/entities/rules";
 
 function ImportBoundariesComponent() {
-	const { t } = useTranslation("fsd");
+	const t = useTranslations("fsd");
 	const fsd = RulesProvider.getFsdRules();
 
 	return (

@@ -1,6 +1,4 @@
-"use client";
-
-import { useTranslation } from "react-i18next";
+import { getTranslations } from "next-intl/server";
 
 import { REFERENCE_EXAMPLES } from "@/shared/config";
 import {
@@ -9,12 +7,11 @@ import {
 	CardContent,
 	CardHeader,
 	CardTitle,
-	CodeBlock,
-	withErrorBoundary
+	CodeBlock
 } from "@/shared/ui";
 
-function ReferenceToolsComponent() {
-	const { t } = useTranslation("reference");
+export async function ReferenceTools() {
+	const t = await getTranslations("reference");
 
 	return (
 		<section id="tools" className="space-y-6">
@@ -77,5 +74,3 @@ function ReferenceToolsComponent() {
 		</section>
 	);
 }
-
-export const ReferenceTools = withErrorBoundary(ReferenceToolsComponent);

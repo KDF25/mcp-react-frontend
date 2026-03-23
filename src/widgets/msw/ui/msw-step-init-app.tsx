@@ -1,13 +1,11 @@
-"use client";
+import { getTranslations } from "next-intl/server";
 
-import { Trans, useTranslation } from "react-i18next";
-
-import { CodeBlock, SectionTitle, withErrorBoundary } from "@/shared/ui";
+import { CodeBlock, SectionTitle } from "@/shared/ui";
 
 import { MSW_CODE_INIT } from "../model";
 
-function MswStepInitAppComponent() {
-	const { t } = useTranslation("msw");
+export async function MswStepInitApp() {
+	const t = await getTranslations("msw");
 
 	return (
 		<div className="space-y-4 pt-4 border-t border-border/40">
@@ -15,16 +13,13 @@ function MswStepInitAppComponent() {
 				{t("steps.init_app.title")}
 			</SectionTitle>
 			<div className="text-muted-foreground">
-				<Trans
-					ns="msw"
-					i18nKey="steps.init_app.description"
-					components={[
-						<code
-							key="0"
-							className="bg-primary/5 px-1 py-0.5 rounded text-primary"
-						/>
-					]}
-				/>
+				{t.rich("steps.init_app.description", {
+					one: (chunks) => (
+						<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+							{chunks}
+						</code>
+					)
+				})}
 			</div>
 			<CodeBlock
 				code={MSW_CODE_INIT}
@@ -34,5 +29,3 @@ function MswStepInitAppComponent() {
 		</div>
 	);
 }
-
-export const MswStepInitApp = withErrorBoundary(MswStepInitAppComponent);

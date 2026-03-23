@@ -3,16 +3,16 @@
 	"description": "Centralized UI management through design tokens (CSS Variables) and Tailwind CSS configuration.",
 	"card_title": "UI Styling Architecture",
 	"benefit_label": "Benefits:",
-	"benefit_text": "Leveraging a single source of truth via <0>CSS Variables</0> allows for instant theme changes and ensures all components follow defined design tokens.",
+	"benefit_text": "Leveraging a single source of truth via <one>CSS Variables</one> allows for instant theme changes and ensures all components follow defined design tokens.",
 	"naming": {
 		"title": "Styles Architecture",
 		"styles": {
 			"label": "Global Styles",
-			"text": "The <0>global.css</0> file combines Tailwind layers and imports design tokens."
+			"text": "The <one>global.css</one> file combines Tailwind layers and imports design tokens."
 		},
 		"config": {
 			"label": "Configuration",
-			"text": "The <0>tailwind.config.ts</0> file maps CSS variables to Tailwind utility classes."
+			"text": "The <one>tailwind.config.ts</one> file maps CSS variables to Tailwind utility classes."
 		}
 	},
 	"steps": {

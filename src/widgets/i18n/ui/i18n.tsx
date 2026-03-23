@@ -1,20 +1,12 @@
-"use client";
+import { getTranslations } from "next-intl/server";
 
-import { Trans, useTranslation } from "react-i18next";
-
-import {
-	Card,
-	CardContent,
-	CardHeader,
-	PageTitle,
-	withErrorBoundary
-} from "@/shared/ui";
+import { Card, CardContent, CardHeader, PageTitle } from "@/shared/ui";
 
 import { I18nSteps } from "./i18n-steps";
 import { I18nTree } from "./i18n-tree";
 
-function I18nWidgetComponent() {
-	const { t } = useTranslation("i18n");
+export async function I18n() {
+	const t = await getTranslations("i18n");
 
 	return (
 		<div className="space-y-8 max-w-4xl">
@@ -30,16 +22,13 @@ function I18nWidgetComponent() {
 					<div className="space-y-4">
 						<p className="border-l-2 border-primary pl-3 italic text-foreground mt-4 mb-2">
 							<strong>{t("benefit_label")}</strong>{" "}
-							<Trans
-								ns="i18n"
-								i18nKey="benefit_text"
-								components={[
-									<code
-										key="0"
-										className="bg-primary/5 px-1 py-0.5 rounded text-primary"
-									/>
-								]}
-							/>
+							{t.rich("benefit_text", {
+								one: (chunks) => (
+									<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+										{chunks}
+									</code>
+								)
+							})}
 						</p>
 
 						<I18nTree />
@@ -54,16 +43,13 @@ function I18nWidgetComponent() {
 										{t("naming.config.label")}
 									</span>
 									<p className="text-muted-foreground">
-										<Trans
-											ns="i18n"
-											i18nKey="naming.config.text"
-											components={[
-												<code
-													key="0"
-													className="bg-primary/5 px-1 py-0.5 rounded text-primary"
-												/>
-											]}
-										/>
+										{t.rich("naming.config.text", {
+											one: (chunks) => (
+												<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+													{chunks}
+												</code>
+											)
+										})}
 									</p>
 								</li>
 								<li className="flex flex-col gap-1">
@@ -71,16 +57,18 @@ function I18nWidgetComponent() {
 										{t("naming.locales.label")}
 									</span>
 									<p className="text-muted-foreground">
-										<Trans
-											ns="i18n"
-											i18nKey="naming.locales.text"
-											components={[
-												<code
-													key="0"
-													className="bg-primary/5 px-1 py-0.5 rounded text-primary"
-												/>
-											]}
-										/>
+										{t.rich("naming.locales.text", {
+											one: (chunks) => (
+												<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+													{chunks}
+												</code>
+											),
+											two: (chunks) => (
+												<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+													{chunks}
+												</code>
+											)
+										})}
 									</p>
 								</li>
 							</ul>
@@ -93,5 +81,3 @@ function I18nWidgetComponent() {
 		</div>
 	);
 }
-
-export const I18n = withErrorBoundary(I18nWidgetComponent);

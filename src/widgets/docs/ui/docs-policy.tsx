@@ -1,11 +1,7 @@
-"use client";
+import { getTranslations } from "next-intl/server";
 
-import { useTranslation } from "react-i18next";
-
-import { withErrorBoundary } from "@/shared/ui";
-
-function DocsPolicyComponent() {
-	const { t } = useTranslation("docs");
+export async function DocsPolicy() {
+	const t = await getTranslations("docs");
 
 	return (
 		<div className="rounded-lg border bg-primary/5 p-6 border-primary/20">
@@ -16,5 +12,3 @@ function DocsPolicyComponent() {
 		</div>
 	);
 }
-
-export const DocsPolicy = withErrorBoundary(DocsPolicyComponent);

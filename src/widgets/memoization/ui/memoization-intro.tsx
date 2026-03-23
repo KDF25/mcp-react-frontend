@@ -1,12 +1,8 @@
-"use client";
-
 import { InfoIcon, TargetIcon } from "lucide-react";
-import { useTranslation } from "react-i18next";
+import { getTranslations } from "next-intl/server";
 
-import { withErrorBoundary } from "@/shared/ui";
-
-function MemoizationIntroComponent() {
-	const { t } = useTranslation("memoization");
+export async function MemoizationIntro() {
+	const t = await getTranslations("memoization");
 
 	return (
 		<section className="space-y-6">
@@ -30,5 +26,3 @@ function MemoizationIntroComponent() {
 		</section>
 	);
 }
-
-export const MemoizationIntro = withErrorBoundary(MemoizationIntroComponent);

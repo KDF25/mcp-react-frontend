@@ -1,20 +1,15 @@
-"use client";
+import { getTranslations } from "next-intl/server";
 
-import { useTranslation } from "react-i18next";
+import { Card, CardContent } from "@/shared/ui";
 
-import { Card, CardContent, withErrorBoundary } from "@/shared/ui";
+export async function IntroCapabilities() {
+	const t = await getTranslations("introduction");
 
-function IntroCapabilitiesComponent() {
-	const { t } = useTranslation("introduction");
-
-	const notItems = t("capabilities.not_items", {
-		returnObjects: true,
-		defaultValue: []
-	}) as string[];
-	const roleSteps = t("capabilities.role_steps", {
-		returnObjects: true,
-		defaultValue: {}
-	}) as Record<string, { step: string; description: string }>;
+	const notItems = t.raw("capabilities.not_items") as string[];
+	const roleSteps = t.raw("capabilities.role_steps") as Record<
+		string,
+		{ step: string; description: string }
+	>;
 
 	return (
 		<div className="space-y-12">
@@ -71,5 +66,3 @@ function IntroCapabilitiesComponent() {
 		</div>
 	);
 }
-
-export const IntroCapabilities = withErrorBoundary(IntroCapabilitiesComponent);

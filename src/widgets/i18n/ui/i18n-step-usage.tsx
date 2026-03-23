@@ -1,13 +1,11 @@
-"use client";
+import { getTranslations } from "next-intl/server";
 
-import { Trans, useTranslation } from "react-i18next";
-
-import { CodeBlock, SectionTitle, withErrorBoundary } from "@/shared/ui";
+import { CodeBlock, SectionTitle } from "@/shared/ui";
 
 import { I18N_CODE_TRANS, I18N_CODE_USAGE } from "../model";
 
-function I18nStepUsageComponent() {
-	const { t } = useTranslation("i18n");
+export async function I18nStepUsage() {
+	const t = await getTranslations("i18n");
 
 	return (
 		<div className="space-y-4 pt-4 border-t border-border/40">
@@ -15,16 +13,18 @@ function I18nStepUsageComponent() {
 				{t("steps.usage.title")}
 			</SectionTitle>
 			<div className="text-muted-foreground">
-				<Trans
-					ns="i18n"
-					i18nKey="steps.usage.description"
-					components={[
-						<code
-							key="0"
-							className="bg-primary/5 px-1 py-0.5 rounded text-primary"
-						/>
-					]}
-				/>
+				{t.rich("steps.usage.description", {
+					one: (chunks) => (
+						<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+							{chunks}
+						</code>
+					),
+					two: (chunks) => (
+						<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+							{chunks}
+						</code>
+					)
+				})}
 			</div>
 
 			<div className="space-y-4">
@@ -42,5 +42,3 @@ function I18nStepUsageComponent() {
 		</div>
 	);
 }
-
-export const I18nStepUsage = withErrorBoundary(I18nStepUsageComponent);

@@ -1,16 +1,13 @@
-"use client";
-
-import { useTranslation } from "react-i18next";
+import { getTranslations } from "next-intl/server";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui";
-import { withErrorBoundary } from "@/shared/ui";
 
-function IntroPhilosophyComponent() {
-	const { t } = useTranslation("introduction");
-	const items = t("philosophy.items", {
-		returnObjects: true,
-		defaultValue: {}
-	}) as Record<string, { title: string; description: string }>;
+export async function IntroPhilosophy() {
+	const t = await getTranslations("introduction");
+	const items = t.raw("philosophy.items") as Record<
+		string,
+		{ title: string; description: string }
+	>;
 
 	return (
 		<section className="space-y-6">
@@ -44,5 +41,3 @@ function IntroPhilosophyComponent() {
 		</section>
 	);
 }
-
-export const IntroPhilosophy = withErrorBoundary(IntroPhilosophyComponent);
