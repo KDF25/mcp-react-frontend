@@ -1,5 +1,3 @@
-"use client";
-
 import { withErrorBoundary } from "@/shared/ui";
 
 import { I18nStepConfigBlocks } from "./i18n-step-config-blocks";
