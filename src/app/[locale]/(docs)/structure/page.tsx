@@ -1,8 +1,12 @@
-import dynamic from "next/dynamic";
+import type { Metadata } from "next";
 
-const Structure = dynamic(() =>
-	import("@/widgets/structure").then((m) => m.Structure)
-);
+import { Structure } from "@/widgets/structure";
+
+export const metadata: Metadata = {
+	title: "Project Structure",
+	description:
+		"Project directory structure rules: model organization, required files, subfolder patterns, and converter conventions"
+};
 
 export default function Page() {
 	return <Structure />;

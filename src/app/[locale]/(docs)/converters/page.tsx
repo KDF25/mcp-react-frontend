@@ -1,8 +1,12 @@
-import dynamic from "next/dynamic";
+import type { Metadata } from "next";
 
-const Converters = dynamic(() =>
-	import("@/widgets/converters").then((m) => m.Converters)
-);
+import { Converters } from "@/widgets/converters";
+
+export const metadata: Metadata = {
+	title: "Converters",
+	description:
+		"Data converters pattern for backend-to-frontend data transformation with strict typing and validation"
+};
 
 export default function Page() {
 	return <Converters />;

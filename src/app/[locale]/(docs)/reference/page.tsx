@@ -1,8 +1,12 @@
-import dynamic from "next/dynamic";
+import type { Metadata } from "next";
 
-const Reference = dynamic(() =>
-	import("@/widgets/reference").then((m) => m.Reference)
-);
+import { Reference } from "@/widgets/reference";
+
+export const metadata: Metadata = {
+	title: "Reference",
+	description:
+		"API reference and documentation index for MCP Orchestrator tools and configurations"
+};
 
 export default function Page() {
 	return <Reference />;

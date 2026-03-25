@@ -1,6 +1,12 @@
-import dynamic from "next/dynamic";
+import type { Metadata } from "next";
 
-const Naming = dynamic(() => import("@/widgets/naming").then((m) => m.Naming));
+import { Naming } from "@/widgets/naming";
+
+export const metadata: Metadata = {
+	title: "Naming Conventions",
+	description:
+		"File and variable naming conventions: kebab-case files, interface prefixes, backend type suffixes, and hook naming rules"
+};
 
 export default function Page() {
 	return <Naming />;

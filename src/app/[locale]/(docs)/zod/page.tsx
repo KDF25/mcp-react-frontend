@@ -1,6 +1,12 @@
-import dynamic from "next/dynamic";
+import type { Metadata } from "next";
 
-const Zod = dynamic(() => import("@/widgets/zod").then((m) => m.Zod));
+import { Zod } from "@/widgets/zod";
+
+export const metadata: Metadata = {
+	title: "Zod Validation",
+	description:
+		"Zod schema validation patterns for runtime type checking, form validation, and API response parsing"
+};
 
 export default function Page() {
 	return <Zod />;

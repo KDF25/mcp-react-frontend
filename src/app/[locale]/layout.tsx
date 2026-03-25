@@ -27,28 +27,40 @@ type Props = {
 	params: Promise<{ locale: string }>;
 };
 
+export function generateStaticParams() {
+	return routing.locales.map((locale) => ({ locale }));
+}
+
 export async function generateMetadata(props: Omit<Props, "children">) {
 	const { locale } = await props.params;
 	const t = await getTranslations({ locale, namespace: "home" });
 
+	const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 	const title = "MCP Orchestrator";
 	const description = "FSD & Linter Orchestration Server";
 
+	const alternateLanguages = Object.fromEntries(
+		routing.locales.map((l) => [l, `${baseUrl}/${l}`])
+	);
+
 	return {
-		metadataBase: new URL(
-			process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
-		),
+		metadataBase: new URL(baseUrl),
 		title: {
 			default: title,
 			template: `%s | ${title}`
 		},
 		description,
 		keywords: ["MCP", "React", "FSD", "Linter", "Orchestration", "Server"],
+		alternates: {
+			canonical: `${baseUrl}/${locale}`,
+			languages: alternateLanguages
+		},
 		openGraph: {
 			title,
 			description,
 			type: "website",
 			siteName: title,
+			locale,
 			images: [
 				{
 					url: "/logo.png",

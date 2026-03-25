@@ -1,9 +1,13 @@
-import dynamic from "next/dynamic";
+import type { Metadata } from "next";
 
-const ErrorBoundary = dynamic(() =>
-	import("@/widgets/error-boundary").then((m) => m.ErrorBoundary)
-);
+import { ErrorBoundary as ErrorBoundaryWidget } from "@/widgets/error-boundary";
+
+export const metadata: Metadata = {
+	title: "Error Boundary",
+	description:
+		"React Error Boundary patterns for graceful error handling, fallback UI, and error recovery strategies"
+};
 
 export default function Page() {
-	return <ErrorBoundary />;
+	return <ErrorBoundaryWidget />;
 }

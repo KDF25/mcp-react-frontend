@@ -1,8 +1,12 @@
-import dynamic from "next/dynamic";
+import type { Metadata } from "next";
 
-const Entities = dynamic(() =>
-	import("@/widgets/entities").then((m) => m.Entities)
-);
+import { Entities } from "@/widgets/entities";
+
+export const metadata: Metadata = {
+	title: "Entities",
+	description:
+		"Entity layer patterns: presentation components, data models, and entity-level business logic organization"
+};
 
 export default function Page() {
 	return <Entities />;

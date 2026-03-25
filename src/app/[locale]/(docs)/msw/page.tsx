@@ -1,7 +1,13 @@
-import dynamic from "next/dynamic";
+import type { Metadata } from "next";
 
-const Msw = dynamic(() => import("@/widgets/msw").then((m) => m.Msw));
+import { Msw } from "@/widgets/msw";
 
-export default function MswPage() {
+export const metadata: Metadata = {
+	title: "MSW",
+	description:
+		"Mock Service Worker setup and patterns for API mocking in development and testing environments"
+};
+
+export default function Page() {
 	return <Msw />;
 }

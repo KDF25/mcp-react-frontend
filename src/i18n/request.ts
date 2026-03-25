@@ -21,7 +21,8 @@ const namespaces = [
 	"rtk_query",
 	"converters",
 	"msw",
-	"theme"
+	"theme",
+	"not_found"
 ];
 
 export default getRequestConfig(async ({ requestLocale }) => {
