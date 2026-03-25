@@ -5,7 +5,7 @@ import { ConvertersStepToFrontend } from "./converters-step-to-frontend";
 
 export function ConvertersSteps() {
 	return (
-		<div className="space-y-12">
+		<div className="flex flex-col gap-6">
 			<ConvertersStepToFrontend />
 			<ConvertersStepToBackend />
 			<ConvertersStepFilters />

@@ -1,6 +1,6 @@
 {
 	"header": {
-		"title": "Naming & Style Standards",
+		"title": "Naming & Linter Rules",
 		"description": "Strict semantic conventions designed to eliminate ambiguity and technical debt through static analysis."
 	},
 	"card_title": "Project Coding Standards",
@@ -24,6 +24,6 @@
 	},
 	"relaxations": {
 		"title": "Technical Relaxations",
-		"description": "Specific exceptions for external libraries (shadcn-ui), type declarations (.d.ts), and system configurations where strict naming might interfere with operation."
+		"description": "Specific exceptions for external libraries (<one>shadcn-ui</one>), type declarations (<two>.d.ts</two>), and system configurations where strict naming might interfere with operation."
 	}
 }

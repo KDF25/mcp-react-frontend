@@ -7,7 +7,7 @@ import { ThemeStepUi } from "./theme-step-ui";
 
 export async function ThemeSteps() {
 	return (
-		<div className="space-y-12">
+		<div className="flex flex-col gap-6">
 			<ThemeStepTypes />
 			<ThemeStepContext />
 			<ThemeStepHook />

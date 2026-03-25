@@ -1,22 +1,43 @@
 {
 	"header": {
 		"title": "Error Boundary",
-		"description": "Isolating UI errors and ensuring application stability."
+		"description": "UI error isolation and application stability enforcement."
 	},
-	"intro": {
-		"title": "Concept",
-		"description": "Error boundaries are React components that catch JavaScript errors anywhere in their child component tree, log those errors, and display a fallback UI."
+	"card_title": "Project Error Isolation Standards",
+	"benefit_label": "Principles:",
+	"benefit_text": "Failure isolation allows the app to continue functioning even if a specific widget or feature crashes.",
+	"tree_title": "Hierarchical Reliability Tree",
+	"when_to_use": {
+		"title": "When to Use",
+		"isolation": {
+			"label": "Crash Isolation:",
+			"text": "Widgets, external components, complex UI blocks, <one>Lazy-loaded</one> components, and integrations (chats, maps)."
+		},
+		"boundaries": {
+			"label": "Layer Boundaries:",
+			"text": "<one>Page-level</one> (full page) and <two>Feature-level</two> (specific block: cart, chat, analytics)."
+		},
+		"dynamic": {
+			"label": "Dynamic Code:",
+			"text": "When code might be unstable or third-party modules are integrated."
+		}
 	},
-	"structure": {
-		"title": "Module Architecture",
-		"description": "Following FSD, the core error boundary code is located in the Shared layer."
-	},
-	"rules": {
-		"title": "Usage Rules",
-		"items": {
-			"global": "A global wrapper is mandatory for the entire application.",
-			"widgets": "All widgets must be isolated using withErrorBoundary.",
-			"logging": "Automatic logging to the console (dev) and monitoring system."
+	"steps": {
+		"implementation": {
+			"title": "ErrorBoundary Implementation",
+			"description": "Base class for error catching:"
+		},
+		"hoc": {
+			"title": "withErrorBoundary HOC",
+			"description": "<one>HOC</one> for wrapping components:"
+		},
+		"usage": {
+			"title": "HOC Usage Example",
+			"description": "A practical example of isolating a feature using <one>withErrorBoundary</one>. Notice how the <two>HOC</two> prevents the \"white screen of death\" when errors occur in unstable rendering logic of child components."
+		},
+		"architecture": {
+			"title": "Architecture (Best Practice)",
+			"description": "Use multiple levels of protection. Don't use a single global <one>boundary</one> — you'll lose control over granular failures."
 		}
 	}
 }

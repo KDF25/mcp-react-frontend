@@ -26,7 +26,7 @@ export async function Msw() {
 				</CardHeader>
 				<CardContent className="p-4 text-sm text-muted-foreground space-y-6">
 					<div className="space-y-4">
-						<p className="border-l-2 border-primary pl-3 italic text-foreground mt-4 mb-2">
+						<p className="border-l-2 border-primary pl-3 italic text-foreground mb-4">
 							<strong>{t("benefit_label")}</strong>{" "}
 							{t.rich("benefit_text", {
 								one: (chunks) => (
@@ -37,9 +37,7 @@ export async function Msw() {
 							})}
 						</p>
 
-						<ErrorBoundary>
-							<MswTree />
-						</ErrorBoundary>
+						<MswTree />
 
 						<div className="pt-6 border-t border-border/40 space-y-4">
 							<h3 className="text-lg font-semibold">
@@ -107,9 +105,7 @@ export async function Msw() {
 						</div>
 					</div>
 
-					<ErrorBoundary>
-						<MswSteps />
-					</ErrorBoundary>
+					<MswSteps />
 				</CardContent>
 			</Card>
 		</div>

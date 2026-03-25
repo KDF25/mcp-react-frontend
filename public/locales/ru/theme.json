@@ -1,7 +1,7 @@
 {
 	"title": "Система Темизации",
 	"description": "Руководство по реализации переключения тем (light/dark) с использованием React Context, HOC и localStorage.",
-	"card_title": "Theme Management Architecture",
+	"card_title": "Архитектура управления темой",
 	"benefit_label": "Преимущество:",
 	"benefit_text": "Изоляция <one>логики темы</one> от бизнес-компонентов. Автоматическое сохранение выбора пользователя и отсутствие 'мигания' при загрузке.",
 	"steps": {

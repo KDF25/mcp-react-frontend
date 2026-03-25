@@ -2,18 +2,18 @@ import { getTranslations } from "next-intl/server";
 
 import { CodeBlock, SectionTitle } from "@/shared/ui";
 
-import { CONVERTERS_CODE_TO_BACKEND } from "../model";
+import { ERROR_BOUNDARY_HOC_IMPLEMENTATION } from "../model";
 
-export async function ConvertersStepToBackend() {
-	const t = await getTranslations("converters");
+export async function ErrorBoundaryHoc() {
+	const t = await getTranslations("error_boundary");
 
 	return (
 		<div className="space-y-4 pt-4 border-t border-border/40">
 			<SectionTitle badge="02" className="text-xl mb-2">
-				{t("steps.to_backend.title")}
+				{t("steps.hoc.title")}
 			</SectionTitle>
 			<p>
-				{t.rich("steps.to_backend.description", {
+				{t.rich("steps.hoc.description", {
 					one: (chunks) => (
 						<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
 							{chunks}
@@ -21,11 +21,10 @@ export async function ConvertersStepToBackend() {
 					)
 				})}
 			</p>
-
 			<CodeBlock
-				code={CONVERTERS_CODE_TO_BACKEND}
-				language="typescript"
-				filename="converters/booking-order.converters.ts"
+				code={ERROR_BOUNDARY_HOC_IMPLEMENTATION}
+				language="tsx"
+				filename="shared/ui/error-boundary/with-error-boundary.tsx"
 			/>
 		</div>
 	);

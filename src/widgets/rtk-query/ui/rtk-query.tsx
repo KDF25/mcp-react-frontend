@@ -25,7 +25,7 @@ export async function RtkQuery() {
 				</CardHeader>
 				<CardContent className="p-4 text-sm text-muted-foreground space-y-6">
 					<div className="space-y-4">
-						<p className="border-l-2 border-primary pl-3 italic text-foreground mt-4 mb-2">
+						<p className="border-l-2 border-primary pl-3 italic text-foreground mb-4">
 							<strong>{t("invariant_label")}</strong>{" "}
 							{t.rich("invariant_text", {
 								one: (chunks) => (
@@ -36,14 +36,10 @@ export async function RtkQuery() {
 							})}
 						</p>
 
-						<ErrorBoundary>
-							<RtkQueryTree />
-						</ErrorBoundary>
+						<RtkQueryTree />
 					</div>
 
-					<ErrorBoundary>
-						<RtkQuerySteps />
-					</ErrorBoundary>
+					<RtkQuerySteps />
 				</CardContent>
 			</Card>
 		</div>

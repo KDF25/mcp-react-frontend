@@ -275,7 +275,7 @@
         "context": "src/shared/ui/layout/theme-toggle/model/theme.context.ts",
         "hook": "src/shared/ui/layout/theme-toggle/model/useTheme.tsx"
       },
-      "template": "src/entities/rules/config/entities/theme-pattern.md",
+      "template": "src/entities/rules/config/theme-pattern.md",
       "description": "Паттерн переключения тем (Light/Dark). Обязательное использование ThemeProvider и useTheme для управления состоянием и синхронизации с DOM."
     },
     "styles": {
@@ -306,6 +306,21 @@
       },
       "template": "src/entities/rules/config/entities/zod-pattern.md",
       "description": "Паттерн валидации данных через Zod. Обязательное использование типизированных ключей i18n и генерация типов через z.infer."
+    },
+    "errorBoundary": {
+      "location": "src/shared/ui/error-boundary",
+      "requiredFiles": [
+        "index.ts",
+        "error-boundary.tsx",
+        "with-error-boundary.tsx"
+      ],
+      "locationRequiredFiles": {
+        "component": "src/shared/ui/error-boundary/error-boundary.tsx",
+        "hoc": "src/shared/ui/error-boundary/with-error-boundary.tsx",
+        "index": "src/shared/ui/error-boundary/index.ts"
+      },
+      "template": "src/entities/rules/config/error-boundary-pattern.md",
+      "description": "Паттерн перехвата и изоляции ошибок UI. Обязательное использование ErrorBoundary и withErrorBoundary для нестабильных блоков и фичей."
     }
   }
 }

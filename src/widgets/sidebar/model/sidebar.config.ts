@@ -115,7 +115,7 @@ export const SIDEBAR_CONFIG = {
 			icon: Settings2,
 			items: [
 				{
-					title: "Naming Conventions",
+					title: "Naming & Linter Rules",
 					url: ENUM_ROUTES.MAIN.NAMING
 				},
 				{

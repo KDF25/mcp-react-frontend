@@ -5,7 +5,7 @@ import { MswStepMocks } from "./msw-step-mocks";
 
 export async function MswSteps() {
 	return (
-		<div className="space-y-12">
+		<div className="flex flex-col gap-6">
 			<MswStepMocks />
 			<MswStepHandlers />
 			<MswStepInit />

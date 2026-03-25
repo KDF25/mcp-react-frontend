@@ -5,11 +5,11 @@ import { MswStepInitMain } from "./msw-step-init-main";
 
 export async function MswStepInit() {
 	return (
-		<>
+		<div className="flex flex-col gap-6">
 			<MswStepInitBrowser />
 			<MswStepInitHandlers />
 			<MswStepInitApp />
 			<MswStepInitMain />
-		</>
+		</div>
 	);
 }
