@@ -119,10 +119,6 @@ export const SIDEBAR_CONFIG = {
 					url: ENUM_ROUTES.MAIN.NAMING
 				},
 				{
-					title: "Linter Rules",
-					url: `${ENUM_ROUTES.MAIN.NAMING}#linter`
-				},
-				{
 					title: "Styling Standards",
 					url: ENUM_ROUTES.MAIN.STYLES
 				},

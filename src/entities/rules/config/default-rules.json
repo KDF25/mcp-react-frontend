@@ -81,6 +81,14 @@
         "template",
         "default"
       ]
+    },
+    "suffixes": {
+      "schema": ".schema.ts",
+      "converters": ".converters.ts",
+      "api": ".service.ts",
+      "handlers": ".handlers.ts",
+      "mock": ".mock.ts",
+      "config": ".config.ts"
     }
   },
   "linter": {
