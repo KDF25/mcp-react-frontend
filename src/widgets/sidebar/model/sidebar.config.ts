@@ -31,12 +31,12 @@ export const SIDEBAR_CONFIG = {
 	navMain: [
 		{
 			title: "Getting Started",
-			url: ENUM_ROUTES.MAIN.INTRODUCTION,
+			url: ENUM_ROUTES.MAIN.ROOT,
 			icon: BookOpen,
 			items: [
 				{
 					title: "Introduction",
-					url: ENUM_ROUTES.MAIN.INTRODUCTION
+					url: ENUM_ROUTES.MAIN.ROOT
 				},
 				{
 					title: "Creator",

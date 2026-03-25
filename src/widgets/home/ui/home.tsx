@@ -1,31 +1,19 @@
-import { Separator } from "@/shared/ui";
-
-import { Docs } from "@/widgets/docs";
-
-import { DocsPolicy } from "./docs-policy";
-// import { DocsFeatures } from "@/widgets/docs/ui/docs-features";
-// import { DocsMission } from "@/widgets/docs/ui/docs-mission";
-// import { DocsPolicy } from "@/widgets/docs/ui/docs-policy";
-
+import { HomeComparison } from "./home-comparison";
 import { HomeHero } from "./home-hero";
-import { HomeInfrastructure } from "./home-infrastructure";
-import { HomeModules } from "./home-modules";
-import { HomeStatus } from "./home-status";
+import { HomeNotMcp } from "./home-not-mcp";
+import { HomeOverview } from "./home-overview";
+import { HomePhilosophy } from "./home-philosophy";
+import { HomeRole } from "./home-role";
 
 export function Home() {
 	return (
-		<>
+		<div className="container max-w-5xl mx-auto px-4 sm:px-6 flex flex-col gap-6 md:gap-8 animate-in fade-in duration-500">
 			<HomeHero />
-
-			<div className="space-y-8">
-				<HomeStatus />
-				<HomeModules />
-			</div>
-
-			<Separator className="bg-primary/5" />
-			<HomeInfrastructure />
-			<DocsPolicy />
-			<Docs />
-		</>
+			<HomeOverview />
+			<HomeNotMcp />
+			<HomeRole />
+			<HomeComparison />
+			<HomePhilosophy />
+		</div>
 	);
 }

@@ -6,7 +6,6 @@ export const ENUM_ROUTES = {
 		STRUCTURE: "/structure",
 		STYLES: "/styles",
 		REFERENCE: "/reference",
-		INTRODUCTION: "/introduction",
 		CREATOR: "/creator",
 		I18N: "/i18n",
 		ZOD: "/zod",

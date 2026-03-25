@@ -1,6 +1,4 @@
-import dynamic from "next/dynamic";
-
-const Home = dynamic(() => import("@/widgets/home").then((m) => m.Home));
+import { Home } from "@/widgets/home";
 
 export default function Page() {
 	return <Home />;

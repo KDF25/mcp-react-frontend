@@ -1,49 +1,98 @@
 {
 	"hero": {
-		"system_status": "System Online",
-		"title_first": "MCP",
-		"title_second": "Orchestrator",
-		"subtitle": "Architectural Integrity Server",
-		"description": "A specialized protocol layer for enforcing FSD boundaries, semantic standards, and project-specific constraints. Validating code through deterministic rules instead of ephemeral prompts.",
-		"cta_explore": "Explore Protocol",
-		"cta_architect": "System Architect"
+		"title": "Orchestrator v1",
+		"subtitle": "Orchestration Core",
+		"mission": "Establishing the definitive source of truth for architectural contracts. This module serves as the central control point for the project's architectural integrity. It guarantees that all code changes, integrations, and new functional modules strictly comply with Feature-Sliced Design (FSD) standards and corporate agreements on naming, layer structure, and dependencies.",
+		"summary": "Orchestration Core unifies all critical project orchestration logic: analysis, strict verification, constraint enforcement, and module approval. It ensures stability and consistency even in large-scale projects with many developers and integrations."
 	},
-	"status": {
-		"core": "Core Protocol",
-		"architecture": "Architecture",
-		"ai": "AI Integration",
-		"validation": "Validation"
+	"overview": {
+		"title": "What is MCP",
+		"cards": [
+			{
+				"title": "Specialized orchestration layer",
+				"description": "Connects business logic, UI, and APIs into a single managed tier."
+			},
+			{
+				"title": "Authoritative source of truth",
+				"description": "The single entry point for all project contracts and architectural rules."
+			},
+			{
+				"title": "Architectural contract enforcement",
+				"description": "Guaranteed consistency and Feature-Sliced Design isolation."
+			}
+		]
 	},
-	"features": {
-		"rules": {
-			"title": "Rules Enforcement",
-			"description": "Zero-tolerance boundary checks and dependency validation."
+	"not_mcp": {
+		"title": "What MCP is NOT",
+		"items": [
+			"Not UI",
+			"Not an autonomous designer",
+			"Not a general-purpose library",
+			"Not a compiler/typer",
+			"Not an engine for \"convenience\" development"
+		]
+	},
+	"role": {
+		"title": "Role of MCP",
+		"items": [
+			{
+				"title": "Analysis",
+				"description": "Detecting deviations."
+			},
+			{
+				"title": "Contract Checking",
+				"description": "Strict validation."
+			},
+			{
+				"title": "Enforcing Constraints",
+				"description": "Prohibiting cross-imports."
+			},
+			{
+				"title": "Final Validation",
+				"description": "Architecture approval."
+			}
+		]
+	},
+	"comparison": {
+		"title": "MCP vs Prompts",
+		"prompts": {
+			"title": "Prompts",
+			"items": [
+				"Static instructions",
+				"Can be ignored by context",
+				"Ephemeral and volatile",
+				"No structural guarantees"
+			]
 		},
-		"fsd": {
-			"title": "FSD Governance",
-			"description": "Deep structural analysis of layers and entity boundaries."
-		},
-		"naming": {
-			"title": "Semantic Naming",
-			"description": "Enforcing consistent file patterns and variable naming."
-		},
-		"error_boundary": {
-			"title": "Error Boundary",
-			"description": "Failure isolation and preventing UI-wide crashes."
+		"mcp": {
+			"title": "MCP",
+			"items": [
+				"Deterministic rules",
+				"API calls to the analyzer",
+				"Continuous knowledge bridge",
+				"Strict enforcement of FSD contracts"
+			]
 		}
 	},
-	"infrastructure": {
-		"deterministic": {
-			"title": "Deterministic Rules",
-			"description": "Executable specifications that override prompt drift."
-		},
-		"truth": {
-			"title": "Source of Truth",
-			"description": "Centralized configuration for architectural patterns."
-		},
-		"clean": {
-			"title": "Clean Code Protocol",
-			"description": "Continuous integrity monitoring for every code modification."
-		}
+	"philosophy": {
+		"title": "Philosophy & Principles",
+		"items": [
+			{
+				"title": "Determinism",
+				"description": "Predictable results on every validation run."
+			},
+			{
+				"title": "Explicit Rules",
+				"description": "Rejection of implicit behavior in favor of strict configurations."
+			},
+			{
+				"title": "No Magic",
+				"description": "Transparent architecture where every dependency is traceable."
+			},
+			{
+				"title": "Validation > Generation",
+				"description": "Controlling existing structures takes priority over unsupervised generation."
+			}
+		]
 	}
 }

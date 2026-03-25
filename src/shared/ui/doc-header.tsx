@@ -16,8 +16,7 @@ import { LanguageToggle, ThemeToggle } from "./layout";
 import { Link, usePathname } from "@/i18n/routing";
 
 const ROUTE_TITLES: Record<string, string> = {
-	[ENUM_ROUTES.MAIN.ROOT]: "The Mission",
-	[ENUM_ROUTES.MAIN.INTRODUCTION]: "Introduction",
+	[ENUM_ROUTES.MAIN.ROOT]: "Orchestration Core",
 	[ENUM_ROUTES.MAIN.CREATOR]: "Creator",
 	[ENUM_ROUTES.MAIN.FSD]: "Architecture (FSD)",
 	[ENUM_ROUTES.MAIN.NAMING]: "Coding Standards",
