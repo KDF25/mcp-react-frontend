@@ -1,26 +1,25 @@
 import { Separator } from "@/shared/ui";
 
+import { CreatorAiSystems } from "./creator-ai-systems";
+import { CreatorArchitecture } from "./creator-architecture";
+import { CreatorCompetencies } from "./creator-competencies";
 import { CreatorConnections } from "./creator-connections";
-import { CreatorHeader } from "./creator-header";
-import { CreatorPrinciples } from "./creator-principles";
-import { CreatorResponsibility } from "./creator-responsibility";
-import { CreatorRole } from "./creator-role";
-import { CreatorStatus } from "./creator-status";
-import { CreatorTechnical } from "./creator-technical";
+import { CreatorExperience } from "./creator-experience";
+import { CreatorHero } from "./creator-hero";
+import { CreatorSnapshot } from "./creator-snapshot";
 
 export function Creator() {
 	return (
-		<div className="space-y-12">
-			<CreatorHeader />
-			<div className="space-y-12">
-				<CreatorRole />
-				<Separator />
-				<CreatorResponsibility />
-				<CreatorPrinciples />
-				<CreatorTechnical />
-				<CreatorConnections />
-				<CreatorStatus />
-			</div>
+		<div className="space-y-10 max-w-5xl">
+			<CreatorHero />
+			<Separator />
+			<CreatorCompetencies />
+			<CreatorArchitecture />
+			<Separator />
+			<CreatorExperience />
+			<CreatorAiSystems />
+			<CreatorSnapshot />
+			<CreatorConnections />
 		</div>
 	);
 }

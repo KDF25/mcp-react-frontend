@@ -1,54 +1,80 @@
 {
-	"header": {
-		"title": "Creator",
-		"architect": "System Architect",
-		"orchestrator": "Lead Orchestrator"
+	"title": "System Architect",
+	"description": "Designing complex frontend systems with high interactivity, real-time synchronization, and AI component integration",
+	"hero": {
+		"name": "Damir Karimov",
+		"role": "System Architect (<one>Frontend</one> / <two>FSD</two> / <three>Real-time</three> / <four>AI Systems</four>)",
+		"subtitle": "Specializes in designing complex frontend systems with high interactivity, real-time synchronization, and AI component integration. The main focus is building architectures that remain manageable as business logic, user roles, and external integrations scale.\n\nExperienced in developing multi-tier platforms with financial operations, document workflows, access roles, and complex user scenarios. Works closely across frontend, backend, and automation services to ensure system consistency at the semantic contract and state level."
 	},
-	"role": {
-		"title": "Role",
-		"content": "Damir Karimov serves as the Lead Architect and Author of the MCP Orchestration Layer. In this capacity, he defines the project’s technical boundaries, establishes the semantic contracts for the LLM-to-codebase interaction, and maintains the authoritative rule-set for the system’s evolution."
+	"badges": {
+		"fsd": "FSD Architecture",
+		"react": "React / Next.js",
+		"realtime": "Real-time Systems (WebSockets)",
+		"ai": "AI & LLM Integrations"
 	},
-	"responsibility": {
-		"title": "Responsibility",
+	"competencies": {
+		"title": "Key Competencies",
 		"items": [
-			"Architectural Governance: Defining and enforcing Feature-Sliced Design (FSD) boundaries.",
-			"Protocol Integrity: Maintaining the deterministic nature of MCP tool responses.",
-			"Quality Assurance: Optimizing code quality and performance through strict static analysis.",
-			"Scalability: Designing modular structures that prevent technical debt accumulation."
+			"Architecture design based on <one>Feature-Sliced Design</one> (layer and module isolation)",
+			"Building complex <one>UI systems</one> with multiple roles and scenarios",
+			"Implementing <one>real-time</one> logic (<two>WebSockets</two>, event synchronization)",
+			"Data layer design (<one>RTK Query</one>, caching, revalidation)",
+			"External systems integration (EDO, Digital Signatures, 3rd party APIs)",
+			"Development of internal <one>automation</one> services (<two>Node.js</two>, <three>Python</three>)",
+			"Building <one>AI integrations</one> (<two>LLM</two>, <three>RAG</three>, <four>voice interfaces</four>)"
 		]
 	},
-	"principles": {
-		"title": "Engineering Principles",
+	"architecture": {
+		"title": "Architectural Approach",
 		"items": [
-			{
-				"title": "Architectural Integrity",
-				"description": "Strict adherence to FSD for modular and maintainable system structure."
-			},
-			{
-				"title": "Performance Optimization",
-				"description": "Delivering high-performance interfaces and robust backend APIs with zero bloat."
-			},
-			{
-				"title": "Engineering Precision",
-				"description": "Combining pixel-perfect UI with robust, type-safe architectural patterns."
-			},
-			{
-				"title": "Contractual Determinism",
-				"description": "Every rule is a conscious engineering choice designed to eliminate ambiguity."
-			}
+			"System decomposition into independent areas of responsibility",
+			"Strict module boundary enforcement (<one>FSD</one>)",
+			"Contract-based interaction between layers",
+			"Event-driven model for <one>real-time</one> updates",
+			"State and side-effects minimization",
+			"Managing complexity through isolation and predictability"
 		]
 	},
-	"technical": {
-		"title": "Technical Identification"
+	"experience": {
+		"title": "Practical Experience",
+		"items": [
+			"Financial systems implementation (balances, transactions, invoices, withdrawals)",
+			"Real-time systems engineering with status, chat, and notification synchronization",
+			"Complex catalogs development with filtration, parametrics, and dynamic querying",
+			"Entity lifecycle management (orders, statuses, deadlines, constraints)",
+			"Electronic document management and digital signature integration (including <one>desktop-bridge</one> automation)",
+			"Automation pipeline construction (screenshots, reports, PDF/Excel generation)",
+			"Headless browser interactions (<one>Playwright</one>) and bypassing external platform restrictions",
+			"Internal <one>real-time</one> messenger development with full state sync",
+			"Administrative management systems with moderation, accounting, and multi-tenancy"
+		]
 	},
-	"connections": {
+	"ai_systems": {
+		"title": "AI & Intelligent Systems",
+		"items": [
+			"Voice AI-agent implementation with <one>real-time</one> interface control",
+			"Multi-service orchestration (<one>voice</one>, <two>RAG FAQ</two>, <three>retrieval search</three>)",
+			"<one>STT</one> / <two>TTS</two> / <three>LLM</three> integration into unified pipelines",
+			"<one>RAG</one> systems engineering (vector search, <two>LangChain</two>, <three>ChromaDB</three>, <four>Qdrant</four>)",
+			"Hybrid search: <one>SQL</one> + vector semantics + <two>reranking</two>",
+			"Voice-controlled <one>UI</one> with action confirmation (<two>ACK model</two>)",
+			"State synchronization between AI agent and interface"
+		]
+	},
+	"snapshot": {
+		"title": "Technical Stack"
+	},
+	"actions": {
 		"title": "Connections",
-		"github": "GitHub Registry",
-		"email": "Direct Endpoint"
+		"github": "GitHub",
+		"telegram": "Telegram",
+		"linkedin": "LinkedIn",
+		"email": "Email"
 	},
 	"status": {
-		"label": "Architect Status",
-		"value": "Authorized",
-		"philosophy": "Engineering precision combined with product thinking: building systems that are technically robust while delivering high-performance user experiences."
+		"title": "Status",
+		"active": "Active",
+		"focus_label": "Focus",
+		"focus_value": "<one>Frontend Architecture</one> / <two>AI</two> / <three>System Design</three>"
 	}
 }
