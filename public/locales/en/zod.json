@@ -3,42 +3,33 @@
 		"title": "Validation & Type Safety with Zod",
 		"description": "Deterministic validation layer ensuring that all data entering the system conforms to the defined architectural contracts."
 	},
-	"importance": {
-		"title": "Why Zod?",
-		"items": [
-			{
-				"title": "Runtime Type Safety",
-				"description": "Bridging the gap between TypeScript's static types and actual runtime data from APIs or forms."
-			},
-			{
-				"title": "Single Source of Truth",
-				"description": "Generate TypeScript types directly from Zod schemas to ensure perfect alignment."
-			},
-			{
-				"title": "Deterministic Validation",
-				"description": "Transparent and predictable error reporting for invalid data structures."
-			}
-		]
+	"card_title": "Zod Validation Architecture",
+	"benefit_label": "Benefits:",
+	"benefit_text": "Zod allows combining runtime validation with TypeScript typing, creating a single source of truth for forms and API data.",
+	"tree_title": "Zod Schema & Types Structure",
+	"naming": {
+		"title": "Naming Conventions",
+		"schemas": {
+			"label": "Zod Schemas:",
+			"text": "Located in the <one>schema</one> folder. Files are named following the <two>[name].schema.ts</two> pattern. Schemas are named in uppercase (e.g., <three>ENTITY_SCHEMA</three>)."
+		},
+		"types": {
+			"label": "Types & Interfaces:",
+			"text": "Located in the <one>types</one> folder. Types inferred from schemas are named with a <two>T</two> prefix (e.g., <three>TEntitySchema</three>). All form field enums are stored in <four>ENUM_FORM_...</four> objects."
+		}
 	},
-	"pattern": {
-		"title": "Validation Pattern",
-		"description": "Schemas must be located in the 'model/schema' directory of their respective slices."
-	},
-	"architecture": {
-		"title": "Zod in FSD Architecture",
-		"items": [
-			{
-				"title": "Input Validation",
-				"description": "Validate all incoming API responses and user inputs before they reach the state store."
-			},
-			{
-				"title": "Form Integration",
-				"description": "React Hook Form integration using 'zodResolver' for robust UI-layer validation."
-			},
-			{
-				"title": "Contract Enforcement",
-				"description": "Using schemas to define and enforce contracts between different system modules."
-			}
-		]
+	"steps": {
+		"schema": {
+			"title": "Schema Definition",
+			"description": "Creating a Zod object using <one>i18nKey</one> for localized error messages."
+		},
+		"types": {
+			"title": "Type Inference",
+			"description": "Using <one>z.infer</one> to automatically generate TypeScript types from the schema."
+		},
+		"usage": {
+			"title": "Form Integration",
+			"description": "Connecting the schema to <one>react-hook-form</one> via <two>zodResolver</two>."
+		}
 	}
 }
