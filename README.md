@@ -29,15 +29,6 @@ The **MCP React Frontend Server** is a Model Context Protocol (MCP) implementati
    - **Output**: Text message confirming the creation of the architecture.
    - **Behavior**: Generates folders (`api/`, `types/`, `schema/`, `converters/`, `ui/`) and boilerplate files including RTK Query services, Zod schemas, data converters, and a public API index.
 
-### Resources
-Not defined in code.
-
-### Prompts
-Not defined in code.
-
-### Schemas
-Input schemas for tools are strictly defined and validated using `zod`. Complex output (e.g., from `analyze_project`) is structured as JSON strings inside a standard text content block.
-
 ## Architecture
 The application is built on top of the **Next.js App Router** and the `@modelcontextprotocol/sdk`.
 
@@ -50,7 +41,7 @@ The application is built on top of the **Next.js App Router** and the `@modelcon
 - **Transports**: Located in `src/app/api/mcp`. Exposes both `WebStandardStreamableHTTPServerTransport` (standard HTTP) and `SSEServerTransport` (Server-Sent Events) for different client compatibilities.
 
 ### Data Flow
-1. **Request**: MCP Client connects via `/api/mcp` or `/api/mcp/sse`. Next.js routes the request.
+1. **Request**: MCP Client connects via `/api/mcp`. Next.js routes the request.
 2. **Processing**: The HTTP/SSE transport translates the request into the `McpServer`. For tool calls, the specific agent (`FsdAgent`, `LinterAgent`) is invoked.
 3. **Response**: Analysis results are aggregated, serialized to JSON, wrapped in an MCP content block, and streamed back via the transport framework.
 
@@ -60,21 +51,71 @@ The application is built on top of the **Next.js App Router** and the `@modelcon
 - `zod`: Schema validation.
 
 ## Usage
+
 Clients can connect to this server over HTTP or SSE depending on their MCP transport capabilities.
 
 ### Connecting to MCP Clients (e.g., Antigravity)
-To connect this MCP server to a client like **Antigravity**, add the following configuration to your MCP client config file (e.g., `mcp_config.json`):
+
+Add the following to your `mcp_config.json` manually:
+
+#### 1. Local Stdio (Recommended)
+
+Fastest and most stable for development. Uses the local script directly.
 
 ```json
 {
   "mcpServers": {
-    "mcp-react-frontend": {
-      "serverUrl": "https://mcp-react-frontend.onrender.com/api/mcp"
+    "mcp-react-frontend-local": {
+      "command": "npx",
+      "args": ["-y", "tsx", "scripts/mcp-stdio.ts"],
+      "cwd": "D://<path_to_project_root>"
     }
   }
 }
 ```
-*Note*: For local development, you can replace `serverUrl` with `"http://localhost:3000/api/mcp"*.
+
+#### 2. Local HTTP
+
+Connects over HTTP to a running server on `localhost:3000`. Requires `mcp-remote`.
+
+```json
+{
+  "mcpServers": {
+    "mcp-react-frontend-http": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "http://localhost:3000/api/mcp"]
+    }
+  }
+}
+```
+
+#### 3. Remote (Vercel / Render)
+
+> [!IMPORTANT]
+> Initial connection can take **up to 60 seconds** due to server "warm-up" (cold start).
+
+```json
+{
+  "mcpServers": {
+    "mcp-react-frontend-remote": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://mcp-react-frontend.vercel.app/api/mcp"]
+    }
+  }
+}
+```
+
+```json
+{
+  "mcpServers": {
+    "mcp-react-frontend-remote": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://mcp-react-frontend.onrender.com/api/mcp"]
+    }
+  }
+}
+```
+
 
 ### Supported Rules & Patterns Scope
 The MCP server enforces a highly deterministic, strict architectural contract defined in `src/entities/rules/config/default-rules.json`. The validation scope guarantees structural integrity across the following domains:
