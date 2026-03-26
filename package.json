@@ -7,7 +7,8 @@
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,scss}\"",
     "build": "tsc -b && npm run format && next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "mcp-stdio": "npx tsx scripts/mcp-stdio.ts"
   },
   "dependencies": {
     "@headless-tree/core": "^1.6.3",

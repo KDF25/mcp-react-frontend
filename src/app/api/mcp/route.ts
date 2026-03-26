@@ -8,66 +8,6 @@ import { createMcpServer } from "@/features/mcp/lib/mcp-server";
  */
 export const dynamic = "force-dynamic";
 
-/**
- * Global persistence for MCP server, transport, and connection state.
- */
-const globalForMcp = global as unknown as {
-	mcpTransport?: WebStandardStreamableHTTPServerTransport;
-	mcpServer?: ReturnType<typeof createMcpServer>;
-	mcpConnectPromise?: Promise<void>;
-};
-
-// Initialize or reuse the MCP server and transport
-const server = globalForMcp.mcpServer ?? createMcpServer();
-const transport =
-	globalForMcp.mcpTransport ??
-	new WebStandardStreamableHTTPServerTransport({
-		enableJsonResponse: true
-	});
-
-// Save to global in development
-if (process.env.NODE_ENV !== "production") {
-	globalForMcp.mcpServer = server;
-	globalForMcp.mcpTransport = transport;
-}
-
-/**
- * Connects the server to the transport with synchronization to prevent race conditions.
- */
-async function ensureConnected() {
-	// If connection is already in progress or done, wait for it
-	if (globalForMcp.mcpConnectPromise) {
-		return globalForMcp.mcpConnectPromise;
-	}
-
-	// Start connection process
-	globalForMcp.mcpConnectPromise = (async () => {
-		try {
-			await server.connect(transport);
-			console.log("[MCP] Server successfully connected to transport");
-		} catch (error: any) {
-			// If already started, we can ignore this error
-			if (
-				error.message?.includes("already started") ||
-				error.message?.includes("already connected")
-			) {
-				console.log(
-					"[MCP] Transport already started, reusing connection"
-				);
-				return;
-			}
-			console.error(
-				"[MCP] Failed to connect server to transport:",
-				error
-			);
-			globalForMcp.mcpConnectPromise = undefined; // Reset to allow retry
-			throw error;
-		}
-	})();
-
-	return globalForMcp.mcpConnectPromise;
-}
-
 export async function GET(request: NextRequest) {
 	return handle(request);
 }
@@ -80,18 +20,21 @@ export async function DELETE(request: NextRequest) {
 	return handle(request);
 }
 
+/**
+ * Stateless per-request handler.
+ * Each request creates a fresh server + transport pair,
+ * which is the correct pattern for Streamable HTTP with enableJsonResponse.
+ */
 async function handle(request: NextRequest) {
-	const sessionId = request.headers.get("mcp-session-id") || "no-session";
-
 	try {
-		// Ensure the server is connected to the transport (synchronized)
-		await ensureConnected();
+		const server = createMcpServer();
+		const transport = new WebStandardStreamableHTTPServerTransport({
+			enableJsonResponse: true
+		});
+
+		await server.connect(transport);
 
 		const headers = new Headers(request.headers);
-
-		console.log(
-			`[MCP][${sessionId}] Request: ${request.method} ${request.url}`
-		);
 
 		if (!headers.get("Accept") || headers.get("Accept") === "*/*") {
 			headers.set("Accept", "application/json, text/event-stream");
@@ -106,10 +49,6 @@ async function handle(request: NextRequest) {
 		});
 
 		const response = await transport.handleRequest(modifiedRequest);
-
-		console.log(
-			`[MCP][${sessionId}] Response: ${response.status} ${response.statusText}`
-		);
 
 		const newHeaders = new Headers(response.headers);
 
@@ -139,7 +78,7 @@ async function handle(request: NextRequest) {
 			headers: newHeaders
 		});
 	} catch (error: any) {
-		console.error(`[MCP][${sessionId}] Internal Error:`, error);
+		console.error(`[MCP] Internal Error:`, error);
 		return new Response(
 			JSON.stringify({
 				jsonrpc: "2.0",
