@@ -1,0 +1,16 @@
+{
+  "location": "src/shared/styles",
+  "requiredFiles": [
+    "global.css",
+    "variables.css",
+    "theme.css"
+  ],
+  "locationRequiredFiles": {
+    "global": "src/shared/styles/global.css",
+    "variables": "src/shared/styles/variables.css",
+    "theme": "src/shared/styles/theme.css",
+    "config": "tailwind.config.ts"
+  },
+  "template": "src/entities/rules/config/entities/styles-pattern.md",
+  "description": "Паттерн работы с дизайн-токенами и Tailwind CSS. Строгий запрет на хардкод цветов и использование стандартных палитр Tailwind."
+}

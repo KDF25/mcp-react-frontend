@@ -142,6 +142,6 @@ export const SIDEBAR_CONFIG = {
 			name: "API Connections & Tools",
 			url: ENUM_ROUTES.MAIN.REFERENCE,
 			icon: Frame
-		},
+		}
 	]
 };

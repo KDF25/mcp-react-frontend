@@ -1,0 +1,59 @@
+{
+  "layers": [
+    "app",
+    "pages",
+    "widgets",
+    "features",
+    "entities",
+    "shared"
+  ],
+  "boundaries": [
+    {
+      "from": "entities",
+      "allow": [
+        "shared"
+      ]
+    },
+    {
+      "from": "features",
+      "allow": [
+        "entities",
+        "shared",
+        "features"
+      ]
+    },
+    {
+      "from": "widgets",
+      "allow": [
+        "features",
+        "entities",
+        "shared"
+      ]
+    },
+    {
+      "from": "pages",
+      "allow": [
+        "widgets",
+        "features",
+        "entities",
+        "shared"
+      ]
+    },
+    {
+      "from": "app",
+      "allow": [
+        "pages",
+        "widgets",
+        "features",
+        "entities",
+        "shared"
+      ]
+    }
+  ],
+  "rules": {
+    "no-cross-layer-imports": true,
+    "enforce-directory-structure": true,
+    "no-private-imports": true,
+    "enforce-barrel-exports": true
+  }
+}

@@ -108,9 +108,49 @@ export function createMcpServer(): McpServer {
 		"get_rules",
 		{
 			description: "Get current FSD and naming project rules.",
-			inputSchema: {}
+			inputSchema: {
+				domain: z
+					.enum([
+						"fsd",
+						"naming",
+						"linter",
+						"structure",
+						"styles",
+						"patterns"
+					])
+					.optional()
+					.describe("Optional domain filter"),
+				pattern: z
+					.string()
+					.optional()
+					.describe("Optional pattern name inside 'patterns' domain")
+			}
 		},
-		async () => {
+		async ({ domain, pattern }) => {
+			if (pattern) {
+				const rules = RulesProvider.getPatternRules(pattern as any);
+				return {
+					content: [
+						{
+							type: "text",
+							text: JSON.stringify(rules, null, 2)
+						}
+					]
+				};
+			}
+
+			if (domain) {
+				const rules = RulesProvider.getRulesByDomain(domain as any);
+				return {
+					content: [
+						{
+							type: "text",
+							text: JSON.stringify(rules, null, 2)
+						}
+					]
+				};
+			}
+
 			const rules = RulesProvider.getRules();
 			return {
 				content: [

@@ -1,0 +1,15 @@
+{
+  "location": "src/shared/config/i18n",
+  "requiredFiles": [
+    "index.ts",
+    "i18n.init.ts",
+    "i18n.config.ts",
+    "i18n.blocks.ts",
+    "i18n.types.ts",
+    "i18n-key.ts",
+    "change-language.ts",
+    "i18n.checker.ts"
+  ],
+  "template": "src/entities/rules/config/i18n-pattern.md",
+  "description": "Строгая система интернализации с типизацией ключей и проверкой соответствия языков. Полные шаблоны файлов доступны в @template."
+}

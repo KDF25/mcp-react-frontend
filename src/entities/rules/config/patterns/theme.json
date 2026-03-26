@@ -1,0 +1,18 @@
+{
+  "location": "src/app/providers/theme",
+  "requiredFiles": [
+    "index.ts",
+    "theme.provider.tsx",
+    "with-theme.tsx"
+  ],
+  "locationRequiredFiles": {
+    "provider": "src/app/providers/theme/theme.provider.tsx",
+    "providerIndex": "src/app/providers/theme/index.ts",
+    "toggle": "src/shared/ui/layout/theme-toggle/ui/theme-toggle.tsx",
+    "toggleIndex": "src/shared/ui/layout/theme-toggle/index.ts",
+    "context": "src/shared/ui/layout/theme-toggle/model/theme.context.ts",
+    "hook": "src/shared/ui/layout/theme-toggle/model/useTheme.tsx"
+  },
+  "template": "src/entities/rules/config/theme-pattern.md",
+  "description": "Паттерн переключения тем (Light/Dark). Обязательное использование ThemeProvider и useTheme для управления состоянием и синхронизации с DOM."
+}

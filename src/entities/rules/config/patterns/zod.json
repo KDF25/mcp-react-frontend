@@ -1,0 +1,13 @@
+{
+  "location": "src/entities/[entity-name]/schema",
+  "requiredFiles": [
+    "index.ts",
+    "*.schema.ts"
+  ],
+  "locationRequiredFiles": {
+    "schema": "src/entities/[entity-name]/schema/[entity-name].schema.ts",
+    "types": "src/entities/[entity-name]/types/[entity-name].types.ts"
+  },
+  "template": "src/entities/rules/config/entities/zod-pattern.md",
+  "description": "Паттерн валидации данных через Zod. Обязательное использование типизированных ключей i18n и генерация типов через z.infer."
+}

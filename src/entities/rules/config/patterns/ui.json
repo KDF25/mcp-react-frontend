@@ -1,0 +1,12 @@
+{
+  "composition": {
+    "widgets": [
+      "features",
+      "entities"
+    ]
+  },
+  "responsibility": {
+    "entities": "presentation",
+    "features": "interactivity"
+  }
+}

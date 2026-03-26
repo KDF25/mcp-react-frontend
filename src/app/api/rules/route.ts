@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
-import defaultRules from "@/entities/rules/config/default-rules.json";
+import { RulesProvider } from "@/entities/rules/lib/rules-provider";
 
 export async function GET() {
-	return NextResponse.json(defaultRules);
+	return NextResponse.json(RulesProvider.getRules());
 }

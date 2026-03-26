@@ -1,0 +1,24 @@
+{
+  "location": "src/entities/[entity-name]/api",
+  "requiredFiles": [
+    "index.ts",
+    "*.service.ts"
+  ],
+  "locationRequiredFiles": {
+    "tagsConfig": "src/shared/api/backend/tags.config.ts",
+    "baseApi": "src/shared/api/backend/base.api.ts",
+    "backendIndex": "src/shared/api/backend/index.ts",
+    "authBaseQuery": "src/entities/auth/api/auth-base-query.ts",
+    "authApi": "src/entities/auth/api/auth.api.ts",
+    "authIndex": "src/entities/auth/api/index.ts",
+    "service": "src/entities/[entity-name]/api/[entity-name].service.ts",
+    "serviceIndex": "src/entities/[entity-name]/api/index.ts"
+  },
+  "template": "src/entities/rules/config/entities/api-pattern.md",
+  "description": "Паттерн работы с RTK Query: Code Splitting через injectEndpoints, централизованные теги и семантическое переименование в UI.",
+  "segments": [
+    "Base API",
+    "Injected Endpoints",
+    "Automatic Selectors"
+  ]
+}

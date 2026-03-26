@@ -1,0 +1,17 @@
+{
+  "location": "src/entities/[entity-name]/handlers",
+  "requiredFiles": [
+    "index.ts",
+    "*.handlers.ts"
+  ],
+  "locationRequiredFiles": {
+    "init": "src/app/init/msw.ts",
+    "browser": "src/shared/api/msw/browser.ts",
+    "handlers": "src/entities/[entity-name]/handlers/[entity-name].handlers.ts",
+    "handlersIndex": "src/entities/[entity-name]/handlers/index.ts",
+    "mock": "src/entities/[entity-name]/mock/[entity-name].mock.ts",
+    "mockIndex": "src/entities/[entity-name]/mock/index.ts"
+  },
+  "template": "src/entities/rules/config/entities/msw-pattern.md",
+  "description": "Паттерн макетирования API через MSW. Обязательная регистрация хендлеров в сетапе воркера и использование переменных окружения для контроля запуска."
+}

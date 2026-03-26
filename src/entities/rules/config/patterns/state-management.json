@@ -1,0 +1,5 @@
+{
+  "server": "RTK Query (base.api.ts)",
+  "client": "Redux Toolkit (slices)",
+  "local": "useState"
+}

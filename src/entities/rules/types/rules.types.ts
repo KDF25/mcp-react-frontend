@@ -105,6 +105,27 @@ export interface IPatternRules {
 		template: string;
 		description: string;
 	};
+	styles: {
+		location: string;
+		requiredFiles: string[];
+		locationRequiredFiles: Record<string, string>;
+		template: string;
+		description: string;
+	};
+	zod: {
+		location: string;
+		requiredFiles: string[];
+		locationRequiredFiles: Record<string, string>;
+		template: string;
+		description: string;
+	};
+	errorBoundary: {
+		location: string;
+		requiredFiles: string[];
+		locationRequiredFiles: Record<string, string>;
+		template: string;
+		description: string;
+	};
 }
 
 export interface IProjectRules {
@@ -115,3 +136,6 @@ export interface IProjectRules {
 	styles: IStyleRules;
 	patterns: IPatternRules;
 }
+
+export type TRuleDomain = keyof IProjectRules;
+export type TPatternName = keyof IPatternRules;

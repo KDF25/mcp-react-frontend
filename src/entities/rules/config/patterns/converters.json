@@ -1,0 +1,13 @@
+{
+  "location": "src/entities/[entity-name]/converters",
+  "requiredFiles": [
+    "index.ts",
+    "*.converters.ts"
+  ],
+  "locationRequiredFiles": {
+    "converters": "src/entities/[entity-name]/converters/[entity-name].converters.ts",
+    "types": "src/entities/[entity-name]/types/[entity-name].backend.interface.ts"
+  },
+  "template": "src/entities/rules/config/entities/converters-pattern.md",
+  "description": "Паттерн маппинга DTO в Domain модели. Обязательное использование в transformResponse и подготовке body запросов."
+}

@@ -1,0 +1,33 @@
+{
+  "fileCase": "kebab-case",
+  "prefixes": {
+    "interface": "I",
+    "type": "T",
+    "enum": "ENUM_"
+  },
+  "backend": {
+    "typeSuffix": "Backend",
+    "fileSuffix": "-backend",
+    "interfaceExtension": ".interface.ts"
+  },
+  "exclusions": {
+    "hooks": "^use[A-Z]",
+    "nextjs": [
+      "page",
+      "layout",
+      "loading",
+      "error",
+      "not-found",
+      "template",
+      "default"
+    ]
+  },
+  "suffixes": {
+    "schema": ".schema.ts",
+    "converters": ".converters.ts",
+    "api": ".service.ts",
+    "handlers": ".handlers.ts",
+    "mock": ".mock.ts",
+    "config": ".config.ts"
+  }
+}

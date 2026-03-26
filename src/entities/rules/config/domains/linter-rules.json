@@ -1,0 +1,6 @@
+{
+  "noConsole": true,
+  "noAny": true,
+  "strictTyping": true,
+  "noEnums": true
+}
