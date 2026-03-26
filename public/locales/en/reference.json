@@ -1,37 +1,43 @@
 {
 	"header": {
 		"title": "API Reference & Connection",
-		"description": "Technical specifications for tool integration and local environment synchronization."
+		"description": "Technical specifications for tool integration and Antigravity local environment synchronization."
 	},
-	"tools": {
-		"title": "Registered Tools",
-		"analyze_project": {
-			"description": "Primary analysis engine. Validates file paths against FSD layer rules and naming conventions. Returns a detailed JSON object of violations and recommendations.",
-			"badge": "Core Logic",
-			"schema_title": "Input Schema"
+	"card_title": "Architecture & Connection",
+	"benefit_label": "MCP Benefits:",
+	"benefit_text": "The MCP protocol allows seamless integration of local development tools (linters, generators, analyzers) into the context of AI agents, ensuring predictability and FSD compliance.",
+	"tree_title": "Capabilities & Connections Structure",
+	"connections": {
+		"title": "Connection Methods",
+		"stdio": {
+			"label": "Local Stdio (Recommended)",
+			"text": "Fastest and most stable method for development. Uses a local script via npx."
 		},
-		"get_rules": {
-			"description": "Fetches all dynamic rules from `RulesProvider`. Always use this to synchronize current LLM context with server state.",
-			"badge": "Metadata"
+		"http": {
+			"label": "Local HTTP",
+			"text": "Connection via HTTP to a running server on localhost. Requires mcp-remote."
+		},
+		"remote": {
+			"label": "Remote (Vercel / Render)",
+			"text": "Using a deployed server. Note the 'warm-up' time (cold start) up to 60 seconds."
 		}
 	},
-	"claude": {
-		"title": "Claude Desktop Connection",
-		"sync_guide": {
-			"title": "Local Synchronization Guide",
-			"description": "Step-by-step connection for model orchestration"
+	"tools": {
+		"title": "Available Tools",
+		"analyze_project": {
+			"title": "analyze_project",
+			"description": "Analyzes project files for FSD and naming conventions compliance.",
+			"badge": "Analysis"
 		},
-		"steps": {
-			"config_location": "1. Config Location (Windows)",
-			"snippet": "2. Configuration Snippet"
+		"get_rules": {
+			"title": "get_rules",
+			"description": "Retrieves current project rules from RulesProvider.",
+			"badge": "Config"
 		},
-		"note": "Note: Restart Claude Desktop after saving the configuration."
-	},
-	"rest": {
-		"title": "REST API Transport",
-		"endpoints": {
-			"mcp": "SSE Persistent connection (MCP Protocol)",
-			"check_project": "Batch validation report"
+		"scaffold_entity": {
+			"title": "scaffold_entity",
+			"description": "Generates FSD entity structure (api, types, schema, converters, ui).",
+			"badge": "Scaffold"
 		}
 	}
 }

@@ -1,5 +1,7 @@
 "use client";
 
+import { Github } from "lucide-react";
+
 import { ENUM_ROUTES } from "@/shared/config/routes";
 import {
 	Breadcrumb,
@@ -8,6 +10,7 @@ import {
 	BreadcrumbList,
 	BreadcrumbPage,
 	BreadcrumbSeparator,
+	Button,
 	Separator,
 	SidebarTrigger
 } from "@/shared/ui";
@@ -24,7 +27,7 @@ const ROUTE_TITLES: Record<string, string> = {
 	[ENUM_ROUTES.MAIN.I18N]: "I18n Master Guide",
 	[ENUM_ROUTES.MAIN.STYLES]: "Styles & Patterns",
 	[ENUM_ROUTES.MAIN.STRUCTURE]: "File Structure",
-	[ENUM_ROUTES.MAIN.REFERENCE]: "API & Tools",
+	[ENUM_ROUTES.MAIN.REFERENCE]: "API Connections & Tools",
 	[ENUM_ROUTES.MAIN.CONVERTERS]: "Data Converters",
 	[ENUM_ROUTES.MAIN.MSW]: "Mock Server (MSW)",
 	[ENUM_ROUTES.MAIN.THEME]: "Theme Master Guide"
@@ -60,6 +63,16 @@ export function DocHeader() {
 					</Breadcrumb>
 				</div>
 				<div className="flex items-center gap-2">
+					<Link
+						href="https://github.com/KDF25/mcp-react-frontend"
+						target="_blank"
+						rel="noreferrer"
+					>
+						<Button variant="outline" size="sm">
+							<Github className="h-4 w-4" />
+							<span className="sr-only">GitHub</span>
+						</Button>
+					</Link>
 					<ThemeToggle />
 					<LanguageToggle />
 				</div>

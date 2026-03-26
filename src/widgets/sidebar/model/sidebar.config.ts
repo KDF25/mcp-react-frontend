@@ -139,14 +139,9 @@ export const SIDEBAR_CONFIG = {
 	],
 	projects: [
 		{
-			name: "API Reference",
+			name: "API Connections & Tools",
 			url: ENUM_ROUTES.MAIN.REFERENCE,
 			icon: Frame
 		},
-		{
-			name: "MCP Tools",
-			url: `${ENUM_ROUTES.MAIN.REFERENCE}#tools`,
-			icon: PieChart
-		}
 	]
 };
