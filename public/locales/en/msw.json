@@ -1,6 +1,12 @@
 {
-  "title": "Mock Server (MSW)",
-  "description": "A tool for intercepting network requests at the browser level. Allows frontend development independent of backend readiness using typed mocks.",
+  "seo": {
+    "title": "MSW",
+    "description": "Mock Service Worker setup and patterns for API mocking in development and testing environments"
+  },
+  "header": {
+    "title": "Mock Server (MSW)",
+    "description": "A tool for intercepting network requests at the browser level. Allows frontend development independent of backend readiness using typed mocks."
+  },
   "card_title": "API Mocking (MSW Documentation)",
   "benefit_label": "Benefits:",
   "benefit_text": "Allows testing <one>error scenarios</one>, network delays, and various data states without a real backend.",

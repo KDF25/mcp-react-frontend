@@ -1,13 +1,34 @@
-import type { Metadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+
+import { ENUM_ROUTES } from "@/shared/config";
+import { getPageMetadata } from "@/shared/lib";
 
 import { Creator } from "@/widgets/creator";
 
-export const metadata: Metadata = {
-	title: "Creator",
-	description:
-		"Automated code generator for creating FSD-compliant modules, slices, and boilerplate structures"
-};
+export async function generateMetadata({
+	params
+}: {
+	params: Promise<{ locale: string }>;
+}) {
+	const { locale } = await params;
+	setRequestLocale(locale);
+	const t = await getTranslations({ locale, namespace: "creator" });
 
-export default function Page() {
+	return getPageMetadata({
+		locale,
+		pathname: ENUM_ROUTES.MAIN.CREATOR,
+		title: t("seo.title"),
+		description: t("seo.description")
+	});
+}
+
+export default async function Page({
+	params
+}: {
+	params: Promise<{ locale: string }>;
+}) {
+	const { locale } = await params;
+	setRequestLocale(locale);
+
 	return <Creator />;
 }

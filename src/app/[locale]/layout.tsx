@@ -39,10 +39,6 @@ export async function generateMetadata(props: Omit<Props, "children">) {
 	const title = "MCP Orchestrator";
 	const description = "FSD & Linter Orchestration Server";
 
-	const alternateLanguages = Object.fromEntries(
-		routing.locales.map((l) => [l, `${baseUrl}/${l}`])
-	);
-
 	return {
 		metadataBase: new URL(baseUrl),
 		title: {
@@ -51,10 +47,6 @@ export async function generateMetadata(props: Omit<Props, "children">) {
 		},
 		description,
 		keywords: ["MCP", "React", "FSD", "Linter", "Orchestration", "Server"],
-		alternates: {
-			canonical: `${baseUrl}/${locale}`,
-			languages: alternateLanguages
-		},
 		openGraph: {
 			title,
 			description,

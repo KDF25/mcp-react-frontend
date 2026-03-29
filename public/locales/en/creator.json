@@ -1,6 +1,12 @@
 {
-	"title": "System Architect",
-	"description": "Designing complex frontend systems with high interactivity, real-time synchronization, and AI component integration",
+	"seo": {
+		"title": "System Architect",
+		"description": "Designing complex frontend systems with high interactivity, real-time synchronization, and AI component integration"
+	},
+	"header": {
+		"title": "System Architect",
+		"description": "Designing complex frontend systems with high interactivity, real-time synchronization, and AI component integration"
+	},
 	"hero": {
 		"name": "Damir Karimov",
 		"role": "System Architect (<one>Frontend</one> / <two>FSD</two> / <three>Real-time</three> / <four>AI Systems</four>)",

@@ -1,4 +1,8 @@
 {
+	"seo": {
+		"title": "Ядро оркестрации",
+		"description": "Центральный пункт управления архитектурными контрактами, стандартами FSD и соблюдением ограничений проекта"
+	},
 	"hero": {
 		"title": "Orchestrator v1",
 		"subtitle": "Orchestration Core",

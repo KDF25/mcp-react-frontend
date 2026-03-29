@@ -1,6 +1,10 @@
 {
-	"header": {
+	"seo": {
 		"title": "Error Boundary",
+		"description": "React Error Boundary patterns for graceful error handling, fallback UI, and error recovery strategies"
+	},
+	"header": {
+		"title": "Error Boundary Strategies",
 		"description": "UI error isolation and application stability enforcement."
 	},
 	"card_title": "Project Error Isolation Standards",

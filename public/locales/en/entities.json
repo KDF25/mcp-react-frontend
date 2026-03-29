@@ -1,0 +1,27 @@
+{
+	"seo": {
+		"title": "Entities",
+		"description": "Entity layer patterns: presentation components, data models, and entity-level business logic organization"
+	},
+	"header": {
+		"title": "Business Domain (Entities)",
+		"description": "Entities are the core business units of the project. This section describes the unified structure of any entity based on strict architectural rules."
+	},
+	"tree": {
+		"title": "File Structure",
+		"card_title": "Entities Layer Structure",
+		"description": "Each business entity inside <one>src/entities/*</one> must follow a strict directory structure for logic and UI isolation."
+	},
+	"modules": {
+		"title": "Standard Entity Modules",
+		"description": "A complete entity consists of these required modules:",
+		"api": "API definitions (RTK Query)",
+		"converters": "Data mappers (DTO <-> Domain)",
+		"schema": "Zod validation schemas",
+		"slice": "Redux state (if needed)",
+		"ui": "Presentation components",
+		"types": "Interface definitions",
+		"handlers": "MSW mock handlers",
+		"mock": "Mock data"
+	}
+}

@@ -1,13 +1,34 @@
-import type { Metadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+
+import { ENUM_ROUTES } from "@/shared/config";
+import { getPageMetadata } from "@/shared/lib";
 
 import { Theme } from "@/widgets/theme";
 
-export const metadata: Metadata = {
-	title: "Theming",
-	description:
-		"Theme system configuration with dark mode support, CSS custom properties, and next-themes integration"
-};
+export async function generateMetadata({
+	params
+}: {
+	params: Promise<{ locale: string }>;
+}) {
+	const { locale } = await params;
+	setRequestLocale(locale);
+	const t = await getTranslations({ locale, namespace: "theme" });
 
-export default function Page() {
+	return getPageMetadata({
+		locale,
+		pathname: ENUM_ROUTES.MAIN.THEME,
+		title: t("seo.title"),
+		description: t("seo.description")
+	});
+}
+
+export default async function Page({
+	params
+}: {
+	params: Promise<{ locale: string }>;
+}) {
+	const { locale } = await params;
+	setRequestLocale(locale);
+
 	return <Theme />;
 }

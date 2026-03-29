@@ -1,6 +1,12 @@
 {
-	"title": "Styling & Themes",
-	"description": "Centralized UI management through design tokens (CSS Variables) and Tailwind CSS configuration.",
+	"seo": {
+		"title": "Styling Guidelines",
+		"description": "CSS and Tailwind styling rules: allowed utility prefixes, forbidden colors, required cn utility usage"
+	},
+	"header": {
+		"title": "Styling and CSS System Guidelines",
+		"description": "Centralized UI management through design tokens (CSS Variables) and Tailwind CSS configuration."
+	},
 	"card_title": "UI Styling Architecture",
 	"benefit_label": "Benefits:",
 	"benefit_text": "Leveraging a single source of truth via <one>CSS Variables</one> allows for instant theme changes and ensures all components follow defined design tokens.",

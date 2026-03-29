@@ -10,7 +10,10 @@ export async function Theme() {
 
 	return (
 		<div className="space-y-8 max-w-4xl">
-			<PageTitle description={t("description")} title={t("title")} />
+			<PageTitle
+				description={t("header.description")}
+				title={t("header.title")}
+			/>
 
 			<Card className="bg-muted/10">
 				<CardHeader className="p-4 border-b">

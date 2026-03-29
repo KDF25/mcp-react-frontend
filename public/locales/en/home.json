@@ -1,4 +1,8 @@
 {
+	"seo": {
+		"title": "Orchestrator Core",
+		"description": "Central control point for architectural contracts, FSD standards, and project constraints enforcement"
+	},
 	"hero": {
 		"title": "Orchestrator v1",
 		"subtitle": "Orchestration Core",

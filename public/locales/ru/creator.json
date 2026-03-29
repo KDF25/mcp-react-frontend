@@ -1,6 +1,12 @@
 {
-	"title": "Системный Архитектор",
-	"description": "Проектирование сложных frontend-систем с высокой степенью интерактивности, real-time синхронизацией и интеграцией AI-компонентов",
+	"seo": {
+		"title": "Генератор модулей (Creator)",
+		"description": "Автоматизированный инструмент для создания FSD-структур: модулей, слайсов и стандартных файлов"
+	},
+	"header": {
+		"title": "Создание модулей (Scaffolding)",
+		"description": "Проектирование сложных frontend-систем с высокой степенью интерактивности, real-time синхронизацией и интеграцией AI-компонентов"
+	},
 	"hero": {
 		"name": "Дамир Каримов",
 		"role": "System Architect (<one>Frontend</one> / <two>FSD</two> / <three>Real-time</three> / <four>AI Systems</four>)",

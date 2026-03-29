@@ -1,13 +1,34 @@
-import type { Metadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+
+import { ENUM_ROUTES } from "@/shared/config";
+import { getPageMetadata } from "@/shared/lib";
 
 import { Fsd } from "@/widgets/fsd";
 
-export const metadata: Metadata = {
-	title: "FSD Architecture",
-	description:
-		"Feature-Sliced Design architecture rules, layer boundaries, and dependency guidelines for scalable frontend projects"
-};
+export async function generateMetadata({
+	params
+}: {
+	params: Promise<{ locale: string }>;
+}) {
+	const { locale } = await params;
+	setRequestLocale(locale);
+	const t = await getTranslations({ locale, namespace: "fsd" });
 
-export default function Page() {
+	return getPageMetadata({
+		locale,
+		pathname: ENUM_ROUTES.MAIN.FSD,
+		title: t("seo.title"),
+		description: t("seo.description")
+	});
+}
+
+export default async function Page({
+	params
+}: {
+	params: Promise<{ locale: string }>;
+}) {
+	const { locale } = await params;
+	setRequestLocale(locale);
+
 	return <Fsd />;
 }

@@ -1,6 +1,12 @@
 {
-	"title": "i18n System",
-	"description": "Comprehensive guide to internationalization architecture. Includes automatic key typing, translation completeness checks, and dynamic resource loading.",
+	"seo": {
+		"title": "Internationalization",
+		"description": "i18n system with typed keys, language validation, and strict localization patterns for multi-language applications"
+	},
+	"header": {
+		"title": "i18n System",
+		"description": "Comprehensive guide to internationalization architecture. Includes automatic key typing, translation completeness checks, and dynamic resource loading."
+	},
 	"card_title": "i18n Architecture Patterns",
 	"benefit_label": "Benefit:",
 	"benefit_text": "Total type safety — the project will not compile if a key is missing or translation structures differ across languages.",

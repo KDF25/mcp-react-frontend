@@ -16,7 +16,10 @@ export async function Msw() {
 
 	return (
 		<div className="space-y-8 max-w-4xl">
-			<PageTitle title={t("title")} description={t("description")} />
+			<PageTitle
+				title={t("header.title")}
+				description={t("header.description")}
+			/>
 
 			<Card className="bg-muted/10">
 				<CardHeader className="p-4 border-b">

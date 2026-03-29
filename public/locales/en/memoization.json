@@ -1,4 +1,8 @@
 {
+	"seo": {
+		"title": "Memoization",
+		"description": "React memoization strategies: useMemo, useCallback, and React.memo patterns for performance optimization"
+	},
 	"header": {
 		"title": "React Memoization",
 		"description": "Comprehensive guide to performance optimization: when, why, and how to reuse computation results and references."

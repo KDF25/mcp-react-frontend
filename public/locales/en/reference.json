@@ -1,4 +1,8 @@
 {
+	"seo": {
+		"title": "Reference",
+		"description": "API reference and documentation index for MCP Orchestrator tools and configurations"
+	},
 	"header": {
 		"title": "API Reference & Connection",
 		"description": "Technical specifications for tool integration and Antigravity local environment synchronization."

@@ -1,13 +1,34 @@
-import type { Metadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+
+import { ENUM_ROUTES } from "@/shared/config";
+import { getPageMetadata } from "@/shared/lib";
 
 import { RtkQuery } from "@/widgets/rtk-query";
 
-export const metadata: Metadata = {
-	title: "RTK Query",
-	description:
-		"RTK Query data fetching patterns: semantic data renaming, loading states, error handling with toast notifications"
-};
+export async function generateMetadata({
+	params
+}: {
+	params: Promise<{ locale: string }>;
+}) {
+	const { locale } = await params;
+	setRequestLocale(locale);
+	const t = await getTranslations({ locale, namespace: "rtk_query" });
 
-export default function Page() {
+	return getPageMetadata({
+		locale,
+		pathname: ENUM_ROUTES.MAIN.RTK_QUERY,
+		title: t("seo.title"),
+		description: t("seo.description")
+	});
+}
+
+export default async function Page({
+	params
+}: {
+	params: Promise<{ locale: string }>;
+}) {
+	const { locale } = await params;
+	setRequestLocale(locale);
+
 	return <RtkQuery />;
 }

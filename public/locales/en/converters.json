@@ -1,6 +1,12 @@
 {
-	"title": "Backend and Frontend Converters (Mappers)",
-	"description": "Guide on decoupling API contracts and internal application data models using mappings (DTO -> Domain Model).",
+	"seo": {
+		"title": "Converters",
+		"description": "Data converters pattern for backend-to-frontend data transformation with strict typing and validation"
+	},
+	"header": {
+		"title": "Backend and Frontend Converters (Mappers)",
+		"description": "Guide on decoupling API contracts and internal application data models using mappings (DTO -> Domain Model)."
+	},
 	"card_title": "Data Mapping Architecture",
 	"benefit_label": "Benefits:",
 	"benefit_text": "Converters isolate the UI from backend changes, allow data formatting (dates, enums), and guarantee layer-level type safety.",

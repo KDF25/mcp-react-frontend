@@ -1,6 +1,12 @@
 {
-	"title": "Themization System",
-	"description": "Guide to implementing theme switching (light/dark) using React Context, HOC, and localStorage.",
+	"seo": {
+		"title": "Theming",
+		"description": "Theme system configuration with dark mode support, CSS custom properties, and next-themes integration"
+	},
+	"header": {
+		"title": "Application Theming System",
+		"description": "Guide to implementing theme switching (light/dark) using React Context, HOC, and localStorage."
+	},
 	"card_title": "Theme Management Architecture",
 	"benefit_label": "Benefit:",
 	"benefit_text": "Isolation of <one>theme logic</one> from business components. Automatic saving of user choice and prevention of theme 'flicker' on load.",

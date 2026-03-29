@@ -1,13 +1,34 @@
-import type { Metadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+
+import { ENUM_ROUTES } from "@/shared/config";
+import { getPageMetadata } from "@/shared/lib";
 
 import { Naming } from "@/widgets/naming";
 
-export const metadata: Metadata = {
-	title: "Naming Conventions",
-	description:
-		"File and variable naming conventions: kebab-case files, interface prefixes, backend type suffixes, and hook naming rules"
-};
+export async function generateMetadata({
+	params
+}: {
+	params: Promise<{ locale: string }>;
+}) {
+	const { locale } = await params;
+	setRequestLocale(locale);
+	const t = await getTranslations({ locale, namespace: "naming" });
 
-export default function Page() {
+	return getPageMetadata({
+		locale,
+		pathname: ENUM_ROUTES.MAIN.NAMING,
+		title: t("seo.title"),
+		description: t("seo.description")
+	});
+}
+
+export default async function Page({
+	params
+}: {
+	params: Promise<{ locale: string }>;
+}) {
+	const { locale } = await params;
+	setRequestLocale(locale);
+
 	return <Naming />;
 }

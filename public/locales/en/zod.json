@@ -1,4 +1,8 @@
 {
+	"seo": {
+		"title": "Zod Validation",
+		"description": "Zod schema validation patterns for runtime type checking, form validation, and API response parsing"
+	},
 	"header": {
 		"title": "Validation & Type Safety with Zod",
 		"description": "Deterministic validation layer ensuring that all data entering the system conforms to the defined architectural contracts."

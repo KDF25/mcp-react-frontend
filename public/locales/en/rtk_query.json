@@ -1,6 +1,12 @@
 {
-	"title": "API Initialization Pattern",
-	"description": "Detailed guide on RTK Query architecture (Code Splitting).",
+	"seo": {
+		"title": "RTK Query",
+		"description": "RTK Query data fetching patterns: semantic data renaming, loading states, error handling with toast notifications"
+	},
+	"header": {
+		"title": "Data Management via RTK Query",
+		"description": "Detailed guide on RTK Query architecture (Code Splitting)."
+	},
 	"card_title": "RTK Query Code Splitting Architecture",
 	"invariant_label": "Architectural Invariant:",
 	"invariant_text": "It is forbidden to use <one>createApi</one> inside business modules of entities. The project uses a single caching core, divided into configuration and authorization layers. Features and entities \"inject\" their endpoints into the authorized core.",

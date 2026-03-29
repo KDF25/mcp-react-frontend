@@ -1,4 +1,8 @@
 {
+	"seo": {
+		"title": "Project Structure",
+		"description": "Project directory structure rules: model organization, required files, subfolder patterns, and converter conventions"
+	},
 	"header": {
 		"title": "Layered Structure & Boundaries",
 		"description": "Strict isolation of logic and UI through layers to ensure predictable development and zero side effects."
@@ -6,7 +10,7 @@
 	"constraints": {
 		"title": "Layer Constraints",
 		"model_title": "Module Constraints",
-		"model_description": "Maximum of {{max}} files in the root of the model. Mandatory index.ts and types.ts for all segments.",
+		"model_description": "Maximum of {max} files in the root of the model. Mandatory index.ts and types.ts for all segments.",
 		"folders_title": "Subfolder Structure",
 		"folders_description": "Strict segments for logic isolation.",
 		"naming_title": "Naming Convention",

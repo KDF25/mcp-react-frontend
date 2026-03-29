@@ -1,4 +1,8 @@
 {
+	"seo": {
+		"title": "FSD Architecture",
+		"description": "Feature-Sliced Design architecture rules, layer boundaries, and dependency guidelines for scalable frontend projects"
+	},
 	"header": {
 		"title": "Feature-Sliced Design Rules",
 		"description": "Establishing a strict hierarchy of layers and dependency boundaries to ensure horizontal and vertical decoupling."

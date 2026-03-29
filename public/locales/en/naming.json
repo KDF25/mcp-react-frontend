@@ -1,4 +1,8 @@
 {
+	"seo": {
+		"title": "Naming Conventions",
+		"description": "File and variable naming conventions: kebab-case files, interface prefixes, backend type suffixes, and hook naming rules"
+	},
 	"header": {
 		"title": "Naming & Linter Rules",
 		"description": "Strict semantic conventions designed to eliminate ambiguity and technical debt through static analysis."
