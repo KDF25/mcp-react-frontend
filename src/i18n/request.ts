@@ -20,7 +20,8 @@ const namespaces = [
 	"converters",
 	"msw",
 	"theme",
-	"not_found"
+	"not_found",
+	"entities"
 ];
 
 export default getRequestConfig(async ({ requestLocale }) => {

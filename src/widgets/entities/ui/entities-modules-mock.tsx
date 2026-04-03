@@ -1,37 +1,53 @@
-import {
-	Card,
-	CardContent,
-	CardHeader,
-	CodeBlock,
-	withErrorBoundary
-} from "@/shared/ui";
+import { ArrowRightIcon } from "lucide-react";
+import { getTranslations } from "next-intl/server";
+
+import { ENUM_ROUTES } from "@/shared/config/routes";
+import { Button, CodeBlock, SectionTitle } from "@/shared/ui";
 
 import { MOCK_CODE } from "../model";
 
-function EntitiesModulesMockComponent() {
+import { Link } from "@/i18n/routing";
+
+export async function EntitiesModulesMock() {
+	const t = await getTranslations("entities");
+
 	return (
-		<Card className="bg-muted/10">
-			<CardHeader className="p-4 border-b">
-				<h3 className="text-base font-bold text-primary font-mono">
-					/mock
-				</h3>
-			</CardHeader>
-			<CardContent className="p-4 text-sm text-muted-foreground">
-				<p className="mb-4">
-					Статические фикстуры и фейковые данные (mock data),
-					используемые для эмуляции ответа сервера в связке с MSW
-					handlers или для Storybook.
-				</p>
-				<CodeBlock
-					code={MOCK_CODE}
-					language="tsx"
-					filename="mock/booking-order.mock.ts"
-				/>
-			</CardContent>
-		</Card>
+		<div className="space-y-4 pt-4 border-t border-border/40">
+			<SectionTitle badge="04" className="text-xl mb-2">
+				{t("modules.mock.title")}
+			</SectionTitle>
+			<p>
+				{t.rich("modules.mock.description", {
+					one: (chunks) => (
+						<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+							{chunks}
+						</code>
+					),
+					two: (chunks) => (
+						<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+							{chunks}
+						</code>
+					),
+					three: (chunks) => (
+						<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+							{chunks}
+						</code>
+					)
+				})}
+			</p>
+
+			<Button asChild variant="default" className="w-fit">
+				<Link href={ENUM_ROUTES.MAIN.MSW} className="flex items-center">
+					{t("modules.mock.link")}
+					<ArrowRightIcon className="ml-2 w-4 h-4" />
+				</Link>
+			</Button>
+
+			<CodeBlock
+				code={MOCK_CODE}
+				language="typescript"
+				filename="mock/[entity-name].mock.ts"
+			/>
+		</div>
 	);
 }
-
-export const EntitiesModulesMock = withErrorBoundary(
-	EntitiesModulesMockComponent
-);

@@ -18,7 +18,7 @@ export async function generateMetadata({
 		locale,
 		pathname: ENUM_ROUTES.MAIN.CREATOR,
 		title: t("seo.title"),
-		description: t("seo.description")
+		description: ""
 	});
 }
 

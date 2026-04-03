@@ -7,7 +7,12 @@
 		"title": "Orchestrator v1",
 		"subtitle": "Orchestration Core",
 		"mission": "Establishing the definitive source of truth for architectural contracts. This module serves as the central control point for the project's architectural integrity. It guarantees that all code changes, integrations, and new functional modules strictly comply with Feature-Sliced Design (FSD) standards and corporate agreements on naming, layer structure, and dependencies.",
-		"summary": "Orchestration Core unifies all critical project orchestration logic: analysis, strict verification, constraint enforcement, and module approval. It ensures stability and consistency even in large-scale projects with many developers and integrations."
+		"summary": "Orchestration Core unifies all critical project orchestration logic: analysis, strict verification, constraint enforcement, and module approval. It ensures stability and consistency even in large-scale projects with many developers and integrations.",
+		"features": {
+			"control": "Control",
+			"structure": "Structure",
+			"validation": "Validation"
+		}
 	},
 	"overview": {
 		"title": "What is MCP",

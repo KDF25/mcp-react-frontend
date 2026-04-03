@@ -8,10 +8,6 @@ export async function HomeHero() {
 
 	return (
 		<div className="space-y-6 relative overflow-hidden py-2">
-			<div className="absolute top-0 right-0 -mr-20 -mt-20 opacity-5 dark:opacity-[0.02] pointer-events-none">
-				<Shield className="w-96 h-96" />
-			</div>
-
 			<div className="flex flex-col gap-3 relative z-10">
 				<div className="flex items-center gap-2 text-primary font-mono text-sm">
 					<Terminal className="w-4 h-4" />
@@ -36,7 +32,9 @@ export async function HomeHero() {
 						<div className="p-2 bg-primary/10 rounded-md text-primary">
 							<Terminal className="w-4 h-4" />
 						</div>
-						<span className="text-sm font-medium">Control</span>
+						<span className="text-sm font-medium">
+							{t("hero.features.control")}
+						</span>
 					</CardContent>
 				</Card>
 				<Card className="bg-primary/5 border-primary/20 shadow-sm hover:bg-primary/10 transition-colors">
@@ -44,7 +42,9 @@ export async function HomeHero() {
 						<div className="p-2 bg-primary/10 rounded-md text-primary">
 							<Box className="w-4 h-4" />
 						</div>
-						<span className="text-sm font-medium">Structure</span>
+						<span className="text-sm font-medium">
+							{t("hero.features.structure")}
+						</span>
 					</CardContent>
 				</Card>
 				<Card className="bg-primary/5 border-primary/20 shadow-sm hover:bg-primary/10 transition-colors">
@@ -52,7 +52,9 @@ export async function HomeHero() {
 						<div className="p-2 bg-primary/10 rounded-md text-primary">
 							<Shield className="w-4 h-4" />
 						</div>
-						<span className="text-sm font-medium">Validation</span>
+						<span className="text-sm font-medium">
+							{t("hero.features.validation")}
+						</span>
 					</CardContent>
 				</Card>
 			</div>

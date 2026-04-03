@@ -1,37 +1,51 @@
-import {
-	Card,
-	CardContent,
-	CardHeader,
-	CodeBlock,
-	withErrorBoundary
-} from "@/shared/ui";
+import { ArrowRightIcon } from "lucide-react";
+import { getTranslations } from "next-intl/server";
+
+import { ENUM_ROUTES } from "@/shared/config/routes";
+import { Button, CodeBlock, SectionTitle } from "@/shared/ui";
 
 import { CONVERTERS_CODE } from "../model";
 
-function EntitiesModulesConvertersComponent() {
+import { Link } from "@/i18n/routing";
+
+export async function EntitiesModulesConverters() {
+	const t = await getTranslations("entities");
+
 	return (
-		<Card className="bg-muted/10">
-			<CardHeader className="p-4 border-b">
-				<h3 className="text-base font-bold text-primary font-mono">
-					/converters
-				</h3>
-			</CardHeader>
-			<CardContent className="p-4 text-sm text-muted-foreground">
-				<p className="mb-4">
-					Мапперы данных. Превращают сырой DTO от сервера в удобную
-					Domain Model. Это изолирует UI-компоненты от внезапных
-					изменений контрактов бекенда.
-				</p>
-				<CodeBlock
-					code={CONVERTERS_CODE}
-					language="tsx"
-					filename="converters/booking-order.converters.ts"
-				/>
-			</CardContent>
-		</Card>
+		<div className="space-y-4 pt-4 border-t border-border/40">
+			<SectionTitle badge="02" className="text-xl mb-2">
+				{t("modules.converters.title")}
+			</SectionTitle>
+			<p>
+				{t.rich("modules.converters.description", {
+					one: (chunks) => (
+						<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+							{chunks}
+						</code>
+					),
+					two: (chunks) => (
+						<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+							{chunks}
+						</code>
+					)
+				})}
+			</p>
+
+			<Button asChild variant="default" className="w-fit">
+				<Link
+					href={ENUM_ROUTES.MAIN.CONVERTERS}
+					className="flex items-center"
+				>
+					{t("modules.converters.link")}
+					<ArrowRightIcon className="ml-2 w-4 h-4" />
+				</Link>
+			</Button>
+
+			<CodeBlock
+				code={CONVERTERS_CODE}
+				language="typescript"
+				filename="converters/[entity-name].converters.ts"
+			/>
+		</div>
 	);
 }
-
-export const EntitiesModulesConverters = withErrorBoundary(
-	EntitiesModulesConvertersComponent
-);

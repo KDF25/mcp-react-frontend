@@ -1,48 +1,46 @@
 import { ArrowRightIcon } from "lucide-react";
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 
-import {
-	Button,
-	Card,
-	CardContent,
-	CardHeader,
-	CodeBlock,
-	withErrorBoundary
-} from "@/shared/ui";
+import { ENUM_ROUTES } from "@/shared/config/routes";
+import { Button, CodeBlock, SectionTitle } from "@/shared/ui";
 
 import { API_CODE } from "../model";
 
-function EntitiesModulesApiComponent() {
+import { Link } from "@/i18n/routing";
+
+export async function EntitiesModulesApi() {
+	const t = await getTranslations("entities");
+
 	return (
-		<Card className="bg-muted/10">
-			<CardHeader className="p-4 border-b">
-				<h3 className="text-base font-bold text-primary font-mono">
-					/api
-				</h3>
-			</CardHeader>
-			<CardContent className="p-4 text-sm text-muted-foreground flex flex-col gap-4">
-				<p>
-					Отвечает исключительно за сетевое взаимодействие с
-					backend-приложением в рамках одной сущности. Принимает
-					аргументы для запроса и возвращает сырые DTO, которые затем
-					обязательно передаются в конвертеры.
-				</p>
-				<Button asChild variant="default" className="w-fit">
-					<Link href="/rtk-query" className="flex items-center">
-						Изучить архитектуру RTK Query{" "}
-						<ArrowRightIcon className="ml-2 w-4 h-4" />
-					</Link>
-				</Button>
-				<CodeBlock
-					code={API_CODE}
-					language="tsx"
-					filename="api/booking-order.service.ts"
-				/>
-			</CardContent>
-		</Card>
+		<div className="space-y-4 pt-4 border-t border-border/40">
+			<SectionTitle badge="01" className="text-xl mb-2">
+				{t("modules.api.title")}
+			</SectionTitle>
+			<p>
+				{t.rich("modules.api.description", {
+					one: (chunks) => (
+						<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+							{chunks}
+						</code>
+					)
+				})}
+			</p>
+
+			<Button asChild variant="default" className="w-fit">
+				<Link
+					href={ENUM_ROUTES.MAIN.RTK_QUERY}
+					className="flex items-center"
+				>
+					{t("modules.api.link")}
+					<ArrowRightIcon className="ml-2 w-4 h-4" />
+				</Link>
+			</Button>
+
+			<CodeBlock
+				code={API_CODE}
+				language="typescript"
+				filename="api/[entity-name].api.ts"
+			/>
+		</div>
 	);
 }
-
-export const EntitiesModulesApi = withErrorBoundary(
-	EntitiesModulesApiComponent
-);

@@ -1,36 +1,42 @@
-import {
-	Card,
-	CardContent,
-	CardHeader,
-	CodeBlock,
-	withErrorBoundary
-} from "@/shared/ui";
+import { getTranslations } from "next-intl/server";
+
+import { CodeBlock, SectionTitle } from "@/shared/ui";
 
 import { SLICE_CODE } from "../model";
 
-function EntitiesModulesSliceComponent() {
+export async function EntitiesModulesSlice() {
+	const t = await getTranslations("entities");
+
 	return (
-		<Card className="bg-muted/10">
-			<CardHeader className="p-4 border-b">
-				<h3 className="text-base font-bold text-primary font-mono">
-					/slice
-				</h3>
-			</CardHeader>
-			<CardContent className="p-4 text-sm text-muted-foreground">
-				<p className="mb-4">
-					Хранит локальное состояние сущности (UI-слой), не связанное
-					с кэшом сервера. Например: текущий выбранный элемент.
-				</p>
-				<CodeBlock
-					code={SLICE_CODE}
-					language="tsx"
-					filename="slice/order.slice.ts"
-				/>
-			</CardContent>
-		</Card>
+		<div className="space-y-4 pt-4 border-t border-border/40">
+			<SectionTitle badge="06" className="text-xl mb-2">
+				{t("modules.slice.title")}
+			</SectionTitle>
+			<p>
+				{t.rich("modules.slice.description", {
+					one: (chunks) => (
+						<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+							{chunks}
+						</code>
+					),
+					two: (chunks) => (
+						<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+							{chunks}
+						</code>
+					),
+					three: (chunks) => (
+						<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+							{chunks}
+						</code>
+					)
+				})}
+			</p>
+
+			<CodeBlock
+				code={SLICE_CODE}
+				language="typescript"
+				filename="slice/[entity-name].slice.ts"
+			/>
+		</div>
 	);
 }
-
-export const EntitiesModulesSlice = withErrorBoundary(
-	EntitiesModulesSliceComponent
-);

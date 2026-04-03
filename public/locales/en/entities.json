@@ -7,21 +7,58 @@
 		"title": "Business Domain (Entities)",
 		"description": "Entities are the core business units of the project. This section describes the unified structure of any entity based on strict architectural rules."
 	},
-	"tree": {
-		"title": "File Structure",
-		"card_title": "Entities Layer Structure",
-		"description": "Each business entity inside <one>src/entities/*</one> must follow a strict directory structure for logic and UI isolation."
-	},
+	"card_title": "Entities Layer Structure",
+	"benefit_label": "Benefits:",
+	"benefit_text": "Each business entity inside <one>src/entities/*</one> must follow a strict directory structure for logic and UI isolation.",
+	"tree_title": "File Structure",
+	"modules_title": "Standard Entity Modules",
+	"modules_description": "A complete entity consists of these required modules:",
 	"modules": {
-		"title": "Standard Entity Modules",
-		"description": "A complete entity consists of these required modules:",
-		"api": "API definitions (RTK Query)",
-		"converters": "Data mappers (DTO <-> Domain)",
-		"schema": "Zod validation schemas",
-		"slice": "Redux state (if needed)",
-		"ui": "Presentation components",
-		"types": "Interface definitions",
-		"handlers": "MSW mock handlers",
-		"mock": "Mock data"
+		"api": {
+			"label": "API definitions (RTK Query)",
+			"title": "/api",
+			"description": "Responsible exclusively for network interaction with the backend application within a single entity. It takes arguments for the request and returns raw <one>DTOs</one>, which must then be passed to converters.",
+			"link": "Learn RTK Query architecture"
+		},
+		"converters": {
+			"label": "Data mappers (DTO <-> Domain)",
+			"title": "/converters",
+			"description": "Data mappers. They transform a raw server <one>DTO</one> into a convenient <two>Domain Model</two>. This isolates UI components from sudden changes in backend contracts.",
+			"link": "Converters architecture"
+		},
+		"handlers": {
+			"label": "MSW mock handlers",
+			"title": "/handlers",
+			"description": "<one>MSW (Mock Service Worker)</one> handlers. Used to intercept network calls during development and in integration tests (<two>Vitest</two> / <three>RTL</three>).",
+			"link": "How MSW works"
+		},
+		"mock": {
+			"label": "Mock data",
+			"title": "/mock",
+			"description": "Static fixtures and fake data (<one>mock data</one>) used to emulate server responses in conjunction with <two>MSW handlers</two> or for <three>Storybook</three>.",
+			"link": "MSW and mock data section"
+		},
+		"schema": {
+			"label": "Zod validation schemas",
+			"title": "/schema",
+			"description": "<one>Single Source of Truth</one> for entity data types. Contains <two>Zod objects</two> with built-in internationalization (<three>i18n</three>) of errors.",
+			"link": "Using Zod"
+		},
+		"slice": {
+			"label": "Redux state (if needed)",
+			"title": "/slice",
+			"description": "<one>Redux state</one> of the entity (if it stores global data). Selectors and actions often reside here as well. Note: state should depend solely on the <two>Domain Model</two>, not on <three>DTOs</three>."
+		},
+		"ui": {
+			"label": "Presentation components",
+			"title": "/ui",
+			"description": "<one>Dump</one> or <two>Smart</two> components at the entity level. For example: <three>UserCard</three>, <four>UserAvatar</four>. Can be reused across different features and widgets."
+		},
+		"types": {
+			"label": "Interface definitions",
+			"title": "/types",
+			"description": "Global TS interfaces and types for a specific entity (e.g., <one>Domain Model</one> interface if <two>Zod</two> doesn't cover all logic). Type inference from <three>Zod schemas</three> is recommended, but when not possible, types are defined here.",
+			"link": "Type inference in Zod"
+		}
 	}
 }

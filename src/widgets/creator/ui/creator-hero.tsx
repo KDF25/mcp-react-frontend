@@ -8,10 +8,7 @@ export async function CreatorHero() {
 
 	return (
 		<div className="space-y-6">
-			<PageTitle
-				title={t("header.title")}
-				description={t("header.description")}
-			/>
+			<PageTitle title={t("header.title")} />
 			<div className="flex flex-col gap-3 pt-2 text-foreground">
 				<h2 className="text-3xl font-bold tracking-tight">
 					{t("hero.name")}

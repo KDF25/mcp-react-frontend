@@ -54,24 +54,8 @@ export const SIDEBAR_CONFIG = {
 					url: ENUM_ROUTES.MAIN.FSD
 				},
 				{
-					title: "Import Boundaries",
-					url: `${ENUM_ROUTES.MAIN.FSD}#boundaries`
-				},
-				{
 					title: "Entity Structure",
 					url: ENUM_ROUTES.MAIN.ENTITIES
-				},
-				{
-					title: "Widget Structure",
-					url: `${ENUM_ROUTES.MAIN.FSD}#widgets-structure`
-				},
-				{
-					title: "Project Structure",
-					url: ENUM_ROUTES.MAIN.STRUCTURE
-				},
-				{
-					title: "Shared Patterns",
-					url: `${ENUM_ROUTES.MAIN.STRUCTURE}#shared-patterns`
 				}
 			]
 		},

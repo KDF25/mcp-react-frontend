@@ -1,37 +1,53 @@
-import {
-	Card,
-	CardContent,
-	CardHeader,
-	CodeBlock,
-	withErrorBoundary
-} from "@/shared/ui";
+import { ArrowRightIcon } from "lucide-react";
+import { getTranslations } from "next-intl/server";
+
+import { ENUM_ROUTES } from "@/shared/config/routes";
+import { Button, CodeBlock, SectionTitle } from "@/shared/ui";
 
 import { HANDLERS_CODE } from "../model";
 
-function EntitiesModulesHandlersComponent() {
+import { Link } from "@/i18n/routing";
+
+export async function EntitiesModulesHandlers() {
+	const t = await getTranslations("entities");
+
 	return (
-		<Card className="bg-muted/10">
-			<CardHeader className="p-4 border-b">
-				<h3 className="text-base font-bold text-primary font-mono">
-					/handlers
-				</h3>
-			</CardHeader>
-			<CardContent className="p-4 text-sm text-muted-foreground">
-				<p className="mb-4">
-					Обработчики MSW (Mock Service Worker). Используются для
-					перехвата сетевых вызовов во время разработки и в
-					интеграционных тестах (Vitest / RTL).
-				</p>
-				<CodeBlock
-					code={HANDLERS_CODE}
-					language="tsx"
-					filename="handlers/booking-order.handlers.ts"
-				/>
-			</CardContent>
-		</Card>
+		<div className="space-y-4 pt-4 border-t border-border/40">
+			<SectionTitle badge="03" className="text-xl mb-2">
+				{t("modules.handlers.title")}
+			</SectionTitle>
+			<p>
+				{t.rich("modules.handlers.description", {
+					one: (chunks) => (
+						<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+							{chunks}
+						</code>
+					),
+					two: (chunks) => (
+						<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+							{chunks}
+						</code>
+					),
+					three: (chunks) => (
+						<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+							{chunks}
+						</code>
+					)
+				})}
+			</p>
+
+			<Button asChild variant="default" className="w-fit">
+				<Link href={ENUM_ROUTES.MAIN.MSW} className="flex items-center">
+					{t("modules.handlers.link")}
+					<ArrowRightIcon className="ml-2 w-4 h-4" />
+				</Link>
+			</Button>
+
+			<CodeBlock
+				code={HANDLERS_CODE}
+				language="typescript"
+				filename="handlers/[entity-name].handlers.ts"
+			/>
+		</div>
 	);
 }
-
-export const EntitiesModulesHandlers = withErrorBoundary(
-	EntitiesModulesHandlersComponent
-);
