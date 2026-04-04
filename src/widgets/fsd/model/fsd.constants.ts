@@ -5,25 +5,58 @@ export const ENTITY_STRUCTURE_ITEMS: Record<string, Item> = {
 		name: "src/entities/invoice",
 		children: [
 			"api",
-			"types",
-			"constants",
 			"converters",
 			"handlers",
 			"mock",
+			"schema",
+			"slice",
 			"ui",
+			"types",
 			"index"
 		]
 	},
-	api: { name: "api" },
-	types: { name: "types", children: ["t_index", "t_interface", "t_types"] },
+	api: {
+		name: "api",
+		children: ["api_file"]
+	},
+	api_file: { name: "invoice.api.ts" },
+	converters: {
+		name: "converters",
+		children: ["conv_file"]
+	},
+	conv_file: { name: "invoice.converters.ts" },
+	handlers: {
+		name: "handlers",
+		children: ["hand_file"]
+	},
+	hand_file: { name: "invoice.handlers.ts" },
+	mock: {
+		name: "mock",
+		children: ["mock_file"]
+	},
+	mock_file: { name: "invoice.mock.ts" },
+	schema: {
+		name: "schema",
+		children: ["schema_file"]
+	},
+	schema_file: { name: "invoice.schema.ts" },
+	slice: {
+		name: "slice",
+		children: ["slice_file"]
+	},
+	slice_file: { name: "invoice.slice.ts" },
+	ui: {
+		name: "ui",
+		children: ["ui_file"]
+	},
+	ui_file: { name: "invoice-card.tsx" },
+	types: {
+		name: "types",
+		children: ["t_index", "t_interface", "t_backend"]
+	},
 	t_index: { name: "index.ts" },
 	t_interface: { name: "invoice.interface.ts" },
-	t_types: { name: "invoice.types.ts" },
-	constants: { name: "constants" },
-	converters: { name: "converters" },
-	handlers: { name: "handlers" },
-	mock: { name: "mock" },
-	ui: { name: "ui" },
+	t_backend: { name: "invoice.backend.interface.ts" },
 	index: { name: "index.ts" }
 };
 

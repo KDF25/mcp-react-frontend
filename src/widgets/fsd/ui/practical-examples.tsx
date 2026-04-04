@@ -1,29 +1,24 @@
-"use client";
-
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 import { FSD_EXAMPLES } from "@/shared/config";
-import { Badge, CodeBlock, withErrorBoundary } from "@/shared/ui";
+import { Badge, CodeBlock, SectionTitle } from "@/shared/ui";
 
-function PracticalExamplesComponent() {
-	const t = useTranslations("fsd");
+export async function PracticalExamples() {
+	const t = await getTranslations("fsd");
 
 	return (
-		<section className="space-y-6">
-			<h2 className="text-2xl font-semibold flex items-center gap-3">
-				<span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary font-mono text-sm font-bold">
-					05
-				</span>
-				{t("examples.title")}
-			</h2>
+		<div className="space-y-4 pt-4 border-t border-border/40">
+			<SectionTitle badge="05" className="text-xl mb-2">
+				{t("steps.examples.title")}
+			</SectionTitle>
 
-			<div className="grid gap-4">
-				<div className="space-y-2">
+			<div className="grid gap-6 mt-2">
+				<div className="space-y-3">
 					<Badge
 						variant="outline"
-						className="text-primary border-primary/20 gap-2 mb-2"
+						className="text-primary border-primary/20 gap-2 font-mono"
 					>
-						✅ {t("examples.correct")}
+						✅ {t("steps.examples.correct")}
 					</Badge>
 					<CodeBlock
 						filename="src/features/auth/ui/login-form.tsx"
@@ -32,12 +27,12 @@ function PracticalExamplesComponent() {
 					/>
 				</div>
 
-				<div className="space-y-2">
+				<div className="space-y-3">
 					<Badge
 						variant="outline"
-						className="text-destructive border-destructive/20 gap-2 mb-2"
+						className="text-destructive border-destructive/20 gap-2 font-mono"
 					>
-						❌ {t("examples.violation")}
+						❌ {t("steps.examples.violation")}
 					</Badge>
 					<CodeBlock
 						filename="src/entities/user/model/user.ts"
@@ -46,8 +41,6 @@ function PracticalExamplesComponent() {
 					/>
 				</div>
 			</div>
-		</section>
+		</div>
 	);
 }
-
-export const PracticalExamples = withErrorBoundary(PracticalExamplesComponent);

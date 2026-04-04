@@ -1,9 +1,14 @@
+
 # React MCP (Model Context Protocol) Frontend Server
 
 > A powerful Orchestration Core that enables AI agents to interact with React applications, enforcing Feature-Sliced Design (FSD) conventions through the Model Context Protocol.
 
 ## Overview
 The **MCP React Frontend Server** is a Model Context Protocol (MCP) implementation designed to act as an Orchestration Core and Architectural Hub for React/Next.js applications. It enforces Feature-Sliced Design (FSD) boundaries, semantic naming conventions, and project-specific constraints. The server interacts with MCP clients (like IDEs or agents) to validate code architecture, prevent structural entropy, and scaffold standardized FSD entities through deterministic rules rather than ephemeral prompts.
+
+<div align="center">
+  <img src="./public/logo.png" alt="MCP React Frontend Logo" width="500" style="border-radius: 16px;" />
+</div>
 
 ## MCP Capabilities
 

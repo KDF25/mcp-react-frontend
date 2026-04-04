@@ -5,50 +5,60 @@
 	},
 	"header": {
 		"title": "Feature-Sliced Design Rules",
-		"description": "Establishing a strict hierarchy of layers and dependency boundaries to ensure horizontal and vertical decoupling."
+		"description": "Establishing a strict hierarchy of layers and dependency boundaries to ensure <one>horizontal</one> and <one>vertical</one> decoupling."
 	},
-	"hierarchy": {
-		"title": "Mental Hierarchy",
-		"description": "Dependency flow is always downward: upper layers use lower ones, but never vice versa.",
-		"can_use": "Can use",
-		"foundation": "Foundation"
-	},
-	"boundaries": {
-		"title": "Dependency Boundaries",
-		"valid_rule": "Valid Direction",
-		"forbidden_rule": "Forbidden Violation",
-		"desc": "Each layer has clearly defined import permissions.",
-		"accesses": "accesses"
-	},
-	"entities": {
-		"title": "Standard Entity Structure",
-		"description": "Each entity is a self-contained module. We use strict subfolder separation for predictability and maintainability.",
-		"items": {
-			"api": "RTK Query definitions for backend interaction.",
-			"types": "Separation into interfaces and types for clean code.",
-			"converters": "Data transformation layer (Data Mapping).",
-			"handlers": "Logic not tied to UI state.",
-			"mock": "Ability to work without a backend.",
-			"index": "Entry point for access from upper layers."
+	"card_title": "Architecture Standard",
+	"benefit_label": "Benefits:",
+	"benefit_text": "The <one>FSD</one> methodology allows creating scalable and predictable applications by dividing code into functional layers with clear isolation of responsibility.",
+	"steps": {
+		"hierarchy": {
+			"title": "Mental Hierarchy",
+			"description": "Dependency flow is always downward: upper layers use lower ones, but <one>never vice versa</one>.",
+			"can_use": "Can use",
+			"foundation": "Foundation"
+		},
+		"boundaries": {
+			"title": "Dependency Boundaries",
+			"valid_rule": "Valid Direction",
+			"forbidden_rule": "Forbidden Violation",
+			"description": "Each layer has <one>clearly defined</one> import permissions.",
+			"accesses": "accesses"
+		},
+		"entities": {
+			"title": "Standard Entity Structure",
+			"description": "Each entity is a self-contained module. We use strict subfolder separation for predictability and maintainability.",
+			"title_modules": "Available Modules",
+			"items": {
+				"api": "API definitions (RTK Query).",
+				"types": "Interfaces and types.",
+				"converters": "Data mappers (DTO <-> Domain).",
+				"handlers": "MSW mock handlers.",
+				"mock": "Static fixtures and mocks.",
+				"schema": "Zod validation schemas.",
+				"slice": "Redux state management.",
+				"ui": "Presentation components.",
+				"index": "Module entry point."
+			}
+		},
+		"widgets": {
+			"title": "Widget: Model & UI Separation",
+			"description": "Widgets are \"smart\" blocks. We separate logic (<one>model</one>) from the visual part (<one>ui</one>) to simplify testing and refactoring.",
+			"importance_title": "Why it's important",
+			"importance_description": "The <one>model/</one> folder contains everything that makes the widget functional (Zod schemas, form configs, local types). The <one>ui/</one> folder contains only display components."
+		},
+		"examples": {
+			"title": "Practical Examples",
+			"correct": "Correct",
+			"violation": "Violation"
+		},
+		"settings": {
+			"title": "Global Settings",
+			"no-cross-layer-imports": "Cross-layer Imports",
+			"enforce-directory-structure": "Directory structure",
+			"no-private-imports": "Private Imports",
+			"enforce-barrel-exports": "Barrel Exports",
+			"status_enforced": "Enforced",
+			"status_off": "Off"
 		}
-	},
-	"widgets": {
-		"title": "Widget: Model & UI Separation",
-		"description": "Widgets are \"smart\" blocks. We separate logic (model) from the visual part (ui) to simplify testing and refactoring.",
-		"importance_title": "Why it's important",
-		"importance_desc": "The model/ folder contains everything that makes the widget functional (Zod schemas, form configs, local types). The ui/ folder contains only display components."
-	},
-	"examples": {
-		"title": "Practical Examples",
-		"correct": "Correct",
-		"violation": "Violation"
-	},
-	"settings": {
-		"title": "Global Settings",
-		"layer_enforcement": "Layer Enforcement",
-		"cross_layer": "Cross-layer Imports",
-		"barrel": "Barrel Exports",
-		"status_enforced": "Enforced",
-		"status_off": "Off"
 	}
 }

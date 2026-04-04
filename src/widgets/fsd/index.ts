@@ -1,1 +1,1 @@
-export * from "./ui/fsd";
+export * from "./ui";

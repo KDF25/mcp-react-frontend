@@ -1,130 +1,99 @@
-"use client";
+import { getTranslations } from "next-intl/server";
 
-import { hotkeysCoreFeature, syncDataLoaderFeature } from "@headless-tree/core";
-import { useTree } from "@headless-tree/react";
-import { FileIcon, FolderIcon, FolderOpenIcon } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { Card, CardContent, SectionTitle } from "@/shared/ui";
 
-import {
-	Card,
-	CardContent,
-	Tree,
-	TreeItem,
-	TreeItemLabel,
-	withErrorBoundary
-} from "@/shared/ui";
+import { FsdEntityTree } from "./fsd-entity-tree";
 
-import { ENTITY_STRUCTURE_ITEMS, Item } from "../model";
-
-function EntityStructureComponent() {
-	const t = useTranslations("fsd");
-	const entityItems = t.raw("entities.items") as Record<string, string>;
-
-	const entityTree = useTree<Item>({
-		dataLoader: {
-			getChildren: (itemId) =>
-				ENTITY_STRUCTURE_ITEMS[itemId].children ?? [],
-			getItem: (itemId) => ENTITY_STRUCTURE_ITEMS[itemId]
-		},
-		features: [syncDataLoaderFeature, hotkeysCoreFeature],
-		getItemName: (item) => item.getItemData().name,
-		indent: 20,
-		initialState: {
-			expandedItems: ["root", "types"]
-		},
-		isItemFolder: (item) => (item.getItemData()?.children?.length ?? 0) > 0,
-		rootItemId: "root"
-	});
+export async function EntityStructure() {
+	const t = await getTranslations("fsd");
+	const entityItems = t.raw("steps.entities.items") as Record<string, string>;
 
 	return (
-		<section id="entities-structure">
-			<h2 className="text-2xl font-semibold mb-6 flex items-center gap-3">
-				<span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary font-mono text-sm font-bold">
-					03
-				</span>
-				{t("entities.title")}
-			</h2>
-			<div className="space-y-4">
-				<p className="text-muted-foreground text-sm">
-					{t("entities.description")}
-				</p>
+		<div className="space-y-4 pt-4 border-t border-border/40">
+			<SectionTitle badge="03" className="text-xl mb-2">
+				{t("steps.entities.title")}
+			</SectionTitle>
+			<p>
+				{t.rich("steps.entities.description", {
+					one: (chunks) => (
+						<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+							{chunks}
+						</code>
+					)
+				})}
+			</p>
 
-				<Card className="border-primary/10 bg-muted/30">
-					<CardContent className="p-6">
-						<Tree
-							className="before:-ms-1 relative before:absolute before:inset-0 before:bg-[repeating-linear-gradient(to_right,transparent_0,transparent_calc(var(--tree-indent)-1px),var(--border)_calc(var(--tree-indent)-1px),var(--border)_calc(var(--tree-indent)))]"
-							indent={20}
-							tree={entityTree}
-						>
-							{entityTree.getItems().map((item) => (
-								<TreeItem item={item} key={item.getId()}>
-									<TreeItemLabel className="before:-inset-y-0.5 before:-z-10 relative before:absolute before:inset-x-0 before:bg-background/0">
-										<span className="flex items-center gap-2">
-											{item.isFolder() ? (
-												item.isExpanded() ? (
-													<FolderOpenIcon className="size-4 text-primary/70" />
-												) : (
-													<FolderIcon className="size-4 text-primary/70" />
-												)
-											) : (
-												<FileIcon className="size-4 text-primary/40" />
-											)}
-											<span
-												className={
-													item.isFolder()
-														? "font-semibold text-foreground/90 text-sm"
-														: "text-muted-foreground text-sm"
-												}
-											>
-												{item.getItemName()}
-											</span>
-										</span>
-									</TreeItemLabel>
-								</TreeItem>
-							))}
-						</Tree>
-					</CardContent>
-				</Card>
+			<Card className="border-primary/10 bg-muted/30 mt-4">
+				<CardContent className="p-6">
+					<FsdEntityTree />
+				</CardContent>
+			</Card>
 
-				<div className="grid gap-4 md:grid-cols-2 mt-4">
-					<ul className="space-y-2 text-sm text-muted-foreground">
-						<li className="flex gap-2">
-							<strong className="text-foreground">api:</strong>{" "}
-							{entityItems.api}
+			<div className="pt-6 border-t border-border/40 space-y-4">
+				<h3 className="text-lg font-semibold">
+					{t("steps.entities.title_modules")}
+				</h3>
+				<div className="grid gap-x-8 gap-y-4 md:grid-cols-2 mt-4">
+					<ul className="space-y-3 text-sm text-muted-foreground">
+						<li className="flex gap-2 items-start">
+							<code className="bg-primary/5 px-1 py-0.5 rounded text-primary text-[11px] font-mono shrink-0">
+								api/:
+							</code>{" "}
+							<span>{entityItems.api}</span>
 						</li>
-						<li className="flex gap-2">
-							<strong className="text-foreground">types:</strong>{" "}
-							{entityItems.types}
+						<li className="flex gap-2 items-start">
+							<code className="bg-primary/5 px-1 py-0.5 rounded text-primary text-[11px] font-mono shrink-0">
+								converters/:
+							</code>{" "}
+							<span>{entityItems.converters}</span>
 						</li>
-						<li className="flex gap-2">
-							<strong className="text-foreground">
-								converters:
-							</strong>{" "}
-							{entityItems.converters}
+						<li className="flex gap-2 items-start">
+							<code className="bg-primary/5 px-1 py-0.5 rounded text-primary text-[11px] font-mono shrink-0">
+								handlers/:
+							</code>{" "}
+							<span>{entityItems.handlers}</span>
+						</li>
+						<li className="flex gap-2 items-start">
+							<code className="bg-primary/5 px-1 py-0.5 rounded text-primary text-[11px] font-mono shrink-0">
+								mock/:
+							</code>{" "}
+							<span>{entityItems.mock}</span>
+						</li>
+						<li className="flex gap-2 items-start">
+							<code className="bg-primary/5 px-1 py-0.5 rounded text-primary text-[11px] font-mono shrink-0">
+								schema/:
+							</code>{" "}
+							<span>{entityItems.schema}</span>
 						</li>
 					</ul>
-					<ul className="space-y-2 text-sm text-muted-foreground">
-						<li className="flex gap-2">
-							<strong className="text-foreground">
-								handlers:
-							</strong>{" "}
-							{entityItems.handlers}
+					<ul className="space-y-3 text-sm text-muted-foreground">
+						<li className="flex gap-2 items-start">
+							<code className="bg-primary/5 px-1 py-0.5 rounded text-primary text-[11px] font-mono shrink-0">
+								slice/:
+							</code>{" "}
+							<span>{entityItems.slice}</span>
 						</li>
-						<li className="flex gap-2">
-							<strong className="text-foreground">mock:</strong>{" "}
-							{entityItems.mock}
+						<li className="flex gap-2 items-start">
+							<code className="bg-primary/5 px-1 py-0.5 rounded text-primary text-[11px] font-mono shrink-0">
+								ui/:
+							</code>{" "}
+							<span>{entityItems.ui}</span>
 						</li>
-						<li className="flex gap-2">
-							<strong className="text-foreground">
+						<li className="flex gap-2 items-start">
+							<code className="bg-primary/5 px-1 py-0.5 rounded text-primary text-[11px] font-mono shrink-0">
+								types/:
+							</code>{" "}
+							<span>{entityItems.types}</span>
+						</li>
+						<li className="flex gap-2 items-start">
+							<code className="bg-primary/10 px-1 py-0.5 rounded text-primary text-[11px] font-mono shrink-0">
 								index.ts:
-							</strong>{" "}
-							{entityItems.index}
+							</code>{" "}
+							<span>{entityItems.index}</span>
 						</li>
 					</ul>
 				</div>
 			</div>
-		</section>
+		</div>
 	);
 }
-
-export const EntityStructure = withErrorBoundary(EntityStructureComponent);

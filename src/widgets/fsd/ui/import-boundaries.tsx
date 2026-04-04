@@ -1,6 +1,4 @@
-"use client";
-
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 import {
 	Badge,
@@ -8,24 +6,30 @@ import {
 	CardContent,
 	CardHeader,
 	CardTitle,
-	withErrorBoundary
+	SectionTitle
 } from "@/shared/ui";
 
 import { RulesProvider } from "@/entities/rules";
 
-function ImportBoundariesComponent() {
-	const t = useTranslations("fsd");
+export async function ImportBoundaries() {
+	const t = await getTranslations("fsd");
 	const fsd = RulesProvider.getFsdRules();
 
 	return (
-		<section id="boundaries">
-			<h2 className="text-2xl font-semibold mb-6 flex items-center gap-3">
-				<span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary font-mono text-sm font-bold">
-					02
-				</span>
-				{t("boundaries.title")}
-			</h2>
-			<div className="grid gap-4 sm:grid-cols-2">
+		<div className="space-y-4 pt-4 border-t border-border/40">
+			<SectionTitle badge="02" className="text-xl mb-2">
+				{t("steps.boundaries.title")}
+			</SectionTitle>
+			<p>
+				{t.rich("steps.boundaries.description", {
+					one: (chunks) => (
+						<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+							{chunks}
+						</code>
+					)
+				})}
+			</p>
+			<div className="grid gap-4 sm:grid-cols-2 mt-4">
 				{fsd.boundaries.map((boundary) => (
 					<Card
 						key={boundary.from}
@@ -40,7 +44,7 @@ function ImportBoundariesComponent() {
 									{boundary.from}
 								</Badge>
 								<span className="text-xs text-muted-foreground">
-									{t("boundaries.accesses")}:
+									{t("steps.boundaries.accesses")}:
 								</span>
 							</CardTitle>
 						</CardHeader>
@@ -60,8 +64,6 @@ function ImportBoundariesComponent() {
 					</Card>
 				))}
 			</div>
-		</section>
+		</div>
 	);
 }
-
-export const ImportBoundaries = withErrorBoundary(ImportBoundariesComponent);

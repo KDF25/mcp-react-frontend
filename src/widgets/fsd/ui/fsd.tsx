@@ -1,35 +1,45 @@
-"use client";
+import { getTranslations } from "next-intl/server";
 
-import { useTranslations } from "next-intl";
+import { Card, CardContent, CardHeader, PageTitle } from "@/shared/ui";
 
-import { EntityStructure } from "./entity-structure";
-import { GlobalSettings } from "./global-settings";
-import { ImportBoundaries } from "./import-boundaries";
-import { LayerHierarchy } from "./layer-hierarchy";
-import { PracticalExamples } from "./practical-examples";
-import { WidgetModelStructure } from "./widget-model-structure";
+import { FsdModules } from "./fsd-modules";
 
-export function Fsd() {
-	const t = useTranslations("fsd");
+export async function Fsd() {
+	const t = await getTranslations("fsd");
 
 	return (
-		<>
-			<div className="space-y-4">
-				<h1 className="text-4xl font-extrabold tracking-tight">
-					{t("header.title")}
-				</h1>
-				<p className="text-xl text-muted-foreground leading-relaxed">
-					{t("header.description")}
-				</p>
-			</div>
-			<div className="space-y-12">
-				<LayerHierarchy />
-				<ImportBoundaries />
-				<EntityStructure />
-				<WidgetModelStructure />
-				<PracticalExamples />
-				<GlobalSettings />
-			</div>
-		</>
+		<div className="space-y-8 max-w-4xl">
+			<PageTitle
+				title={t("header.title")}
+				description={t.rich("header.description", {
+					one: (chunks) => (
+						<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+							{chunks}
+						</code>
+					)
+				})}
+			/>
+
+			<Card className="bg-muted/10">
+				<CardHeader className="p-4 border-b">
+					<h3 className="text-base font-bold text-primary font-mono">
+						{t("card_title")}
+					</h3>
+				</CardHeader>
+				<CardContent className="p-4 text-sm text-muted-foreground space-y-6">
+					<p className="border-l-2 border-primary pl-3 italic text-foreground mb-4">
+						{t.rich("benefit_text", {
+							one: (chunks) => (
+								<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+									{chunks}
+								</code>
+							)
+						})}
+					</p>
+
+					<FsdModules />
+				</CardContent>
+			</Card>
+		</div>
 	);
 }
