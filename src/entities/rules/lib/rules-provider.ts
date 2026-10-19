@@ -7,6 +7,8 @@ import convertersPattern from "../config/patterns/converters.json";
 import errorBoundaryPattern from "../config/patterns/error-boundary.json";
 import i18nPattern from "../config/patterns/i18n.json";
 import mswPattern from "../config/patterns/msw.json";
+import openapiPattern from "../config/patterns/openapi.json";
+import paginationPattern from "../config/patterns/pagination.json";
 import rtkQueryPattern from "../config/patterns/rtk-query.json";
 import stateManagementPattern from "../config/patterns/state-management.json";
 import stylesPattern from "../config/patterns/styles.json";
@@ -31,7 +33,9 @@ const aggregatedRules: IProjectRules = {
 		theme: themePattern as any,
 		styles: stylesPattern as any,
 		zod: zodPattern as any,
-		errorBoundary: errorBoundaryPattern as any
+		errorBoundary: errorBoundaryPattern as any,
+		pagination: paginationPattern as any,
+		openapi: openapiPattern as any
 	}
 };
 

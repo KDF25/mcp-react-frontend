@@ -22,6 +22,30 @@ export class RecommenderAgent {
 			);
 		}
 
+		if (
+			violations.some(
+				(v) =>
+					v.ruleId === "converters-forbidden-in-ui" ||
+					v.ruleId === "backend-dto-forbidden-in-ui"
+			)
+		) {
+			recommendations.push(
+				"Keep converters inside entities/*/api (transformResponse / body). UI must only consume frontend domain types from hooks — never map*ToFrontend/Backend or *Backend DTOs in components."
+			);
+		}
+
+		if (
+			violations.some(
+				(v) =>
+					v.ruleId === "openapi-raw-types-forbidden-outside-types" ||
+					v.ruleId === "openapi-prefer-t-backend-alias"
+			)
+		) {
+			recommendations.push(
+				"Import Api.ts schema types only in entities/*/types as T*Backend aliases. Converters/api/handlers must use those aliases (and PATHS), never raw OpenAPI symbols from @/shared/api."
+			);
+		}
+
 		return recommendations;
 	}
 }

@@ -13,13 +13,19 @@ export const MSW_TREE_ITEMS: Record<string, ITreeItemData> = {
 	handlers: { name: "handlers/", children: ["h-file", "h-index"] },
 	"h-file": { name: "[entity-name].handlers.ts" },
 	"h-index": { name: "index.ts" },
-	mock: { name: "mock/", children: ["m-file", "m-index"] },
+	mock: { name: "mock/", children: ["m-file", "m-store", "m-index"] },
 	"m-file": { name: "[entity-name].mock.ts" },
+	"m-store": { name: "[entity-name].store.ts (optional)" },
 	"m-index": { name: "index.ts" },
 	shared: { name: "shared/", children: ["s-api"] },
 	"s-api": { name: "api/", children: ["s-msw"] },
-	"s-msw": { name: "msw/", children: ["browser-file", "handlers-file"] },
+	"s-msw": {
+		name: "msw/",
+		children: ["utils-file", "browser-file", "server-file", "handlers-file"]
+	},
+	"utils-file": { name: "utils.ts" },
 	"browser-file": { name: "browser.ts" },
+	"server-file": { name: "server.ts" },
 	"handlers-file": { name: "handlers.ts" },
 	"env-file": { name: ".env" },
 	"main-file": { name: "src/main.tsx" }

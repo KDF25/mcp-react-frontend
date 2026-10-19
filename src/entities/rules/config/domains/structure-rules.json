@@ -22,18 +22,69 @@
       "converters",
       "ui"
     ],
+    "optionalFolders": [
+      "handlers",
+      "mock"
+    ],
     "naming": {
       "schema": "*.schema.ts",
       "converters": "*.converters.ts",
-      "api": "*.service.ts"
+      "api": "*.service.ts",
+      "handlers": "*.handlers.ts",
+      "mock": "*.mock.ts"
     }
   },
   "converters": {
     "suffix": ".converters.ts",
     "mandatory": true,
-    "requiredMethods": [
+    "methodNamingPattern": "^map.+To(Frontend|Backend)$",
+    "methodNamingDescription": "Use operation-specific names (mapOrdersToFrontend, mapCreatePromocodeToBackend). Literal mapToFrontend/mapToBackend are not required.",
+    "forbiddenLiteralMethods": [
       "mapToFrontend",
       "mapToBackend"
-    ]
+    ],
+    "allowedConsumers": [
+      "entities/*/api/**",
+      "entities/*/converters/**"
+    ],
+    "forbiddenConsumers": [
+      "pages/**",
+      "widgets/**",
+      "features/**",
+      "entities/*/ui/**",
+      "shared/ui/**"
+    ],
+    "forbidPublicReexport": true,
+    "forbidBackendDtoInUi": true,
+    "rule": "Converters run only in entity API (RTK Query). UI receives frontend domain models already; importing mappers or *Backend types into components is forbidden."
+  },
+  "pagination": {
+    "location": "src/shared/types/pagination.types.ts",
+    "request": "IPaginationRequest",
+    "response": "IPaginationResponse",
+    "frontendListShape": {
+      "data": "T[]",
+      "total": "number"
+    },
+    "rule": "UI and RTK Query use IPagination*; backend query/response field names are mapped only inside entity converters."
+  },
+  "zod": {
+    "schemaDir": "schema/",
+    "typesDir": "types/",
+    "inferLocation": "types",
+    "allowMultipleSchemasPerEntity": true,
+    "forbidInferInSchemaFiles": true
+  },
+  "openapi": {
+    "generatedDir": "src/shared/api/generated",
+    "apiFile": "Api.ts",
+    "pathsDir": "src/shared/api/generated/paths",
+    "adapterFilePattern": "*-backend.interface.ts",
+    "adapterTypePattern": "^T.+Backend$",
+    "rawTypesOnlyIn": [
+      "shared/api/generated/**",
+      "entities/*/types/**"
+    ],
+    "rule": "OpenAPI schema types → T*Backend in entity types only; converters/api use aliases + PATHS."
   }
 }

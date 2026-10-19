@@ -2,5 +2,64 @@
   "noConsole": true,
   "noAny": true,
   "strictTyping": true,
-  "noEnums": true
+  "noEnums": true,
+  "eslint": {
+    "recommendedPlugins": [
+      "eslint-plugin-boundaries"
+    ],
+    "convertersIsolation": {
+      "enabled": true,
+      "rule": "Converters must not be imported outside the owning entity; only entities/<name>/api may import entities/<name>/converters (prefer relative ../converters).",
+      "noRestrictedImports": {
+        "patterns": [
+          "**/entities/*/converters",
+          "**/entities/*/converters/**",
+          "@/entities/*/converters",
+          "@/entities/*/converters/**"
+        ],
+        "message": "Converters are private to the entity. Import only from entities/<name>/api via relative '../converters'. UI must use frontend models from RTK hooks."
+      },
+      "boundaries": {
+        "elements": [
+          {
+            "type": "entity-converters",
+            "pattern": "src/entities/*/converters/**",
+            "capture": ["entity"]
+          },
+          {
+            "type": "entity-api",
+            "pattern": "src/entities/*/api/**",
+            "capture": ["entity"]
+          }
+        ],
+        "allowFrom": [
+          {
+            "from": "entity-api",
+            "allow": ["entity-converters"],
+            "sameCapture": "entity"
+          }
+        ]
+      },
+      "template": "src/entities/rules/config/entities/eslint-converters-boundary.md"
+    },
+    "openapiTypesIsolation": {
+      "enabled": true,
+      "rule": "Raw Api.ts / OpenAPI schema types may be imported only in entities/*/types (as T*Backend). Converters, api, handlers, mock, and UI must not import generated/Api or schema symbols from @/shared/api.",
+      "noRestrictedImports": {
+        "patterns": [
+          "**/shared/api/generated/Api",
+          "**/shared/api/generated/Api.ts",
+          "@/shared/api/generated/Api"
+        ],
+        "message": "Raw Api.ts types are allowed only in entities/*/types (*-backend.interface.ts). Alias them as T*Backend and import from ../types."
+      },
+      "allowIn": [
+        "src/entities/**/types/**/*",
+        "src/shared/api/generated/**/*"
+      ],
+      "forbidPublicApiReexport": true,
+      "adapterNamingPattern": "^T.+Backend$",
+      "template": "src/entities/rules/config/entities/eslint-openapi-types-boundary.md"
+    }
+  }
 }

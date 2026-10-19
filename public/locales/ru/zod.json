@@ -15,11 +15,11 @@
 		"title": "Соглашения о наименовании",
 		"schemas": {
 			"label": "Схемы Zod:",
-			"text": "Располагаются в папке <one>schema</one>. Файлы называются по шаблону <two>[name].schema.ts</two>. Схемы именуются заглавными буквами (напр. <three>ENTITY_SCHEMA</three>)."
+			"text": "В <one>schema</one>/. Предпочтительны файлы операций вроде <two>[name]-create.schema.ts</two>. Только runtime — без экспорта <three>z.infer</three>."
 		},
 		"types": {
 			"label": "Типы и Интерфейсы:",
-			"text": "Располагаются в папке <one>types</one>. Типы, выведенные из схем, именуются с префиксом <two>T</two> (напр. <three>TEntitySchema</three>). Все перечисления полей формы хранятся в объектах <four>ENUM_FORM_...</four>."
+			"text": "В <one>types</one>/. Типы форм через <two>z.infer</two> (напр. <three>TEntityCreateSchema</three>) и <four>ENUM_FORM_...</four> живут здесь, не в schema."
 		}
 	},
 	"steps": {

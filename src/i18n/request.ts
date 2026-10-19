@@ -21,7 +21,8 @@ const namespaces = [
 	"msw",
 	"theme",
 	"not_found",
-	"entities"
+	"entities",
+	"openapi"
 ];
 
 export default getRequestConfig(async ({ requestLocale }) => {

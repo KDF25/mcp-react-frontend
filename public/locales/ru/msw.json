@@ -28,32 +28,44 @@
   },
   "steps": {
     "mocks": {
-      "title": "1. Создание моков",
-      "description": "Определяем массив данных, которые будет возвращать сервер. Используем интерфейсы из папки <one>types</one>/ для обеспечения типизации."
+      "title": "1. Создание моков (backend DTO)",
+      "description": "Seed в форме <one>backend DTO</one>. Handlers не должны отдавать frontend-модели, если converters работают в transformResponse."
+    },
+    "store": {
+      "title": "1b. Опциональный Mock Store",
+      "description": "Изменяемый store с <one>reset</one> для мутаций и изоляции Vitest. Для read-only списков не обязателен."
+    },
+    "utils": {
+      "title": "2. createMockHandler",
+      "description": "Общая фабрика на <one>VITE_BASE_URL</one>, delay (0 в тестах), разбор JSON body и хелперы ошибок валидации."
     },
     "handlers": {
-      "title": "2. Описание хендлеров",
-      "description": "Используем библиотеку <one>msw</one> для перехвата конкретных URL. Здесь же можно имитировать задержку сети или ошибки сервера."
+      "title": "3. Описание хендлеров",
+      "description": "Используем <one>createMockHandler</one> и возвращаем backend envelope / контракты ошибок реального API."
     },
     "init_browser": {
-      "title": "3. Конфигурация воркера",
-      "description": "Создаем экземпляр worker-а в <one>shared/api/msw/browser.ts</one> для перехвата запросов в браузере."
+      "title": "4. Browser Worker",
+      "description": "Создаем worker в <one>shared/api/msw/browser.ts</one> для перехвата запросов в браузере."
+    },
+    "init_server": {
+      "title": "4b. Node Server (Vitest)",
+      "description": "Создаем <one>setupServer</one> в <one>shared/api/msw/server.ts</one> для unit/integration тестов."
     },
     "init_handlers": {
-      "title": "4. Реестр хендлеров",
+      "title": "5. Реестр хендлеров",
       "description": "Собираем хендлеры всех сущностей в единый массив в <one>shared/api/msw/handlers.ts</one>."
     },
     "init_app": {
-      "title": "5. Инициализация в App",
-      "description": "Создаем асинхронную функцию запуска в <one>app/init/msw.ts</one>, которая проверяет флаги окружения."
+      "title": "6. Инициализация в App",
+      "description": "Асинхронный запуск в <one>app/init/msw.ts</one> с проверкой флагов окружения."
     },
     "init_main": {
-      "title": "6. Точка входа (Main)",
-      "description": "Дожидаемся запуска MSW перед рендерингом приложения в <one>src/main.tsx</one>."
+      "title": "7. Точка входа (Main)",
+      "description": "Дожидаемся запуска MSW перед рендерингом в <one>src/main.tsx</one>."
     },
     "env": {
-      "title": "7. Переменные окружения",
-      "description": "Управление включением моков через файл <one>.env</one>."
+      "title": "8. Переменные окружения",
+      "description": "Управление через <one>.env</one> (<one>VITE_ENABLE_MSW</one>, <one>VITE_BASE_URL</one>)."
     }
   }
 }

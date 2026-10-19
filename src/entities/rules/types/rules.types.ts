@@ -37,6 +37,42 @@ export interface ILinterRules {
 	noAny: boolean;
 	strictTyping: boolean;
 	noEnums: boolean;
+	eslint?: {
+		recommendedPlugins?: string[];
+		convertersIsolation?: {
+			enabled: boolean;
+			rule: string;
+			noRestrictedImports?: {
+				patterns: string[];
+				message: string;
+			};
+			boundaries?: {
+				elements: Array<{
+					type: string;
+					pattern: string;
+					capture?: string[];
+				}>;
+				allowFrom: Array<{
+					from: string;
+					allow: string[];
+					sameCapture?: string;
+				}>;
+			};
+			template?: string;
+		};
+		openapiTypesIsolation?: {
+			enabled: boolean;
+			rule: string;
+			noRestrictedImports?: {
+				patterns: string[];
+				message: string;
+			};
+			allowIn?: string[];
+			forbidPublicApiReexport?: boolean;
+			adapterNamingPattern?: string;
+			template?: string;
+		};
+	};
 }
 
 export interface IStructureRules {
@@ -46,9 +82,45 @@ export interface IStructureRules {
 		subfolders: string[];
 		filePattern: string;
 	};
+	entities?: {
+		requiredFolders: string[];
+		optionalFolders?: string[];
+		naming: Record<string, string>;
+	};
 	converters: {
 		suffix: string;
 		mandatory: boolean;
+		methodNamingPattern?: string;
+		methodNamingDescription?: string;
+		forbiddenLiteralMethods?: string[];
+		allowedConsumers?: string[];
+		forbiddenConsumers?: string[];
+		forbidPublicReexport?: boolean;
+		forbidBackendDtoInUi?: boolean;
+		rule?: string;
+	};
+	pagination?: {
+		location: string;
+		request: string;
+		response: string;
+		frontendListShape: { data: string; total: string };
+		rule: string;
+	};
+	zod?: {
+		schemaDir: string;
+		typesDir: string;
+		inferLocation: string;
+		allowMultipleSchemasPerEntity: boolean;
+		forbidInferInSchemaFiles: boolean;
+	};
+	openapi?: {
+		generatedDir: string;
+		apiFile: string;
+		pathsDir: string;
+		adapterFilePattern: string;
+		adapterTypePattern: string;
+		rawTypesOnlyIn: string[];
+		rule: string;
 	};
 }
 
@@ -58,20 +130,22 @@ export interface IStyleRules {
 	requiredUtility: string;
 }
 
+export interface IPatternMeta {
+	location: string;
+	requiredFiles: string[];
+	locationRequiredFiles?: Record<string, string>;
+	template: string;
+	description: string;
+	[key: string]: unknown;
+}
+
 export interface IPatternRules {
 	stateManagement: {
 		server: string;
 		client: string;
 		local: string;
 	};
-	rtkQuery: {
-		location: string;
-		requiredFiles: string[];
-		locationRequiredFiles: Record<string, string>;
-		template: string;
-		description: string;
-		segments: string[];
-	};
+	rtkQuery: IPatternMeta & { segments?: string[] };
 	ui: {
 		composition: {
 			widgets: string[];
@@ -81,51 +155,15 @@ export interface IPatternRules {
 			features: string;
 		};
 	};
-	i18n: {
-		location: string;
-		requiredFiles: string[];
-		template: string;
-		description: string;
-	};
-	converters: {
-		location: string;
-		requiredFiles: string[];
-		template: string;
-		description: string;
-	};
-	msw: {
-		location: string;
-		requiredFiles: string[];
-		template: string;
-		description: string;
-	};
-	theme: {
-		location: string;
-		requiredFiles: string[];
-		template: string;
-		description: string;
-	};
-	styles: {
-		location: string;
-		requiredFiles: string[];
-		locationRequiredFiles: Record<string, string>;
-		template: string;
-		description: string;
-	};
-	zod: {
-		location: string;
-		requiredFiles: string[];
-		locationRequiredFiles: Record<string, string>;
-		template: string;
-		description: string;
-	};
-	errorBoundary: {
-		location: string;
-		requiredFiles: string[];
-		locationRequiredFiles: Record<string, string>;
-		template: string;
-		description: string;
-	};
+	i18n: IPatternMeta;
+	converters: IPatternMeta;
+	msw: IPatternMeta;
+	theme: IPatternMeta;
+	styles: IPatternMeta;
+	zod: IPatternMeta;
+	errorBoundary: IPatternMeta;
+	pagination: IPatternMeta;
+	openapi: IPatternMeta;
 }
 
 export interface IProjectRules {

@@ -151,7 +151,7 @@ The MCP server enforces a highly deterministic, strict architectural contract de
 
 **6. Implementation Protocol Validation**
 - **RTK Query**: Validates API code-splitting via `injectEndpoints`, centralized tags, and base queries.
-- **DTO Converters**: Requires symmetric data transformation (`mapToFrontend`, `mapToBackend`) between network boundaries and domain models.
+- **DTO Converters**: Requires symmetric data transformation with operation-specific names (`mapOrdersToFrontend`, `mapCreateEntityToBackend`, pattern `map*ToFrontend|ToBackend`) between network boundaries and domain models. Shared list contract: `IPaginationRequest` / `IPaginationResponse`.
 - **Zod Schemas**: Validates payload schema definitions against strongly typed `i18n` localization keys.
 - **Mocking (MSW)**: Ensures mock handlers are properly registered and isolated.
 - **Error Boundaries**: Validates the presence of `ErrorBoundary` wrappers and `withErrorBoundary` HOCs on dynamic or volatile UI components.

@@ -1,0 +1,31 @@
+{
+	"seo": {
+		"title": "OpenAPI Codegen",
+		"description": "Generate Api.ts and PATHS from OpenAPI, alias as T*Backend in entity types only"
+	},
+	"header": {
+		"title": "OpenAPI → T*Backend",
+		"description": "Strict pipeline: codegen raw types stay in generated/Api.ts; domain code only sees T*Backend aliases from entities/*/types."
+	},
+	"card_title": "Codegen & type isolation",
+	"benefit_label": "Rule:",
+	"benefit_text": "Never import OpenAPI schema symbols into converters or api. Alias them once as T*Backend, then map to frontend models.",
+	"steps": {
+		"scripts": {
+			"title": "1. Codegen scripts",
+			"description": "From <one>VITE_BASE_URL/openapi.json</one>: Api.ts (schemas) + paths/<tag>.paths.ts (url, method, _types)."
+		},
+		"adapter": {
+			"title": "2. T*Backend adapter",
+			"description": "Only <one>entities/*/types/*-backend.interface.ts</one> may import generated/Api. Export TFooBackend aliases (and re-export enums)."
+		},
+		"usage": {
+			"title": "3. converters / api usage",
+			"description": "Import T*Backend and enum values from ../types. PATHS are allowed in api/handlers. Raw Api.ts imports are forbidden."
+		},
+		"eslint": {
+			"title": "4. ESLint gate",
+			"description": "Restrict <one>generated/Api</one> globally; allow only in entities/**/types and shared/api/generated. Prefer not re-exporting Api from @/shared/api."
+		}
+	}
+}

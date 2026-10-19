@@ -1,0 +1,18 @@
+{
+  "location": "src/shared/types/pagination.types.ts",
+  "requiredExports": [
+    "IPaginationRequest",
+    "IPaginationResponse"
+  ],
+  "frontendListShape": {
+    "data": "T[]",
+    "total": "number"
+  },
+  "rules": {
+    "uiUsesFrontendShapeOnly": true,
+    "backendFieldNamesInConvertersOnly": true,
+    "mswReturnsBackendEnvelope": true
+  },
+  "template": "src/entities/rules/config/entities/pagination-pattern.md",
+  "description": "Единый frontend-контракт списков: IPaginationRequest / IPaginationResponse. Backend query и envelope мапятся в entity converters."
+}

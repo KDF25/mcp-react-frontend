@@ -15,6 +15,7 @@ export const ENUM_ROUTES = {
 		MSW: "/msw",
 		THEME: "/theme",
 		RTK_QUERY: "/rtk-query",
-		ENTITIES: "/entities"
+		ENTITIES: "/entities",
+		OPENAPI: "/openapi"
 	}
 } as const;

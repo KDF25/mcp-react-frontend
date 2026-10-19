@@ -8,5 +8,15 @@
   "responsibility": {
     "entities": "presentation",
     "features": "interactivity"
+  },
+  "dataBoundary": {
+    "consumes": "frontend-domain-models",
+    "forbiddenImports": [
+      "**/converters/**",
+      "map*ToFrontend",
+      "map*ToBackend",
+      "*Backend"
+    ],
+    "rule": "UI receives frontend objects from RTK Query hooks. Converters and backend DTOs stay in entities/*/api."
   }
 }

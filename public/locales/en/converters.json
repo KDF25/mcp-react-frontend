@@ -25,7 +25,11 @@
 		},
 		"rtk_query": {
 			"title": "RTK Query Integration",
-			"description": "Converters are injected directly into endpoint definitions: <one>transformResponse</one> for data retrieval and <two>query</two> (params/body) for data submission."
+			"description": "Converters are injected directly into endpoint definitions: <one>transformResponse</one> for data retrieval and <two>query</two> (params/body) for data submission. Importing converters into pages/widgets/features is <one>forbidden</one> — UI already gets frontend models."
+		},
+		"eslint": {
+			"title": "ESLint Isolation (do not leave the entity)",
+			"description": "Enforce with <one>no-restricted-imports</one> (block @/entities/*/converters) and <two>eslint-plugin-boundaries</two> (only same-entity api/ may import converters). Relative <one>../converters</one> from api/ stays allowed."
 		}
 	},
 	"tree_title": "Entity Converters File Structure",

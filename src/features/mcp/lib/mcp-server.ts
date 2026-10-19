@@ -8,6 +8,12 @@ import { RulesProvider } from "@/entities/rules/lib/rules-provider";
 import { FsdAgent } from "../../agents/fsd-agent";
 import { LinterAgent } from "../../agents/linter-agent";
 import { RecommenderAgent } from "../../agents/recommender-agent";
+import {
+	MSW_SERVER_CODE,
+	MSW_UTILS_CODE,
+	PAGINATION_TYPES_CODE,
+	scaffoldEntity
+} from "../../scaffold/lib";
 
 /**
  * Factory function to create a new MCP Server instance.
@@ -121,7 +127,20 @@ export function createMcpServer(): McpServer {
 					.optional()
 					.describe("Optional domain filter"),
 				pattern: z
-					.string()
+					.enum([
+						"stateManagement",
+						"rtkQuery",
+						"ui",
+						"i18n",
+						"converters",
+						"msw",
+						"theme",
+						"styles",
+						"zod",
+						"errorBoundary",
+						"pagination",
+						"openapi"
+					])
 					.optional()
 					.describe("Optional pattern name inside 'patterns' domain")
 			}
@@ -180,24 +199,29 @@ export function createMcpServer(): McpServer {
 			}
 		},
 		async ({ name, path }) => {
-			const entityPath = `src/entities/${path}/${name}`;
-			const message = `
-Scaffolding entity "${name}" in "${entityPath}":
-1. Created folder structure: api/, types/, schema/, converters/, ui/
-2. Generated ${name}.service.ts with RTK Query pattern
-3. Generated ${name}.schema.ts with i18nKey validation pattern
-4. Generated ${name}.converters.ts with mapToFrontend/mapToBackend
-5. Generated ${name}.interface.ts and ${name}-backend.interface.ts
-6. Generated Public API (index.ts)
-
-Architecture check: SUCCESS.
-            `.trim();
+			const result = scaffoldEntity(name, path);
 
 			return {
 				content: [
 					{
 						type: "text",
-						text: message
+						text: JSON.stringify(
+							{
+								summary: result.summary,
+								entityPath: result.entityPath,
+								sharedPrerequisites: {
+									"src/shared/types/pagination.types.ts":
+										PAGINATION_TYPES_CODE,
+									"src/shared/api/msw/utils.ts":
+										MSW_UTILS_CODE,
+									"src/shared/api/msw/server.ts":
+										MSW_SERVER_CODE
+								},
+								files: result.files
+							},
+							null,
+							2
+						)
 					}
 				]
 			};

@@ -1,0 +1,31 @@
+{
+	"seo": {
+		"title": "OpenAPI Codegen",
+		"description": "Генерация Api.ts и PATHS из OpenAPI, алиасы T*Backend только в entities/*/types"
+	},
+	"header": {
+		"title": "OpenAPI → T*Backend",
+		"description": "Строгий пайплайн: сырые типы остаются в generated/Api.ts; домен видит только T*Backend из entities/*/types."
+	},
+	"card_title": "Codegen и изоляция типов",
+	"benefit_label": "Правило:",
+	"benefit_text": "Не импортируйте schema OpenAPI в converters или api. Один раз алиасьте в T*Backend, затем мапьте во frontend-модели.",
+	"steps": {
+		"scripts": {
+			"title": "1. Скрипты codegen",
+			"description": "Из <one>VITE_BASE_URL/openapi.json</one>: Api.ts (схемы) + paths/<tag>.paths.ts (url, method, _types)."
+		},
+		"adapter": {
+			"title": "2. Адаптер T*Backend",
+			"description": "Только <one>entities/*/types/*-backend.interface.ts</one> может импортировать generated/Api. Экспортируйте алиасы TFooBackend (и re-export enum)."
+		},
+		"usage": {
+			"title": "3. converters / api",
+			"description": "Берите T*Backend и enum из ../types. PATHS разрешены в api/handlers. Прямой Api.ts — запрещён."
+		},
+		"eslint": {
+			"title": "4. ESLint gate",
+			"description": "Ограничьте <one>generated/Api</one> глобально; разрешите только в entities/**/types и shared/api/generated. Лучше не реэкспортировать Api из @/shared/api."
+		}
+	}
+}

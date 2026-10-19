@@ -6,6 +6,8 @@ import {
 
 import { RulesProvider } from "@/entities/rules/lib/rules-provider";
 
+import { isForbiddenConverterImportSpecifier } from "./lib/converter-ui-boundary";
+
 const defaultRules = RulesProvider.getRules();
 
 export class FsdAgent {
@@ -28,6 +30,21 @@ export class FsdAgent {
 				typeof fileItem === "string" ? fileItem : fileItem.path;
 			const imports: string[] =
 				typeof fileItem === "string" ? [] : fileItem.imports || [];
+
+			for (const imp of imports) {
+				if (isForbiddenConverterImportSpecifier(path, imp)) {
+					violations.push({
+						agent: ENUM_AGENT_TYPE.FSD_INSPECTOR,
+						ruleId: "converters-forbidden-in-ui",
+						severity: ENUM_SEVERITY.HIGH,
+						location: `${path} -> ${imp}`,
+						message:
+							'Converters must not be imported from UI layers. Mapping belongs in entity "api/" (RTK Query), not in components.',
+						suggestion:
+							"Delete the converters import. Use frontend models from the hook; call map* only inside *.service.ts."
+					});
+				}
+			}
 
 			const fromLayer = layers.find((l: string) =>
 				path.includes(`/${l}/`)

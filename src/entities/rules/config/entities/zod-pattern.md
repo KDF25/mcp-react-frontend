@@ -1,89 +1,95 @@
 # Архитектурный паттерн: Валидация и типизация (Zod)
 
-В Feature-Sliced Design (FSD), мы используем Zod как детерминированный слой валидации. Это обеспечивает:
+В Feature-Sliced Design (FSD) Zod — детерминированный слой валидации:
 
 - Типобезопасность в рантайме.
-- Единый источник истины (типы генерируются из схем).
-- Централизованную локализацию ошибок через типизированные ключи.
+- Единый источник истины: типы форм выводятся через `z.infer`.
+- Локализованные ошибки через типизированные ключи `i18nKey`.
 
 ---
 
-## 🛑 Главное правило
+## 🛑 Главные правила
 
-Любая валидация пользовательского ввода (формы) или входящих данных API должна быть описана через Zod-схемы в директории `src/entities/[entity-name]/schema/`.
+1. Любая валидация пользовательского ввода описывается Zod-схемами в `src/entities/[entity-name]/schema/`.
+2. **`schema/` содержит только runtime-схемы** — запрещено экспортировать `z.infer` / `export type T…Schema` из schema-файлов.
+3. **`types/` содержит** `ENUM_FORM_*`, `z.infer` и связанные form-типы.
+4. У одной сущности может быть **несколько схем** на операции: create / update / delete / reject и т.д.
 
 ---
 
-## 🗂 Файловая структура Entity-слоя
+## 🗂 Файловая структура
 
 ```text
 src/entities/[entity-name]/
-├── schema/          # Схемы валидации
-│   ├── [entity-name].schema.ts
+├── schema/
+│   ├── [entity-name]-create.schema.ts
+│   ├── [entity-name]-update.schema.ts
 │   └── index.ts
-├── types/           # Типы данных
-│   ├── [entity-name].types.ts
+├── types/
+│   ├── [entity-name]-form.types.ts   # ENUM_FORM_* + z.infer
+│   ├── [entity-name].interface.ts
 │   └── index.ts
-└── index.ts         # Public API
+└── index.ts
 ```
 
 ---
 
 ## Пошаговое руководство
 
-### Шаг 1. Определение схемы (Schema Layer)
+### Шаг 1. Schema (runtime only)
 
-`src/entities/[entity-name]/schema/[entity-name].schema.ts`
-
-Используем `i18nKey` для обеспечения строгого соответствия ключей перевода.
+`src/entities/[entity-name]/schema/[entity-name]-create.schema.ts`
 
 ```typescript
 import { z } from "zod";
 import { type TEntityPageKeys, i18nKey } from "@/shared/config";
-import { ENUM_FORM_ENTITY } from "../types";
+import { ENUM_FORM_ENTITY_CREATE } from "../types";
 
 const msg = i18nKey<TEntityPageKeys>();
+const F = ENUM_FORM_ENTITY_CREATE;
 
-export const ENTITY_SCHEMA = z.object({
-    [ENUM_FORM_ENTITY.DESCRIPTION]: z
+export const ENTITY_CREATE_SCHEMA = z.object({
+    [F.DESCRIPTION]: z
         .string()
         .trim()
         .min(1, { message: msg("form.errors.required") })
 });
 ```
 
-### Шаг 2. Вывод типов (Types Layer)
+### Шаг 2. Types (`z.infer` + form enums)
 
-`src/entities/[entity-name]/types/[entity-name].types.ts`
-
-Типы выводятся автоматически из схем с помощью `z.infer`.
+`src/entities/[entity-name]/types/[entity-name]-form.types.ts`
 
 ```typescript
+import type { FieldValues } from "react-hook-form";
 import { z } from "zod";
-import type { ENTITY_SCHEMA } from "../schema";
+import type { ENTITY_CREATE_SCHEMA, ENTITY_UPDATE_SCHEMA } from "../schema";
 
-export const ENUM_FORM_ENTITY = {
+export const ENUM_FORM_ENTITY_CREATE = {
     DESCRIPTION: "description",
 } as const;
 
-export type TEntitySchema = z.infer<typeof ENTITY_SCHEMA>;
+export type TEntityCreateSchema = z.infer<typeof ENTITY_CREATE_SCHEMA> & FieldValues;
+export type TEntityUpdateSchema = z.infer<typeof ENTITY_UPDATE_SCHEMA> & FieldValues;
 ```
 
----
-
-### Шаг 3. Интеграция с формой (UI Layer)
-
-`src/widgets/[entity-name]/ui/[entity-name].tsx`
-
-Используем `zodResolver` для интеграции с `react-hook-form`.
+### Шаг 3. Форма
 
 ```typescript
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { type TEntitySchema, ENTITY_SCHEMA } from "@/entities/entity-name";
+import { type TEntityCreateSchema, ENTITY_CREATE_SCHEMA } from "@/entities/entity-name";
 
-const form = useForm<TEntitySchema>({
-    resolver: zodResolver(ENTITY_SCHEMA),
+const form = useForm<TEntityCreateSchema>({
+    resolver: zodResolver(ENTITY_CREATE_SCHEMA),
     mode: "onSubmit"
 });
 ```
+
+---
+
+## Антишаблоны
+
+- `export type TEntitySchema = z.infer<…>` внутри `*.schema.ts`
+- Одна «божественная» схема на все CRUD-операции, если поля и refine различаются
+- Дублирование form-полей строками вместо `ENUM_FORM_*`

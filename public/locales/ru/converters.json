@@ -25,7 +25,11 @@
 		},
 		"rtk_query": {
 			"title": "Интеграция с RTK Query",
-			"description": "Конвертеры внедряются прямо в описание эндпоинтов: <one>transformResponse</one> для получения данных и <two>query</two> (params/body) для отправки."
+			"description": "Конвертеры внедряются прямо в описание эндпоинтов: <one>transformResponse</one> для получения данных и <two>query</two> (params/body) для отправки. Импорт converters в pages/widgets/features <one>запрещён</one> — UI уже получает frontend-модели."
+		},
+		"eslint": {
+			"title": "ESLint: converters не выходят за entity",
+			"description": "Фиксируем через <one>no-restricted-imports</one> (блок @/entities/*/converters) и <two>eslint-plugin-boundaries</two> (импорт converters только из api/ той же сущности). Относительный <one>../converters</one> из api/ разрешён."
 		}
 	},
 	"tree_title": "Структура файлов конвертеров сущности",

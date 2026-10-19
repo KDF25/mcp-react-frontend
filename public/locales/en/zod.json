@@ -15,11 +15,11 @@
 		"title": "Naming Conventions",
 		"schemas": {
 			"label": "Zod Schemas:",
-			"text": "Located in the <one>schema</one> folder. Files are named following the <two>[name].schema.ts</two> pattern. Schemas are named in uppercase (e.g., <three>ENTITY_SCHEMA</three>)."
+			"text": "Located in <one>schema</one>/. Prefer operation files like <two>[name]-create.schema.ts</two>. Runtime only — no <three>z.infer</three> exports here."
 		},
 		"types": {
 			"label": "Types & Interfaces:",
-			"text": "Located in the <one>types</one> folder. Types inferred from schemas are named with a <two>T</two> prefix (e.g., <three>TEntitySchema</three>). All form field enums are stored in <four>ENUM_FORM_...</four> objects."
+			"text": "Located in <one>types</one>/. <two>z.infer</two> form types (e.g. <three>TEntityCreateSchema</three>) and <four>ENUM_FORM_...</four> live here, never in schema files."
 		}
 	},
 	"steps": {

@@ -1,0 +1,51 @@
+{
+  "location": "src/shared/api/generated",
+  "scripts": {
+    "codegen:types": "tsx --env-file=.env scripts/generate-api-types.ts",
+    "codegen:paths": "tsx --env-file=.env scripts/generate-api-paths.ts",
+    "codegen": "npm run codegen:types && npm run codegen:paths"
+  },
+  "outputs": {
+    "apiTypes": "src/shared/api/generated/Api.ts",
+    "paths": "src/shared/api/generated/paths/<tag>.paths.ts"
+  },
+  "adapter": {
+    "location": "src/entities/[entity-name]/types/[entity-name]-backend.interface.ts",
+    "namingPattern": "^T.+Backend$",
+    "rule": "Raw OpenAPI/Api.ts schema types are aliased to T*Backend only here."
+  },
+  "importBoundary": {
+    "rawApiTypesAllowedIn": [
+      "src/shared/api/generated/**",
+      "src/entities/*/types/**"
+    ],
+    "rawApiTypesForbiddenIn": [
+      "src/entities/*/api/**",
+      "src/entities/*/converters/**",
+      "src/entities/*/ui/**",
+      "src/entities/*/handlers/**",
+      "src/entities/*/mock/**",
+      "src/features/**",
+      "src/widgets/**",
+      "src/pages/**",
+      "src/shared/ui/**"
+    ],
+    "pathsAllowedIn": [
+      "src/entities/*/api/**",
+      "src/entities/*/handlers/**",
+      "src/entities/*/types/**",
+      "src/shared/api/**"
+    ],
+    "forbidPublicApiReexport": true,
+    "rationale": "Api.ts is codegen raw material. Domain code uses T*Backend from entity types; PATHS descriptors are allowed in api/handlers."
+  },
+  "eslint": {
+    "enforceVia": [
+      "no-restricted-imports",
+      "overrides-allow-entity-types"
+    ],
+    "template": "src/entities/rules/config/entities/eslint-openapi-types-boundary.md"
+  },
+  "template": "src/entities/rules/config/entities/openapi-pattern.md",
+  "description": "OpenAPI codegen (Api.ts + paths) and strict T*Backend adapter: raw schema types only in entities/*/types."
+}

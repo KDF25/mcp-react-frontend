@@ -5,9 +5,16 @@
     "*.schema.ts"
   ],
   "locationRequiredFiles": {
-    "schema": "src/entities/[entity-name]/schema/[entity-name].schema.ts",
-    "types": "src/entities/[entity-name]/types/[entity-name].types.ts"
+    "schema": "src/entities/[entity-name]/schema/[entity-name]-create.schema.ts",
+    "types": "src/entities/[entity-name]/types/[entity-name]-form.types.ts"
+  },
+  "rules": {
+    "schemaContainsRuntimeOnly": true,
+    "inferTypesInTypesFolder": true,
+    "formEnumsInTypesFolder": true,
+    "allowMultipleSchemasPerEntity": true,
+    "forbidZInferInSchemaFiles": true
   },
   "template": "src/entities/rules/config/entities/zod-pattern.md",
-  "description": "Паттерн валидации данных через Zod. Обязательное использование типизированных ключей i18n и генерация типов через z.infer."
+  "description": "Паттерн валидации через Zod: schema/ — только runtime-схемы; types/ — ENUM_FORM_* и z.infer. Допускается несколько схем на сущность (create/update/delete)."
 }

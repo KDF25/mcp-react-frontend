@@ -75,6 +75,10 @@ export const SIDEBAR_CONFIG = {
 				{
 					title: "Data Converters",
 					url: ENUM_ROUTES.MAIN.CONVERTERS
+				},
+				{
+					title: "OpenAPI Codegen",
+					url: ENUM_ROUTES.MAIN.OPENAPI
 				}
 			]
 		},
