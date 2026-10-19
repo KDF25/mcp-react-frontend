@@ -57,8 +57,8 @@ export type TNestedKeyOf<ObjectType extends object> = {
         : Key;
 }[keyof ObjectType & string];`;
 
-export const I18N_CODE_CONFIG_HUB = `import common from "../../../../public/locales/en/common.json";
-import header from "../../../../public/locales/en/header.json";
+export const I18N_CODE_CONFIG_HUB = `import type common from "../../../../public/locales/en/common.json";
+import type header from "../../../../public/locales/en/header.json";
 
 export type TCommon = typeof common;
 export type THeader = typeof header;
@@ -94,12 +94,12 @@ i18n.use(initReactI18next).init({
 export default i18n;`;
 
 export const I18N_CODE_CHECKER = `import type { TResources } from "./i18n.config";
-import common_ru from "../../../../public/locales/ru/common.json";
+import type common_ru from "../../../../public/locales/ru/common.json";
 
 // Статическая проверка: если в RU нет ключа из EN - будет ошибка
-export const RU_TRANSLATION_CHECKER: TResources = {
-    common: common_ru,
-};`;
+export const RU_TRANSLATION_CHECKER = {
+    common: {} as typeof common_ru,
+} satisfies TResources;`;
 
 export const I18N_CODE_USAGE = `import { useTranslations } from "next-intl";
 

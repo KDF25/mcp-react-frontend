@@ -49,7 +49,7 @@ export type TNestedKeyOf<ObjectType extends object> = {
 Здесь импортируются английские JSON (как эталон) и формируются типы.
 
 ```typescript
-import common from "../../../../public/locales/en/common.json";
+import type common from "../../../../public/locales/en/common.json";
 import type { TNestedKeyOf } from "./i18n.types";
 
 export type TCommon = typeof common;
@@ -123,12 +123,12 @@ export default i18n;
 Статическая проверка: если в RU JSON не хватает ключа, который есть в EN — будет ошибка TS.
 
 ```typescript
-import common from "../../../../public/locales/ru/common.json";
+import type common from "../../../../public/locales/ru/common.json";
 import type { TResources } from "./i18n.config";
 
-export const RU_TRANSLATION_CHECKER: TResources = {
-    common: common
-};
+export const RU_TRANSLATION_CHECKER = {
+    common: {} as typeof common
+} satisfies TResources;
 ```
 
 ### 7. Использование в UI (useTranslation)
