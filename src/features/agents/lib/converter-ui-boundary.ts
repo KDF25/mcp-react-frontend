@@ -63,7 +63,7 @@ export const checkConverterUiBoundary = (
 			message:
 				"Backend DTO types (*Backend) must not be used in UI. Components already receive frontend domain models after converters in the API layer.",
 			suggestion:
-				"Use IEntity / TEntitySchema (frontend) props and hook results. Keep IEntityBackend inside api/, converters/, handlers/, mock/."
+				"Use IEntity / TEntitySchema (frontend) props and hook results. Keep T*Backend aliases inside api/, converters/, handlers/, mock/."
 		});
 	}
 

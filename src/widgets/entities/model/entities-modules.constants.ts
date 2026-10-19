@@ -4,8 +4,9 @@ import {
 	mapEntitiesQueryToBackend,
 	mapEntitiesToFrontend
 } from "../converters";
-import type { IEntitiesBackend, IEntity } from "../types";
+import type { TEntitiesBackend, IEntity } from "../types";
 
+/** Converters run here — hooks return frontend models, not raw DTOs */
 export const entityApi = mainApi.injectEndpoints({
 	endpoints: (builder) => ({
 		getEntities: builder.query<
@@ -16,14 +17,14 @@ export const entityApi = mainApi.injectEndpoints({
 				url: "/entities",
 				params: mapEntitiesQueryToBackend(filters)
 			}),
-			transformResponse: (response: IEntitiesBackend) =>
+			transformResponse: (response: TEntitiesBackend) =>
 				mapEntitiesToFrontend(response),
 			providesTags: [ENUM_API_TAGS.ENTITIES]
 		})
 	})
 });`;
 
-export const CONVERTERS_CODE = `export const mapEntityToFrontend = (data: IEntityBackend): IEntity => ({
+export const CONVERTERS_CODE = `export const mapEntityToFrontend = (data: TEntityBackend): IEntity => ({
 	id: data.id,
 	type: data.type as ENUM_ENTITY_TYPE,
 	dateCreated: formatDate(data.date_created),
@@ -32,22 +33,22 @@ export const CONVERTERS_CODE = `export const mapEntityToFrontend = (data: IEntit
 });
 
 export const mapEntitiesToFrontend = (
-	response: IEntitiesBackend
+	response: TEntitiesBackend
 ): IPaginationResponse<IEntity> => ({
 	data: response.items.map(mapEntityToFrontend),
 	total: response.total_count
 });
 
-export const mapEntityToBackend = (data: Partial<IEntityDetail>): 
-	Partial<IEntityDetailBackend> => ({
-		id: data.id,
-		type: data.type,
-		date_created: data.dateCreated,
-		client: data.client,
-		status: data.status
+export const mapEntityToBackend = (
+	data: Partial<IEntityDetail>
+): Partial<TEntityDetailBackend> => ({
+	id: data.id,
+	type: data.type,
+	date_created: data.dateCreated,
+	client: data.client,
+	status: data.status
 });
 `;
-
 export const SCHEMA_CODE = `import { z } from "zod";
 import { i18nKey } from "@/shared/config";
 import { ENUM_FORM_ENTITY_CREATE } from "../types";
@@ -148,9 +149,9 @@ export const entityHandlers = [
 	)
 ];`;
 
-export const MOCK_CODE = `import type { IEntityBackend } from "../types";
+export const MOCK_CODE = `import type { TEntityBackend } from "../types";
 
-export const ENTITIES_MOCK: IEntityBackend[] = [
+export const ENTITIES_MOCK: TEntityBackend[] = [
 	{
 		id: "ENT-001",
 		type: "individual",

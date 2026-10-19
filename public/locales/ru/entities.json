@@ -17,7 +17,7 @@
 		"api": {
 			"label": "Определения API (RTK Query)",
 			"title": "/api",
-			"description": "Отвечает исключительно за сетевое взаимодействие с backend-приложением в рамках одной сущности. Принимает аргументы для запроса и возвращает сырые <one>DTO</one>, которые затем обязательно передаются в конвертеры.",
+			"description": "RTK Query эндпоинты сущности. Конвертеры вызываются внутри API-слоя: <one>transformResponse</one> мапит backend <two>T*Backend</two> в frontend-модели, а <one>query</one> — params/body через map*ToBackend. Хуки уже отдают domain-модели — UI не должен повторно мапить DTO.",
 			"link": "Изучить архитектуру RTK Query"
 		},
 		"converters": {

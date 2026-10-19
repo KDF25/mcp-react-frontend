@@ -57,14 +57,14 @@ UI никогда не работает с "сырыми" данными от AP
 
 ### Пример: tour.converters.ts
 ```typescript
-export const mapTourToFrontend = (data: ITourBackend): ITourCard => ({
+export const mapTourToFrontend = (data: TTourBackend): ITourCard => ({
     id: data.id,
     title: data.title,
     priceFrom: data.price_from, // snake_case -> camelCase
     // ...
 });
 
-export const mapTourToBackend = (data: Partial<ITourCard>): Partial<ITourBackend> => ({
+export const mapTourToBackend = (data: Partial<ITourCard>): Partial<TTourBackend> => ({
     title: data.title,
     price_from: data.priceFrom,
     // ...

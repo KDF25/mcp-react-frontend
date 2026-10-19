@@ -13,7 +13,7 @@
 	"steps": {
 		"to_frontend": {
 			"title": "Маппинг в Frontend (Domain Model)",
-			"description": "Преобразование сырых данных бэкенда (snake_case, строки вместо дат) в camelCase и типизированные объекты для UI. <one>mapToFrontend</one> — самый важный этап."
+			"description": "Преобразование сырых данных бэкенда (snake_case, строки вместо дат) в camelCase и типизированные объекты для UI. Имена операций: <one>mapEntityToFrontend</one> / <two>mapEntitiesToFrontend</two> — литерал mapToFrontend запрещён."
 		},
 		"to_backend": {
 			"title": "Маппинг в Backend (DTO)",
@@ -41,7 +41,7 @@
 		},
 		"types": {
 			"label": "Типы и Интерфейсы:",
-			"text": "Располагаются в папке <one>types</one>. Обязательно разделение на <two>*.backend.interface.ts</two> (сырые DTO) и <three>*.interface.ts</three> (модели для UI). Все типы экспортируются через <four>index.ts</four>."
+			"text": "Располагаются в папке <one>types</one>. Обязательно разделение на <two>*-backend.interface.ts</two> (сырые DTO как <three>T*Backend</three>) и <four>*.interface.ts</four> (модели UI как <one>I*</one>). Все типы экспортируются через index.ts."
 		}
 	}
 }

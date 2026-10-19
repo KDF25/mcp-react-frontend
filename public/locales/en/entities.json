@@ -17,7 +17,7 @@
 		"api": {
 			"label": "API definitions (RTK Query)",
 			"title": "/api",
-			"description": "Responsible exclusively for network interaction with the backend application within a single entity. It takes arguments for the request and returns raw <one>DTOs</one>, which must then be passed to converters.",
+			"description": "RTK Query endpoints for the entity. Converters run inside the API layer: <one>transformResponse</one> maps backend <two>T*Backend</two> to frontend models, and <one>query</one> maps params/body via map*ToBackend. Hooks already return domain models — UI must not re-map DTOs.",
 			"link": "Learn RTK Query architecture"
 		},
 		"converters": {

@@ -56,7 +56,7 @@ export const ENTITY_STRUCTURE_ITEMS: Record<string, Item> = {
 	},
 	t_index: { name: "index.ts" },
 	t_interface: { name: "invoice.interface.ts" },
-	t_backend: { name: "invoice.backend.interface.ts" },
+	t_backend: { name: "invoice-backend.interface.ts" },
 	index: { name: "index.ts" }
 };
 

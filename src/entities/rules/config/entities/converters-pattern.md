@@ -25,7 +25,7 @@
 |---|---|
 | `import { … } from "../converters"` / `@/entities/x/converters` | Mapping уже выполнен в RTK Query |
 | `import { mapOrdersToFrontend } from "@/entities/order"` | Даже через barrel — утечка API-границы |
-| Типы `I*Backend` / `T*Backend` в props/state компонента | UI работает с domain `I*` |
+| Типы `T*Backend` в props/state компонента | UI работает с domain `I*` |
 | Повторный `map*` в feature/widget «на всякий случай» | Дублирование и рассинхрон с service |
 
 **Разрешено:** `entities/*/api/**`, сам сегмент `converters/**`, тесты.
@@ -56,8 +56,8 @@ src/entities/[entity-name]/
 │   ├── [entity-name].converters.ts
 │   └── index.ts
 ├── types/
-│   ├── [entity-name].backend.interface.ts
-│   ├── [entity-name].interface.ts
+│   ├── [entity-name]-backend.interface.ts   # T*Backend aliases only
+│   ├── [entity-name].interface.ts           # I* domain models
 │   └── index.ts
 src/shared/types/
 └── pagination.types.ts
@@ -75,7 +75,7 @@ getEntities: builder.query<IPaginationResponse<IEntity>, IPaginationRequest>({
         url: "/entity/list",
         params: mapEntitiesQueryToBackend(filters)
     }),
-    transformResponse: (response: IEntitiesBackend) =>
+    transformResponse: (response: TEntitiesBackend) =>
         mapEntitiesToFrontend(response)
 })
 ```

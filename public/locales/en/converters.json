@@ -13,7 +13,7 @@
 	"steps": {
 		"to_frontend": {
 			"title": "Mapping to Frontend (Domain Model)",
-			"description": "Transforming raw backend data (snake_case, strings instead of dates) into camelCase and typed objects for the UI. <one>mapToFrontend</one> is the most critical stage."
+			"description": "Transforming raw backend data (snake_case, strings instead of dates) into camelCase and typed objects for the UI. Use operation-specific names like <one>mapEntityToFrontend</one> / <two>mapEntitiesToFrontend</two> — never a literal mapToFrontend."
 		},
 		"to_backend": {
 			"title": "Mapping to Backend (DTO)",
@@ -41,7 +41,7 @@
 		},
 		"types": {
 			"label": "Types and Interfaces:",
-			"text": "Located in the <one>types</one> folder. Must be divided into <two>*.backend.interface.ts</two> (raw DTOs) and <three>*.interface.ts</three> (UI models). All types are exported via <four>index.ts</four>."
+			"text": "Located in the <one>types</one> folder. Must be divided into <two>*-backend.interface.ts</two> (raw DTOs as <three>T*Backend</three>) and <four>*.interface.ts</four> (UI models as <one>I*</one>). All types are exported via index.ts."
 		}
 	}
 }

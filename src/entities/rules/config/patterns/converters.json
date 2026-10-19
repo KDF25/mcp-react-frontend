@@ -6,7 +6,7 @@
   ],
   "locationRequiredFiles": {
     "converters": "src/entities/[entity-name]/converters/[entity-name].converters.ts",
-    "types": "src/entities/[entity-name]/types/[entity-name].backend.interface.ts",
+    "types": "src/entities/[entity-name]/types/[entity-name]-backend.interface.ts",
     "pagination": "src/shared/types/pagination.types.ts"
   },
   "methodNamingPattern": "^map.+To(Frontend|Backend)$",

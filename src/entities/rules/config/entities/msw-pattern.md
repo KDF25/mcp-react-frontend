@@ -50,9 +50,9 @@ export const createMockHandler = <TBody>(
 ## Seed (backend DTO)
 
 ```typescript
-import type { IEntityBackend } from "../types";
+import type { TEntityBackend } from "../types";
 
-export const ENTITY_MOCK: IEntityBackend[] = [
+export const ENTITY_MOCK: TEntityBackend[] = [
   { id: "1", full_name: "John Doe", created_at: "…", status_code: "active" }
 ];
 ```

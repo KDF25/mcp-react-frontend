@@ -1,7 +1,7 @@
-export const MSW_CODE_MOCKS = `import type { IEntityBackend } from "../types";
+export const MSW_CODE_MOCKS = `import type { TEntityBackend } from "../types";
 
 /** Seed in backend DTO shape — never frontend models */
-export const ENTITY_MOCK: IEntityBackend[] = [
+export const ENTITY_MOCK: TEntityBackend[] = [
 	{
 		id: "1",
 		full_name: "John Doe",
@@ -16,7 +16,7 @@ export const ENTITY_MOCK: IEntityBackend[] = [
 	}
 ];`;
 
-export const MSW_CODE_STORE = `import type { IEntityBackend, IEntitiesBackend } from "../types";
+export const MSW_CODE_STORE = `import type { TEntityBackend, TEntitiesBackend } from "../types";
 import { ENTITY_MOCK } from "./entity.mock";
 
 const createStore = () =>
@@ -29,7 +29,7 @@ export const resetEntityStore = () => {
 	store = createStore();
 };
 
-export const listEntitiesBackend = (): IEntitiesBackend => ({
+export const listEntitiesBackend = (): TEntitiesBackend => ({
 	items: [...store.values()],
 	total_count: store.size
 });`;

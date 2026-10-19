@@ -52,7 +52,7 @@ export const ENTITIES_TREE_ITEMS: Record<string, ITreeItemData> = {
 		children: ["typesFrontend", "typesBackend", "typesIndex"]
 	},
 	typesFrontend: { name: "[entity-name].types.ts" },
-	typesBackend: { name: "[entity-name].backend.interface.ts" },
+	typesBackend: { name: "[entity-name]-backend.interface.ts" },
 	typesIndex: { name: "index.ts" },
 
 	ui: { name: "ui/", children: ["uiCard", "uiIndex"] },

@@ -17,7 +17,7 @@ export const CONVERTERS_TREE_ITEMS: Record<string, ITreeItemData> = {
 		name: "types/",
 		children: ["types-backend", "types-frontend", "types-index"]
 	},
-	"types-backend": { name: "[entity-name].backend.interface.ts" },
+	"types-backend": { name: "[entity-name]-backend.interface.ts" },
 	"types-frontend": { name: "[entity-name].interface.ts" },
 	"types-index": { name: "index.ts" },
 	"index-entity": { name: "index.ts" }

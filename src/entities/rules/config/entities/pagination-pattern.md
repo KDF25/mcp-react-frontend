@@ -32,14 +32,14 @@ export interface IPaginationResponse<T> {
 ```typescript
 export const mapEntitiesQueryToBackend = (
   query: IPaginationRequest
-): IEntitiesQueryBackend => ({
+): TEntitiesQueryBackend => ({
   page: query.page,
   elements_on_page: query.limit, // имя поля — ответственность API
   search: query.search
 });
 
 export const mapEntitiesToFrontend = (
-  response: IEntitiesBackend
+  response: TEntitiesBackend
 ): IPaginationResponse<IEntity> => ({
   data: response.items.map(mapEntityToFrontend),
   total: response.total_count

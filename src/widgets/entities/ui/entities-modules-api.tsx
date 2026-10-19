@@ -22,6 +22,11 @@ export async function EntitiesModulesApi() {
 						<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
 							{chunks}
 						</code>
+					),
+					two: (chunks) => (
+						<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+							{chunks}
+						</code>
 					)
 				})}
 			</p>

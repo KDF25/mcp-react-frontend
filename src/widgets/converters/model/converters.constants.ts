@@ -96,10 +96,10 @@ export default [
 
 export const CONVERTERS_CODE_TO_FRONTEND = `import { formatDate } from "@/shared/lib/utils";
 import type { IPaginationResponse } from "@/shared/types";
-import { type IEntityBackend, type IEntity, type IEntitiesBackend } from "../types";
+import type { TEntityBackend, IEntity, TEntitiesBackend } from "../types";
 
 export const mapEntityToFrontend = (
-	data: IEntityBackend
+	data: TEntityBackend
 ): IEntity => ({
 	id: data.id,
 	fullName: data.full_name,
@@ -109,20 +109,17 @@ export const mapEntityToFrontend = (
 
 /** Backend list envelope → unified { data, total } */
 export const mapEntitiesToFrontend = (
-	response: IEntitiesBackend
+	response: TEntitiesBackend
 ): IPaginationResponse<IEntity> => ({
 	data: response.items.map(mapEntityToFrontend),
 	total: response.total_count
 });`;
 
-export const CONVERTERS_CODE_TO_BACKEND = `import { 
-    type IEntityBackend, 
-    type IEntity 
-} from "../types";
+export const CONVERTERS_CODE_TO_BACKEND = `import type { TEntityBackend, IEntity } from "../types";
 
 export const mapEntityToBackend = (
 	data: Partial<IEntity>
-): Partial<IEntityBackend> => ({
+): Partial<TEntityBackend> => ({
 	id: data.id,
 	full_name: data.fullName,
 	created_at: data.dateCreated,
@@ -130,12 +127,12 @@ export const mapEntityToBackend = (
 });`;
 
 export const CONVERTERS_CODE_FILTERS = `import type { IPaginationRequest } from "@/shared/types";
-import type { IEntitiesQueryBackend } from "../types";
+import type { TEntitiesQueryBackend } from "../types";
 
 /** IPaginationRequest → API-specific query fields (names stay here) */
 export const mapEntitiesQueryToBackend = (
 	filters: IPaginationRequest
-): IEntitiesQueryBackend => ({
+): TEntitiesQueryBackend => ({
 	page: filters.page,
 	elements_on_page: filters.limit,
 	search: filters.search || undefined,
@@ -144,12 +141,12 @@ export const mapEntitiesQueryToBackend = (
 
 export const CONVERTERS_CODE_RTK_QUERY = `import { authApi } from "@/entities/auth/api/auth.api";
 import type { IPaginationRequest, IPaginationResponse } from "@/shared/types";
-import { 
-    mapEntitiesQueryToBackend, 
-    mapEntitiesToFrontend,
-    mapEntityToBackend
+import {
+	mapEntitiesQueryToBackend,
+	mapEntitiesToFrontend,
+	mapEntityToBackend
 } from "../converters";
-import type { IEntitiesBackend, IEntity } from "../types";
+import type { TEntitiesBackend, IEntity } from "../types";
 
 /** Only place converters are imported — never in pages/widgets/features/ui */
 export const entityApi = authApi.injectEndpoints({
@@ -162,10 +159,10 @@ export const entityApi = authApi.injectEndpoints({
 				url: "/entity/list",
 				params: mapEntitiesQueryToBackend(filters)
 			}),
-			transformResponse: (response: IEntitiesBackend) => 
-                mapEntitiesToFrontend(response)
+			transformResponse: (response: TEntitiesBackend) =>
+				mapEntitiesToFrontend(response)
 		}),
-        updateEntity: builder.mutation<void, IEntity>({
+		updateEntity: builder.mutation<void, IEntity>({
 			query: (body) => ({
 				url: "/entity/update",
 				method: "POST",
