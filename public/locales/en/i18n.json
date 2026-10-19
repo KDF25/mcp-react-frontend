@@ -39,17 +39,17 @@
 			"title": "UI Usage (pick your stack)",
 			"description": "Same typed namespaces — different UI APIs and JSON roots. <one>Vite SPA</one> → <two>react-i18next</two> + <one>public/locales</one>. <three>Next.js App Router</three> → <four>next-intl</four> + <one>messages</one>.",
 			"vite_title": "Vite — react-i18next",
-			"vite_hint": "Use in <one>blogix-admin</one>, tourfirm (Vite): useTranslation + Trans. JSON: public/locales/[lng]/.",
+			"vite_hint": "Vite SPA: <one>useTranslation</one> + Trans. JSON: public/locales/[lng]/.",
 			"next_title": "Next.js — next-intl",
-			"next_hint": "Use in <one>blogix</one>, tourfirm-dmc / feature-new (Next): useTranslations + t.rich. JSON: messages/[lng]/ (not public/locales)."
+			"next_hint": "Next.js App Router: <one>useTranslations</one> + t.rich. JSON: messages/[lng]/ (not public/locales)."
 		},
 		"switching": {
 			"title": "Language Switching",
 			"description": "Vite: <one>changeLanguage</one> + localStorage. Next.js: locale routing / next-intl navigation (not i18next.changeLanguage)."
 		}
 	},
-	"tree_vite_title": "Vite — public/locales + react-i18next (blogix-admin / tourfirm)",
-	"tree_next_title": "Next.js — messages/ + next-intl (blogix / tourfirm-dmc)",
+	"tree_vite_title": "Vite — public/locales + react-i18next",
+	"tree_next_title": "Next.js — messages/ + next-intl",
 	"tree_title": "i18n File Structure",
 	"naming": {
 		"title": "Naming and Location Conventions",

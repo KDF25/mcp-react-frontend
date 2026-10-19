@@ -54,7 +54,7 @@ export async function I18nStepUsage() {
 					<CodeBlock
 						code={I18N_CODE_USAGE_VITE}
 						language="typescript"
-						filename="Vite — react-i18next + public/locales (blogix-admin / tourfirm)"
+						filename="Vite — react-i18next + public/locales"
 					/>
 				</div>
 
@@ -74,7 +74,7 @@ export async function I18nStepUsage() {
 					<CodeBlock
 						code={I18N_CODE_USAGE_NEXT}
 						language="typescript"
-						filename="Next.js — next-intl + messages/ (blogix / tourfirm-dmc)"
+						filename="Next.js — next-intl + messages/"
 					/>
 				</div>
 			</div>

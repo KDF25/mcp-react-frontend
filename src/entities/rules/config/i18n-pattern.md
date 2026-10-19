@@ -17,10 +17,10 @@
 
 ### Где лежат JSON-переводы
 
-| Стек | Корень файлов | Пример |
-|---|---|---|
-| **Vite** (`react-i18next`) | `public/locales/[lng]/` | blogix-admin, tourfirm |
-| **Next.js** (`next-intl`) | `messages/[lng]/` | blogix, tourfirm-dmc |
+| Стек | Корень файлов |
+|---|---|
+| **Vite** (`react-i18next`) | `public/locales/[lng]/` |
+| **Next.js** (`next-intl`) | `messages/[lng]/` |
 
 На Next **не** используйте `public/locales` для next-intl — эталон и runtime грузятся из `messages/`.
 
@@ -74,7 +74,7 @@ export type TNS = (typeof NS)[number];
 export type TCommonKeys = TNestedKeyOf<TCommon>;
 ```
 
-**Next.js** — путь к `messages` (как в blogix):
+**Next.js** — путь к `messages`:
 
 ```typescript
 import type common from "../../../../messages/en/common.json";
@@ -163,10 +163,10 @@ export const RU_TRANSLATION_CHECKER = {
 
 Одинаковые typed namespaces (`TResources` / `NS`), разный UI API.
 
-| Стек | Когда | Библиотека | JSON root | Хуки / rich text | Примеры |
-|---|---|---|---|---|---|
-| **Vite SPA** | Vite + React | `react-i18next` | `public/locales/[lng]` | `useTranslation`, `Trans` | blogix-admin, tourfirm |
-| **Next.js** | App Router + `[locale]` | `next-intl` | `messages/[lng]` | `useTranslations`, `t.rich` | blogix, tourfirm-dmc / feature-new |
+| Стек | Когда | Библиотека | JSON root | Хуки / rich text |
+|---|---|---|---|---|
+| **Vite SPA** | Vite + React | `react-i18next` | `public/locales/[lng]` | `useTranslation`, `Trans` |
+| **Next.js** | App Router + `[locale]` | `next-intl` | `messages/[lng]` | `useTranslations`, `t.rich` |
 
 #### Vite — react-i18next
 

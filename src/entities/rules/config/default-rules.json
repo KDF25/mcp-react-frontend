@@ -429,16 +429,14 @@
           "hook": "useTranslation",
           "richText": "Trans",
           "messagesDir": "public/locales/[lng]",
-          "initFile": "i18n.init.ts",
-          "examples": ["blogix-admin", "tourfirm"]
+          "initFile": "i18n.init.ts"
         },
         "next": {
           "library": "next-intl",
           "hook": "useTranslations",
           "richText": "t.rich",
           "messagesDir": "messages/[lng]",
-          "initFile": "shared/i18n/request.ts (getRequestConfig)",
-          "examples": ["blogix", "tourfirm-dmc", "tourfirm-dmc-feature-new"]
+          "initFile": "shared/i18n/request.ts (getRequestConfig)"
         }
       },
       "jsonImportStyle": "import type",

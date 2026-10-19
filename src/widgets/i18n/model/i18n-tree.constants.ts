@@ -1,6 +1,6 @@
 import { ITreeItemData } from "@/shared/ui";
 
-/** Vite SPA — public/locales + react-i18next (blogix-admin, tourfirm) */
+/** Vite SPA — public/locales + react-i18next */
 export const I18N_TREE_ITEMS_VITE: Record<string, ITreeItemData> = {
 	root: {
 		name: "project/",
@@ -47,7 +47,7 @@ export const I18N_TREE_ITEMS_VITE: Record<string, ITreeItemData> = {
 	"order-ru": { name: "order.json" }
 };
 
-/** Next.js App Router — messages/ + next-intl (blogix, tourfirm-dmc) */
+/** Next.js App Router — messages/ + next-intl */
 export const I18N_TREE_ITEMS_NEXT: Record<string, ITreeItemData> = {
 	root: {
 		name: "project/",

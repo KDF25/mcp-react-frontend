@@ -13,7 +13,7 @@ export type TNestedKeyOf<ObjectType extends object> = {
         : Key;
 }[keyof ObjectType & string];`;
 
-/** Vite — public/locales (blogix-admin / tourfirm) */
+/** Vite — public/locales */
 export const I18N_CODE_CONFIG_HUB = `import type common from "../../../../public/locales/en/common.json";
 import type header from "../../../../public/locales/en/header.json";
 
@@ -27,7 +27,7 @@ export type TResources = {
 
 export const NS = ["common", "header"] as const;`;
 
-/** Next.js — messages/ (blogix / tourfirm-dmc) */
+/** Next.js — messages/ */
 export const I18N_CODE_CONFIG_HUB_NEXT = `import type common from "../../../../messages/en/common.json";
 import type header from "../../../../messages/en/header.json";
 
@@ -72,7 +72,7 @@ export const RU_TRANSLATION_CHECKER = {
     common: {} as typeof common_ru,
 } satisfies TResources;`;
 
-/** Vite SPA — blogix-admin, tourfirm (react-i18next) */
+/** Vite SPA — react-i18next */
 export const I18N_CODE_USAGE_VITE = `import { useTranslation, Trans } from "react-i18next";
 
 export const MyComponent = () => {
@@ -90,7 +90,7 @@ export const MyComponent = () => {
 	);
 };`;
 
-/** Next.js App Router — blogix, tourfirm-dmc (next-intl) */
+/** Next.js App Router — next-intl */
 export const I18N_CODE_USAGE_NEXT = `"use client";
 
 import { useTranslations } from "next-intl";
