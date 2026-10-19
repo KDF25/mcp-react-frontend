@@ -7,13 +7,22 @@
 `src/shared/config/i18n/`
 
 - `index.ts`
-- `i18n.init.ts`
+- `i18n.init.ts` *(Vite)*
 - `i18n.config.ts`
-- `i18n.blocks.ts`
+- `i18n.blocks.ts` *(Vite)*
 - `i18n.types.ts`
 - `i18n-key.ts`
-- `change-language.ts`
+- `change-language.ts` *(Vite)*
 - `i18n.checker.ts`
+
+### Где лежат JSON-переводы
+
+| Стек | Корень файлов | Пример |
+|---|---|---|
+| **Vite** (`react-i18next`) | `public/locales/[lng]/` | blogix-admin, tourfirm |
+| **Next.js** (`next-intl`) | `messages/[lng]/` | blogix, tourfirm-dmc |
+
+На Next **не** используйте `public/locales` для next-intl — эталон и runtime грузятся из `messages/`.
 
 ## Содержимое файлов
 
@@ -46,7 +55,9 @@ export type TNestedKeyOf<ObjectType extends object> = {
 
 ### 3. i18n.config.ts
 
-Здесь импортируются английские JSON (как эталон) и формируются типы.
+Импортируются английские JSON (как эталон) через `import type` и формируются типы.
+
+**Vite** — путь к `public/locales`:
 
 ```typescript
 import type common from "../../../../public/locales/en/common.json";
@@ -55,12 +66,27 @@ import type { TNestedKeyOf } from "./i18n.types";
 export type TCommon = typeof common;
 export type TResources = {
 	common: TCommon;
-    // ... другие неймспейсы
+	// ...
 };
 
 export const NS = ["common"] as const;
 export type TNS = (typeof NS)[number];
 export type TCommonKeys = TNestedKeyOf<TCommon>;
+```
+
+**Next.js** — путь к `messages` (как в blogix):
+
+```typescript
+import type common from "../../../../messages/en/common.json";
+import type { TNestedKeyOf } from "./i18n.types";
+
+export type TCommon = typeof common;
+export type TResources = {
+	common: TCommon;
+	// ...
+};
+
+export const NS = ["common"] as const;
 ```
 
 ### 4. i18n.blocks.ts
@@ -123,46 +149,77 @@ export default i18n;
 Статическая проверка: если в RU JSON не хватает ключа, который есть в EN — будет ошибка TS.
 
 ```typescript
-import type common from "../../../../public/locales/ru/common.json";
+// Vite:  ../../../../public/locales/ru/common.json
+// Next:  ../../../../messages/ru/common.json
+import type common from "../../../../messages/ru/common.json";
 import type { TResources } from "./i18n.config";
 
 export const RU_TRANSLATION_CHECKER = {
-    common: {} as typeof common
+	common: {} as typeof common
 } satisfies TResources;
 ```
 
-### 7. Использование в UI (useTranslation)
+### 7. Использование в UI — два стека
 
-Применяем типизированные хуки и компоненты для отображения переводов.
+Одинаковые typed namespaces (`TResources` / `NS`), разный UI API.
+
+| Стек | Когда | Библиотека | JSON root | Хуки / rich text | Примеры |
+|---|---|---|---|---|---|
+| **Vite SPA** | Vite + React | `react-i18next` | `public/locales/[lng]` | `useTranslation`, `Trans` | blogix-admin, tourfirm |
+| **Next.js** | App Router + `[locale]` | `next-intl` | `messages/[lng]` | `useTranslations`, `t.rich` | blogix, tourfirm-dmc / feature-new |
+
+#### Vite — react-i18next
 
 ```tsx
 import { useTranslation, Trans } from "react-i18next";
 
 export const MyComponent = () => {
-    const { t } = useTranslation("common");
-  
-    return (
-        <div>
-            <h1>{t("header.title")}</h1>
-            <Trans
-                ns="common"
-                i18nKey="description.text"
-                components={[<strong key="0" />, <br key="1" />]}
-            />
-        </div>
-    );
+	const { t } = useTranslation("common");
+
+	return (
+		<div>
+			<h1>{t("header.title")}</h1>
+			<Trans
+				ns="common"
+				i18nKey="description.text"
+				components={[<strong key="0" />, <br key="1" />]}
+			/>
+		</div>
+	);
 };
 ```
 
-### 8. change-language.ts
+#### Next.js — next-intl
 
-Утилита для смены языка в рантайме с сохранением выбора пользователя.
+```tsx
+"use client";
+
+import { useTranslations } from "next-intl";
+
+export const MyComponent = () => {
+	const t = useTranslations("common");
+
+	return (
+		<div>
+			<h1>{t("header.title")}</h1>
+			{t.rich("description.text", {
+				strong: (chunks) => <strong>{chunks}</strong>,
+				br: () => <br />
+			})}
+		</div>
+	);
+};
+```
+
+### 8. change-language.ts (Vite)
+
+Утилита для смены языка в рантайме (i18next). На Next.js используйте locale routing / next-intl navigation — не `i18next.changeLanguage`.
 
 ```typescript
 import i18n from "./i18n.init";
 
 export const changeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
-    localStorage.setItem("i18nextLng", lng);
+	i18n.changeLanguage(lng);
+	localStorage.setItem("i18nextLng", lng);
 };
 ```

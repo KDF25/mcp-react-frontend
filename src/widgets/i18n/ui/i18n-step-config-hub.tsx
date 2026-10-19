@@ -2,7 +2,7 @@ import { getTranslations } from "next-intl/server";
 
 import { CodeBlock, SectionTitle } from "@/shared/ui";
 
-import { I18N_CODE_CONFIG_HUB } from "../model";
+import { I18N_CODE_CONFIG_HUB, I18N_CODE_CONFIG_HUB_NEXT } from "../model";
 
 export async function I18nStepConfigHub() {
 	const t = await getTranslations("i18n");
@@ -23,15 +23,27 @@ export async function I18nStepConfigHub() {
 						<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
 							{chunks}
 						</code>
+					),
+					three: (chunks) => (
+						<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
+							{chunks}
+						</code>
 					)
 				})}
 			</div>
 
-			<CodeBlock
-				code={I18N_CODE_CONFIG_HUB}
-				language="typescript"
-				filename="shared/config/i18n/i18n.config.ts"
-			/>
+			<div className="space-y-4">
+				<CodeBlock
+					code={I18N_CODE_CONFIG_HUB}
+					language="typescript"
+					filename="Vite — public/locales → i18n.config.ts"
+				/>
+				<CodeBlock
+					code={I18N_CODE_CONFIG_HUB_NEXT}
+					language="typescript"
+					filename="Next.js — messages/ → i18n.config.ts"
+				/>
+			</div>
 		</div>
 	);
 }

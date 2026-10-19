@@ -19,7 +19,7 @@ export const ENTITY_STRUCTURE_ITEMS: Record<string, Item> = {
 		name: "api",
 		children: ["api_file"]
 	},
-	api_file: { name: "invoice.api.ts" },
+	api_file: { name: "invoice.service.ts" },
 	converters: {
 		name: "converters",
 		children: ["conv_file"]

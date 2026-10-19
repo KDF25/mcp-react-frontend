@@ -18,7 +18,7 @@ export const ENTITIES_TREE_ITEMS: Record<string, ITreeItemData> = {
 		]
 	},
 	api: { name: "api/", children: ["apiFile", "apiIndex"] },
-	apiFile: { name: "[entity-name].api.ts" },
+	apiFile: { name: "[entity-name].service.ts" },
 	apiIndex: { name: "index.ts" },
 
 	converters: {

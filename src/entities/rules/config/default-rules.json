@@ -423,8 +423,27 @@
         "change-language.ts",
         "i18n.checker.ts"
       ],
+      "runtimes": {
+        "vite": {
+          "library": "react-i18next",
+          "hook": "useTranslation",
+          "richText": "Trans",
+          "messagesDir": "public/locales/[lng]",
+          "initFile": "i18n.init.ts",
+          "examples": ["blogix-admin", "tourfirm"]
+        },
+        "next": {
+          "library": "next-intl",
+          "hook": "useTranslations",
+          "richText": "t.rich",
+          "messagesDir": "messages/[lng]",
+          "initFile": "shared/i18n/request.ts (getRequestConfig)",
+          "examples": ["blogix", "tourfirm-dmc", "tourfirm-dmc-feature-new"]
+        }
+      },
+      "jsonImportStyle": "import type",
       "template": "src/entities/rules/config/i18n-pattern.md",
-      "description": "Строгая система интернализации с типизацией ключей и проверкой соответствия языков. Полные шаблоны файлов доступны в @template."
+      "description": "Строгая i18n с типизацией ключей. Vite → react-i18next + public/locales; Next → next-intl + messages/. JSON эталоны — import type."
     },
     "converters": {
       "location": "src/entities/[entity-name]/converters",

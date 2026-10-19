@@ -44,7 +44,7 @@ export async function EntitiesModulesApi() {
 			<CodeBlock
 				code={API_CODE}
 				language="typescript"
-				filename="api/[entity-name].api.ts"
+				filename="api/[entity-name].service.ts"
 			/>
 		</div>
 	);

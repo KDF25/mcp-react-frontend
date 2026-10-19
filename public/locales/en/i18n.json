@@ -21,7 +21,7 @@
 		},
 		"config_hub": {
 			"title": "Resource Registry",
-			"description": "In <one>i18n.config.ts</one>, we import reference JSON files and create a master type <two>TResources</two>."
+			"description": "In <one>i18n.config.ts</one>, import reference JSON via <two>import type</two> and build <three>TResources</three>. Vite: public/locales; Next: messages/."
 		},
 		"config_blocks": {
 			"title": "Translation Blocks",
@@ -29,21 +29,27 @@
 		},
 		"init_core": {
 			"title": "i18next Initialization",
-			"description": "Binding plugins and configuration into a single library instance in <one>i18n.init.ts</one>."
+			"description": "Binding plugins and configuration into a single library instance in <one>i18n.init.ts</one> (Vite SPA stack)."
 		},
 		"init_checker": {
 			"title": "Consistency Control",
 			"description": "Static check in <one>i18n.checker.ts</one>. Guarantees that all languages have an identical key structure."
 		},
 		"usage": {
-			"title": "UI Usage",
-			"description": "Parameterized <one>useTranslation</one> hook and the <two>Trans</two> component for working with dynamic content."
+			"title": "UI Usage (pick your stack)",
+			"description": "Same typed namespaces — different UI APIs and JSON roots. <one>Vite SPA</one> → <two>react-i18next</two> + <one>public/locales</one>. <three>Next.js App Router</three> → <four>next-intl</four> + <one>messages</one>.",
+			"vite_title": "Vite — react-i18next",
+			"vite_hint": "Use in <one>blogix-admin</one>, tourfirm (Vite): useTranslation + Trans. JSON: public/locales/[lng]/.",
+			"next_title": "Next.js — next-intl",
+			"next_hint": "Use in <one>blogix</one>, tourfirm-dmc / feature-new (Next): useTranslations + t.rich. JSON: messages/[lng]/ (not public/locales)."
 		},
 		"switching": {
 			"title": "Language Switching",
-			"description": "The <one>changeLanguage</one> utility for synchronous library state and <one>localStorage</one> updates."
+			"description": "Vite: <one>changeLanguage</one> + localStorage. Next.js: locale routing / next-intl navigation (not i18next.changeLanguage)."
 		}
 	},
+	"tree_vite_title": "Vite — public/locales + react-i18next (blogix-admin / tourfirm)",
+	"tree_next_title": "Next.js — messages/ + next-intl (blogix / tourfirm-dmc)",
 	"tree_title": "i18n File Structure",
 	"naming": {
 		"title": "Naming and Location Conventions",
@@ -53,7 +59,7 @@
 		},
 		"locales": {
 			"label": "Translation Files:",
-			"text": "Located in <one>public/locales/[lng]</one>/. Use nested folders to group namespaces (e.g., <two>booking/order.json</two>)."
+			"text": "Vite: <one>public/locales/[lng]</one>/. Next.js: <two>messages/[lng]</two>/. Nested folders group namespaces (e.g., <three>booking/order.json</three>)."
 		}
 	}
 }

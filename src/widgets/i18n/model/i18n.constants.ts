@@ -1,47 +1,3 @@
-import { ITreeItemData } from "@/shared/ui";
-
-export const I18N_TREE_ITEMS: Record<string, ITreeItemData> = {
-	root: {
-		name: "src/",
-		children: ["shared-config", "public-locales"]
-	},
-	"shared-config": {
-		name: "shared/config/",
-		children: ["i18n-folder"]
-	},
-	"i18n-folder": {
-		name: "i18n/",
-		children: [
-			"i18n-key",
-			"i18n-types",
-			"i18n-config",
-			"i18n-blocks",
-			"i18n-init",
-			"i18n-checker",
-			"i18n-switching"
-		]
-	},
-	"i18n-key": { name: "i18n-key.ts" },
-	"i18n-types": { name: "i18n.types.ts" },
-	"i18n-config": { name: "i18n.config.ts" },
-	"i18n-blocks": { name: "i18n.blocks.ts" },
-	"i18n-init": { name: "i18n.init.ts" },
-	"i18n-checker": { name: "i18n.checker.ts" },
-	"i18n-switching": { name: "change-language.ts" },
-	"public-locales": {
-		name: "public/locales/",
-		children: ["lang-en", "lang-ru"]
-	},
-	"lang-en": { name: "en/", children: ["common-en", "booking-en"] },
-	"common-en": { name: "common.json" },
-	"booking-en": { name: "booking/", children: ["order-en"] },
-	"order-en": { name: "order.json" },
-	"lang-ru": { name: "ru/", children: ["common-ru", "booking-ru"] },
-	"common-ru": { name: "common.json" },
-	"booking-ru": { name: "booking/", children: ["order-ru"] },
-	"order-ru": { name: "order.json" }
-};
-
 export const I18N_CODE_INFRA_KEY = `export const i18nKey =
     <Keys extends string>() =>
     <K extends Keys>(key: K) =>
@@ -57,6 +13,7 @@ export type TNestedKeyOf<ObjectType extends object> = {
         : Key;
 }[keyof ObjectType & string];`;
 
+/** Vite — public/locales (blogix-admin / tourfirm) */
 export const I18N_CODE_CONFIG_HUB = `import type common from "../../../../public/locales/en/common.json";
 import type header from "../../../../public/locales/en/header.json";
 
@@ -64,8 +21,22 @@ export type TCommon = typeof common;
 export type THeader = typeof header;
 
 export type TResources = {
-    common: TCommon;
-    header: THeader;
+	common: TCommon;
+	header: THeader;
+};
+
+export const NS = ["common", "header"] as const;`;
+
+/** Next.js — messages/ (blogix / tourfirm-dmc) */
+export const I18N_CODE_CONFIG_HUB_NEXT = `import type common from "../../../../messages/en/common.json";
+import type header from "../../../../messages/en/header.json";
+
+export type TCommon = typeof common;
+export type THeader = typeof header;
+
+export type TResources = {
+	common: TCommon;
+	header: THeader;
 };
 
 export const NS = ["common", "header"] as const;`;
@@ -101,29 +72,41 @@ export const RU_TRANSLATION_CHECKER = {
     common: {} as typeof common_ru,
 } satisfies TResources;`;
 
-export const I18N_CODE_USAGE = `import { useTranslations } from "next-intl";
+/** Vite SPA — blogix-admin, tourfirm (react-i18next) */
+export const I18N_CODE_USAGE_VITE = `import { useTranslation, Trans } from "react-i18next";
 
 export const MyComponent = () => {
-    const t = useTranslations("common");
-    
-    return <h1>{t("header.title")}</h1>;
+	const { t } = useTranslation("common");
+
+	return (
+		<div>
+			<h1>{t("header.title")}</h1>
+			<Trans
+				ns="common"
+				i18nKey="description.text"
+				components={[<strong key="0" />, <br key="1" />]}
+			/>
+		</div>
+	);
 };`;
 
-export const I18N_CODE_TRANS = `
+/** Next.js App Router — blogix, tourfirm-dmc (next-intl) */
+export const I18N_CODE_USAGE_NEXT = `"use client";
+
 import { useTranslations } from "next-intl";
 
 export const MyComponent = () => {
-    const t = useTranslations("common");
-    
-    return (
-        <div>
-            <h1>{t("header.title")}</h1>
-            {t.rich("description.text", {
-								0: (chunks) => <strong>{chunks}</strong/>,
-								1: (chunks) => <br>{chunks}</br/>,
-							})}
-        </div>
-    );
+	const t = useTranslations("common");
+
+	return (
+		<div>
+			<h1>{t("header.title")}</h1>
+			{t.rich("description.text", {
+				strong: (chunks) => <strong>{chunks}</strong>,
+				br: () => <br />
+			})}
+		</div>
+	);
 };`;
 
 export const I18N_CODE_SWITCHING = `import i18n from "./i18n.init";
