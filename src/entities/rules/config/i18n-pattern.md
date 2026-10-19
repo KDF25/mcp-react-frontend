@@ -5,6 +5,7 @@
 ## Структура папки
 
 `src/shared/config/i18n/`
+
 - `index.ts`
 - `i18n.init.ts`
 - `i18n.config.ts`
@@ -139,7 +140,7 @@ import { useTranslation, Trans } from "react-i18next";
 
 export const MyComponent = () => {
     const { t } = useTranslation("common");
-    
+  
     return (
         <div>
             <h1>{t("header.title")}</h1>

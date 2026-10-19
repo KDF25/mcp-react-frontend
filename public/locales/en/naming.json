@@ -22,12 +22,20 @@
 			"text": "Interfaces with <one>I</one> prefix, types with <two>T</two> prefix, enums with <three>ENUM_</three> prefix. Components use <four>PascalCase</four>."
 		}
 	},
+	"eslint_filename": {
+		"title": "ESLint: filename-case",
+		"description": "Enforce with <one>eslint-plugin-unicorn</one> (<two>unicorn/filename-case</two>). Semantic suffixes and hooks stay allowed via ignore."
+	},
+	"eslint_types": {
+		"title": "ESLint: naming-convention",
+		"description": "Gate <one>I*</one> / <two>T*</two> / hooks via <three>@typescript-eslint/naming-convention</three>. ENUM_* type aliases are excluded from the T* prefix rule."
+	},
 	"fsd_rules": {
 		"title": "FSD Import Architecture",
 		"description": "Classic layer hierarchy: <one>shared</one> is the lowest, <two>app</two> is the highest. Upward imports or imports between elements of the same layer are strictly prohibited."
 	},
 	"relaxations": {
 		"title": "Technical Relaxations",
-		"description": "Specific exceptions for external libraries (<one>shadcn-ui</one>), type declarations (<two>.d.ts</two>), and system configurations where strict naming might interfere with operation."
+		"description": "ESLint overrides for vendor UI (<one>shadcn-ui</one>), type declarations (<two>.d.ts</two>), and config files where strict naming would fight the toolchain."
 	}
 }

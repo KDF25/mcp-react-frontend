@@ -9,7 +9,7 @@ export async function NamingRelaxations() {
 
 	return (
 		<div className="space-y-4 pt-4 border-t border-border/40">
-			<SectionTitle badge="04" className="text-xl mb-2">
+			<SectionTitle badge="06" className="text-xl mb-2">
 				{t("relaxations.title")}
 			</SectionTitle>
 			<p>
@@ -29,8 +29,8 @@ export async function NamingRelaxations() {
 
 			<CodeBlock
 				code={NAMING_RELAXATIONS}
-				language="typescript"
-				filename="Project Relaxations"
+				language="javascript"
+				filename="eslint.config.js (overrides)"
 			/>
 		</div>
 	);

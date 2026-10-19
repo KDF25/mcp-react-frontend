@@ -80,6 +80,21 @@
         "not-found",
         "template",
         "default"
+      ],
+      "semanticFileSuffixes": [
+        "service",
+        "api",
+        "util",
+        "config",
+        "types",
+        "interface",
+        "store",
+        "hook",
+        "slice",
+        "schema",
+        "converters",
+        "handlers",
+        "mock"
       ]
     },
     "suffixes": {
@@ -98,8 +113,69 @@
     "noEnums": true,
     "eslint": {
       "recommendedPlugins": [
-        "eslint-plugin-boundaries"
+        "eslint-plugin-boundaries",
+        "eslint-plugin-unicorn"
       ],
+      "filenameCase": {
+        "enabled": true,
+        "rule": "File names must be kebab-case. Allow semantic suffixes (*.service.ts, *.converters.ts, …), React hooks useX.ts, and framework entry files (page/layout).",
+        "pluginRule": "unicorn/filename-case",
+        "cases": {
+          "kebabCase": true,
+          "camelCase": false,
+          "pascalCase": false
+        },
+        "ignore": [
+          "^use[A-Z][a-zA-Z]*\\.(ts|tsx)$",
+          "^[a-z0-9-]+\\.(service|api|util|config|types|interface|store|hook|slice|schema|converters|handlers|mock)\\.ts$",
+          "^[a-z0-9-]+\\.(service|store|api|util|config|hook|slice)\\.(types|interface)\\.ts$",
+          "^[a-z0-9-]+-backend\\.interface\\.ts$",
+          "^(page|layout|loading|error|not-found|template|default)\\.tsx?$",
+          "^(globals|metadata)\\.css$",
+          "^\\.[a-z][a-z0-9-]*rc(\\.(js|ts|json))?$",
+          "^i18n\\.(init|blocks|checker)\\.ts$",
+          "^[a-z0-9-]+\\.context\\.ts$"
+        ],
+        "template": "src/entities/rules/config/entities/eslint-filename-case.md"
+      },
+      "namingConvention": {
+        "enabled": true,
+        "rule": "Interfaces I*, type aliases T* (except ENUM_*), exported primitive consts UPPER_CASE, hooks use* camelCase, functions camelCase|PascalCase.",
+        "pluginRule": "@typescript-eslint/naming-convention",
+        "prefixes": {
+          "interface": "I",
+          "type": "T",
+          "enum": "ENUM_"
+        },
+        "overrides": [
+          {
+            "files": [
+              "src/shared/ui/shadcn-ui/**/*.{ts,tsx}",
+              "src/shared/ui/custom/**/*.tsx"
+            ],
+            "disable": [
+              "@typescript-eslint/naming-convention",
+              "@typescript-eslint/no-explicit-any"
+            ]
+          },
+          {
+            "files": ["**/*.d.ts"],
+            "disable": ["@typescript-eslint/naming-convention"]
+          },
+          {
+            "files": [
+              "**/*.config.{ts,js}",
+              "vite.config.ts",
+              "tailwind.config.ts"
+            ],
+            "disable": [
+              "@typescript-eslint/no-require-imports",
+              "no-console"
+            ]
+          }
+        ],
+        "template": "src/entities/rules/config/entities/eslint-naming-convention.md"
+      },
       "convertersIsolation": {
         "enabled": true,
         "rule": "Converters must not be imported outside the owning entity; only entities/<name>/api may import entities/<name>/converters (prefer relative ../converters).",

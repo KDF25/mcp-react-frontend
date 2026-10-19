@@ -7,6 +7,7 @@ import {
 import { RulesProvider } from "@/entities/rules/lib/rules-provider";
 
 import { checkConverterUiBoundary } from "./lib/converter-ui-boundary";
+import { checkFilenameCase } from "./lib/filename-case";
 import { checkOpenApiTypesBoundary } from "./lib/openapi-types-boundary";
 
 const defaultRules = RulesProvider.getRules();
@@ -17,6 +18,17 @@ export class LinterAgent {
 		content: string
 	): Promise<IViolation[]> {
 		const violations: IViolation[] = [];
+
+		for (const hit of checkFilenameCase(fileName)) {
+			violations.push({
+				agent: ENUM_AGENT_TYPE.STYLE_ENFORCER,
+				ruleId: hit.ruleId,
+				severity: ENUM_SEVERITY.MEDIUM,
+				location: fileName,
+				message: hit.message,
+				suggestion: hit.suggestion
+			});
+		}
 
 		for (const hit of checkConverterUiBoundary(fileName, content)) {
 			violations.push({

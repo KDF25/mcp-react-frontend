@@ -9,7 +9,7 @@ export async function NamingTypingConventions() {
 
 	return (
 		<div className="space-y-4 pt-4 border-t border-border/40">
-			<SectionTitle badge="02" className="text-xl mb-2">
+			<SectionTitle badge="03" className="text-xl mb-2">
 				{t("naming_conventions.typing.label")}
 			</SectionTitle>
 			<p>

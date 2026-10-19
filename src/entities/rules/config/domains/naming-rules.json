@@ -20,6 +20,21 @@
       "not-found",
       "template",
       "default"
+    ],
+    "semanticFileSuffixes": [
+      "service",
+      "api",
+      "util",
+      "config",
+      "types",
+      "interface",
+      "store",
+      "hook",
+      "slice",
+      "schema",
+      "converters",
+      "handlers",
+      "mock"
     ]
   },
   "suffixes": {

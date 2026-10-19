@@ -22,12 +22,20 @@
 			"text": "Интерфейсы — префикс <one>I</one>, типы — префикс <two>T</two>, перечисления — префикс <three>ENUM_</three>. Компоненты — <four>PascalCase</four>."
 		}
 	},
+	"eslint_filename": {
+		"title": "ESLint: filename-case",
+		"description": "Закрепляем через <one>eslint-plugin-unicorn</one> (<two>unicorn/filename-case</two>). Семантические суффиксы и хуки остаются в ignore."
+	},
+	"eslint_types": {
+		"title": "ESLint: naming-convention",
+		"description": "Гейт <one>I*</one> / <two>T*</two> / hooks через <three>@typescript-eslint/naming-convention</three>. Alias-типы ENUM_* исключены из правила префикса T*."
+	},
 	"fsd_rules": {
 		"title": "Архитектура импортов FSD",
 		"description": "Классическая иерархия слоев: <one>shared</one> — самый нижний, <two>app</two> — самый верхний. Импорты 'снизу вверх' или между элементами одного слоя (кроме shared) строго запрещены."
 	},
 	"relaxations": {
 		"title": "Технические послабления (Relaxations)",
-		"description": "Специфические исключения для внешних библиотек (<one>shadcn-ui</one>), деклараций типов (<two>.d.ts</two>) и системных конфигураций, где строгий нейминг может мешать работе."
+		"description": "ESLint overrides для vendor UI (<one>shadcn-ui</one>), деклараций типов (<two>.d.ts</two>) и конфигов, где строгий нейминг мешает toolchain."
 	}
 }

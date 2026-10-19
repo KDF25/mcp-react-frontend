@@ -29,7 +29,14 @@ export interface INamingRules {
 	exclusions: {
 		hooks: string;
 		nextjs: string[];
+		semanticFileSuffixes?: string[];
 	};
+	suffixes?: Record<string, string>;
+}
+
+export interface IEslintOverride {
+	files: string[];
+	disable: string[];
 }
 
 export interface ILinterRules {
@@ -39,6 +46,30 @@ export interface ILinterRules {
 	noEnums: boolean;
 	eslint?: {
 		recommendedPlugins?: string[];
+		filenameCase?: {
+			enabled: boolean;
+			rule: string;
+			pluginRule?: string;
+			cases?: {
+				kebabCase: boolean;
+				camelCase: boolean;
+				pascalCase: boolean;
+			};
+			ignore?: string[];
+			template?: string;
+		};
+		namingConvention?: {
+			enabled: boolean;
+			rule: string;
+			pluginRule?: string;
+			prefixes?: {
+				interface: string;
+				type: string;
+				enum: string;
+			};
+			overrides?: IEslintOverride[];
+			template?: string;
+		};
 		convertersIsolation?: {
 			enabled: boolean;
 			rule: string;
