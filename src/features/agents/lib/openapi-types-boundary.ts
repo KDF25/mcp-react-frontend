@@ -1,5 +1,5 @@
 /**
- * Raw OpenAPI / Api.ts schema types may only be imported in:
+ * Raw OpenAPI / backend.types.ts schema types may only be imported in:
  * - src/shared/api/generated (and nested)
  * - src/entities/<entity>/types (adapter T*Backend files)
  *
@@ -12,7 +12,7 @@ const ALLOWED_RAW_API_IMPORT =
 	/(?:^|\/)shared\/api\/generated(?:\/|$)|(?:^|\/)entities\/[^/]+\/types(?:\/|$)/;
 
 const RAW_API_MODULE =
-	/from\s+["'][^"']*shared\/api\/generated\/Api["']|from\s+["'][^"']*\/generated\/Api["']|from\s+["']\.\.\/Api["']|from\s+["']\.\/Api["']/;
+	/from\s+["'](?:[^"']*\/generated|\.\.?)\/backend\.types(?:\.ts)?["']/;
 
 /**
  * Named imports from @/shared/api that look like OpenAPI schema symbols
@@ -22,7 +22,7 @@ const SHARED_API_SCHEMA_IMPORT =
 	/import\s+(?:type\s+)?\{([^}]+)\}\s+from\s+["']@\/shared\/api["']/;
 
 const INFRA_SYMBOL =
-	/^(baseApi|mainApi|authApi|ENUM_[A-Z0-9_]+|[A-Z0-9_]+_PATHS|getApiErrorDetail|downloadBlob|rtkError.*)$/;
+	/^(baseApi|ENUM_[A-Z0-9_]+|[A-Z0-9_]+_PATHS|getApiErrorDetail|downloadBlob|rtkError.*)$/;
 
 const SCHEMA_SYMBOL =
 	/^(?!I|T|ENUM_)[A-Z][A-Za-z0-9]*(Request|Response|Type|Status|View|Params|Body|Query|Schema)?$/;
@@ -74,7 +74,7 @@ export const checkOpenApiTypesBoundary = (
 		hits.push({
 			ruleId: "openapi-raw-types-forbidden-outside-types",
 			message:
-				"Raw OpenAPI types from generated/Api.ts must not be imported outside entities/*/types (and generated itself).",
+				"Raw OpenAPI types from generated/backend.types.ts must not be imported outside entities/*/types (and generated itself).",
 			suggestion:
 				"Create/extend *-backend.interface.ts with export type TFooBackend = FooResponse and import TFooBackend from ../types."
 		});
@@ -86,7 +86,7 @@ export const checkOpenApiTypesBoundary = (
 			message:
 				"OpenAPI schema symbols imported from @/shared/api. Domain code must use T*Backend aliases from entities/*/types.",
 			suggestion:
-				"Move the Api.ts import into entities/<entity>/types/*-backend.interface.ts, export T*Backend (and re-export enums from types if needed)."
+				"Move the backend.types.ts import into entities/<entity>/types/*-backend.interface.ts, export T*Backend (and re-export enums from types if needed)."
 		});
 	}
 

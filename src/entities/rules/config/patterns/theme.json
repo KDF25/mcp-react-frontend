@@ -11,7 +11,7 @@
     "toggle": "src/shared/ui/layout/theme-toggle/ui/theme-toggle.tsx",
     "toggleIndex": "src/shared/ui/layout/theme-toggle/index.ts",
     "context": "src/shared/ui/layout/theme-toggle/model/theme.context.ts",
-    "hook": "src/shared/ui/layout/theme-toggle/model/useTheme.tsx"
+    "hook": "src/shared/ui/layout/theme-toggle/model/use-theme.ts"
   },
   "template": "theme-pattern",
   "description": "Паттерн переключения тем (Light/Dark). Обязательное использование ThemeProvider и useTheme для управления состоянием и синхронизации с DOM."

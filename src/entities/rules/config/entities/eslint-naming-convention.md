@@ -83,6 +83,8 @@ E2E / Playwright — отдельный flat-config block с Node globals, бе�
 
 ## Связь с MCP
 
-- Naming domain: `prefixes.interface/type/enum`
+- Naming domain: `prefixes.interface/type/enum`, `backend.typePattern`
 - Linter agent: `interface-naming`, `type-naming`, `enum-*`
+- Backend-адаптеры (`*-backend.interface.ts`): только `type T*Backend = …` — `backend-type-naming`, `backend-interface-forbidden`; `*Backend` вне адаптера — `backend-type-outside-adapter`
+- Хуки: файл `use-x.ts` (kebab-case, `unicorn/filename-case`), функция `useX` (camelCase, правила выше)
 - Docs: `/naming` → ESLint naming-convention

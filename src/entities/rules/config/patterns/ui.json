@@ -17,6 +17,7 @@
       "map*ToBackend",
       "*Backend"
     ],
-    "rule": "UI receives frontend objects from RTK Query hooks. Converters and backend DTOs stay in entities/*/api."
+    "allowBackendTypesInEntityBarrel": true,
+    "rule": "UI receives frontend objects from RTK Query hooks. Converters and backend DTOs stay in entities/*/api. The entity types barrel may re-export T*Backend, but importing/using *Backend in UI is forbidden even through @/entities/<name>."
   }
 }

@@ -8,15 +8,21 @@
     "tagsConfig": "src/shared/api/backend/tags.config.ts",
     "baseApi": "src/shared/api/backend/base.api.ts",
     "backendIndex": "src/shared/api/backend/index.ts",
-    "authBaseQuery": "src/entities/auth/api/auth-base-query.ts",
-    "authApi": "src/entities/auth/api/auth.api.ts",
-    "authIndex": "src/entities/auth/api/index.ts",
+    "sessionExpiredAction": "src/shared/api/backend/session-expired.action.ts",
     "service": "src/entities/[entity-name]/api/[entity-name].service.ts",
     "serviceIndex": "src/entities/[entity-name]/api/index.ts"
   },
+  "apiRoot": {
+    "name": "baseApi",
+    "location": "src/shared/api/backend/base.api.ts",
+    "import": "@/shared/api/backend",
+    "singleCreateApi": true,
+    "externalServiceException": "src/shared/api/<service>/<service>.api.ts",
+    "rule": "createApi only in shared/api/backend/base.api.ts (auth guard in base query, 401 → sessionExpired from shared). Entities call baseApi.injectEndpoints. A separate createApi is allowed only for an external service with a different baseUrl."
+  },
   "template": "api-pattern",
   "relatedDocs": ["rtk-query-pattern", "entity-pattern"],
-  "description": "Паттерн работы с RTK Query: Code Splitting через injectEndpoints, централизованные теги и семантическое переименование в UI.",
+  "description": "Паттерн работы с RTK Query: единый baseApi в shared (auth guard в base query), Code Splitting через injectEndpoints, централизованные теги и семантическое переименование в UI.",
   "segments": [
     "Base API",
     "Injected Endpoints",

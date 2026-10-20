@@ -4,7 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { ENUM_ROUTES } from "@/shared/config/routes";
 import { Button, CodeBlock, SectionTitle } from "@/shared/ui";
 
-import { SCHEMA_CODE } from "../model";
+import { FORM_TYPES_CODE, SCHEMA_CODE } from "../model";
 
 import { Link } from "@/i18n/routing";
 
@@ -46,7 +46,12 @@ export async function EntitiesModulesSchema() {
 			<CodeBlock
 				code={SCHEMA_CODE}
 				language="typescript"
-				filename="schema/[entity-name].schema.ts"
+				filename="schema/[entity-name]-create.schema.ts"
+			/>
+			<CodeBlock
+				code={FORM_TYPES_CODE}
+				language="typescript"
+				filename="types/[entity-name]-create-form.types.ts"
 			/>
 		</div>
 	);

@@ -26,7 +26,7 @@ src/
 │               ├── model/         # Логика и типы
 │               │   ├── theme.context.ts
 │               │   ├── theme.types.ts
-│               │   └── useTheme.tsx
+│               │   └── use-theme.ts
 │               └── ui/            # Кнопка переключения
 │                   └── theme-toggle.tsx
 ```
@@ -54,7 +54,7 @@ export const ThemeContext = createContext<IThemeContextType | undefined>(undefin
 ```
 
 ### Шаг 2. Реализация хука доступа (Shared Layer)
-`src/shared/ui/layout/theme-toggle/model/useTheme.tsx`
+`src/shared/ui/layout/theme-toggle/model/use-theme.ts`
 
 Хук инкапсулирует проверку на наличие провайдера.
 

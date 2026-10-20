@@ -40,7 +40,7 @@ export const ENTITIES_TREE_ITEMS: Record<string, ITreeItemData> = {
 	mockIndex: { name: "index.ts" },
 
 	schema: { name: "schema/", children: ["schemaFile", "schemaIndex"] },
-	schemaFile: { name: "[entity-name].schema.ts" },
+	schemaFile: { name: "[entity-name]-create.schema.ts" },
 	schemaIndex: { name: "index.ts" },
 
 	slice: { name: "slice/", children: ["sliceFile", "sliceIndex"] },
@@ -49,9 +49,10 @@ export const ENTITIES_TREE_ITEMS: Record<string, ITreeItemData> = {
 
 	types: {
 		name: "types/",
-		children: ["typesFrontend", "typesBackend", "typesIndex"]
+		children: ["typesFrontend", "typesForm", "typesBackend", "typesIndex"]
 	},
-	typesFrontend: { name: "[entity-name].types.ts" },
+	typesFrontend: { name: "[entity-name].interface.ts" },
+	typesForm: { name: "[entity-name]-create-form.types.ts" },
 	typesBackend: { name: "[entity-name]-backend.interface.ts" },
 	typesIndex: { name: "index.ts" },
 

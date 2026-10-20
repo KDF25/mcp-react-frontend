@@ -15,7 +15,7 @@ const SPEC_URL = API_URL.endsWith("/openapi.json")
 	: \`\${API_URL.replace(/\\/$/, "")}/openapi.json\`;
 
 await generateApi({
-	fileName: "Api.ts",
+	fileName: "backend.types.ts",
 	output: OUTPUT_DIR,
 	url: SPEC_URL,
 	generateClient: false,
@@ -54,13 +54,13 @@ export const OPENAPI_CODE_PACKAGE_SCRIPTS = `{
 }`;
 
 export const OPENAPI_CODE_ADAPTER = `// entities/promocode/types/promocode-backend.interface.ts
-// ЕДИНСТВЕННОЕ место импорта schema из Api.ts
+// ЕДИНСТВЕННОЕ место импорта schema из backend.types.ts
 import type {
 	CreatePromocodeRequest,
 	PromocodeDiscountType,
 	PromocodeResponse,
 	ReadPromocodesResponse
-} from "@/shared/api/generated/Api";
+} from "@/shared/api/generated/backend.types";
 import { ADMIN_PROMOCODE_PATHS } from "@/shared/api/generated/paths/admin-promocode.paths";
 
 export type TPromocodeBackend = PromocodeResponse;
@@ -86,7 +86,7 @@ export const mapPromocodeToFrontend = (data: TPromocodeBackend) => ({
 
 export const OPENAPI_CODE_CONVERTER_BAD = `// ❌ FORBIDDEN in converters / api / handlers / UI
 import type { PromocodeResponse } from "@/shared/api";
-import { OrderStatus } from "@/shared/api/generated/Api";
+import { OrderStatus } from "@/shared/api/generated/backend.types";
 `;
 
 export const OPENAPI_CODE_ESLINT = `// eslint.config.js — fragment
@@ -98,12 +98,12 @@ export const OPENAPI_CODE_ESLINT = `// eslint.config.js — fragment
         patterns: [
           {
             group: [
-              "**/shared/api/generated/Api",
-              "**/shared/api/generated/Api.ts",
-              "@/shared/api/generated/Api"
+              "**/shared/api/generated/backend.types",
+              "**/shared/api/generated/backend.types.ts",
+              "@/shared/api/generated/backend.types"
             ],
             message:
-              "Raw Api.ts types only in entities/*/types as T*Backend. Use ../types aliases elsewhere."
+              "Raw backend.types.ts types only in entities/*/types as T*Backend. Use ../types aliases elsewhere."
           }
         ]
       }

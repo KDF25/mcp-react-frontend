@@ -25,7 +25,7 @@ export async function ThemeStepHook() {
 			<CodeBlock
 				code={THEME_CODE_HOOK}
 				language="typescript"
-				filename="shared/ui/layout/theme-toggle/model/useTheme.tsx"
+				filename="shared/ui/layout/theme-toggle/model/use-theme.ts"
 			/>
 		</div>
 	);

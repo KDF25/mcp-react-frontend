@@ -139,7 +139,7 @@ export const mapEntitiesQueryToBackend = (
 	status_code: filters.status
 });`;
 
-export const CONVERTERS_CODE_RTK_QUERY = `import { authApi } from "@/entities/auth/api/auth.api";
+export const CONVERTERS_CODE_RTK_QUERY = `import { baseApi } from "@/shared/api/backend";
 import type { IPaginationRequest, IPaginationResponse } from "@/shared/types";
 import {
 	mapEntitiesQueryToBackend,
@@ -149,7 +149,7 @@ import {
 import type { TEntitiesBackend, IEntity } from "../types";
 
 /** Only place converters are imported — never in pages/widgets/features/ui */
-export const entityApi = authApi.injectEndpoints({
+export const entityApi = baseApi.injectEndpoints({
 	endpoints: (builder) => ({
 		getEntities: builder.query<
 			IPaginationResponse<IEntity>,

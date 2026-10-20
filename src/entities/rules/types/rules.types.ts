@@ -25,12 +25,18 @@ export interface INamingRules {
 		typeSuffix: string;
 		fileSuffix: string;
 		interfaceExtension: string;
+		/** Backend adapters declare only type aliases, never interfaces. */
+		typeKind?: "type";
+		typePattern?: string;
 	};
 	exclusions: {
+		/** Hook identifier (function) pattern, e.g. useX. */
 		hooks: string;
 		nextjs: string[];
 		semanticFileSuffixes?: string[];
 	};
+	/** Hook file name pattern, e.g. use-x.ts. */
+	hookFilePattern?: string;
 	suffixes?: Record<string, string>;
 }
 
@@ -143,6 +149,13 @@ export interface IStructureRules {
 		inferLocation: string;
 		allowMultipleSchemasPerEntity: boolean;
 		forbidInferInSchemaFiles: boolean;
+		/** One pair per operation: [entity]-[op].schema.ts ↔ [entity]-[op]-form.types.ts */
+		schemaPattern?: string;
+		formTypesPattern?: string;
+		/** schema → ../types/<file>-form.types (not the barrel) to avoid cycles */
+		schemaImportsFormTypesByDirectPath?: boolean;
+		/** types → schema only via `import type` */
+		typesImportSchemaTypeOnly?: boolean;
 	};
 	openapi?: {
 		generatedDir: string;

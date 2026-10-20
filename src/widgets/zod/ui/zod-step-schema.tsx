@@ -25,7 +25,7 @@ export async function ZodStepSchema() {
 			<CodeBlock
 				code={ZOD_SCHEMA_CODE}
 				language="typescript"
-				filename="entities/entity-name/schema/entity-name.schema.ts"
+				filename="entities/entity-name/schema/entity-name-create.schema.ts"
 			/>
 		</div>
 	);

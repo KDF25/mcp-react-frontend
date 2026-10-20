@@ -25,7 +25,7 @@ export async function ZodStepTypes() {
 			<CodeBlock
 				code={ZOD_TYPES_CODE}
 				language="typescript"
-				filename="entities/entity-name/types/entity-name.types.ts"
+				filename="entities/entity-name/types/entity-name-create-form.types.ts"
 			/>
 		</div>
 	);

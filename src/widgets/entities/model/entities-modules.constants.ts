@@ -1,4 +1,4 @@
-export const API_CODE = `import { mainApi } from "@/shared/api";
+export const API_CODE = `import { baseApi } from "@/shared/api/backend";
 import type { IPaginationRequest, IPaginationResponse } from "@/shared/types";
 import {
 	mapEntitiesQueryToBackend,
@@ -7,7 +7,7 @@ import {
 import type { TEntitiesBackend, IEntity } from "../types";
 
 /** Converters run here — hooks return frontend models, not raw DTOs */
-export const entityApi = mainApi.injectEndpoints({
+export const entityApi = baseApi.injectEndpoints({
 	endpoints: (builder) => ({
 		getEntities: builder.query<
 			IPaginationResponse<IEntity>,
@@ -51,17 +51,35 @@ export const mapEntityToBackend = (
 `;
 export const SCHEMA_CODE = `import { z } from "zod";
 import { i18nKey } from "@/shared/config";
-import { ENUM_FORM_ENTITY_CREATE } from "../types";
+// прямой путь к form.types — не barrel "../types"
+import { ENUM_FORM_ENTITY_CREATE } from "../types/entity-create-form.types";
 
 const msg = i18nKey<TEntityKeys>();
 const F = ENUM_FORM_ENTITY_CREATE;
 
-/** Runtime only — inferred form types belong in types/ */
+/** Runtime only — inferred form types belong in types/ (одна пара на операцию) */
 export const ENTITY_CREATE_SCHEMA = z.object({
 	[F.CLIENT]: z.string().min(1, { message: msg("errors.client.required") }),
 	[F.STATUS]: z.enum(["PENDING", "CONFIRMED"]),
 	[F.PAX]: z.number().min(1)
 });`;
+
+export const FORM_TYPES_CODE = `import type { FieldValues } from "react-hook-form";
+import { z } from "zod";
+// только import type — в рантайме зависимость schema → form.types односторонняя
+import type { ENTITY_CREATE_SCHEMA } from "../schema";
+
+export const ENUM_FORM_ENTITY_CREATE = {
+	CLIENT: "client",
+	STATUS: "status",
+	PAX: "pax"
+} as const;
+
+export type ENUM_FORM_ENTITY_CREATE_TYPE =
+	(typeof ENUM_FORM_ENTITY_CREATE)[keyof typeof ENUM_FORM_ENTITY_CREATE];
+
+export type TEntityCreateSchema = z.infer<typeof ENTITY_CREATE_SCHEMA> &
+	FieldValues;`;
 
 export const SLICE_CODE = `import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
@@ -95,19 +113,7 @@ export const EntityCard = ({ entity, onSelect }: IEntityCardProps) => (
 	</Card>
 );`;
 
-export const TYPES_CODE = `import type { FieldValues } from "react-hook-form";
-import { z } from "zod";
-import type { ENTITY_CREATE_SCHEMA } from "../schema";
-import type { IPaginationRequest, IPaginationResponse } from "@/shared/types";
-
-export const ENUM_FORM_ENTITY_CREATE = {
-	CLIENT: "client",
-	STATUS: "status",
-	PAX: "pax"
-} as const;
-
-export type TEntityCreateSchema = z.infer<typeof ENTITY_CREATE_SCHEMA> &
-	FieldValues;
+export const TYPES_CODE = `import type { IPaginationRequest, IPaginationResponse } from "@/shared/types";
 
 export interface IEntityDates {
 	from: string;

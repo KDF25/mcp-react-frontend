@@ -15,11 +15,11 @@
 		"title": "Naming Conventions",
 		"schemas": {
 			"label": "Zod Schemas:",
-			"text": "Located in <one>schema</one>/. Prefer operation files like <two>[name]-create.schema.ts</two>. Runtime only — no <three>z.infer</three> exports here."
+			"text": "Located in <one>schema</one>/. Strictly one pair per operation: <two>[name]-create.schema.ts</two> ↔ [name]-create-form.types.ts. Runtime only — no <three>z.infer</three> exports here; ENUM_FORM_* is imported by the direct file path, not the ../types barrel."
 		},
 		"types": {
 			"label": "Types & Interfaces:",
-			"text": "Located in <one>types</one>/. <two>z.infer</two> form types (e.g. <three>TEntityCreateSchema</three>) and <four>ENUM_FORM_...</four> live here, never in schema files."
+			"text": "Located in <one>types</one>/[name]-[op]-form.types.ts. <two>z.infer</two> form types (e.g. <three>TEntityCreateSchema</three>) and <four>ENUM_FORM_...</four> live here, never in schema files. The schema is imported only via import type."
 		}
 	},
 	"steps": {

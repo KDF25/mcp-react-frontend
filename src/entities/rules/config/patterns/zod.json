@@ -6,16 +6,23 @@
   ],
   "locationRequiredFiles": {
     "schema": "src/entities/[entity-name]/schema/[entity-name]-create.schema.ts",
-    "types": "src/entities/[entity-name]/types/[entity-name]-form.types.ts"
+    "types": "src/entities/[entity-name]/types/[entity-name]-create-form.types.ts"
+  },
+  "filePairs": {
+    "schema": "[entity-name]-[op].schema.ts",
+    "formTypes": "[entity-name]-[op]-form.types.ts"
   },
   "rules": {
     "schemaContainsRuntimeOnly": true,
     "inferTypesInTypesFolder": true,
     "formEnumsInTypesFolder": true,
     "allowMultipleSchemasPerEntity": true,
-    "forbidZInferInSchemaFiles": true
+    "forbidZInferInSchemaFiles": true,
+    "onePairPerOperation": true,
+    "schemaImportsFormTypesByDirectPath": true,
+    "typesImportSchemaTypeOnly": true
   },
   "template": "zod-pattern",
   "relatedDocs": ["entity-pattern"],
-  "description": "Паттерн валидации через Zod: schema/ — только runtime-схемы; types/ — ENUM_FORM_* и z.infer. Допускается несколько схем на сущность (create/update/delete)."
+  "description": "Паттерн валидации через Zod: schema/ — только runtime-схемы; types/ — ENUM_FORM_* и z.infer. Строго пара файлов на операцию ([entity]-[op].schema.ts ↔ [entity]-[op]-form.types.ts); schema импортирует ENUM_FORM_* по прямому пути к файлу, types → schema только import type."
 }

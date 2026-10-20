@@ -7,10 +7,25 @@ import {
 import { RulesProvider } from "@/entities/rules/lib/rules-provider";
 
 import { checkConverterUiBoundary } from "./lib/converter-ui-boundary";
+import { extractTypeDeclarations } from "./lib/extract-imports";
 import { checkFilenameCase } from "./lib/filename-case";
 import { checkOpenApiTypesBoundary } from "./lib/openapi-types-boundary";
 
 const defaultRules = RulesProvider.getRules();
+
+/** `*Backend` declared outside the entity adapter (`*-backend.interface.ts`). */
+const backendOutsideAdapter = (
+	fileName: string,
+	name: string,
+	backendFileMarker: string
+): IViolation => ({
+	agent: ENUM_AGENT_TYPE.STYLE_ENFORCER,
+	ruleId: "backend-type-outside-adapter",
+	severity: ENUM_SEVERITY.MEDIUM,
+	location: fileName,
+	message: `Backend type "${name}" is declared outside a "*${backendFileMarker}" adapter. Decouple UI/domain from backend types.`,
+	suggestion: `Move "${name}" to entities/<entity>/types/<entity>${backendFileMarker} as a type alias; use frontend I*/T* types here.`
+});
 
 export class LinterAgent {
 	public async checkNaming(
@@ -60,21 +75,40 @@ export class LinterAgent {
 		};
 		const backend = naming.backend || {
 			typeSuffix: "Backend",
-			fileSuffix: "-backend"
+			fileSuffix: "-backend",
+			interfaceExtension: ".interface.ts"
 		};
+		// Backend-адаптер: только `type T*Backend = …` (алиасы codegen-типов).
+		// Единый источник паттерна — naming.backend.typePattern.
+		const backendTypePattern = new RegExp(
+			backend.typePattern || `^${prefixes.type}.+${backend.typeSuffix}$`
+		);
+		const backendFileMarker = `${backend.fileSuffix}${backend.interfaceExtension ?? ""}`;
+		const isBackendFile = fileName.endsWith(backendFileMarker);
 
-		// Проверка интерфейсов по префиксу
-		const interfaceRegex = /interface\s+([A-Za-z0-9_]+)/g;
+		// Объявления берём из AST — комментарии и строки не дают ложных срабатываний
+		const declarations = extractTypeDeclarations(fileName, content);
 		let match;
-		const isBackendFile = fileName.includes(backend.fileSuffix);
 
-		while ((match = interfaceRegex.exec(content)) !== null) {
-			const name = match[1];
+		for (const name of declarations.interfaces) {
+			// Backend-файл содержит только type-алиасы, не interface
+			// (общая проверка префикса здесь не нужна — одно нарушение, одно срабатывание)
+			if (isBackendFile) {
+				violations.push({
+					agent: ENUM_AGENT_TYPE.STYLE_ENFORCER,
+					ruleId: "backend-interface-forbidden",
+					severity: ENUM_SEVERITY.MEDIUM,
+					location: fileName,
+					message: `Interface "${name}" in a backend adapter file. Backend types must be type aliases matching ${backendTypePattern.source}.`,
+					suggestion: `Replace with: export type ${prefixes.type}Foo${backend.typeSuffix} = FooResponse; (alias of the generated backend.types schema)`
+				});
+				continue;
+			}
+
 			const hasCorrectPrefix = name.startsWith(prefixes.interface);
 			const isPascalAfterPrefix =
 				name.length > prefixes.interface.length &&
 				/^[A-Z]/.test(name.slice(prefixes.interface.length));
-			const hasBackendSuffix = name.endsWith(backend.typeSuffix);
 
 			// Базовая проверка префикса и PascalCase
 			if (!hasCorrectPrefix || !isPascalAfterPrefix) {
@@ -88,32 +122,30 @@ export class LinterAgent {
 				});
 			}
 
-			// Проверка суффикса Backend
-			if (isBackendFile && !hasBackendSuffix) {
-				violations.push({
-					agent: ENUM_AGENT_TYPE.STYLE_ENFORCER,
-					ruleId: "interface-backend-naming",
-					severity: ENUM_SEVERITY.HIGH,
-					location: fileName,
-					message: `Interface "${name}" in a backend file must have "${backend.typeSuffix}" suffix.`,
-					suggestion: `Rename to ${name}${backend.typeSuffix}`
-				});
-			} else if (!isBackendFile && hasBackendSuffix) {
-				violations.push({
-					agent: ENUM_AGENT_TYPE.STYLE_ENFORCER,
-					ruleId: "interface-frontend-naming",
-					severity: ENUM_SEVERITY.MEDIUM,
-					location: fileName,
-					message: `Interface "${name}" should not have "${backend.typeSuffix}" suffix in a regular file. Decouple UI from backend types.`,
-					suggestion: `Rename to ${name.replace(backend.typeSuffix, "")} and move backend type to a "${backend.fileSuffix}" file.`
-				});
+			if (name.endsWith(backend.typeSuffix)) {
+				violations.push(
+					backendOutsideAdapter(fileName, name, backendFileMarker)
+				);
 			}
 		}
 
 		// Проверка типов
-		const typeRegex = /type\s+([A-Za-z0-9_]+)\s*=/g;
-		while ((match = typeRegex.exec(content)) !== null) {
-			const name = match[1];
+		for (const name of declarations.typeAliases) {
+			// В backend-адаптере действует только backend-правило (T*Backend)
+			if (isBackendFile) {
+				if (!backendTypePattern.test(name)) {
+					violations.push({
+						agent: ENUM_AGENT_TYPE.STYLE_ENFORCER,
+						ruleId: "backend-type-naming",
+						severity: ENUM_SEVERITY.HIGH,
+						location: fileName,
+						message: `Type "${name}" in a backend adapter file must match ${backendTypePattern.source}.`,
+						suggestion: `Rename to ${name.startsWith(prefixes.type) ? name : prefixes.type + name}${name.endsWith(backend.typeSuffix) ? "" : backend.typeSuffix}`
+					});
+				}
+				continue;
+			}
+
 			const isRegularTypePrefix = name.startsWith(prefixes.type);
 			const isPascalAfterPrefix =
 				name.length > prefixes.type.length &&
@@ -145,6 +177,12 @@ export class LinterAgent {
 					message: `Type "${name}" does not follow the naming convention (must be ${prefixes.type} + PascalCase for regular types).`,
 					suggestion: `Rename to ${prefixes.type}${name.charAt(0).toUpperCase()}${name.slice(1)}`
 				});
+			}
+
+			if (name.endsWith(backend.typeSuffix)) {
+				violations.push(
+					backendOutsideAdapter(fileName, name, backendFileMarker)
+				);
 			}
 		}
 

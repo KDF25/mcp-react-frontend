@@ -46,7 +46,7 @@ export async function EntitiesModulesTypes() {
 			<CodeBlock
 				code={TYPES_CODE}
 				language="typescript"
-				filename="types/[entity-name].types.ts"
+				filename="types/[entity-name].interface.ts"
 			/>
 		</div>
 	);

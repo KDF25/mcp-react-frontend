@@ -15,7 +15,7 @@
 		"title": "Naming Conventions",
 		"files": {
 			"label": "Files and Case:",
-			"text": "Universally using <one>kebab-case</one>. Exceptions: hooks (<two>use</two> prefix), utility files (<three>entity.type.ts</three> format), and standard Next.js files."
+			"text": "Universally using <one>kebab-case</one>, including hooks (<two>use-auth.ts</two>, the function itself is useAuth). Exceptions: utility files (<three>entity.type.ts</three> format) and standard Next.js files."
 		},
 		"typing": {
 			"label": "Types and Code:",
@@ -24,7 +24,7 @@
 	},
 	"eslint_filename": {
 		"title": "ESLint: filename-case",
-		"description": "Enforce with <one>eslint-plugin-unicorn</one> (<two>unicorn/filename-case</two>). Semantic suffixes and hooks stay allowed via ignore."
+		"description": "Enforce with <one>eslint-plugin-unicorn</one> (<two>unicorn/filename-case</two>). Semantic suffixes stay allowed via ignore; hooks are plain kebab-case (use-x.ts)."
 	},
 	"eslint_types": {
 		"title": "ESLint: naming-convention",

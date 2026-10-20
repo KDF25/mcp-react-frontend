@@ -16,7 +16,6 @@ export const NAMING_CODE_ESLINT_FILENAME = `// eslint.config.js — unicorn/file
       pascalCase: false
     },
     ignore: [
-      /^use[A-Z][a-zA-Z]*\\.(ts|tsx)$/,
       /^[a-z0-9-]+\\.(service|api|util|config|types|interface|store|hook|slice|schema|converters|handlers|mock)\\.ts$/,
       /^[a-z0-9-]+\\.(service|store|api|util|config|hook|slice)\\.(types|interface)\\.ts$/,
       /^[a-z0-9-]+-backend\\.interface\\.ts$/,

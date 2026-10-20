@@ -43,8 +43,11 @@ describe("scaffoldEntity — Zod schema vs types", () => {
 		const updateSchema = files.find((f) =>
 			f.path.endsWith("entity-update.schema.ts")
 		);
-		const formTypes = files.find((f) =>
-			f.path.endsWith("entity-form.types.ts")
+		const createFormTypes = files.find((f) =>
+			f.path.endsWith("entity-create-form.types.ts")
+		);
+		const updateFormTypes = files.find((f) =>
+			f.path.endsWith("entity-update-form.types.ts")
 		);
 
 		expect(createSchema?.content).toContain("ENTITY_CREATE_SCHEMA");
@@ -58,13 +61,57 @@ describe("scaffoldEntity — Zod schema vs types", () => {
 			/export type T\w+\s*=\s*z\.infer/
 		);
 
-		expect(formTypes?.content).toMatch(
+		expect(createFormTypes?.content).toMatch(
 			/z\.infer<\s*typeof ENTITY_CREATE_SCHEMA/
 		);
-		expect(formTypes?.content).toMatch(
+		expect(createFormTypes?.content).toContain("ENUM_FORM_ENTITY_CREATE");
+		expect(createFormTypes?.content).toContain(
+			"ENUM_FORM_ENTITY_CREATE_TYPE"
+		);
+		expect(updateFormTypes?.content).toMatch(
 			/z\.infer<\s*typeof ENTITY_UPDATE_SCHEMA/
 		);
-		expect(formTypes?.content).toContain("ENUM_FORM_ENTITY_CREATE");
+		expect(updateFormTypes?.content).toContain(
+			"ENUM_FORM_ENTITY_UPDATE_TYPE"
+		);
+	});
+
+	it("pairs one schema with one form.types file per operation", () => {
+		const paths = scaffoldEntity(ENTITY, "").files.map((f) => f.path);
+
+		for (const op of ["create", "update"]) {
+			expect(
+				paths.some((p) => p.endsWith(`entity-${op}.schema.ts`))
+			).toBe(true);
+			expect(
+				paths.some((p) => p.endsWith(`entity-${op}-form.types.ts`))
+			).toBe(true);
+		}
+		expect(paths.some((p) => p.endsWith("entity-form.types.ts"))).toBe(
+			false
+		);
+	});
+
+	it("avoids a schema ↔ types runtime cycle", () => {
+		const { files } = scaffoldEntity(ENTITY, "");
+		const byEnd = (end: string) =>
+			files.find((f) => f.path.endsWith(end))?.content ?? "";
+
+		for (const op of ["create", "update"]) {
+			const schema = byEnd(`entity-${op}.schema.ts`);
+			const formTypes = byEnd(`entity-${op}-form.types.ts`);
+
+			expect(schema).toContain(
+				`from "../types/entity-${op}-form.types";`
+			);
+			expect(schema).not.toMatch(/from ["']\.\.\/types["']/);
+			expect(formTypes).toMatch(
+				/import type \{[^}]+\} from "\.\.\/schema"/
+			);
+			expect(formTypes).not.toMatch(
+				/import \{[^}]+\} from "\.\.\/schema"/
+			);
+		}
 	});
 
 	it("docs snippets match the same Zod placement rules", () => {
@@ -72,6 +119,16 @@ describe("scaffoldEntity — Zod schema vs types", () => {
 		expect(ZOD_SCHEMA_CODE).not.toMatch(/export type T\w+\s*=\s*z\.infer/);
 		expect(ZOD_TYPES_CODE).toMatch(/z\.infer/);
 		expect(ZOD_TYPES_CODE).toContain("ENUM_FORM_ENTITY_CREATE");
+
+		for (const snippet of [SCHEMA_CODE, ZOD_SCHEMA_CODE]) {
+			expect(snippet).toMatch(
+				/from "\.\.\/types\/[\w-]+-create-form\.types"/
+			);
+			expect(snippet).not.toMatch(/from ["']\.\.\/types["']/);
+		}
+		expect(ZOD_TYPES_CODE).toMatch(
+			/import type \{[^}]+\} from "\.\.\/schema"/
+		);
 	});
 });
 
@@ -125,7 +182,9 @@ describe("scaffoldEntity — MSW backend contract", () => {
 		expect(mock).toContain("TEntityBackend");
 		expect(mock).toContain("full_name");
 		expect(mock).not.toContain("fullName");
-		expect(mock).not.toMatch(/from ["'][^"']*generated\/Api["']/);
+		expect(mock).not.toMatch(
+			/from ["'][^"']*generated\/backend\.types["']/
+		);
 
 		expect(handlers).toContain("createMockHandler");
 		expect(handlers).toContain("listEntitiesBackend");
@@ -134,7 +193,9 @@ describe("scaffoldEntity — MSW backend contract", () => {
 		expect(handlers).not.toMatch(/data:\s*\[/);
 		expect(handlers).not.toContain("total:");
 		expect(handlers).toContain("mockValidationError");
-		expect(handlers).not.toMatch(/from ["'][^"']*generated\/Api["']/);
+		expect(handlers).not.toMatch(
+			/from ["'][^"']*generated\/backend\.types["']/
+		);
 
 		expect(store).toContain("resetEntityStore");
 		expect(store).toContain("total_count");
@@ -154,12 +215,30 @@ describe("scaffoldEntity — MSW backend contract", () => {
 		)?.content;
 
 		expect(backend).toBeDefined();
-		expect(backend).toContain("@/shared/api/generated/Api");
+		expect(backend).toContain("@/shared/api/generated/backend.types");
 		expect(backend).toContain("export type TEntityBackend");
 		expect(converters).toContain("TEntityBackend");
-		expect(converters).not.toMatch(/from ["'][^"']*generated\/Api["']/);
-		expect(service).not.toMatch(/from ["'][^"']*generated\/Api["']/);
+		expect(converters).not.toMatch(
+			/from ["'][^"']*generated\/backend\.types["']/
+		);
+		expect(service).not.toMatch(
+			/from ["'][^"']*generated\/backend\.types["']/
+		);
 		expect(service).toContain("TEntitiesBackend");
+	});
+
+	it("injects endpoints into the single shared baseApi", () => {
+		const { files } = scaffoldEntity(ENTITY, "");
+		const service = files.find((f) =>
+			f.path.endsWith("entity.service.ts")
+		)?.content;
+
+		expect(service).toContain(
+			'import { baseApi } from "@/shared/api/backend";'
+		);
+		expect(service).toContain("baseApi.injectEndpoints");
+		expect(service).not.toMatch(/\b(mainApi|authApi)\b/);
+		expect(service).not.toContain("createApi");
 	});
 });
 

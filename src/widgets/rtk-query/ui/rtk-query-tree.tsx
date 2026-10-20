@@ -36,8 +36,6 @@ function RtkQueryTreeComponent() {
 				"shared-api",
 				"shared-api-backend",
 				"entities",
-				"auth",
-				"auth-api-folder",
 				"entity-name",
 				"entity-api-folder"
 			]

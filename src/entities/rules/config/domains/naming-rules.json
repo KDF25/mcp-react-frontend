@@ -8,7 +8,9 @@
   "backend": {
     "typeSuffix": "Backend",
     "fileSuffix": "-backend",
-    "interfaceExtension": ".interface.ts"
+    "interfaceExtension": ".interface.ts",
+    "typeKind": "type",
+    "typePattern": "^T.+Backend$"
   },
   "exclusions": {
     "hooks": "^use[A-Z]",
@@ -37,6 +39,7 @@
       "mock"
     ]
   },
+  "hookFilePattern": "^use-[a-z0-9-]+\\.tsx?$",
   "suffixes": {
     "schema": ".schema.ts",
     "converters": ".converters.ts",

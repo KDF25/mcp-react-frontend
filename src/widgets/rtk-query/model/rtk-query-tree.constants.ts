@@ -6,20 +6,13 @@ export const API_TREE_ITEMS: Record<string, ITreeItemData> = {
 	"shared-api": { name: "api/", children: ["shared-api-backend"] },
 	"shared-api-backend": {
 		name: "backend/",
-		children: ["tags", "base-api", "shared-api-index"]
+		children: ["tags", "base-api", "session-expired", "shared-api-index"]
 	},
 	tags: { name: "tags.config.ts" },
 	"base-api": { name: "base.api.ts" },
+	"session-expired": { name: "session-expired.action.ts" },
 	"shared-api-index": { name: "index.ts" },
-	entities: { name: "entities/", children: ["auth", "entity-name"] },
-	auth: { name: "auth/", children: ["auth-api-folder"] },
-	"auth-api-folder": {
-		name: "api/",
-		children: ["auth-query", "auth-api", "auth-api-index"]
-	},
-	"auth-query": { name: "auth-base-query.ts" },
-	"auth-api": { name: "auth.api.ts" },
-	"auth-api-index": { name: "index.ts" },
+	entities: { name: "entities/", children: ["entity-name"] },
 	"entity-name": { name: "[entity-name]/", children: ["entity-api-folder"] },
 	"entity-api-folder": {
 		name: "api/",

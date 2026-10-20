@@ -10,7 +10,7 @@ import {
 } from "./openapi-types-boundary";
 
 describe("openapi types boundary", () => {
-	it("allows Api.ts only under entities/*/types and generated", () => {
+	it("allows backend.types.ts only under entities/*/types and generated", () => {
 		expect(
 			isAllowedRawApiImportPath(
 				"src/entities/order/types/order-backend.interface.ts"
@@ -31,12 +31,38 @@ describe("openapi types boundary", () => {
 		).toBe(false);
 	});
 
-	it("flags direct generated/Api import in converters", () => {
+	it("flags direct generated/backend.types import in converters", () => {
 		const hits = checkOpenApiTypesBoundary(
 			"src/entities/promocode/converters/promocode.converters.ts",
-			`import { PromocodeDiscountType } from "@/shared/api/generated/Api";`
+			`import { PromocodeDiscountType } from "@/shared/api/generated/backend.types";`
 		);
 		expect(hits.map((h) => h.ruleId)).toContain(
+			"openapi-raw-types-forbidden-outside-types"
+		);
+	});
+
+	it("flags relative and .ts-suffixed backend.types imports", () => {
+		for (const specifier of [
+			"../backend.types",
+			"./backend.types",
+			"@/shared/api/generated/backend.types.ts"
+		]) {
+			const hits = checkOpenApiTypesBoundary(
+				"src/entities/order/api/order.service.ts",
+				`import type { OrderResponse } from "${specifier}";`
+			);
+			expect(hits.map((h) => h.ruleId)).toContain(
+				"openapi-raw-types-forbidden-outside-types"
+			);
+		}
+	});
+
+	it("no longer treats legacy generated/Api as the raw types module", () => {
+		const hits = checkOpenApiTypesBoundary(
+			"src/entities/order/api/order.service.ts",
+			`import type { OrderResponse } from "@/shared/api/generated/Api";`
+		);
+		expect(hits.map((h) => h.ruleId)).not.toContain(
 			"openapi-raw-types-forbidden-outside-types"
 		);
 	});
@@ -59,10 +85,10 @@ describe("openapi types boundary", () => {
 		expect(hits).toHaveLength(0);
 	});
 
-	it("allows adapter file to import Api.ts", () => {
+	it("allows adapter file to import backend.types.ts", () => {
 		const hits = checkOpenApiTypesBoundary(
 			"src/entities/promocode/types/promocode-backend.interface.ts",
-			`import type { PromocodeResponse } from "@/shared/api/generated/Api";
+			`import type { PromocodeResponse } from "@/shared/api/generated/backend.types";
 export type TPromocodeBackend = PromocodeResponse;`
 		);
 		expect(hits).toHaveLength(0);
@@ -70,11 +96,11 @@ export type TPromocodeBackend = PromocodeResponse;`
 });
 
 describe("LinterAgent + RulesProvider openapi", () => {
-	it("LinterAgent reports HIGH for Api import in converter", async () => {
+	it("LinterAgent reports HIGH for backend.types import in converter", async () => {
 		const agent = new LinterAgent();
 		const violations = await agent.checkNaming(
 			"src/entities/channel/converters/channel.converters.ts",
-			`import type { ChannelResponse } from "@/shared/api/generated/Api";`
+			`import type { ChannelResponse } from "@/shared/api/generated/backend.types";`
 		);
 		expect(
 			violations.some(
@@ -95,7 +121,9 @@ describe("LinterAgent + RulesProvider openapi", () => {
 		expect(linter.eslint.openapiTypesIsolation.enabled).toBe(true);
 		expect(
 			linter.eslint.openapiTypesIsolation.noRestrictedImports.patterns
-		).toEqual(expect.arrayContaining(["@/shared/api/generated/Api"]));
+		).toEqual(
+			expect.arrayContaining(["@/shared/api/generated/backend.types"])
+		);
 		expect(structure.openapi.adapterTypePattern).toBe("^T.+Backend$");
 	});
 });

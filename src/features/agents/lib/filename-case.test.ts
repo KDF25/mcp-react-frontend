@@ -25,8 +25,19 @@ describe("checkFilenameCase", () => {
 		).toEqual([]);
 	});
 
-	it("allows React hooks", () => {
-		expect(checkFilenameCase("src/shared/hooks/useAuth.ts")).toEqual([]);
+	it("allows React hooks in kebab-case", () => {
+		expect(checkFilenameCase("src/shared/lib/hooks/use-auth.ts")).toEqual(
+			[]
+		);
+		expect(
+			checkFilenameCase("src/entities/user/hooks/use-user-search.tsx")
+		).toEqual([]);
+	});
+
+	it("rejects camelCase hook files", () => {
+		const hits = checkFilenameCase("src/shared/lib/hooks/useAuth.ts");
+		expect(hits).toHaveLength(1);
+		expect(hits[0]?.ruleId).toBe("filename-case");
 	});
 
 	it("allows Next.js entry files", () => {

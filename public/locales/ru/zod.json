@@ -15,11 +15,11 @@
 		"title": "Соглашения о наименовании",
 		"schemas": {
 			"label": "Схемы Zod:",
-			"text": "В <one>schema</one>/. Предпочтительны файлы операций вроде <two>[name]-create.schema.ts</two>. Только runtime — без экспорта <three>z.infer</three>."
+			"text": "В <one>schema</one>/. Строго пара на операцию: <two>[name]-create.schema.ts</two> ↔ [name]-create-form.types.ts. Только runtime — без экспорта <three>z.infer</three>; ENUM_FORM_* импортируется по прямому пути к файлу, не через barrel ../types."
 		},
 		"types": {
 			"label": "Типы и Интерфейсы:",
-			"text": "В <one>types</one>/. Типы форм через <two>z.infer</two> (напр. <three>TEntityCreateSchema</three>) и <four>ENUM_FORM_...</four> живут здесь, не в schema."
+			"text": "В <one>types</one>/[name]-[op]-form.types.ts. Типы форм через <two>z.infer</two> (напр. <three>TEntityCreateSchema</three>) и <four>ENUM_FORM_...</four> живут здесь, не в schema. Схема импортируется только через import type."
 		}
 	},
 	"steps": {

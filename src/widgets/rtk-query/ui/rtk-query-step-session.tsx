@@ -2,24 +2,19 @@ import { getTranslations } from "next-intl/server";
 
 import { CodeBlock, SectionTitle } from "@/shared/ui";
 
-import { API_CODE_AUTH_API } from "../model";
+import { API_CODE_SESSION_EXPIRED } from "../model";
 
-export async function RtkQueryStepAuthApi() {
+export async function RtkQueryStepSession() {
 	const t = await getTranslations("rtk_query");
 
 	return (
 		<div className="space-y-4 pt-4 border-t border-border/40">
-			<SectionTitle badge="04" className="text-xl mb-2">
-				{t("steps.auth_api.title")}
+			<SectionTitle badge="02" className="text-xl mb-2">
+				{t("steps.session.title")}
 			</SectionTitle>
 			<p>
-				{t.rich("steps.auth_api.description", {
+				{t.rich("steps.session.description", {
 					one: (chunks) => (
-						<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
-							{chunks}
-						</code>
-					),
-					two: (chunks) => (
 						<code className="bg-primary/5 px-1 py-0.5 rounded text-primary">
 							{chunks}
 						</code>
@@ -28,9 +23,9 @@ export async function RtkQueryStepAuthApi() {
 			</p>
 
 			<CodeBlock
-				code={API_CODE_AUTH_API}
+				code={API_CODE_SESSION_EXPIRED}
 				language="typescript"
-				filename="entities/auth/api/auth.api.ts"
+				filename="shared/api/backend/session-expired.action.ts"
 			/>
 		</div>
 	);

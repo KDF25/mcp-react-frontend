@@ -11,8 +11,12 @@ export const ZOD_TREE_ITEMS: Record<string, ITreeItemData> = {
 	"schema-create": { name: "[entity-name]-create.schema.ts" },
 	"schema-update": { name: "[entity-name]-update.schema.ts" },
 	"schema-index": { name: "index.ts" },
-	types: { name: "types/", children: ["types-form", "types-index"] },
-	"types-form": { name: "[entity-name]-form.types.ts" },
+	types: {
+		name: "types/",
+		children: ["types-form-create", "types-form-update", "types-index"]
+	},
+	"types-form-create": { name: "[entity-name]-create-form.types.ts" },
+	"types-form-update": { name: "[entity-name]-update-form.types.ts" },
 	"types-index": { name: "index.ts" },
 	widgets: { name: "widgets/", children: ["entity-widget"] },
 	"entity-widget": { name: "[entity-name]/", children: ["ui"] },

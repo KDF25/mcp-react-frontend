@@ -49,14 +49,19 @@ export const scaffoldEntity = (
 			content: frontendTypes(pascal, pluralPascal)
 		},
 		{
-			path: `${base}/types/${entityName}-form.types.ts`,
-			content: formTypes(pascal)
+			path: `${base}/types/${entityName}-create-form.types.ts`,
+			content: formTypes(pascal, "create")
+		},
+		{
+			path: `${base}/types/${entityName}-update-form.types.ts`,
+			content: formTypes(pascal, "update")
 		},
 		{
 			path: `${base}/types/index.ts`,
 			content: `export * from "./${entityName}-backend.interface";
 export * from "./${entityName}.interface";
-export * from "./${entityName}-form.types";
+export * from "./${entityName}-create-form.types";
+export * from "./${entityName}-update-form.types";
 `
 		},
 		{
@@ -126,8 +131,8 @@ export * from "./types";
 
 	const summary = `
 Scaffolding entity "${entityName}" in "${base}":
-1. types/ — domain I*, backend DTO, form ENUM_FORM_* + z.infer (not in schema/)
-2. schema/ — ${entityName}-create.schema.ts + ${entityName}-update.schema.ts (runtime only)
+1. types/ — domain I*, backend T*Backend, ${entityName}-[op]-form.types.ts (ENUM_FORM_* + z.infer, not in schema/)
+2. schema/ — ${entityName}-create.schema.ts + ${entityName}-update.schema.ts (runtime only, one pair per operation; ENUM_FORM_* imported by direct file path)
 3. converters/ — ${methods.listToFrontend}, ${methods.queryToBackend}, ${methods.itemToFrontend}, …
 4. api/ — RTK injectEndpoints with transformResponse via converters
 5. mock/ — backend DTO seed + optional mutable store with reset for tests
@@ -143,17 +148,17 @@ Architecture check: SUCCESS.
 };
 
 const backendTypes = (pascal: string, pluralPascal: string) => `/**
- * STRICT: Raw OpenAPI / Api.ts schema types are imported ONLY in this types segment.
- * Converters and api must use these T*Backend aliases — never import from generated/Api directly.
+ * STRICT: Raw OpenAPI / backend.types.ts schema types are imported ONLY in this types segment.
+ * Converters and api must use these T*Backend aliases — never import from generated/backend.types directly.
  */
 import type {
 	${pascal}Response,
 	${pascal}ListResponse,
 	Create${pascal}Request
-} from "@/shared/api/generated/Api";
+} from "@/shared/api/generated/backend.types";
 import {
 	${pascal}DiscountType
-} from "@/shared/api/generated/Api";
+} from "@/shared/api/generated/backend.types";
 import { ${pascal.toUpperCase()}_PATHS } from "@/shared/api/generated/paths/${pascal.toLowerCase()}.paths";
 
 export type T${pascal}Backend = ${pascal}Response;
@@ -162,7 +167,7 @@ export type TCreate${pascal}RequestBackend = Create${pascal}Request;
 export type T${pluralPascal}QueryBackend =
 	typeof ${pascal.toUpperCase()}_PATHS.list${pluralPascal}._types.body;
 
-/** Runtime enum: re-export from types so converters never touch Api.ts */
+/** Runtime enum: re-export from types so converters never touch backend.types.ts */
 export { ${pascal}DiscountType };
 export type T${pascal}DiscountTypeBackend = typeof ${pascal}DiscountType[keyof typeof ${pascal}DiscountType];
 `;
@@ -184,42 +189,36 @@ export type T${pluralPascal}Page = IPaginationResponse<I${pascal}>;
 export interface I${pluralPascal}Query extends IPaginationRequest {}
 `;
 
-const formTypes = (
-	pascal: string
-) => `import type { FieldValues } from "react-hook-form";
+type TFormOperation = "create" | "update";
+
+/** One form.types file per operation, paired with `[entity]-[op].schema.ts` */
+const formTypes = (pascal: string, operation: TFormOperation) => {
+	const OP = operation.toUpperCase();
+	const Op = `${operation.charAt(0).toUpperCase()}${operation.slice(1)}`;
+	const enumName = `ENUM_FORM_${pascal.toUpperCase()}_${OP}`;
+	const schemaName = `${pascal.toUpperCase()}_${OP}_SCHEMA`;
+
+	return `import type { FieldValues } from "react-hook-form";
 import { z } from "zod";
 
-import type {
-	${pascal.toUpperCase()}_CREATE_SCHEMA,
-	${pascal.toUpperCase()}_UPDATE_SCHEMA
-} from "../schema";
+/** type-only: schema → form.types stays the only runtime direction */
+import type { ${schemaName} } from "../schema";
 
-export const ENUM_FORM_${pascal.toUpperCase()}_CREATE = {
+export const ${enumName} = {
 	FULL_NAME: "fullName",
 	STATUS: "status"
 } as const;
 
-export type ENUM_FORM_${pascal.toUpperCase()}_CREATE_TYPE =
-	(typeof ENUM_FORM_${pascal.toUpperCase()}_CREATE)[keyof typeof ENUM_FORM_${pascal.toUpperCase()}_CREATE];
-
-export const ENUM_FORM_${pascal.toUpperCase()}_UPDATE = {
-	FULL_NAME: "fullName",
-	STATUS: "status"
-} as const;
+export type ${enumName}_TYPE =
+	(typeof ${enumName})[keyof typeof ${enumName}];
 
 /** Inferred form types live in types/, never next to the Zod schema export */
-export type T${pascal}CreateSchema = z.infer<
-	typeof ${pascal.toUpperCase()}_CREATE_SCHEMA
-> &
-	FieldValues;
-
-export type T${pascal}UpdateSchema = z.infer<
-	typeof ${pascal.toUpperCase()}_UPDATE_SCHEMA
-> &
+export type T${pascal}${Op}Schema = z.infer<typeof ${schemaName}> &
 	FieldValues;
 `;
+};
 
-const createSchema = (pascal: string, _entityName: string) => {
+const createSchema = (pascal: string, entityName: string) => {
 	const enumName = `ENUM_FORM_${pascal.toUpperCase()}_CREATE`;
 	const schemaName = `${pascal.toUpperCase()}_CREATE_SCHEMA`;
 
@@ -227,7 +226,8 @@ const createSchema = (pascal: string, _entityName: string) => {
 
 import { type T${pascal}PageKeys, i18nKey } from "@/shared/config";
 
-import { ${enumName} } from "../types";
+/** Direct file path, not the ../types barrel — avoids a schema ↔ types cycle */
+import { ${enumName} } from "../types/${entityName}-create-form.types";
 
 const msg = i18nKey<T${pascal}PageKeys>();
 const F = ${enumName};
@@ -243,7 +243,7 @@ export const ${schemaName} = z.object({
 `;
 };
 
-const updateSchema = (pascal: string, _entityName: string) => {
+const updateSchema = (pascal: string, entityName: string) => {
 	const enumName = `ENUM_FORM_${pascal.toUpperCase()}_UPDATE`;
 	const schemaName = `${pascal.toUpperCase()}_UPDATE_SCHEMA`;
 
@@ -251,7 +251,8 @@ const updateSchema = (pascal: string, _entityName: string) => {
 
 import { type T${pascal}PageKeys, i18nKey } from "@/shared/config";
 
-import { ${enumName} } from "../types";
+/** Direct file path, not the ../types barrel — avoids a schema ↔ types cycle */
+import { ${enumName} } from "../types/${entityName}-update-form.types";
 
 const msg = i18nKey<T${pascal}PageKeys>();
 const F = ${enumName};
@@ -284,7 +285,7 @@ import type {
 	T${pascal}UpdateSchema
 } from "../types";
 
-/** Uses T*Backend from ../types — never import generated/Api here */
+/** Uses T*Backend from ../types — never import generated/backend.types here */
 export const ${methods.itemToFrontend} = (data: T${pascal}Backend): I${pascal} => ({
 	id: data.id,
 	fullName: data.full_name,
@@ -334,7 +335,7 @@ const service = (
 	camel: string,
 	pluralCamel: string,
 	methods: ReturnType<typeof converterMethodNames>
-) => `import { mainApi } from "@/shared/api";
+) => `import { baseApi } from "@/shared/api/backend";
 import type { IPaginationRequest } from "@/shared/types";
 
 import {
@@ -350,8 +351,8 @@ import type {
 	T${pascal}UpdateSchema
 } from "../types";
 
-/** PATHS + T*Backend from ../types — never import schema names from generated/Api */
-export const ${camel}Api = mainApi.injectEndpoints({
+/** PATHS + T*Backend from ../types — never import schema names from generated/backend.types */
+export const ${camel}Api = baseApi.injectEndpoints({
 	endpoints: (builder) => ({
 		get${pluralPascal}: builder.query<T${pluralPascal}Page, IPaginationRequest>({
 			query: (filters) => ({
@@ -395,7 +396,7 @@ const mockSeed = (
 	pascal: string
 ) => `import type { T${pascal}Backend } from "../types";
 
-/** Seed in T*Backend shape from ../types — never import OpenAPI Api module here */
+/** Seed in T*Backend shape from ../types — never import OpenAPI backend.types module here */
 export const ${pascal.toUpperCase()}_MOCK = [
 	{
 		id: "1",
@@ -486,7 +487,7 @@ import type {
 /**
  * Handlers return T*Backend. RTK Query transformResponse + converters
  * map to IPaginationResponse / domain models — do not short-circuit that layer here.
- * Do not import generated/Api — use ../types aliases.
+ * Do not import generated/backend.types — use ../types aliases.
  */
 export const ${camel}Handlers = [
 	createMockHandler(

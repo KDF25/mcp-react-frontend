@@ -10,7 +10,7 @@
     ],
     "filenameCase": {
       "enabled": true,
-      "rule": "File names must be kebab-case. Allow semantic suffixes (*.service.ts, *.converters.ts, …), React hooks useX.ts, and framework entry files (page/layout).",
+      "rule": "File names must be kebab-case, including React hooks (use-x.ts; the function itself is useX). Allow semantic suffixes (*.service.ts, *.converters.ts, …) and framework entry files (page/layout).",
       "pluginRule": "unicorn/filename-case",
       "cases": {
         "kebabCase": true,
@@ -18,7 +18,6 @@
         "pascalCase": false
       },
       "ignore": [
-        "^use[A-Z][a-zA-Z]*\\.(ts|tsx)$",
         "^[a-z0-9-]+\\.(service|api|util|config|types|interface|store|hook|slice|schema|converters|handlers|mock)\\.ts$",
         "^[a-z0-9-]+\\.(service|store|api|util|config|hook|slice)\\.(types|interface)\\.ts$",
         "^[a-z0-9-]+-backend\\.interface\\.ts$",
@@ -105,14 +104,14 @@
     },
     "openapiTypesIsolation": {
       "enabled": true,
-      "rule": "Raw Api.ts / OpenAPI schema types may be imported only in entities/*/types (as T*Backend). Converters, api, handlers, mock, and UI must not import generated/Api or schema symbols from @/shared/api.",
+      "rule": "Raw backend.types.ts / OpenAPI schema types may be imported only in entities/*/types (as T*Backend). Converters, api, handlers, mock, and UI must not import generated/backend.types or schema symbols from @/shared/api.",
       "noRestrictedImports": {
         "patterns": [
-          "**/shared/api/generated/Api",
-          "**/shared/api/generated/Api.ts",
-          "@/shared/api/generated/Api"
+          "**/shared/api/generated/backend.types",
+          "**/shared/api/generated/backend.types.ts",
+          "@/shared/api/generated/backend.types"
         ],
-        "message": "Raw Api.ts types are allowed only in entities/*/types (*-backend.interface.ts). Alias them as T*Backend and import from ../types."
+        "message": "Raw backend.types.ts types are allowed only in entities/*/types (*-backend.interface.ts). Alias them as T*Backend and import from ../types."
       },
       "allowIn": [
         "src/entities/**/types/**/*",

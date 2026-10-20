@@ -9,7 +9,7 @@ export async function RtkQueryStepInject() {
 
 	return (
 		<div className="space-y-4 pt-4 border-t border-border/40">
-			<SectionTitle badge="05" className="text-xl mb-2">
+			<SectionTitle badge="04" className="text-xl mb-2">
 				{t("steps.inject.title")}
 			</SectionTitle>
 			<p>

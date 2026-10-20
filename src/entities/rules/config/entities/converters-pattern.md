@@ -15,7 +15,7 @@
 3. **Не требуются** литеральные имена `mapToFrontend` / `mapToBackend`.
 4. List-сценарии: frontend всегда `{ data, total }` через `IPaginationResponse`; backend envelope — только в converters.
 5. **Конвертеры живут только на границе API** — вызываются из `entities/*/api/*.service.ts` (`transformResponse`, `body`/`params`). В pages / widgets / features / `entities/*/ui` их импортировать **запрещено**: в компонент уже приходят frontend-модели.
-6. **Backend-типы только как `T*Backend`** из `../types`. Запрещён импорт schema из `generated/Api` в converters (см. OpenAPI pattern).
+6. **Backend-типы только как `T*Backend`** из `../types`. Запрещён импорт schema из `generated/backend.types` в converters (см. OpenAPI pattern).
 
 ---
 
@@ -30,7 +30,9 @@
 
 **Разрешено:** `entities/*/api/**`, сам сегмент `converters/**`, тесты.
 
-**Public API сущности (`index.ts`)** не реэкспортирует `converters` — только `api`, `types` (frontend), `schema`, при необходимости `ui`.
+**Public API сущности (`index.ts`)** не реэкспортирует `converters` — только `api`, `types`, `schema`, при необходимости `ui`.
+
+Barrel `types` может экспортировать и `T*Backend` — это допустимо. Запрещён не реэкспорт, а **использование** backend-типов в UI (pages / widgets / features / `entities/*/ui`): агент `backend-dto-forbidden-in-ui` ловит их и при импорте через `@/entities/<name>`.
 
 ---
 

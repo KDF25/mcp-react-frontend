@@ -5,13 +5,16 @@
 ## Файловая структура
 ```text
 src/entities/[entity-name]/
-├── api/             # RTK Query сервисы (*.service.ts)
+├── api/             # RTK Query сервисы (*.service.ts) → baseApi.injectEndpoints
 ├── types/           # Интерфейсы и типы
-│   ├── index.ts     # Экспорт всех типов
-│   ├── *.interface.ts # Backend (raw) и Frontend (UI) модели
-│   └── *.types.ts    # Enums и вспомогательные типы
-├── schema/          # Валидация данных (*.schema.ts)
+│   ├── index.ts                         # Экспорт всех типов (включая T*Backend)
+│   ├── [entity-name]-backend.interface.ts # Только type T*Backend = <schema из backend.types>
+│   ├── [entity-name].interface.ts       # I* frontend (domain) модели
+│   ├── [entity-name]-[op]-form.types.ts # ENUM_FORM_* + z.infer (пара к schema)
+│   └── *.types.ts                       # Enums и вспомогательные типы
+├── schema/          # Валидация данных ([entity-name]-[op].schema.ts)
 ├── converters/      # Мапперы данных DTO <-> Domain (*.converters.ts)
+├── hooks/           # Хуки сущности (use-x.ts, функция useX)
 ├── slice/           # Локальный стейт Redux/Zustand (*.slice.ts)
 ├── ui/              # "Глупые" компоненты отображения
 └── index.ts         # Public API сущности
@@ -19,37 +22,8 @@ src/entities/[entity-name]/
 
 ## Валидация и Типизация (Zod + i18n)
 
-Мы используем типизированную систему сообщений об ошибках в Zod-схемах.
-
-### Пример: account.schema.ts
-```typescript
-import { z } from "zod";
-import { type TAccountSettingsPageKeys, i18nKey } from "@/shared/config";
-import { ENUM_FORM_ACCOUNT } from "../types";
-
-const msg = i18nKey<TAccountSettingsPageKeys>();
-
-export const ACCOUNT_SCHEMA = z.object({
-    [ENUM_FORM_ACCOUNT.LOGIN]: z
-        .string()
-        .min(1, { message: msg("form.personal.fields.login.errors.required") })
-        .min(3, { message: msg("form.personal.fields.login.errors.min") }),
-    // ...
-});
-```
-
-### Пример: account.types.ts
-```typescript
-import type z from "zod";
-import type { ACCOUNT_SCHEMA } from "../schema";
-
-export const ENUM_FORM_ACCOUNT = {
-    LOGIN: "login",
-    // ...
-} as const;
-
-export type TAccountSchema = z.infer<typeof ACCOUNT_SCHEMA>;
-```
+Правила и примеры — в паттерне **zod-pattern** (`get_pattern_doc { id: "zod-pattern" }`):
+пара файлов на операцию (`[entity]-[op].schema.ts` ↔ `[entity]-[op]-form.types.ts`), schema импортирует `ENUM_FORM_*` по прямому пути к файлу, types импортирует schema только через `import type`.
 
 ## Данные и Конвертеры (Mapping)
 

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { extractImports } from "./extract-imports";
+import { extractImports, extractTypeDeclarations } from "./extract-imports";
 
 describe("extractImports", () => {
 	it("collects imports, type imports, side-effect imports and re-exports", () => {
@@ -22,6 +22,21 @@ export const LOCAL = 1;
 			"./ui",
 			"../converters"
 		]);
+	});
+
+	it("collects declared interfaces and type aliases from the AST only", () => {
+		const content = `
+/** type Commented = 1; interface InComment {} */
+const text = "type InString = 2";
+export interface IOrder { id: string }
+export type TOrderBackend = { id: string };
+namespace Nested { type TInner = string; }
+`;
+
+		expect(extractTypeDeclarations("order.ts", content)).toEqual({
+			interfaces: ["IOrder"],
+			typeAliases: ["TOrderBackend", "TInner"]
+		});
 	});
 
 	it("returns an empty list when there are no imports", () => {

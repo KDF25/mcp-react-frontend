@@ -33,7 +33,7 @@ export const NAMING_TREE_ITEMS: Record<string, ITreeItemData> = {
 	custom: { name: "custom", children: ["input"] },
 	input: { name: "Input.tsx" },
 	hooks: { name: "hooks", children: ["use-auth"] },
-	"use-auth": { name: "useAuth.tsx" },
+	"use-auth": { name: "use-auth.ts" },
 	"types-d": { name: "api.d.ts" },
 	configs: { name: "tailwind.config.ts" }
 };

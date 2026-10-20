@@ -82,6 +82,38 @@ describe("agents enforce converter UI boundary", () => {
 	});
 });
 
+describe("backend types through the entity barrel", () => {
+	it("flags T*Backend imported from the public entity API in UI", () => {
+		const hits = checkConverterUiBoundary(
+			"src/widgets/orders/ui/orders-table.tsx",
+			`import type { TOrderBackend } from "@/entities/order";\n\nexport const OrdersTable = (props: { order: TOrderBackend }) => null;`
+		);
+
+		expect(hits.map((h) => h.ruleId)).toContain(
+			"backend-dto-forbidden-in-ui"
+		);
+	});
+
+	it("allows the entity barrel itself to re-export backend types", async () => {
+		const { scaffoldEntity } =
+			await import("@/features/scaffold/lib/entity-scaffold");
+		const { files } = scaffoldEntity("order", "");
+		const typesIndex = files.find((f) =>
+			f.path.endsWith("order/types/index.ts")
+		);
+
+		expect(typesIndex?.content).toContain(
+			'export * from "./order-backend.interface";'
+		);
+		expect(
+			checkConverterUiBoundary(
+				"src/entities/order/types/index.ts",
+				typesIndex?.content ?? ""
+			)
+		).toEqual([]);
+	});
+});
+
 describe("scaffold public API", () => {
 	it("does not re-export converters from entity index", async () => {
 		const { scaffoldEntity } =

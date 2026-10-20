@@ -6,13 +6,13 @@
     "codegen": "npm run codegen:types && npm run codegen:paths"
   },
   "outputs": {
-    "apiTypes": "src/shared/api/generated/Api.ts",
+    "apiTypes": "src/shared/api/generated/backend.types.ts",
     "paths": "src/shared/api/generated/paths/<tag>.paths.ts"
   },
   "adapter": {
     "location": "src/entities/[entity-name]/types/[entity-name]-backend.interface.ts",
     "namingPattern": "^T.+Backend$",
-    "rule": "Raw OpenAPI/Api.ts schema types are aliased to T*Backend only here."
+    "rule": "Raw OpenAPI/backend.types.ts schema types are aliased to T*Backend only here."
   },
   "importBoundary": {
     "rawApiTypesAllowedIn": [
@@ -37,7 +37,7 @@
       "src/shared/api/**"
     ],
     "forbidPublicApiReexport": true,
-    "rationale": "Api.ts is codegen raw material. Domain code uses T*Backend from entity types; PATHS descriptors are allowed in api/handlers."
+    "rationale": "backend.types.ts is codegen raw material. Domain code uses T*Backend from entity types; PATHS descriptors are allowed in api/handlers."
   },
   "eslint": {
     "enforceVia": [
@@ -47,5 +47,5 @@
     "template": "eslint-openapi-types-boundary"
   },
   "template": "openapi-pattern",
-  "description": "OpenAPI codegen (Api.ts + paths) and strict T*Backend adapter: raw schema types only in entities/*/types."
+  "description": "OpenAPI codegen (backend.types.ts + paths) and strict T*Backend adapter: raw schema types only in entities/*/types."
 }

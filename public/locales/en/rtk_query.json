@@ -9,28 +9,24 @@
 	},
 	"card_title": "RTK Query Code Splitting Architecture",
 	"invariant_label": "Architectural Invariant:",
-	"invariant_text": "It is forbidden to use <one>createApi</one> inside business modules of entities. The project uses a single caching core, divided into configuration and authorization layers. Features and entities \"inject\" their endpoints into the authorized core.",
+	"invariant_text": "<one>createApi</one> is called only once — in <one>shared/api/backend/base.api.ts</one>. All entities inject their endpoints into this single baseApi (one cache, one tag registry). A separate createApi is allowed only for an external service with a different baseUrl.",
 	"tree_title": "API Core File Structure",
 	"steps": {
 		"tags": {
 			"title": "Global Tag Registry (Shared Layer)",
 			"description": "For correct operation of invalidation <one>providesTags / invalidatesTags</one>, all possible tags are collected in a centralized config."
 		},
+		"session": {
+			"title": "Session Expired Action (Shared Layer)",
+			"description": "An action declared in shared, so <one>baseApi</one> does not depend on entities. The auth slice subscribes to it via extraReducers and resets the session."
+		},
 		"base": {
-			"title": "Base API Instance (Shared Layer)",
-			"description": "The lowest level of network requests. No interceptors, only pure <one>fetchBaseQuery</one> and global tag registration."
-		},
-		"auth_query": {
-			"title": "Authorization Interceptor (Entities Layer)",
-			"description": "A wrapper (Middleware) over the base request. It allows centralized handling of session loss (e.g., error 401) and executing <one>logout()</one> for the entire application."
-		},
-		"auth_api": {
-			"title": "Authorized API Instance (Entities Layer)",
-			"description": "Initialization of a protected API instance (usually exported from the <one>auth</one> entity) using a custom <two>authBaseQuery</two>."
+			"title": "Base API Instance with Auth Guard (Shared Layer)",
+			"description": "The only <one>createApi</one> in the project. Its base query wraps <one>fetchBaseQuery</one>: on 401 it dispatches <one>sessionExpired()</one> from shared, without importing entities."
 		},
 		"inject": {
 			"title": "Endpoint Injection (Entities Layer)",
-			"description": "The final stage in the target entity. We import <one>authApi</one> and call <two>injectEndpoints</two>. This code becomes the public service of the entity."
+			"description": "The final stage in the target entity. We import <one>baseApi</one> and call <two>injectEndpoints</two>. This code becomes the public service of the entity."
 		}
 	}
 }

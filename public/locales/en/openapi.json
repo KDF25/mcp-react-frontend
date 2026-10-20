@@ -1,11 +1,11 @@
 {
 	"seo": {
 		"title": "OpenAPI Codegen",
-		"description": "Generate Api.ts and PATHS from OpenAPI, alias as T*Backend in entity types only"
+		"description": "Generate backend.types.ts and PATHS from OpenAPI, alias as T*Backend in entity types only"
 	},
 	"header": {
 		"title": "OpenAPI → T*Backend",
-		"description": "Strict pipeline: codegen raw types stay in generated/Api.ts; domain code only sees T*Backend aliases from entities/*/types."
+		"description": "Strict pipeline: codegen raw types stay in generated/backend.types.ts; domain code only sees T*Backend aliases from entities/*/types."
 	},
 	"card_title": "Codegen & type isolation",
 	"benefit_label": "Rule:",
@@ -13,19 +13,19 @@
 	"steps": {
 		"scripts": {
 			"title": "1. Codegen scripts",
-			"description": "From <one>VITE_BASE_URL/openapi.json</one>: Api.ts (schemas) + paths/<tag>.paths.ts (url, method, _types)."
+			"description": "From <one>VITE_BASE_URL/openapi.json</one>: backend.types.ts (schemas) + paths/<tag>.paths.ts (url, method, _types)."
 		},
 		"adapter": {
 			"title": "2. T*Backend adapter",
-			"description": "Only <one>entities/*/types/*-backend.interface.ts</one> may import generated/Api. Export TFooBackend aliases (and re-export enums)."
+			"description": "Only <one>entities/*/types/*-backend.interface.ts</one> may import generated/backend.types. Export TFooBackend aliases (and re-export enums)."
 		},
 		"usage": {
 			"title": "3. converters / api usage",
-			"description": "Import T*Backend and enum values from ../types. PATHS are allowed in api/handlers. Raw Api.ts imports are forbidden."
+			"description": "Import T*Backend and enum values from ../types. PATHS are allowed in api/handlers. Raw backend.types.ts imports are forbidden."
 		},
 		"eslint": {
 			"title": "4. ESLint gate",
-			"description": "Restrict <one>generated/Api</one> globally; allow only in entities/**/types and shared/api/generated. Prefer not re-exporting Api from @/shared/api."
+			"description": "Restrict <one>generated/backend.types</one> globally; allow only in entities/**/types and shared/api/generated. Prefer not re-exporting backend.types from @/shared/api."
 		}
 	}
 }

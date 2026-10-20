@@ -24,9 +24,11 @@
     ],
     "optionalFolders": [
       "handlers",
-      "mock"
+      "mock",
+      "hooks"
     ],
     "naming": {
+      "hooks": "use-*.ts",
       "schema": "*.schema.ts",
       "converters": "*.converters.ts",
       "api": "*.service.ts",
@@ -73,11 +75,15 @@
     "typesDir": "types/",
     "inferLocation": "types",
     "allowMultipleSchemasPerEntity": true,
-    "forbidInferInSchemaFiles": true
+    "forbidInferInSchemaFiles": true,
+    "schemaPattern": "[entity]-[op].schema.ts",
+    "formTypesPattern": "[entity]-[op]-form.types.ts",
+    "schemaImportsFormTypesByDirectPath": true,
+    "typesImportSchemaTypeOnly": true
   },
   "openapi": {
     "generatedDir": "src/shared/api/generated",
-    "apiFile": "Api.ts",
+    "apiFile": "backend.types.ts",
     "pathsDir": "src/shared/api/generated/paths",
     "adapterFilePattern": "*-backend.interface.ts",
     "adapterTypePattern": "^T.+Backend$",

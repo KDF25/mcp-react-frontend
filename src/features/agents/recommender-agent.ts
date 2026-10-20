@@ -42,7 +42,7 @@ export class RecommenderAgent {
 			)
 		) {
 			recommendations.push(
-				"Import Api.ts schema types only in entities/*/types as T*Backend aliases. Converters/api/handlers must use those aliases (and PATHS), never raw OpenAPI symbols from @/shared/api."
+				"Import backend.types.ts schema types only in entities/*/types as T*Backend aliases. Converters/api/handlers must use those aliases (and PATHS), never raw OpenAPI symbols from @/shared/api."
 			);
 		}
 

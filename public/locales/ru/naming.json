@@ -15,7 +15,7 @@
 		"title": "Соглашения о наименовании",
 		"files": {
 			"label": "Файлы и Регистр:",
-			"text": "Повсеместно используется <one>kebab-case</one>. Исключения: хуки (префикс <two>use</two>), служебные файлы (формат <three>entity.type.ts</three>) и стандартные файлы Next.js."
+			"text": "Повсеместно используется <one>kebab-case</one>, включая хуки (<two>use-auth.ts</two>, сама функция — useAuth). Исключения: служебные файлы (формат <three>entity.type.ts</three>) и стандартные файлы Next.js."
 		},
 		"typing": {
 			"label": "Типизация и Код:",
@@ -24,7 +24,7 @@
 	},
 	"eslint_filename": {
 		"title": "ESLint: filename-case",
-		"description": "Закрепляем через <one>eslint-plugin-unicorn</one> (<two>unicorn/filename-case</two>). Семантические суффиксы и хуки остаются в ignore."
+		"description": "Включается через <one>eslint-plugin-unicorn</one> (<two>unicorn/filename-case</two>). Семантические суффиксы разрешены через ignore; хуки — обычный kebab-case (use-x.ts)."
 	},
 	"eslint_types": {
 		"title": "ESLint: naming-convention",

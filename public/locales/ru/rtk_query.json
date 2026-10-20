@@ -9,28 +9,24 @@
 	},
 	"card_title": "Архитектура разделения кода RTK Query",
 	"invariant_label": "Архитектурный инвариант:",
-	"invariant_text": "Запрещено использовать <one>createApi</one> внутри бизнес-модулей сущностей. Проект использует единое ядро кэширования, разделенное на слои конфигурации и авторизации. Фичи и сущности \"внедряют\" свои эндпоинты в авторизованное ядро.",
+	"invariant_text": "<one>createApi</one> вызывается один раз — в <one>shared/api/backend/base.api.ts</one>. Все сущности внедряют эндпоинты в единый baseApi (один кэш, один реестр тегов). Отдельный createApi допустим только для внешнего сервиса с другим baseUrl.",
 	"tree_title": "Файловая структура API-ядра",
 	"steps": {
 		"tags": {
 			"title": "Глобальный реестр тегов (Shared Layer)",
 			"description": "Для корректной работы инвалидации <one>providesTags / invalidatesTags</one>, все возможные теги собираются в централизованный конфиг."
 		},
+		"session": {
+			"title": "Action истечения сессии (Shared Layer)",
+			"description": "Action объявлен в shared, поэтому <one>baseApi</one> не зависит от entities. Auth slice подписывается на него через extraReducers и сбрасывает сессию."
+		},
 		"base": {
-			"title": "Базовый API инстанс (Shared Layer)",
-			"description": "Самый нижний уровень сетевых запросов. Никаких перехватчиков, только чистый <one>fetchBaseQuery</one> и регистрация глобальных тегов."
-		},
-		"auth_query": {
-			"title": "Перехватчик Авторизации (Entities Layer)",
-			"description": "Обертка (Middleware) над базовым запросом. Позволяет централизованно обработать потерю сессии (например, ошибку 401) и выполнить <one>logout()</one> на всё приложение."
-		},
-		"auth_api": {
-			"title": "Авторизованный API инстанс (Entities Layer)",
-			"description": "Инициализация защищенного API-инстанса (обычно экспортируется из сущности <one>auth</one>), использующего кастомный <two>authBaseQuery</two>."
+			"title": "Базовый API инстанс с auth guard (Shared Layer)",
+			"description": "Единственный <one>createApi</one> в проекте. Его base query оборачивает <one>fetchBaseQuery</one>: при 401 диспатчит <one>sessionExpired()</one> из shared, не импортируя entities."
 		},
 		"inject": {
 			"title": "Внедрение Эндпоинтов (Entities Layer)",
-			"description": "Финальный этап в целевой сущности. Мы импортируем <one>authApi</one> и вызываем <two>injectEndpoints</two>. Этот код и становится публичным сервисом сущности."
+			"description": "Финальный этап в целевой сущности. Мы импортируем <one>baseApi</one> и вызываем <two>injectEndpoints</two>. Этот код и становится публичным сервисом сущности."
 		}
 	}
 }

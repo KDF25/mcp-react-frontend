@@ -41,7 +41,7 @@ export const THEME_TREE_ITEMS: Record<string, ITreeItemData> = {
 	"toggle-model-index": { name: "index.ts" },
 	"toggle-context": { name: "theme.context.ts" },
 	"toggle-types": { name: "theme.types.ts" },
-	"toggle-hook": { name: "useTheme.tsx" },
+	"toggle-hook": { name: "use-theme.ts" },
 	"toggle-ui": {
 		name: "ui/",
 		children: ["toggle-ui-index", "toggle-component"]
