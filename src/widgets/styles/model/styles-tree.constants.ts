@@ -5,7 +5,7 @@ export const STYLES_TREE_ITEMS: Record<string, ITreeItemData & { id: string }> =
 		root: {
 			id: "root",
 			name: "root",
-			children: ["src", "tailwind-config"]
+			children: ["src"]
 		},
 		src: {
 			id: "src",
@@ -20,11 +20,11 @@ export const STYLES_TREE_ITEMS: Record<string, ITreeItemData & { id: string }> =
 		styles: {
 			id: "styles",
 			name: "styles/",
-			children: ["global-css", "variables-css", "theme-css"]
+			children: ["globals-css", "variables-css", "theme-css"]
 		},
-		"global-css": {
-			id: "global-css",
-			name: "global.css"
+		"globals-css": {
+			id: "globals-css",
+			name: "globals.css"
 		},
 		"variables-css": {
 			id: "variables-css",
@@ -33,9 +33,5 @@ export const STYLES_TREE_ITEMS: Record<string, ITreeItemData & { id: string }> =
 		"theme-css": {
 			id: "theme-css",
 			name: "theme.css"
-		},
-		"tailwind-config": {
-			id: "tailwind-config",
-			name: "tailwind.config.ts"
 		}
 	};

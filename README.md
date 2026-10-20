@@ -154,8 +154,9 @@ The MCP server enforces a highly deterministic, strict architectural contract de
 - **TypeScript Strictness**: Prohibits native TypeScript `enum` usage (forcing object/const maps) and mandates strict typing.
 
 **5. UI & Design Token Constraints**
-- **Atomic Styling**: Restricts utility prefixes to authorized layout/spacing tokens (`bg-`, `text-`, `p-`, `m-`, `gap-`, `flex-`, `grid-`).
-- **Color Palette Isolation**: Strictly forbids raw Tailwind color primitives (e.g., `slate`, `red`, `blue`, `emerald`), forcing the application to use semantic CSS variables and design tokens.
+- **Atomic Styling**: Documents the recommended Tailwind utility families (`allowedUtilityPrefixes`: colors via tokens, spacing/sizing via the scale, no arbitrary values). This is guidance for generated code, not a linter check.
+- **Color Palette Isolation**: Strictly forbids raw Tailwind color primitives (e.g., `slate`, `red`, `blue`, `emerald`) and static `white`/`black` utilities, forcing the application to use semantic CSS variables and design tokens.
+- **Tailwind v4**: Tokens live in `src/shared/styles/{globals,variables,theme}.css` (`@theme`, `@theme inline`, `@custom-variant dark`); no `tailwind.config.ts`.
 - **Class Merging**: Mandates the `cn` utility wrapper for dynamic class composition.
 
 **6. Implementation Protocol Validation**

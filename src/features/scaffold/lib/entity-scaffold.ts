@@ -1,6 +1,7 @@
 import {
 	converterMethodNames,
 	toCamelCase,
+	toConstantCase,
 	toPascalCase,
 	toPluralPascal
 } from "./entity-naming";
@@ -31,8 +32,6 @@ export const scaffoldEntity = (
 	const pascal = toPascalCase(entityName);
 	const pluralPascal = toPluralPascal(pascal);
 	const camel = toCamelCase(entityName);
-	const pluralCamel =
-		pluralPascal.charAt(0).toLowerCase() + pluralPascal.slice(1);
 	const methods = converterMethodNames(entityName);
 	const base =
 		`src/entities/${relativePath.replace(/^\/|\/$/g, "")}/${entityName}`
@@ -42,7 +41,7 @@ export const scaffoldEntity = (
 	const files: IScaffoldFile[] = [
 		{
 			path: `${base}/types/${entityName}-backend.interface.ts`,
-			content: backendTypes(pascal, pluralPascal)
+			content: backendTypes(pascal, pluralPascal, entityName)
 		},
 		{
 			path: `${base}/types/${entityName}.interface.ts`,
@@ -89,7 +88,7 @@ export * from "./${entityName}-update.schema";
 		},
 		{
 			path: `${base}/api/${entityName}.service.ts`,
-			content: service(pascal, pluralPascal, camel, pluralCamel, methods)
+			content: service(pascal, pluralPascal, camel, entityName, methods)
 		},
 		{
 			path: `${base}/api/index.ts`,
@@ -112,7 +111,7 @@ export * from "./${entityName}.store";
 		},
 		{
 			path: `${base}/handlers/${entityName}.handlers.ts`,
-			content: handlers(pascal, pluralPascal, camel, pluralCamel)
+			content: handlers(pascal, pluralPascal, camel, entityName)
 		},
 		{
 			path: `${base}/handlers/index.ts`,
@@ -141,35 +140,39 @@ Scaffolding entity "${entityName}" in "${base}":
 Shared prerequisite: src/shared/types/pagination.types.ts (IPaginationRequest / IPaginationResponse)
 MSW utils: src/shared/api/msw/utils.ts (createMockHandler)
 
-Architecture check: SUCCESS.
+Manual steps:
+- add ${toConstantCase(pluralPascal)} to ENUM_API_TAGS in src/shared/api/backend/tags.config.ts
+- align schema names in types/${entityName}-backend.interface.ts with backend.types.ts and paths/${entityName}.paths.ts
+- align PATHS keys used by api/ and handlers/ (list${pluralPascal}, create${pascal}, get${pascal}, update${pascal}) with ${toConstantCase(pascal)}_PATHS
+
+Not validated yet: run analyze_project on the generated files to check them.
 `.trim();
 
 	return { entityPath: base, files, summary };
 };
 
-const backendTypes = (pascal: string, pluralPascal: string) => `/**
+const backendTypes = (
+	pascal: string,
+	pluralPascal: string,
+	entityName: string
+) => `/**
  * STRICT: Raw OpenAPI / backend.types.ts schema types are imported ONLY in this types segment.
  * Converters and api must use these T*Backend aliases — never import from generated/backend.types directly.
+ * Rename the schema names below to the ones your OpenAPI spec actually generates.
  */
 import type {
 	${pascal}Response,
 	${pascal}ListResponse,
 	Create${pascal}Request
 } from "@/shared/api/generated/backend.types";
-import {
-	${pascal}DiscountType
-} from "@/shared/api/generated/backend.types";
-import { ${pascal.toUpperCase()}_PATHS } from "@/shared/api/generated/paths/${pascal.toLowerCase()}.paths";
+import type { ${toConstantCase(pascal)}_PATHS } from "@/shared/api/generated/paths/${entityName}.paths";
 
 export type T${pascal}Backend = ${pascal}Response;
 export type T${pluralPascal}Backend = ${pascal}ListResponse;
 export type TCreate${pascal}RequestBackend = Create${pascal}Request;
+/** GET list → query string params (see api: params: map*QueryToBackend) */
 export type T${pluralPascal}QueryBackend =
-	typeof ${pascal.toUpperCase()}_PATHS.list${pluralPascal}._types.body;
-
-/** Runtime enum: re-export from types so converters never touch backend.types.ts */
-export { ${pascal}DiscountType };
-export type T${pascal}DiscountTypeBackend = typeof ${pascal}DiscountType[keyof typeof ${pascal}DiscountType];
+	(typeof ${toConstantCase(pascal)}_PATHS)["list${pluralPascal}"]["_types"]["query"];
 `;
 
 const frontendTypes = (
@@ -195,8 +198,8 @@ type TFormOperation = "create" | "update";
 const formTypes = (pascal: string, operation: TFormOperation) => {
 	const OP = operation.toUpperCase();
 	const Op = `${operation.charAt(0).toUpperCase()}${operation.slice(1)}`;
-	const enumName = `ENUM_FORM_${pascal.toUpperCase()}_${OP}`;
-	const schemaName = `${pascal.toUpperCase()}_${OP}_SCHEMA`;
+	const enumName = `ENUM_FORM_${toConstantCase(pascal)}_${OP}`;
+	const schemaName = `${toConstantCase(pascal)}_${OP}_SCHEMA`;
 
 	return `import type { FieldValues } from "react-hook-form";
 import { z } from "zod";
@@ -219,8 +222,8 @@ export type T${pascal}${Op}Schema = z.infer<typeof ${schemaName}> &
 };
 
 const createSchema = (pascal: string, entityName: string) => {
-	const enumName = `ENUM_FORM_${pascal.toUpperCase()}_CREATE`;
-	const schemaName = `${pascal.toUpperCase()}_CREATE_SCHEMA`;
+	const enumName = `ENUM_FORM_${toConstantCase(pascal)}_CREATE`;
+	const schemaName = `${toConstantCase(pascal)}_CREATE_SCHEMA`;
 
 	return `import { z } from "zod";
 
@@ -244,8 +247,8 @@ export const ${schemaName} = z.object({
 };
 
 const updateSchema = (pascal: string, entityName: string) => {
-	const enumName = `ENUM_FORM_${pascal.toUpperCase()}_UPDATE`;
-	const schemaName = `${pascal.toUpperCase()}_UPDATE_SCHEMA`;
+	const enumName = `ENUM_FORM_${toConstantCase(pascal)}_UPDATE`;
+	const schemaName = `${toConstantCase(pascal)}_UPDATE_SCHEMA`;
 
 	return `import { z } from "zod";
 
@@ -333,9 +336,10 @@ const service = (
 	pascal: string,
 	pluralPascal: string,
 	camel: string,
-	pluralCamel: string,
+	entityName: string,
 	methods: ReturnType<typeof converterMethodNames>
-) => `import { baseApi } from "@/shared/api/backend";
+) => `import { baseApi, ENUM_API_TAGS } from "@/shared/api/backend";
+import { ${toConstantCase(pascal)}_PATHS } from "@/shared/api/generated/paths/${entityName}.paths";
 import type { IPaginationRequest } from "@/shared/types";
 
 import {
@@ -351,36 +355,40 @@ import type {
 	T${pascal}UpdateSchema
 } from "../types";
 
-/** PATHS + T*Backend from ../types — never import schema names from generated/backend.types */
+const PATHS = ${toConstantCase(pascal)}_PATHS;
+
+/** url/method from generated PATHS + T*Backend from ../types — never import schema names from generated/backend.types */
 export const ${camel}Api = baseApi.injectEndpoints({
 	endpoints: (builder) => ({
 		get${pluralPascal}: builder.query<T${pluralPascal}Page, IPaginationRequest>({
 			query: (filters) => ({
-				url: "/${pluralCamel}",
+				url: PATHS.list${pluralPascal}.url,
+				method: PATHS.list${pluralPascal}.method,
 				params: ${methods.queryToBackend}(filters)
 			}),
 			transformResponse: (response: T${pluralPascal}Backend) =>
 				${methods.listToFrontend}(response),
-			providesTags: ["${pluralPascal.toUpperCase()}"]
+			providesTags: [ENUM_API_TAGS.${toConstantCase(pluralPascal)}]
 		}),
 		create${pascal}: builder.mutation<void, T${pascal}CreateSchema>({
 			query: (body) => ({
-				url: "/${pluralCamel}",
-				method: "POST",
+				url: PATHS.create${pascal}.url,
+				method: PATHS.create${pascal}.method,
 				body: ${methods.createToBackend}(body)
 			}),
-			invalidatesTags: ["${pluralPascal.toUpperCase()}"]
+			invalidatesTags: [ENUM_API_TAGS.${toConstantCase(pluralPascal)}]
 		}),
 		update${pascal}: builder.mutation<
 			void,
 			{ id: string; values: T${pascal}UpdateSchema }
 		>({
 			query: ({ id, values }) => ({
-				url: \`/${pluralCamel}/\${id}\`,
-				method: "PATCH",
+				// OpenAPI path params look like {id}
+				url: PATHS.update${pascal}.url.replace("{id}", id),
+				method: PATHS.update${pascal}.method,
 				body: ${methods.updateToBackend}(values)
 			}),
-			invalidatesTags: ["${pluralPascal.toUpperCase()}"]
+			invalidatesTags: [ENUM_API_TAGS.${toConstantCase(pluralPascal)}]
 		})
 	})
 });
@@ -397,7 +405,7 @@ const mockSeed = (
 ) => `import type { T${pascal}Backend } from "../types";
 
 /** Seed in T*Backend shape from ../types — never import OpenAPI backend.types module here */
-export const ${pascal.toUpperCase()}_MOCK = [
+export const ${toConstantCase(pascal)}_MOCK = [
 	{
 		id: "1",
 		full_name: "John Doe",
@@ -425,7 +433,7 @@ const mockStore = (
 	TCreate${pascal}RequestBackend
 } from "../types";
 
-import { ${pascal.toUpperCase()}_MOCK } from "./${entityName}.mock";
+import { ${toConstantCase(pascal)}_MOCK } from "./${entityName}.mock";
 
 /**
  * Optional mutable store for mutation scenarios and Vitest isolation.
@@ -433,7 +441,7 @@ import { ${pascal.toUpperCase()}_MOCK } from "./${entityName}.mock";
  */
 const createStore = () =>
 	new Map<string, T${pascal}Backend>(
-		${pascal.toUpperCase()}_MOCK.map((item) => [item.id, structuredClone(item)])
+		${toConstantCase(pascal)}_MOCK.map((item) => [item.id, structuredClone(item)])
 	);
 
 let ${camel}Store = createStore();
@@ -473,26 +481,25 @@ const handlers = (
 	pascal: string,
 	pluralPascal: string,
 	camel: string,
-	pluralCamel: string
+	entityName: string
 ) => `import { HttpResponse } from "msw";
 
+import { ${toConstantCase(pascal)}_PATHS } from "@/shared/api/generated/paths/${entityName}.paths";
 import { createMockHandler, mockNotFound, mockValidationError } from "@/shared/api/msw/utils";
 
 import { create${pascal}Backend, list${pluralPascal}Backend } from "../mock";
-import type {
-	TCreate${pascal}RequestBackend,
-	T${pluralPascal}QueryBackend
-} from "../types";
+import type { T${pluralPascal}QueryBackend } from "../types";
+
+const PATHS = ${toConstantCase(pascal)}_PATHS;
 
 /**
  * Handlers return T*Backend. RTK Query transformResponse + converters
  * map to IPaginationResponse / domain models — do not short-circuit that layer here.
+ * Endpoints (url, method, _types) come from generated PATHS; createMockHandler turns {id} into :id.
  * Do not import generated/backend.types — use ../types aliases.
  */
 export const ${camel}Handlers = [
-	createMockHandler(
-		{ url: "/${pluralCamel}", method: "GET", _types: { body: undefined as never } },
-		({ query }) => {
+	createMockHandler(PATHS.list${pluralPascal}, ({ query }) => {
 			const page = Number(query.get("page") ?? 1);
 			const elementsOnPage = Number(query.get("elements_on_page") ?? 20);
 
@@ -508,29 +515,15 @@ export const ${camel}Handlers = [
 			} as T${pluralPascal}QueryBackend;
 
 			return HttpResponse.json(list${pluralPascal}Backend(backendQuery));
-		}
-	),
-	createMockHandler(
-		{
-			url: "/${pluralCamel}",
-			method: "POST",
-			_types: { body: {} as TCreate${pascal}RequestBackend }
-		},
-		({ body }) => {
+	}),
+	createMockHandler(PATHS.create${pascal}, ({ body }) => {
 			if (!body?.full_name) {
 				return mockValidationError(["body", "full_name"], "Field required");
 			}
 
 			return HttpResponse.json(create${pascal}Backend(body), { status: 201 });
-		}
-	),
-	createMockHandler(
-		{
-			url: "/${pluralCamel}/:id",
-			method: "GET",
-			_types: { body: undefined as never }
-		},
-		({ params }) => {
+	}),
+	createMockHandler(PATHS.get${pascal}, ({ params }) => {
 			const id = String(params.id ?? "");
 			const { items } = list${pluralPascal}Backend({
 				page: 1,
@@ -539,7 +532,6 @@ export const ${camel}Handlers = [
 			const item = items.find((entry) => entry.id === id);
 			if (!item) return mockNotFound("${pascal} not found");
 			return HttpResponse.json(item);
-		}
-	)
+	})
 ];
 `;

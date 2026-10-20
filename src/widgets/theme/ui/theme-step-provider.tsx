@@ -2,7 +2,7 @@ import { getTranslations } from "next-intl/server";
 
 import { CodeBlock, SectionTitle } from "@/shared/ui";
 
-import { THEME_CODE_PROVIDER } from "../model";
+import { THEME_CODE_PROVIDER, THEME_CODE_SCRIPT } from "../model";
 
 export async function ThemeStepProvider() {
 	const t = await getTranslations("theme");
@@ -22,6 +22,11 @@ export async function ThemeStepProvider() {
 				})}
 			</div>
 
+			<CodeBlock
+				code={THEME_CODE_SCRIPT}
+				language="html"
+				filename="index.html"
+			/>
 			<CodeBlock
 				code={THEME_CODE_PROVIDER}
 				language="typescript"

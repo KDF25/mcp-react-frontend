@@ -7,7 +7,10 @@ import {
 import { RulesProvider } from "@/entities/rules/lib/rules-provider";
 
 import { checkConverterUiBoundary } from "./lib/converter-ui-boundary";
-import { extractTypeDeclarations } from "./lib/extract-imports";
+import {
+	extractStringLiterals,
+	extractTypeDeclarations
+} from "./lib/extract-imports";
 import { checkFilenameCase } from "./lib/filename-case";
 import { checkOpenApiTypesBoundary } from "./lib/openapi-types-boundary";
 
@@ -255,12 +258,31 @@ export class LinterAgent {
 			forbiddenColors: [],
 			requiredUtility: "cn"
 		};
-		if (styles.forbiddenColors.length > 0) {
+		const staticColors = styles.forbiddenStaticColors ?? [];
+		// text-white / !bg-black / hover:border-white/50 — статические цвета без шкалы.
+		// Lookbehind вместо набора символов: подходит любой разделитель (пробел, кавычка, !, :, ( …)
+		const staticColorsRegex =
+			staticColors.length > 0
+				? new RegExp(
+						`(?<![\\w-])(?:bg|text|border|ring|outline|fill|stroke|from|via|to|divide|placeholder|caret|accent|decoration|shadow)-(${staticColors.join("|")})(?![\\w-])`
+					)
+				: null;
+
+		if (styles.forbiddenColors.length > 0 || staticColorsRegex) {
 			const forbiddenColorsRegex = new RegExp(
-				`\\b(${styles.forbiddenColors.join("|")})-[a-z0-9]+\\b`,
-				"g"
+				`\\b(${styles.forbiddenColors.join("|")})-[a-z0-9]+\\b`
 			);
-			if (forbiddenColorsRegex.test(content)) {
+			// JS/TS: только строковые литералы и JSX-текст из AST (комментарии не проверяем).
+			// CSS/SCSS и прочее (@apply bg-blue-500) — проверяем текст целиком.
+			const isScript = /\.(m|c)?[jt]sx?$/.test(fileName);
+			const classText = isScript
+				? extractStringLiterals(fileName, content).join("\n")
+				: content;
+			if (
+				(styles.forbiddenColors.length > 0 &&
+					forbiddenColorsRegex.test(classText)) ||
+				staticColorsRegex?.test(classText)
+			) {
 				violations.push({
 					agent: ENUM_AGENT_TYPE.STYLE_ENFORCER,
 					ruleId: "no-adhoc-colors",

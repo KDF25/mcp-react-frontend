@@ -1,4 +1,4 @@
-export const STYLES_CODE_VARIABLES = `:root {
+export const STYLES_CODE_VARIABLES = `@theme {
   /* Breakpoints */
   --breakpoint-xs: 30rem;   /* 480px */
   --breakpoint-sm: 40rem;   /* 640px */
@@ -14,10 +14,28 @@ export const STYLES_CODE_VARIABLES = `:root {
   --text-xl: 1.25rem;   /* 20px */
 }`;
 
-export const STYLES_CODE_THEME = `:root {
+export const STYLES_CODE_THEME = `@custom-variant dark (&:is(.dark *));
+
+:root {
   --background: #f7f7f9;
   --foreground: #1a1a2e;
+  --card: #ffffff;
+  --card-foreground: #1a1a2e;
+  --popover: #ffffff;
+  --popover-foreground: #1a1a2e;
   --primary: #36bffa;
+  --primary-foreground: #ffffff;
+  --secondary: #eef0f6;
+  --secondary-foreground: #1a1a2e;
+  --muted: #eef0f6;
+  --muted-foreground: #6b6f80;
+  --accent: #e6f6fe;
+  --accent-foreground: #1a1a2e;
+  --destructive: #e5484d;
+  --destructive-foreground: #ffffff;
+  --border: #e2e4ec;
+  --input: #e2e4ec;
+  --ring: #36bffa;
   --radius: 0.5rem;
   --shadow: 0px 4px 10px 0px hsl(211 30% 25% / 0.12);
 }
@@ -25,20 +43,52 @@ export const STYLES_CODE_THEME = `:root {
 .dark {
   --background: #0f0f1a;
   --foreground: #e8e9f0;
+  --card: #171726;
+  --card-foreground: #e8e9f0;
+  --popover: #171726;
+  --popover-foreground: #e8e9f0;
   --primary: #36bffa;
+  --primary-foreground: #0f0f1a;
+  --secondary: #23233a;
+  --secondary-foreground: #e8e9f0;
+  --muted: #23233a;
+  --muted-foreground: #9a9cb0;
+  --accent: #1d2b3a;
+  --accent-foreground: #e8e9f0;
+  --destructive: #f2555a;
+  --destructive-foreground: #0f0f1a;
+  --border: #2a2a40;
+  --input: #2a2a40;
+  --ring: #36bffa;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
   --radius-lg: var(--radius);
   --shadow-md: var(--shadow);
 }`;
 
 export const STYLES_CODE_GLOBAL = `@import "tailwindcss";
-@import "./theme.css";
 @import "./variables.css";
+@import "./theme.css";
 
 @layer base {
   * {
@@ -50,29 +100,7 @@ export const STYLES_CODE_GLOBAL = `@import "tailwindcss";
   }
 }`;
 
-export const STYLES_CODE_CONFIG = `/** @type {import('tailwindcss').Config} */
-module.exports = {
-	darkMode: ["class"],
-	content: ["./src/**/*.{ts,tsx}"],
-	theme: {
-		extend: {
-			screens: {
-				xs: "var(--breakpoint-xs)",
-				sm: "var(--breakpoint-sm)",
-			},
-			fontSize: {
-				xs: "var(--text-xs)",
-				sm: "var(--text-sm)",
-			},
-			colors: {
-				background: 'var(--background)',
-				primary: 'var(--primary)',
-			}
-		}
-	}
-};`;
-
-export const STYLES_CODE_RESTRICTIONS = `/* ❌ INCORRECT: Hardcoded Tailwind colors */
+export const STYLES_CODE_RESTRICTIONS = `/* ❌ INCORRECT: Hardcoded Tailwind colors (blue-500) and static white */
 <div className="bg-blue-500 text-white p-4">
   Bad Example
 </div>
@@ -88,7 +116,7 @@ export const STYLES_CODE_RESTRICTIONS = `/* ❌ INCORRECT: Hardcoded Tailwind co
 </div>
 
 /* ✅ CORRECT: Using spacing scale */
-<div className="p-4 bg-destructive">
+<div className="p-4 bg-destructive text-destructive-foreground">
   Good Example
 </div>`;
 

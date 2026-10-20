@@ -14,21 +14,21 @@
 		"title": "Styles Architecture",
 		"styles": {
 			"label": "Global Styles",
-			"text": "The <one>global.css</one> file combines Tailwind layers and imports design tokens."
+			"text": "The <one>globals.css</one> file imports Tailwind v4, variables.css and theme.css, and defines base layers."
 		},
 		"config": {
-			"label": "Configuration",
-			"text": "The <one>tailwind.config.ts</one> file maps CSS variables to Tailwind utility classes."
+			"label": "Configuration (Tailwind v4)",
+			"text": "Configured in CSS: <one>@theme inline</one> in theme.css maps CSS variables to utilities, @custom-variant enables the dark class. No tailwind.config.ts."
 		}
 	},
 	"steps": {
 		"variables": {
 			"title": "CSS Variables",
-			"description": "Defining core tokens: breakpoints, font sizes, and grids."
+			"description": "Technical tokens in @theme: breakpoints and font sizes become utilities directly."
 		},
 		"theme": {
 			"title": "Theming",
-			"description": "Color palettes and shadows for light and dark modes."
+			"description": "All color tokens for light and dark modes, mapped to utilities via @theme inline."
 		},
 		"global": {
 			"title": "Global Layers",
@@ -36,7 +36,7 @@
 		},
 		"restrictions": {
 			"title": "Forbidden Palettes",
-			"description": "Absolute restriction on using standard Tailwind colors (blue-500, red-600, etc.). All colors must be derived from design tokens.",
+			"description": "Absolute restriction on standard Tailwind colors (blue-500, red-600, etc.) and static white/black. All colors must be derived from design tokens.",
 			"allowed_colors": "Allowed tokens:",
 			"forbidden_colors": "Forbidden palettes:"
 		}

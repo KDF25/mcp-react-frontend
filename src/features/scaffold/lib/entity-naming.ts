@@ -14,6 +14,10 @@ export const toCamelCase = (name: string): string => {
 	return pascal.charAt(0).toLowerCase() + pascal.slice(1);
 };
 
+/** PascalCase → CONSTANT_CASE (`UserGroups` → `USER_GROUPS`, not `USERGROUPS`) */
+export const toConstantCase = (pascal: string): string =>
+	pascal.replace(/([a-z0-9])([A-Z])/g, "$1_$2").toUpperCase();
+
 /** PascalCase plural for abstract names (`Entity` → `Entities`, not `Entitys`). */
 export const toPluralPascal = (pascal: string): string => {
 	if (/[^aeiou]y$/i.test(pascal)) {

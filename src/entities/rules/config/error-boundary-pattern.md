@@ -31,40 +31,65 @@ src/shared/ui/error-boundary/
 
 `src/shared/ui/error-boundary/error-boundary.tsx`
 
-Реализуем базовый класс для перехвата ошибок в дереве компонентов. Компонент предоставляет fallback UI с трассировкой стека для удобной отладки.
+Реализуем базовый класс для перехвата ошибок в дереве компонентов. Компонент предоставляет fallback UI с трассировкой стека для удобной отладки. Ошибки передаются наружу через `onError` (логгер / мониторинг) — `console.*` запрещён правилами линтера.
 
 ```tsx
 "use client";
 
-import React, { Component, ErrorInfo, ReactNode } from "react";
+import { Component, type ErrorInfo, type ReactNode } from "react";
 
-interface Props {
+export interface IErrorBoundaryProps {
   children?: ReactNode;
   fallback?: ReactNode;
+  /** Отправка в логгер / мониторинг (Sentry и т.п.), а не вывод в консоль */
+  onError?: (error: Error, errorInfo: ErrorInfo) => void;
 }
 
-interface State {
+interface IErrorBoundaryState {
   hasError: boolean;
   error: Error | null;
 }
 
-export class ErrorBoundary extends Component<Props, State> {
-  public state: State = {
+/** Fallback по умолчанию: сообщение + стек для отладки */
+const DefaultErrorUI = ({ error }: { error: Error | null }) => (
+  <div
+    role="alert"
+    className="p-4 rounded-lg flex flex-col items-start gap-2 border border-destructive/50 bg-destructive/10 text-destructive font-mono text-sm max-w-full overflow-x-auto"
+  >
+    <span className="font-bold">
+      An error occurred while rendering this component.
+    </span>
+    <details className="mt-2 w-full">
+      <summary className="cursor-pointer font-semibold opacity-80 hover:opacity-100">
+        {error?.message || "Error"}
+      </summary>
+      <pre className="mt-2 text-xs opacity-70 whitespace-pre-wrap">
+        {error?.stack}
+      </pre>
+    </details>
+  </div>
+);
+
+export class ErrorBoundary extends Component<
+  IErrorBoundaryProps,
+  IErrorBoundaryState
+> {
+  public state: IErrorBoundaryState = {
     hasError: false,
     error: null
   };
 
-  public static getDerivedStateFromError(error: Error): State {
+  public static getDerivedStateFromError(error: Error): IErrorBoundaryState {
     return { hasError: true, error };
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error("ErrorBoundary caught an error:", error, errorInfo);
+    this.props.onError?.(error, errorInfo);
   }
 
   public render() {
     if (this.state.hasError) {
-      return this.props.fallback || <DefaultErrorUI error={this.state.error} />;
+      return this.props.fallback ?? <DefaultErrorUI error={this.state.error} />;
     }
     return this.props.children;
   }

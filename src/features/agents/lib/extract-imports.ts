@@ -44,6 +44,30 @@ export const getModuleSpecifiers = (sourceFile: SourceFile): string[] => {
 export const extractImports = (fileName: string, content: string): string[] =>
 	withInMemorySource(fileName, content, getModuleSpecifiers);
 
+/**
+ * Text of string-like literals: "…", '…', `…` (static parts of templates) and JSX text.
+ * Comments are not included — used for checks on class names, not on prose in comments.
+ */
+export const extractStringLiterals = (
+	fileName: string,
+	content: string
+): string[] =>
+	withInMemorySource(fileName, content, (sourceFile) =>
+		sourceFile
+			.getDescendants()
+			.filter((node) =>
+				[
+					SyntaxKind.StringLiteral,
+					SyntaxKind.NoSubstitutionTemplateLiteral,
+					SyntaxKind.TemplateHead,
+					SyntaxKind.TemplateMiddle,
+					SyntaxKind.TemplateTail,
+					SyntaxKind.JsxText
+				].includes(node.getKind())
+			)
+			.map((node) => node.getText())
+	);
+
 /** Declared interface / type alias names (comments and string literals are ignored). */
 export const extractTypeDeclarations = (
 	fileName: string,

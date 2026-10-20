@@ -21,7 +21,7 @@
 		},
 		"config_hub": {
 			"title": "Реестр ресурсов",
-			"description": "В <one>i18n.config.ts</one> эталонные JSON через <two>import type</two> → <three>TResources</three>. Vite: public/locales; Next: messages/."
+			"description": "В <one>i18n.config.ts</one> эталонные JSON через <two>import type</two> → <three>TResources</three>. Vite: public/locales; Next: messages/ (рекомендуется) или public/locales."
 		},
 		"config_blocks": {
 			"title": "Группировка блоков",
@@ -33,7 +33,7 @@
 		},
 		"init_checker": {
 			"title": "Контроль консистентности",
-			"description": "Статическая проверка в <one>i18n.checker.ts</one>. Гарантирует, что все языки имеют идентичную структуру ключей."
+			"description": "Статическая проверка в <one>i18n.checker.ts</one>: satisfies ловит отсутствующие ключи, явная проверка через TNestedKeyOf — лишние. Гарантирует, что все языки имеют идентичную структуру ключей."
 		},
 		"usage": {
 			"title": "Использование в UI (выбери стек)",
@@ -41,7 +41,7 @@
 			"vite_title": "Vite — react-i18next",
 			"vite_hint": "Vite SPA: <one>useTranslation</one> + Trans. JSON: public/locales/[lng]/.",
 			"next_title": "Next.js — next-intl",
-			"next_hint": "Next.js App Router: <one>useTranslations</one> + t.rich. JSON: messages/[lng]/ (не public/locales)."
+			"next_hint": "Next.js App Router: <one>useTranslations</one> + t.rich. JSON: messages/[lng]/ (рекомендуется) или public/locales/[lng]/ через import() в request.ts."
 		},
 		"switching": {
 			"title": "Смена языка",
@@ -59,7 +59,7 @@
 		},
 		"locales": {
 			"label": "Файлы переводов:",
-			"text": "Vite: <one>public/locales/[lng]</one>/. Next.js: <two>messages/[lng]</two>/. Вложенные папки группируют namespaces (например, <three>booking/order.json</three>)."
+			"text": "Vite: <one>public/locales/[lng]</one>/. Next.js: <two>messages/[lng]</two>/ (рекомендуется) или public/locales/[lng]/. Вложенные папки группируют namespaces (например, <three>booking/order.json</three>)."
 		}
 	}
 }

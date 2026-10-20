@@ -11,7 +11,7 @@
 3. Там они превращаются в **`T*Backend`** (и при необходимости value re-export enum).
 4. `converters/`, `api/`, `handlers/`, `mock/`, UI — используют **только** `T*Backend` / frontend `I*` из `../types`.
 5. **Запрещено** импортировать schema из `backend.types.ts` / `@/shared/api` (реэкспорт backend.types) в converters и api.
-6. **PATHS** (`*.paths.ts`) — не schema DTO; их можно импортировать в `api/` и `handlers/` (url/method/`_types`).
+6. **PATHS** (`*.paths.ts`) — не schema DTO; их можно импортировать в `api/`, `handlers/` и `types/` (url/method/`_types` для T*Backend-алиасов). В `converters/` PATHS не нужны — там только `T*Backend` из `../types`.
 
 ---
 

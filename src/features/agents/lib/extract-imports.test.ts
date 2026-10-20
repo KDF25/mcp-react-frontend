@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 
-import { extractImports, extractTypeDeclarations } from "./extract-imports";
+import {
+	extractImports,
+	extractStringLiterals,
+	extractTypeDeclarations
+} from "./extract-imports";
 
 describe("extractImports", () => {
 	it("collects imports, type imports, side-effect imports and re-exports", () => {
@@ -37,6 +41,25 @@ namespace Nested { type TInner = string; }
 			interfaces: ["IOrder"],
 			typeAliases: ["TOrderBackend", "TInner"]
 		});
+	});
+
+	it("collects string, template and JSX text literals but not comments", () => {
+		const content = `
+// comment: text-white
+/* block: bg-black */
+const a = "p-4 text-white";
+const b = \`gap-2 \${a} bg-black\`;
+export const C = () => <div className='x'>JSX text</div>;
+`;
+		const literals = extractStringLiterals("card.tsx", content).join("|");
+
+		expect(literals).toContain('"p-4 text-white"');
+		expect(literals).toContain("gap-2");
+		expect(literals).toContain("bg-black");
+		expect(literals).toContain("'x'");
+		expect(literals).toContain("JSX text");
+		expect(literals).not.toContain("comment:");
+		expect(literals).not.toContain("block:");
 	});
 
 	it("returns an empty list when there are no imports", () => {

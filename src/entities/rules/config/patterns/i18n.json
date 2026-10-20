@@ -2,12 +2,9 @@
   "location": "src/shared/config/i18n",
   "requiredFiles": [
     "index.ts",
-    "i18n.init.ts",
     "i18n.config.ts",
-    "i18n.blocks.ts",
     "i18n.types.ts",
     "i18n-key.ts",
-    "change-language.ts",
     "i18n.checker.ts"
   ],
   "runtimes": {
@@ -16,17 +13,35 @@
       "hook": "useTranslation",
       "richText": "Trans",
       "messagesDir": "public/locales/[lng]",
-      "initFile": "i18n.init.ts"
+      "initFile": "i18n.init.ts",
+      "requiredFiles": [
+        "i18n.init.ts",
+        "i18n.blocks.ts",
+        "change-language.ts"
+      ]
     },
     "next": {
       "library": "next-intl",
       "hook": "useTranslations",
       "richText": "t.rich",
       "messagesDir": "messages/[lng]",
-      "initFile": "shared/i18n/request.ts (getRequestConfig)"
+      "allowedMessagesDirs": [
+        "messages/[lng]",
+        "public/locales/[lng]"
+      ],
+      "messagesDirRule": "messages/[lng] is recommended. public/locales/[lng] is allowed when request.ts loads JSON via dynamic import (not over HTTP).",
+      "initFile": "src/i18n/request.ts (getRequestConfig)",
+      "requiredFiles": [
+        "src/i18n/request.ts",
+        "src/i18n/routing.ts"
+      ]
     }
+  },
+  "checker": {
+    "missingKeys": true,
+    "extraKeys": true
   },
   "jsonImportStyle": "import type",
   "template": "i18n-pattern",
-  "description": "Строгая i18n с типизацией ключей. Vite → react-i18next + public/locales; Next → next-intl + messages/. JSON эталоны — import type."
+  "description": "Строгая i18n с типизацией ключей. Общие файлы в shared/config/i18n; Vite → react-i18next + public/locales (+ init/blocks/change-language); Next → next-intl + request.ts, JSON в messages/ (рекомендуется) или public/locales. Checker ловит и отсутствующие, и лишние ключи. JSON эталоны — import type."
 }

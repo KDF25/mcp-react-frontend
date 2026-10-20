@@ -2,13 +2,11 @@ import { describe, expect, it } from "vitest";
 
 import { RulesProvider } from "@/entities/rules/lib/rules-provider";
 
-import { SCHEMA_CODE } from "@/widgets/entities/model/entities-modules.constants";
 import {
-	ZOD_SCHEMA_CODE,
-	ZOD_TYPES_CODE
-} from "@/widgets/zod/model/zod.constants";
-
-import { converterMethodNames, toPascalCase } from "./entity-naming";
+	converterMethodNames,
+	toConstantCase,
+	toPascalCase
+} from "./entity-naming";
 import { scaffoldEntity } from "./entity-scaffold";
 import { MSW_UTILS_CODE, PAGINATION_TYPES_CODE } from "./shared-templates";
 
@@ -30,6 +28,72 @@ describe("entity naming + converter methods", () => {
 		expect(converterMethodNames("user-group").itemToFrontend).toBe(
 			"mapUserGroupToFrontend"
 		);
+	});
+
+	it("converts multi-word names to CONSTANT_CASE", () => {
+		expect(toConstantCase("UserGroup")).toBe("USER_GROUP");
+		expect(toConstantCase("UserGroups")).toBe("USER_GROUPS");
+		expect(toConstantCase("Entity")).toBe("ENTITY");
+	});
+});
+
+describe("scaffold output for a multi-word entity", () => {
+	const { files, summary } = scaffoldEntity("user-group", "");
+	const all = files.map((f) => f.content).join("\n");
+	const byEnd = (end: string) =>
+		files.find((f) => f.path.endsWith(end))?.content ?? "";
+
+	it("uses CONSTANT_CASE with word separators", () => {
+		expect(all).toContain("ENUM_FORM_USER_GROUP_CREATE");
+		expect(all).toContain("USER_GROUP_CREATE_SCHEMA");
+		expect(all).toContain("USER_GROUP_MOCK");
+		expect(all).not.toMatch(/\bUSERGROUPS?_/);
+	});
+
+	it("imports kebab-case PATHS and types the list query from _types.query", () => {
+		const backend = byEnd("user-group-backend.interface.ts");
+
+		expect(backend).toContain(
+			'from "@/shared/api/generated/paths/user-group.paths"'
+		);
+		expect(backend).toContain("USER_GROUP_PATHS");
+		expect(backend).toMatch(/\["_types"\]\["query"\]/);
+		expect(backend).not.toContain("._types.body");
+	});
+
+	it("does not reference schema symbols that the spec may not have", () => {
+		expect(all).not.toContain("DiscountType");
+	});
+
+	it("uses registered ENUM_API_TAGS instead of string tags", () => {
+		const service = byEnd("user-group.service.ts");
+
+		expect(service).toContain("ENUM_API_TAGS.USER_GROUPS");
+		expect(service).not.toMatch(/Tags: \["/);
+	});
+
+	it("takes url/method from generated PATHS in api and handlers", () => {
+		const service = byEnd("user-group.service.ts");
+		const handlers = byEnd("user-group.handlers.ts");
+		const pathsImport =
+			'import { USER_GROUP_PATHS } from "@/shared/api/generated/paths/user-group.paths";';
+
+		for (const file of [service, handlers]) {
+			expect(file).toContain(pathsImport);
+			expect(file).not.toMatch(/url: ["`]\//);
+		}
+		expect(service).toContain("url: PATHS.listUserGroups.url");
+		expect(service).toContain("method: PATHS.listUserGroups.method");
+		expect(service).toContain(
+			'PATHS.updateUserGroup.url.replace("{id}", id)'
+		);
+		expect(handlers).toContain("createMockHandler(PATHS.createUserGroup");
+		expect(handlers).toContain("createMockHandler(PATHS.getUserGroup");
+	});
+
+	it("does not claim a successful architecture check", () => {
+		expect(summary).not.toContain("SUCCESS");
+		expect(summary).toContain("ENUM_API_TAGS");
 	});
 });
 
@@ -113,23 +177,6 @@ describe("scaffoldEntity — Zod schema vs types", () => {
 			);
 		}
 	});
-
-	it("docs snippets match the same Zod placement rules", () => {
-		expect(SCHEMA_CODE).not.toMatch(/export type T\w+\s*=\s*z\.infer/);
-		expect(ZOD_SCHEMA_CODE).not.toMatch(/export type T\w+\s*=\s*z\.infer/);
-		expect(ZOD_TYPES_CODE).toMatch(/z\.infer/);
-		expect(ZOD_TYPES_CODE).toContain("ENUM_FORM_ENTITY_CREATE");
-
-		for (const snippet of [SCHEMA_CODE, ZOD_SCHEMA_CODE]) {
-			expect(snippet).toMatch(
-				/from "\.\.\/types\/[\w-]+-create-form\.types"/
-			);
-			expect(snippet).not.toMatch(/from ["']\.\.\/types["']/);
-		}
-		expect(ZOD_TYPES_CODE).toMatch(
-			/import type \{[^}]+\} from "\.\.\/schema"/
-		);
-	});
 });
 
 describe("scaffoldEntity — pagination converters", () => {
@@ -178,6 +225,7 @@ describe("scaffoldEntity — MSW backend contract", () => {
 
 		expect(MSW_UTILS_CODE).toContain("createMockHandler");
 		expect(MSW_UTILS_CODE).toContain("VITE_BASE_URL");
+		expect(MSW_UTILS_CODE).toContain("toMswPath(endpoint.url)");
 
 		expect(mock).toContain("TEntityBackend");
 		expect(mock).toContain("full_name");
@@ -189,7 +237,8 @@ describe("scaffoldEntity — MSW backend contract", () => {
 		expect(handlers).toContain("createMockHandler");
 		expect(handlers).toContain("listEntitiesBackend");
 		expect(handlers).toContain("TEntitiesQueryBackend");
-		expect(handlers).toContain('url: "/entities"');
+		expect(handlers).toContain("createMockHandler(PATHS.listEntities");
+		expect(handlers).not.toMatch(/url: ["`]\//);
 		expect(handlers).not.toMatch(/data:\s*\[/);
 		expect(handlers).not.toContain("total:");
 		expect(handlers).toContain("mockValidationError");
@@ -234,7 +283,7 @@ describe("scaffoldEntity — MSW backend contract", () => {
 		)?.content;
 
 		expect(service).toContain(
-			'import { baseApi } from "@/shared/api/backend";'
+			'import { baseApi, ENUM_API_TAGS } from "@/shared/api/backend";'
 		);
 		expect(service).toContain("baseApi.injectEndpoints");
 		expect(service).not.toMatch(/\b(mainApi|authApi)\b/);

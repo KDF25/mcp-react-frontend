@@ -1,16 +1,22 @@
 {
   "location": "src/shared/styles",
   "requiredFiles": [
-    "global.css",
+    "globals.css",
     "variables.css",
     "theme.css"
   ],
   "locationRequiredFiles": {
-    "global": "src/shared/styles/global.css",
+    "globals": "src/shared/styles/globals.css",
     "variables": "src/shared/styles/variables.css",
-    "theme": "src/shared/styles/theme.css",
-    "config": "tailwind.config.ts"
+    "theme": "src/shared/styles/theme.css"
+  },
+  "tailwind": {
+    "version": 4,
+    "configInCss": true,
+    "tailwindConfigFile": false,
+    "darkMode": "@custom-variant dark (&:is(.dark *));",
+    "rule": "Tailwind v4: tokens and utilities are configured in CSS (@theme / @theme inline / @custom-variant). No tailwind.config.ts."
   },
   "template": "styles",
-  "description": "Паттерн работы с дизайн-токенами и Tailwind CSS. Строгий запрет на хардкод цветов и использование стандартных палитр Tailwind."
+  "description": "Паттерн работы с дизайн-токенами и Tailwind CSS v4 (globals.css + variables.css + theme.css, без tailwind.config.ts). Строгий запрет на хардкод цветов, стандартные палитры Tailwind и статические white/black."
 }

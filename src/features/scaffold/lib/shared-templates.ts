@@ -43,16 +43,19 @@ interface IMockResolverArgs<TBody> {
 	request: Request;
 }
 
+/** OpenAPI path params ({id}) → MSW path params (:id) */
+const toMswPath = (url: string) => url.replace(/\\{(\\w+)\\}/g, ":$1");
+
 /**
  * Shared MSW handler factory: BASE_URL + delay + JSON body parse.
- * Prefer generated path objects when OpenAPI codegen is available.
+ * Pass generated PATHS entries ({ url, method, _types }) directly.
  */
 export const createMockHandler = <TBody>(
 	endpoint: IMockEndpoint<TBody>,
 	resolver: (args: IMockResolverArgs<TBody>) => Promise<Response> | Response
 ) =>
 	HTTP_HANDLERS[endpoint.method](
-		\`\${BASE_URL}\${endpoint.url}\`,
+		\`\${BASE_URL}\${toMswPath(endpoint.url)}\`,
 		async ({ request, params, cookies }) => {
 			await delay(MOCK_RESPONSE_DELAY_MS);
 

@@ -4,25 +4,29 @@
 
 ## Структура папки
 
-`src/shared/config/i18n/`
+`src/shared/config/i18n/` — общие файлы для обоих стеков:
 
 - `index.ts`
-- `i18n.init.ts` *(Vite)*
 - `i18n.config.ts`
-- `i18n.blocks.ts` *(Vite)*
 - `i18n.types.ts`
 - `i18n-key.ts`
-- `change-language.ts` *(Vite)*
 - `i18n.checker.ts`
+
+Дополнительно по стеку:
+
+| Стек | Обязательные файлы |
+|---|---|
+| **Vite** (`react-i18next`) | `shared/config/i18n/i18n.init.ts`, `i18n.blocks.ts`, `change-language.ts` |
+| **Next.js** (`next-intl`) | `src/i18n/request.ts` (`getRequestConfig`), `src/i18n/routing.ts` |
 
 ### Где лежат JSON-переводы
 
 | Стек | Корень файлов |
 |---|---|
-| **Vite** (`react-i18next`) | `public/locales/[lng]/` |
-| **Next.js** (`next-intl`) | `messages/[lng]/` |
+| **Vite** (`react-i18next`) | `public/locales/[lng]/` — грузятся по HTTP через `i18next-http-backend` |
+| **Next.js** (`next-intl`) | `messages/[lng]/` (рекомендуется) или `public/locales/[lng]/` |
 
-На Next **не** используйте `public/locales` для next-intl — эталон и runtime грузятся из `messages/`.
+На Next оба варианта допустимы, если `request.ts` грузит JSON через `import()` (а не по HTTP). Пути в `i18n.config.ts` и `i18n.checker.ts` должны указывать на тот же корень.
 
 ## Содержимое файлов
 
@@ -136,8 +140,10 @@ i18n.use(HttpBackend)
 		ns: [...NS],
 		defaultNS: NS[0],
 		backend: {
-			loadPath: (languages: string[], namespaces: string[]) => 
-                getNamespacePath(languages[0], namespaces[0])
+			// Без allowMultiLoading (по умолчанию false) backend вызывает loadPath
+			// отдельно для каждой пары язык + namespace — в массивах ровно по одному элементу.
+			loadPath: (languages: string[], namespaces: string[]) =>
+				getNamespacePath(languages[0], namespaces[0])
 		}
 	});
 
@@ -146,17 +152,34 @@ export default i18n;
 
 ### 6. i18n.checker.ts
 
-Статическая проверка: если в RU JSON не хватает ключа, который есть в EN — будет ошибка TS.
+Статическая проверка в обе стороны:
+
+- в RU JSON не хватает ключа, который есть в EN — ошибка TS;
+- в RU JSON есть **лишний** ключ, которого нет в EN — тоже ошибка TS.
+
+`satisfies` ловит только отсутствующие ключи и несовпадение типов: `{} as typeof common` — не объектный литерал, поэтому лишние свойства он пропускает. Лишние ключи проверяются отдельно через `TNestedKeyOf`.
 
 ```typescript
+// Путь к JSON — тот же корень, что в i18n.config.ts:
 // Vite:  ../../../../public/locales/ru/common.json
-// Next:  ../../../../messages/ru/common.json
+// Next:  ../../../../messages/ru/common.json (или public/locales)
 import type common from "../../../../messages/ru/common.json";
-import type { TResources } from "./i18n.config";
+import type { TCommonKeys, TResources } from "./i18n.config";
+import type { TNestedKeyOf } from "./i18n.types";
+
+/** Ошибка компиляции, если T не never — в сообщении видны проблемные ключи */
+type TAssertNoKeys<T extends never> = T;
 
 export const RU_TRANSLATION_CHECKER = {
 	common: {} as typeof common
 } satisfies TResources;
+
+export type TRuCommonMissingKeys = TAssertNoKeys<
+	Exclude<TCommonKeys, TNestedKeyOf<typeof common>>
+>;
+export type TRuCommonExtraKeys = TAssertNoKeys<
+	Exclude<TNestedKeyOf<typeof common>, TCommonKeys>
+>;
 ```
 
 ### 7. Использование в UI — два стека

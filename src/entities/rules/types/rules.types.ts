@@ -169,8 +169,12 @@ export interface IStructureRules {
 }
 
 export interface IStyleRules {
+	/** Recommended utility families — documentation for LLM/review, not enforced by the linter. */
 	allowedUtilityPrefixes: string[];
+	allowedUtilityPrefixesNote?: string;
 	forbiddenColors: string[];
+	/** Static colors without a palette scale (text-white, bg-black). */
+	forbiddenStaticColors?: string[];
 	requiredUtility: string;
 }
 

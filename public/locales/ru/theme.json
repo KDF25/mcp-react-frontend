@@ -5,7 +5,7 @@
 	},
 	"header": {
 		"title": "Система тем приложения",
-		"description": "Руководство по реализации переключения тем (light/dark) с использованием React Context, HOC и localStorage."
+		"description": "Руководство по переключению тем (light/dark) без мигания: Vite — React Context + inline-скрипт, Next.js — next-themes."
 	},
 	"card_title": "Архитектура управления темой",
 	"benefit_label": "Преимущество:",
@@ -25,11 +25,11 @@
 		},
 		"provider": {
 			"title": "Theme Provider",
-			"description": "Реализуем компонент-провайдер, который управляет стейтом, работает с <one>localStorage</one> и манипулирует классами на <one>html</one>."
+			"description": "Inline-скрипт в <one>index.html</one> ставит класс на html до первой отрисовки (сохранённый выбор или prefers-color-scheme). Провайдер берёт этот класс как начальное состояние, следует за системной темой, пока пользователь не выбрал свою, и сохраняет выбор в <one>localStorage</one>. На Next.js вместо этого — next-themes."
 		},
 		"setup": {
 			"title": "HOC для инициализации",
-			"description": "Создаем <one>withTheme</one> Higher-Order Component для удобного оборачивания приложения на уровне провайдеров."
+			"description": "HOC <one>withTheme</one> оборачивает корневой компонент в ThemeProvider — тема подключается одной строкой: export default withTheme(App)."
 		},
 		"ui": {
 			"title": "UI Компонент (Toggle)",

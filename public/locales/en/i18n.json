@@ -21,7 +21,7 @@
 		},
 		"config_hub": {
 			"title": "Resource Registry",
-			"description": "In <one>i18n.config.ts</one>, import reference JSON via <two>import type</two> and build <three>TResources</three>. Vite: public/locales; Next: messages/."
+			"description": "In <one>i18n.config.ts</one>, import reference JSON via <two>import type</two> and build <three>TResources</three>. Vite: public/locales; Next: messages/ (recommended) or public/locales."
 		},
 		"config_blocks": {
 			"title": "Translation Blocks",
@@ -33,7 +33,7 @@
 		},
 		"init_checker": {
 			"title": "Consistency Control",
-			"description": "Static check in <one>i18n.checker.ts</one>. Guarantees that all languages have an identical key structure."
+			"description": "Static check in <one>i18n.checker.ts</one>: satisfies catches missing keys, an explicit TNestedKeyOf check catches extra keys. Guarantees that all languages have an identical key structure."
 		},
 		"usage": {
 			"title": "UI Usage (pick your stack)",
@@ -41,7 +41,7 @@
 			"vite_title": "Vite — react-i18next",
 			"vite_hint": "Vite SPA: <one>useTranslation</one> + Trans. JSON: public/locales/[lng]/.",
 			"next_title": "Next.js — next-intl",
-			"next_hint": "Next.js App Router: <one>useTranslations</one> + t.rich. JSON: messages/[lng]/ (not public/locales)."
+			"next_hint": "Next.js App Router: <one>useTranslations</one> + t.rich. JSON: messages/[lng]/ (recommended) or public/locales/[lng]/ loaded via import() in request.ts."
 		},
 		"switching": {
 			"title": "Language Switching",
@@ -59,7 +59,7 @@
 		},
 		"locales": {
 			"label": "Translation Files:",
-			"text": "Vite: <one>public/locales/[lng]</one>/. Next.js: <two>messages/[lng]</two>/. Nested folders group namespaces (e.g., <three>booking/order.json</three>)."
+			"text": "Vite: <one>public/locales/[lng]</one>/. Next.js: <two>messages/[lng]</two>/ (recommended) or public/locales/[lng]/. Nested folders group namespaces (e.g., <three>booking/order.json</three>)."
 		}
 	}
 }

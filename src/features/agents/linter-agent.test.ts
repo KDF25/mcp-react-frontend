@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 
+import { RULE_DOCS } from "@/entities/rules/config/rule-docs.generated";
 import { RulesProvider } from "@/entities/rules/lib/rules-provider";
 
 import { LinterAgent } from "./linter-agent";
@@ -95,6 +96,103 @@ describe("LinterAgent backend type naming", () => {
 		expect(ids).not.toContain("backend-type-naming");
 		expect(ids).not.toContain("backend-interface-forbidden");
 		expect(ids).not.toContain("type-naming");
+	});
+});
+
+describe("LinterAgent ad-hoc colors", () => {
+	const UI_FILE = "src/widgets/orders/ui/order-card.tsx";
+
+	it("flags palette colors and static white/black utilities", async () => {
+		expect(
+			await ruleIds(UI_FILE, '<div className="bg-blue-500" />')
+		).toContain("no-adhoc-colors");
+		expect(
+			await ruleIds(UI_FILE, '<div className="p-4 text-white" />')
+		).toContain("no-adhoc-colors");
+		expect(
+			await ruleIds(UI_FILE, '<div className="hover:bg-black/50" />')
+		).toContain("no-adhoc-colors");
+	});
+
+	it("allows design tokens", async () => {
+		expect(
+			await ruleIds(
+				UI_FILE,
+				'<div className="bg-primary text-primary-foreground" />'
+			)
+		).not.toContain("no-adhoc-colors");
+		expect(
+			await ruleIds(UI_FILE, 'const label = "white-list";')
+		).not.toContain("no-adhoc-colors");
+	});
+
+	it("catches important and wrapped static colors", async () => {
+		for (const className of [
+			"!text-white",
+			"hover:!bg-black",
+			"text-white!",
+			"md:text-white"
+		]) {
+			expect(
+				await ruleIds(UI_FILE, `<div className="${className}" />`)
+			).toContain("no-adhoc-colors");
+		}
+		expect(
+			await ruleIds(UI_FILE, "const c = cn(isDark && `p-2 text-white`);")
+		).toContain("no-adhoc-colors");
+	});
+
+	it("checks stylesheets as raw text (@apply)", async () => {
+		for (const fileName of [
+			"src/shared/styles/globals.css",
+			"src/shared/styles/legacy.scss"
+		]) {
+			expect(
+				await ruleIds(
+					fileName,
+					"@layer base {\n  body {\n    @apply bg-blue-500;\n  }\n}"
+				)
+			).toContain("no-adhoc-colors");
+			expect(
+				await ruleIds(fileName, ".btn {\n  @apply text-white p-4;\n}")
+			).toContain("no-adhoc-colors");
+			expect(
+				await ruleIds(
+					fileName,
+					"body {\n  @apply bg-background text-foreground;\n}"
+				)
+			).not.toContain("no-adhoc-colors");
+		}
+	});
+
+	it("ignores colors mentioned only in comments", async () => {
+		const ids = await ruleIds(
+			UI_FILE,
+			[
+				"// do not use text-white or bg-blue-500 here",
+				"/* legacy: bg-black */",
+				'export const Card = () => <div className="bg-card text-card-foreground" />;'
+			].join("\n")
+		);
+
+		expect(ids).not.toContain("no-adhoc-colors");
+	});
+});
+
+describe("pattern examples follow the project's own linter rules", () => {
+	it("ErrorBoundary example has I* names, no console and no undefined fallback", async () => {
+		const doc = RULE_DOCS["error-boundary-pattern"].content;
+		const step = doc.slice(doc.indexOf("### Шаг 1"));
+		const from = step.indexOf("```tsx\n") + "```tsx\n".length;
+		const code = step.slice(from, step.indexOf("\n```", from));
+		const ids = await ruleIds(
+			"src/shared/ui/error-boundary/error-boundary.tsx",
+			code
+		);
+
+		expect(ids).not.toContain("interface-naming");
+		expect(ids).not.toContain("no-console");
+		expect(code).toContain("const DefaultErrorUI");
 	});
 });
 

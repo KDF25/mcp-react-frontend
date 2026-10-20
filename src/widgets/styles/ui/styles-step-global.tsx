@@ -18,7 +18,7 @@ export async function StylesStepGlobal() {
 			<CodeBlock
 				code={STYLES_CODE_GLOBAL}
 				language="css"
-				filename="global.css"
+				filename="globals.css"
 			/>
 		</div>
 	);

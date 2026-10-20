@@ -2,7 +2,7 @@ import { getTranslations } from "next-intl/server";
 
 import { CodeBlock, SectionTitle } from "@/shared/ui";
 
-import { STYLES_CODE_CONFIG, STYLES_CODE_THEME } from "../model";
+import { STYLES_CODE_THEME } from "../model";
 
 export async function StylesStepTheme() {
 	const t = await getTranslations("styles");
@@ -20,13 +20,6 @@ export async function StylesStepTheme() {
 					code={STYLES_CODE_THEME}
 					language="css"
 					filename="theme.css"
-				/>
-			</div>
-			<div className="space-y-4">
-				<CodeBlock
-					code={STYLES_CODE_CONFIG}
-					language="typescript"
-					filename="tailwind.config.ts"
 				/>
 			</div>
 		</div>

@@ -35,5 +35,5 @@ export const NAMING_TREE_ITEMS: Record<string, ITreeItemData> = {
 	hooks: { name: "hooks", children: ["use-auth"] },
 	"use-auth": { name: "use-auth.ts" },
 	"types-d": { name: "api.d.ts" },
-	configs: { name: "tailwind.config.ts" }
+	configs: { name: "eslint.config.mjs" }
 };

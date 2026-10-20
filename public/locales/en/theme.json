@@ -5,7 +5,7 @@
 	},
 	"header": {
 		"title": "Application Theming System",
-		"description": "Guide to implementing theme switching (light/dark) using React Context, HOC, and localStorage."
+		"description": "Guide to implementing theme switching (light/dark) without flicker: Vite — React Context + inline script, Next.js — next-themes."
 	},
 	"card_title": "Theme Management Architecture",
 	"benefit_label": "Benefit:",
@@ -25,11 +25,11 @@
 		},
 		"provider": {
 			"title": "Theme Provider",
-			"description": "Implementing a provider component that manages state, interacts with <one>localStorage</one>, and manipulates <one>html</one> classes."
+			"description": "An inline script in <one>index.html</one> sets the html class before first paint (saved choice or prefers-color-scheme). The provider reads that class as its initial state, follows the system theme until the user picks one, and persists the choice in <one>localStorage</one>. On Next.js use next-themes instead."
 		},
 		"setup": {
 			"title": "Initialization HOC",
-			"description": "Creating the <one>withTheme</one> Higher-Order Component for easy application wrapping at the provider level."
+			"description": "The <one>withTheme</one> HOC wraps a root component in ThemeProvider, so the theme is connected in one line: export default withTheme(App)."
 		},
 		"ui": {
 			"title": "UI Component (Toggle)",

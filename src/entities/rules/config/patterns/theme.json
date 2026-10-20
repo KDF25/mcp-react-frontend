@@ -7,12 +7,36 @@
   ],
   "locationRequiredFiles": {
     "provider": "src/app/providers/theme/theme.provider.tsx",
+    "hoc": "src/app/providers/theme/with-theme.tsx",
     "providerIndex": "src/app/providers/theme/index.ts",
     "toggle": "src/shared/ui/layout/theme-toggle/ui/theme-toggle.tsx",
-    "toggleIndex": "src/shared/ui/layout/theme-toggle/index.ts",
-    "context": "src/shared/ui/layout/theme-toggle/model/theme.context.ts",
-    "hook": "src/shared/ui/layout/theme-toggle/model/use-theme.ts"
+    "toggleIndex": "src/shared/ui/layout/theme-toggle/index.ts"
+  },
+  "runtimes": {
+    "vite": {
+      "provider": "custom ThemeProvider + ThemeContext",
+      "antiFlicker": "inline script in index.html <head> sets the html class before first paint",
+      "systemTheme": "prefers-color-scheme via matchMedia, followed until the user picks a theme",
+      "locationRequiredFiles": {
+        "context": "src/shared/ui/layout/theme-toggle/model/theme.context.ts",
+        "types": "src/shared/ui/layout/theme-toggle/model/theme.types.ts",
+        "hook": "src/shared/ui/layout/theme-toggle/model/use-theme.ts",
+        "inlineScript": "index.html"
+      }
+    },
+    "next": {
+      "provider": "next-themes (attribute=\"class\", defaultTheme=\"system\", enableSystem)",
+      "antiFlicker": "built into next-themes; <html suppressHydrationWarning>",
+      "systemTheme": "enableSystem",
+      "hook": "useTheme from next-themes (resolvedTheme, setTheme)"
+    }
+  },
+  "rules": {
+    "noClassToggleOutsideProvider": true,
+    "applyThemeBeforeFirstPaint": true,
+    "forbidThemeClassInUseEffectOnly": true,
+    "withThemeHoc": "with-theme.tsx wraps a root component in ThemeProvider (export default withTheme(App))"
   },
   "template": "theme-pattern",
-  "description": "Паттерн переключения тем (Light/Dark). Обязательное использование ThemeProvider и useTheme для управления состоянием и синхронизации с DOM."
+  "description": "Паттерн переключения тем (Light/Dark) без мигания: класс темы ставится до первой отрисовки (Vite — inline-скрипт, Next — next-themes), системная тема через prefers-color-scheme. Управление только через ThemeProvider и useTheme; with-theme.tsx — HOC подключения провайдера."
 }

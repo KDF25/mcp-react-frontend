@@ -14,21 +14,21 @@
 		"title": "Архитектура стилей",
 		"styles": {
 			"label": "Глобальные стили",
-			"text": "Файл <one>global.css</one> объединяет слои Tailwind и импортирует токены."
+			"text": "Файл <one>globals.css</one> импортирует Tailwind v4, variables.css и theme.css и задаёт базовые слои."
 		},
 		"config": {
-			"label": "Конфигурация",
-			"text": "Настройка <one>tailwind.config.ts</one> мапит CSS-переменные в утилиты Tailwind."
+			"label": "Конфигурация (Tailwind v4)",
+			"text": "Настраивается в CSS: <one>@theme inline</one> в theme.css мапит CSS-переменные в утилиты, @custom-variant включает класс dark. tailwind.config.ts не нужен."
 		}
 	},
 	"steps": {
 		"variables": {
 			"title": "CSS Переменные",
-			"description": "Определение базовых токенов: брейкпоинты, размеры шрифтов и сетка."
+			"description": "Технические токены в @theme: брейкпоинты и размеры шрифтов сразу становятся утилитами."
 		},
 		"theme": {
 			"title": "Тематизация",
-			"description": "Цветовые палитры и тени для светлой и темной тем."
+			"description": "Все цветовые токены для светлой и тёмной темы, смапленные в утилиты через @theme inline."
 		},
 		"global": {
 			"title": "Глобальные слои",
@@ -36,7 +36,7 @@
 		},
 		"restrictions": {
 			"title": "Запрещенные палитры",
-			"description": "Строгий запрет на использование стандартных цветов Tailwind (blue-500, red-600 и т.д.). Все цвета должны браться из дизайн-токенов.",
+			"description": "Абсолютный запрет на стандартные цвета Tailwind (blue-500, red-600 и т.д.) и статические white/black. Все цвета — только из дизайн-токенов.",
 			"allowed_colors": "Разрешенные токены:",
 			"forbidden_colors": "Запрещенные палитры:"
 		}

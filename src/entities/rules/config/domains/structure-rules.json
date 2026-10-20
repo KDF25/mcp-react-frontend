@@ -91,6 +91,6 @@
       "shared/api/generated/**",
       "entities/*/types/**"
     ],
-    "rule": "OpenAPI schema types → T*Backend in entity types only; converters/api use aliases + PATHS."
+    "rule": "OpenAPI schema types → T*Backend in entity types only. Converters use only T*Backend aliases (no PATHS); api/handlers use T*Backend + PATHS (url, method, _types)."
   }
 }

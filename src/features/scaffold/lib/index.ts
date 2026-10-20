@@ -1,6 +1,7 @@
 export {
 	converterMethodNames,
 	toCamelCase,
+	toConstantCase,
 	toPascalCase,
 	toPluralPascal
 } from "./entity-naming";
