@@ -15,6 +15,7 @@
     "allowMultipleSchemasPerEntity": true,
     "forbidZInferInSchemaFiles": true
   },
-  "template": "src/entities/rules/config/entities/zod-pattern.md",
+  "template": "zod-pattern",
+  "relatedDocs": ["entity-pattern"],
   "description": "Паттерн валидации через Zod: schema/ — только runtime-схемы; types/ — ENUM_FORM_* и z.infer. Допускается несколько схем на сущность (create/update/delete)."
 }

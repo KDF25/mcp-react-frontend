@@ -14,7 +14,8 @@
     "service": "src/entities/[entity-name]/api/[entity-name].service.ts",
     "serviceIndex": "src/entities/[entity-name]/api/index.ts"
   },
-  "template": "src/entities/rules/config/entities/api-pattern.md",
+  "template": "api-pattern",
+  "relatedDocs": ["rtk-query-pattern", "entity-pattern"],
   "description": "Паттерн работы с RTK Query: Code Splitting через injectEndpoints, централизованные теги и семантическое переименование в UI.",
   "segments": [
     "Base API",

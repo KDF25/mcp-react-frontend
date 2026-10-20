@@ -13,6 +13,6 @@
     "backendFieldNamesInConvertersOnly": true,
     "mswReturnsBackendEnvelope": true
   },
-  "template": "src/entities/rules/config/entities/pagination-pattern.md",
+  "template": "pagination-pattern",
   "description": "Единый frontend-контракт списков: IPaginationRequest / IPaginationResponse. Backend query и envelope мапятся в entity converters."
 }

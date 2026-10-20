@@ -17,24 +17,33 @@ The **MCP React Frontend Server** is a Model Context Protocol (MCP) implementati
 1. **`analyze_project`**
    - **Description**: Analyze project files for FSD violations and naming conventions.
    - **Input**:
-     - `files` (*array of strings*): List of file paths to analyze (relative to project root).
-     - `codeSnippets` (*array of objects, optional*): Objects containing `fileName` and `content` for deep linter analysis.
-   - **Output**: JSON containing `status` (SUCCESS/ERROR), `summary` (total errors/warnings), `violations` array, and `recommendations` array.
-   - **Behavior**: Delegates path analysis to `FsdAgent` and code snippet analysis to `LinterAgent`. The combined violations are processed by `RecommenderAgent` to generate actionable fixes.
+     - `files` (*array*): File paths (relative to project root) as strings or `{ path, imports }` objects. FSD layer / private-import checks run only when imports are known.
+     - `codeSnippets` (*array of objects, optional*): Objects containing `fileName` and `content` for deep linter analysis; imports are extracted from the content automatically.
+   - **Output**: JSON containing `status` (SUCCESS/ERROR), `summary` (total errors/warnings), `violations` array, `recommendations` array and optional `notes` (e.g. when FSD import checks were skipped).
+   - **Behavior**: Delegates import analysis to `FsdAgent` and code snippet analysis to `LinterAgent`. The combined violations are processed by `RecommenderAgent` to generate actionable fixes.
 
 2. **`get_rules`**
-   - **Description**: Get current FSD and naming project rules.
-   - **Input**: Empty object `{}`.
-   - **Output**: JSON object detailing the corporate/project rules.
+   - **Description**: Get project rules (fsd, naming, linter, structure, styles, patterns).
+   - **Input**: `domain` (*optional*), `pattern` (*optional*), `includeDocs` (*boolean, optional*) — inline referenced markdown docs.
+   - **Output**: JSON object detailing the project rules. `template` / `relatedDocs` fields are rule doc ids.
    - **Behavior**: Fetches configurations from `RulesProvider`.
 
-3. **`scaffold_entity`**
+3. **`get_pattern_doc`**
+   - **Description**: Get a rule/pattern markdown doc (examples, prohibitions, anti-patterns) by id.
+   - **Input**: `id` (*optional*) — without it returns the list of available docs.
+   - **Output**: Markdown text of the doc.
+
+4. **`scaffold_entity`**
    - **Description**: Generate a standardized FSD entity structure with API, types, schema, and converters.
    - **Input**:
      - `name` (*string*): The name of the entity.
      - `path` (*string*): The target directory path (relative to `src/entities`).
    - **Output**: Text message confirming the creation of the architecture.
    - **Behavior**: Generates folders (`api/`, `types/`, `schema/`, `converters/`, `ui/`) and boilerplate files including RTK Query services, Zod schemas, data converters, and a public API index.
+
+### Resources
+
+- **`rules://docs/{id}`** (`text/markdown`): every rule/pattern doc from `src/entities/rules/config/**/*.md`. Docs are embedded at build time into `rule-docs.generated.ts` — run `npm run rules:docs` after editing any rules `*.md` (also runs automatically in `dev` / `build`).
 
 ## Architecture
 The application is built on top of the **Next.js App Router** and the `@modelcontextprotocol/sdk`.
@@ -125,7 +134,7 @@ Connects over HTTP to a running server on `localhost:3000`. Requires `mcp-remote
 
 
 ### Supported Rules & Patterns Scope
-The MCP server enforces a highly deterministic, strict architectural contract defined in `src/entities/rules/config/default-rules.json`. The validation scope guarantees structural integrity across the following domains:
+The MCP server enforces a highly deterministic, strict architectural contract defined in `src/entities/rules/config/domains/*.json` and `src/entities/rules/config/patterns/*.json` (aggregated by `RulesProvider`). The validation scope guarantees structural integrity across the following domains:
 
 **1. Feature-Sliced Design (FSD) Topology**
 - **Unidirectional Dependency Flow**: Strictly validates import boundaries across `app` → `pages` → `widgets` → `features` → `entities` → `shared`.

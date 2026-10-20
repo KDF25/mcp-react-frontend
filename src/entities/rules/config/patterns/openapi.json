@@ -44,8 +44,8 @@
       "no-restricted-imports",
       "overrides-allow-entity-types"
     ],
-    "template": "src/entities/rules/config/entities/eslint-openapi-types-boundary.md"
+    "template": "eslint-openapi-types-boundary"
   },
-  "template": "src/entities/rules/config/entities/openapi-pattern.md",
+  "template": "openapi-pattern",
   "description": "OpenAPI codegen (Api.ts + paths) and strict T*Backend adapter: raw schema types only in entities/*/types."
 }

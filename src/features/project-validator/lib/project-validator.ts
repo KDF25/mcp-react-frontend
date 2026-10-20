@@ -5,6 +5,7 @@ import { Project } from "ts-morph";
 import { IViolation } from "@/shared/types/mcp.types";
 
 import { FsdAgent } from "@/features/agents/fsd-agent";
+import { getModuleSpecifiers } from "@/features/agents/lib/extract-imports";
 import { LinterAgent } from "@/features/agents/linter-agent";
 import { StructureAgent } from "@/features/agents/structure-agent";
 
@@ -38,9 +39,7 @@ export class ProjectValidator {
 			violations.push(...namingViolations);
 
 			// Check FSD (extract imports)
-			const imports = sourceFile
-				.getImportDeclarations()
-				.map((id) => id.getModuleSpecifierValue());
+			const imports = getModuleSpecifiers(sourceFile);
 			const fsdViolations = await this.fsdAgent.analyze([
 				{ path: filePath, imports }
 			]);

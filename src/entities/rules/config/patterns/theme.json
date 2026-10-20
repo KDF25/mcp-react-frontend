@@ -13,6 +13,6 @@
     "context": "src/shared/ui/layout/theme-toggle/model/theme.context.ts",
     "hook": "src/shared/ui/layout/theme-toggle/model/useTheme.tsx"
   },
-  "template": "src/entities/rules/config/theme-pattern.md",
+  "template": "theme-pattern",
   "description": "Паттерн переключения тем (Light/Dark). Обязательное использование ThemeProvider и useTheme для управления состоянием и синхронизации с DOM."
 }

@@ -3,14 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "npm run rules:docs && next dev",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,scss}\"",
-    "build": "tsc -b && npm run format && next build",
+    "build": "npm run rules:docs && tsc -b && npm run format && next build",
     "start": "next start",
     "lint": "eslint",
+    "pretest": "npm run rules:docs",
     "test": "vitest run",
     "test:watch": "vitest",
-    "mcp-stdio": "npx tsx scripts/mcp-stdio.ts"
+    "mcp-stdio": "npm run rules:docs && npx tsx scripts/mcp-stdio.ts",
+    "rules:docs": "node scripts/generate-rule-docs.mjs"
   },
   "dependencies": {
     "@headless-tree/core": "^1.6.3",

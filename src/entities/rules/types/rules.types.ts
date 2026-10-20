@@ -165,7 +165,10 @@ export interface IPatternMeta {
 	location: string;
 	requiredFiles: string[];
 	locationRequiredFiles?: Record<string, string>;
+	/** Rule doc id (see RULE_DOCS); served via get_pattern_doc / rules://docs/{id}. */
 	template: string;
+	/** Additional rule doc ids relevant to this pattern. */
+	relatedDocs?: string[];
 	description: string;
 	[key: string]: unknown;
 }

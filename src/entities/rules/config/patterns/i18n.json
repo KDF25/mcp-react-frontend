@@ -27,6 +27,6 @@
     }
   },
   "jsonImportStyle": "import type",
-  "template": "src/entities/rules/config/i18n-pattern.md",
+  "template": "i18n-pattern",
   "description": "Строгая i18n с типизацией ключей. Vite → react-i18next + public/locales; Next → next-intl + messages/. JSON эталоны — import type."
 }

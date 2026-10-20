@@ -28,7 +28,7 @@
         "^i18n\\.(init|blocks|checker)\\.ts$",
         "^[a-z0-9-]+\\.context\\.ts$"
       ],
-      "template": "src/entities/rules/config/entities/eslint-filename-case.md"
+      "template": "eslint-filename-case"
     },
     "namingConvention": {
       "enabled": true,
@@ -66,7 +66,7 @@
           ]
         }
       ],
-      "template": "src/entities/rules/config/entities/eslint-naming-convention.md"
+      "template": "eslint-naming-convention"
     },
     "convertersIsolation": {
       "enabled": true,
@@ -101,7 +101,7 @@
           }
         ]
       },
-      "template": "src/entities/rules/config/entities/eslint-converters-boundary.md"
+      "template": "eslint-converters-boundary"
     },
     "openapiTypesIsolation": {
       "enabled": true,
@@ -120,7 +120,7 @@
       ],
       "forbidPublicApiReexport": true,
       "adapterNamingPattern": "^T.+Backend$",
-      "template": "src/entities/rules/config/entities/eslint-openapi-types-boundary.md"
+      "template": "eslint-openapi-types-boundary"
     }
   }
 }

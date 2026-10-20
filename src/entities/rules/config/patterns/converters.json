@@ -39,10 +39,11 @@
       "no-restricted-imports",
       "eslint-plugin-boundaries"
     ],
-    "template": "src/entities/rules/config/entities/eslint-converters-boundary.md",
+    "template": "eslint-converters-boundary",
     "allowedImportStyle": "relative-from-same-entity-api",
     "forbiddenImportStyle": "@/entities/*/converters"
   },
-  "template": "src/entities/rules/config/entities/converters-pattern.md",
+  "template": "converters-pattern",
+  "relatedDocs": ["entity-pattern"],
   "description": "Паттерн маппинга DTO↔Domain только в entity API. Запрет импорта converters/map* и *Backend типов в UI; ESLint gate через no-restricted-imports + boundaries."
 }
